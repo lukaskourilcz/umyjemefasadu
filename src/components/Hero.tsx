@@ -57,8 +57,8 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
       </div>
 
       <div className="container-page flex flex-col items-center pb-[120px] pt-[72px] text-center md:pb-[150px] md:pt-[96px]">
-        <div className="mb-8 fade-up">
-          <Logo variant="full" height={190} className="h-[150px] w-auto md:h-[190px]" />
+        <div className="mb-8 flex justify-center fade-up">
+          <Logo variant="full" height={180} className="h-[132px] w-auto md:h-[180px]" />
         </div>
         <span className="tag mb-8 fade-up">Fasády · Střechy · Dlažba</span>
 
