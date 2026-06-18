@@ -7,7 +7,7 @@ const POINTS = [
   },
   {
     title: "Ochrana na dlouhé roky",
-    desc: "Po umytí fasádu chráníme před budoucím znečištěním. Díky nanoimpregnaci vydrží v kondici minimálně 8 let.",
+    desc: "Po umytí fasádu chráníme před budoucím znečištěním. Díky nanoimpregnaci účinek vydrží podle podmínek zhruba 5–10 let.",
   },
   {
     title: "Pojištěni u Generali",
@@ -15,7 +15,7 @@ const POINTS = [
   },
   {
     title: "Férový a osobní přístup",
-    desc: "Jsme parta nadšenců, která věří, že každá budova si zaslouží druhou šanci vypadat svěže. Domluvíme se na míru.",
+    desc: "Malý tým, který si za svou prací stojí. Řekneme vám rovnou, co má smysl a co ne.",
   },
 ];
 
@@ -27,8 +27,8 @@ export default function WhyUs() {
           <SectionHeading
             align="left"
             label="Proč my"
-            title="Stará fasáda není konec — je to začátek"
-            intro="Jsme na trhu noví, ale za sebou máme roky zkušeností s čištěním fasád, střech i dlažby. Naším posláním je vrátit budovám svěžest a nechat je znovu dýchat."
+            title="Špinavá fasáda nemusí znamenat novou omítku"
+            intro="Jsme na trhu noví, ale za sebou máme roky zkušeností s čištěním fasád, střech i dlažby. Místo drahé rekonstrukce vrátíme povrchu čistotu a svěží vzhled."
           />
           <a href="#kontakt" className="btn-primary mt-8 fade-up">
             Domluvit prohlídku zdarma

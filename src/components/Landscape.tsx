@@ -1,8 +1,9 @@
 /**
- * Landscape Backdrop — the brand's emotional anchor.
- * A painterly, atmospheric scene: cream sky, misty lake, rolling sage hills,
- * bonsai-like trees and a solitary bench. Soft edges, no hard lines.
- * Palette mirrors the UI tokens exactly.
+ * Hero backdrop — on-brand "clean water" motif.
+ * Calm layered water surface in the brand cyan, soft foam crests, drifting
+ * droplets and a pair of faint splash arcs that echo the logo's water mark.
+ * A few sparse magenta droplets tie it to the primary accent. Soft edges,
+ * nothing competes with the headline. Palette mirrors the UI tokens.
  */
 export default function Landscape({ className = "" }: { className?: string }) {
   return (
@@ -14,31 +15,34 @@ export default function Landscape({ className = "" }: { className?: string }) {
       role="presentation"
     >
       <defs>
-        {/* Cool dawn sky fading into a soft cyan haze */}
+        {/* Cream sky settling into a soft cyan haze */}
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#fbfdfe" />
           <stop offset="55%" stopColor="#eef6fb" />
-          <stop offset="100%" stopColor="#e2eff8" />
+          <stop offset="100%" stopColor="#dcf0fb" />
         </linearGradient>
-        {/* Distant misty hills */}
-        <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#d6e4ee" />
-          <stop offset="100%" stopColor="#c7dae8" />
-        </linearGradient>
-        <linearGradient id="hillMid" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#aecbe0" />
-          <stop offset="100%" stopColor="#97bcd8" />
-        </linearGradient>
-        {/* Still lake reflecting the cyan sky */}
-        <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#dcf0fb" />
+        {/* Water layers, far (palest) to near (deepest) */}
+        <linearGradient id="waterFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#cfeafb" />
           <stop offset="100%" stopColor="#bfe2f5" />
         </linearGradient>
-        {/* Soft atmospheric blur for mist */}
+        <linearGradient id="waterMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#9bd3f1" />
+          <stop offset="100%" stopColor="#6fc1ea" />
+        </linearGradient>
+        <linearGradient id="waterNear" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#3fb0e6" />
+          <stop offset="100%" stopColor="#1ba5e0" />
+        </linearGradient>
+        {/* Soft atmospheric blur */}
         <filter id="mist" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="9" />
         </filter>
-        <radialGradient id="sunHaze" cx="72%" cy="26%" r="40%">
+        <filter id="softer" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="18" />
+        </filter>
+        {/* Light bloom, upper area */}
+        <radialGradient id="sunHaze" cx="72%" cy="22%" r="46%">
           <stop offset="0%" stopColor="#fbfdfe" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#fbfdfe" stopOpacity="0" />
         </radialGradient>
@@ -48,71 +52,65 @@ export default function Landscape({ className = "" }: { className?: string }) {
       <rect width="1440" height="720" fill="url(#sky)" />
       <rect width="1440" height="720" fill="url(#sunHaze)" />
 
-      {/* Far ridge */}
+      {/* Faint splash arcs echoing the logo's water mark */}
+      <g fill="none" stroke="#5ec7ef" opacity="0.35" filter="url(#softer)">
+        <path d="M-40 360 C 120 300, 240 360, 220 470 C 150 430, 60 430, -40 470 Z" />
+        <path d="M1480 360 C 1320 300, 1200 360, 1220 470 C 1290 430, 1380 430, 1480 470 Z" />
+      </g>
+
+      {/* Far water band */}
       <path
-        d="M0 300 C 240 250, 420 290, 620 270 C 820 250, 1020 300, 1240 268 C 1340 254, 1400 270, 1440 262 L1440 720 L0 720 Z"
-        fill="url(#hillFar)"
+        d="M0 372 C 260 348, 520 360, 760 350 C 1000 340, 1220 360, 1440 348 L1440 720 L0 720 Z"
+        fill="url(#waterFar)"
         filter="url(#mist)"
-        opacity="0.9"
-      />
-
-      {/* Mid ridge */}
-      <path
-        d="M0 372 C 260 330, 460 360, 700 344 C 940 328, 1140 372, 1440 340 L1440 720 L0 720 Z"
-        fill="url(#hillMid)"
-        opacity="0.85"
-      />
-
-      {/* Lake */}
-      <path
-        d="M0 470 C 320 452, 720 480, 1100 462 C 1260 454, 1360 466, 1440 460 L1440 720 L0 720 Z"
-        fill="url(#lake)"
-      />
-
-      {/* Near bank */}
-      <path
-        d="M0 560 C 300 528, 560 560, 820 548 C 1080 536, 1260 566, 1440 548 L1440 720 L0 720 Z"
-        fill="#a9c7df"
         opacity="0.95"
       />
+
+      {/* Mid water band */}
       <path
-        d="M0 642 C 360 612, 700 644, 1040 628 C 1240 619, 1360 640, 1440 632 L1440 720 L0 720 Z"
-        fill="#8fb4d2"
+        d="M0 470 C 300 446, 620 470, 940 456 C 1160 446, 1320 466, 1440 458 L1440 720 L0 720 Z"
+        fill="url(#waterMid)"
+        opacity="0.9"
+      />
+      {/* Mid foam crest */}
+      <path
+        d="M0 470 C 300 446, 620 470, 940 456 C 1160 446, 1320 466, 1440 458"
+        fill="none"
+        stroke="#dcf3fc"
+        strokeWidth="3"
+        opacity="0.6"
       />
 
-      {/* Bonsai-like trees on the far bank */}
-      <g opacity="0.92">
-        {/* tall slender tree */}
-        <path d="M1086 470 L1086 360" stroke="#31200b" strokeWidth="3" />
-        <ellipse cx="1086" cy="344" rx="38" ry="26" fill="#a9b596" filter="url(#mist)" />
-        <ellipse cx="1062" cy="358" rx="22" ry="15" fill="#9aa988" filter="url(#mist)" />
+      {/* Near water band */}
+      <path
+        d="M0 580 C 360 552, 720 584, 1080 566 C 1260 557, 1360 578, 1440 570 L1440 720 L0 720 Z"
+        fill="url(#waterNear)"
+      />
+      {/* Near foam crest */}
+      <path
+        d="M0 580 C 360 552, 720 584, 1080 566 C 1260 557, 1360 578, 1440 570"
+        fill="none"
+        stroke="#bfeaff"
+        strokeWidth="3"
+        opacity="0.7"
+      />
 
-        {/* low rounded tree */}
-        <path d="M150 478 L150 408" stroke="#31200b" strokeWidth="3" />
-        <ellipse cx="150" cy="396" rx="46" ry="28" fill="#aebb9b" filter="url(#mist)" />
-        <ellipse cx="184" cy="408" rx="24" ry="16" fill="#9fae8b" filter="url(#mist)" />
-
-        {/* mid pair */}
-        <path d="M300 466 L300 416" stroke="#31200b" strokeWidth="2.5" />
-        <ellipse cx="300" cy="406" rx="30" ry="19" fill="#a7b497" filter="url(#mist)" />
+      {/* Drifting droplets — cyan, with two sparse magenta accents */}
+      <g>
+        <circle cx="240" cy="300" r="9" fill="#5ec7ef" opacity="0.55" />
+        <circle cx="1180" cy="318" r="11" fill="#5ec7ef" opacity="0.5" />
+        <circle cx="980" cy="262" r="6" fill="#9bd3f1" opacity="0.7" />
+        <circle cx="430" cy="250" r="5" fill="#9bd3f1" opacity="0.7" />
+        <circle cx="700" cy="318" r="7" fill="#5ec7ef" opacity="0.45" />
+        <circle cx="520" cy="338" r="5" fill="#e6007e" opacity="0.4" />
+        <circle cx="1100" cy="372" r="6" fill="#e6007e" opacity="0.35" />
       </g>
 
-      {/* Solitary bench on the near bank */}
-      <g stroke="#101820" strokeWidth="3" strokeLinecap="round" opacity="0.85">
-        <line x1="560" y1="600" x2="660" y2="592" />
-        <line x1="560" y1="612" x2="660" y2="604" />
-        <line x1="566" y1="600" x2="566" y2="630" />
-        <line x1="652" y1="592" x2="652" y2="622" />
-        <line x1="560" y1="588" x2="566" y2="600" />
-        <line x1="654" y1="580" x2="660" y2="592" />
-        <line x1="560" y1="576" x2="654" y2="568" />
-      </g>
-
-      {/* Reeds */}
-      <g stroke="#7d8a68" strokeWidth="2" strokeLinecap="round" opacity="0.7">
-        <path d="M980 636 C 978 612, 984 600, 988 590" fill="none" />
-        <path d="M992 638 C 992 616, 998 604, 1004 596" fill="none" />
-        <path d="M1006 640 C 1008 620, 1014 608, 1018 600" fill="none" />
+      {/* Light glints on the near water surface */}
+      <g stroke="#eafaff" strokeWidth="2" strokeLinecap="round" opacity="0.5">
+        <path d="M210 636 C 250 628, 300 632, 340 624" fill="none" />
+        <path d="M880 656 C 930 648, 990 652, 1040 644" fill="none" />
+        <path d="M560 678 C 600 672, 650 674, 690 668" fill="none" />
       </g>
     </svg>
   );

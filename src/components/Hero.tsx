@@ -35,7 +35,13 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
   }, []);
 
   return (
-    <section className="relative -mt-[73px] overflow-hidden pt-[73px]">
+    <section
+      className="relative overflow-hidden"
+      style={{
+        marginTop: "calc(var(--nav-h, 76px) * -1)",
+        paddingTop: "var(--nav-h, 76px)",
+      }}
+    >
       {/* Full-bleed painted landscape, occupying ~40% of the viewport,
           bleeding behind the headline without competing. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 top-0 -z-10">

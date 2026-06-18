@@ -41,8 +41,8 @@ export default function Process() {
       <div className="container-page">
         <SectionHeading
           label="Jak to probíhá"
-          title="Tři kroky k fasádě, která znovu dýchá"
-          intro="Promyšlený postup, který přináší viditelný výsledek a dlouhodobý efekt — rychle, bezpečně a bez kompromisů."
+          title="Jak čistíme fasádu — krok za krokem"
+          intro="Postup volíme podle typu a stavu fasády — od první aplikace přípravku až po závěrečnou ochranu."
         />
 
         <ol className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">

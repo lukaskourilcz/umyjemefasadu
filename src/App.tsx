@@ -6,11 +6,13 @@ import TrustStrip from "./components/TrustStrip";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import WhyUs from "./components/WhyUs";
+import Gallery from "./components/Gallery";
 import Stats from "./components/Stats";
 import OrderProcess from "./components/OrderProcess";
 import Faq from "./components/Faq";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CallBar from "./components/CallBar";
 
 export default function App() {
   // Quiet, deliberate scroll reveals — disabled under reduced-motion via CSS.
@@ -40,12 +42,14 @@ export default function App() {
         <Services />
         <Process />
         <WhyUs />
+        <Gallery />
         <Stats />
         <OrderProcess />
         <Faq />
         <Contact />
       </main>
       <Footer />
+      <CallBar />
     </>
   );
 }

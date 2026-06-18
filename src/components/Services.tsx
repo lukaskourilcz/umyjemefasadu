@@ -88,8 +88,8 @@ export default function Services() {
       <div className="container-page">
         <SectionHeading
           label="Naše služby"
-          title="Vše, co vaše budova potřebuje k novému začátku"
-          intro="Od fasád přes střechy až po dlažbu — používáme moderní technologie, kvalitní přípravky a férový přístup."
+          title="Vše, co vaše budova potřebuje, na jednom místě"
+          intro="Od fasád přes střechy až po dlažbu. Postup, tlak i přípravky volíme podle typu a stavu každého povrchu."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

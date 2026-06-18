@@ -127,13 +127,16 @@
     color: var(--color-botanical-ink);
   }
 
-  /* Primary filled action — the single chromatic CTA */
+  /* Primary filled action — the single chromatic CTA.
+     Uses a hair darker magenta than the --color-warm-loam brand token
+     (visually identical) so cream-on-magenta button text clears WCAG AA
+     (~4.7:1 vs 4.4:1). The brand accent token itself is left untouched. */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: var(--color-warm-loam);
+    background-color: #d9007a;
     color: var(--color-cream-paper);
     border-radius: var(--radius-control);
     padding: 16px 32px;

@@ -1,17 +1,17 @@
-# Umyjeme Fasádu — rebrand
+# Umyjeme Fasádu
 
-Marketingový web pro firmu **Umyjeme Fasádu s.r.o.** (profesionální mytí a
-čištění fasád, střech a dlažby), přepracovaný do vizuálního stylu
-**Adaline — „botanical journal at dawn"**.
+Marketingový web pro firmu **Umyjeme Fasádu s.r.o.** — profesionální mytí a
+čištění fasád, střech a dlažby.
 
 ## Vizuální styl
 
-Klidná, kontemplativní paleta v zemitých a šalvějových tónech: krémové plátno
-(`#fbfdf6`), téměř černý lesní text (`#0a1d08`) a jediná sytá akční barva —
-teplá hnědá `#4a3212`. Vlasové linky místo stínů, 20px „pill" rádiusy,
-geometrická humanistická typografie (Inter jako náhrada za Akkurat) a
-experimentální monospace (Fragment Mono) pro mikro-popisky. Web kotví ručně
-malovaná SVG krajina (jezero v mlze, šalvějové kopce, osamělá lavička).
+Čisté, světlé „cream" plátno (`#fbfdfe`) s téměř černým textem (`#101820`),
+vlasovými linkami místo stínů a 20px „pill" rádiusy. Akcenty vycházejí přímo
+ze značkového loga: **magenta `#e6007e`** jako jediná akční barva (CTA) a
+**cyan `#1ba5e0`** jako sekundární „vodní" akcent. Typografie: **Inter**
+(humanistický bezpatkový základ) + **Fragment Mono** pro mikro-popisky.
+Hero kotví atmosférický SVG motiv vody v značkových tónech (vrstvená hladina,
+pěna, kapky), který odkazuje na vodní prvek z loga.
 
 Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 
@@ -19,8 +19,9 @@ Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 
 - **Vite 6** + **React 18** + **TypeScript**
 - **Tailwind CSS v4** (`@tailwindcss/vite`, tokeny v `@theme`)
-- Fonty z Google Fonts: **Inter** (náhrada za Akkurat), **Fragment Mono**
-- Bez závislosti na externích obrázcích — krajina i ikony jsou inline SVG
+- Fonty z Google Fonts: **Inter**, **Fragment Mono**
+- Bez externích obrázků — motiv vody i ikony jsou inline SVG, logo je
+  optimalizované SVG vložené přes Vite `?raw`
 
 ## Vývoj
 
@@ -29,34 +30,21 @@ npm install
 npm run dev         # vývojový server
 npm run build       # typová kontrola + produkční build do dist/
 npm run preview     # náhled produkčního buildu
-npm run gen:assets  # vygeneruje raster assety (OG obrázek, PNG ikony) z SVG
+npm run gen:assets  # vygeneruje raster assety (OG obrázek, PNG ikony) z loga
 ```
 
 ## Logo a značkové assety
 
-- **Živé logo** je vykreslené jako inline SVG v `src/components/Logo.tsx`
-  (varianty `compact` a `full`) — díky tomu dědí web font a značkové barvy
-  a zůstává ostré v každé velikosti.
-- **Samostatný zdroj** loga je v `public/logo.svg`.
+- **Živé logo** je optimalizované SVG v `src/components/logo.svg`, vložené do
+  `src/components/Logo.tsx` přes `?raw`. Varianty `compact` (nav, patička) a
+  `full` (hero) renderují stejnou kresbu v různé velikosti.
+- **Samostatná kopie** loga je v `public/logo.svg`; originální export (CorelDRAW)
+  je uchovaný v `public/logo-white.svg`.
 - **Raster assety** (`public/og-image.png`, `apple-touch-icon.png`,
-  `favicon-32.png`) generuje `scripts/gen-assets.mjs` přes `npm run gen:assets`.
-- **Meta tagy** pro náhled odkazu (Open Graph + Twitter) jsou v `index.html`.
-  Po nasazení na ostrou doménu zkontrolujte absolutní URL u `og:image`.
-
-### Nahrazení vlastním logem (z .eps)
-
-`.eps` nelze použít přímo na webu — převeďte ho na **SVG**:
-
-1. Otevřete `.eps` v Illustratoru/Inkscape, **text převeďte na křivky**
-   (Type → Create Outlines) a exportujte jako **SVG**.
-2. Nahraďte obsah `public/logo.svg` a (volitelně) vložte stejné cesty do
-   `src/components/Logo.tsx`, nebo přepněte komponentu na
-   `<img src="/logo.svg" />`, pokud nepotřebujete měnit barvy přes CSS.
-3. Spusťte `npm run gen:assets`, aby se přegeneroval OG obrázek a ikony.
-
-> Logo na webu je vektorová rekreace původní značky (střecha, růžový
-> nápis, modrá voda, maskot Poseidona). Pro 100% shodu vložte vlastní
-> SVG převedené z `.eps`.
+  `favicon-32.png`) generuje `scripts/gen-assets.mjs` z `public/logo.svg`
+  přes `npm run gen:assets`.
+- **Meta tagy + LocalBusiness JSON-LD** jsou v `index.html`. Po nasazení na
+  ostrou doménu zkontrolujte absolutní URL u `og:image` a doplňte adresu/IČO.
 
 ## Struktura
 
@@ -65,22 +53,33 @@ src/
   App.tsx                 # skládá sekce + scroll-reveal
   index.css               # @theme tokeny + base/komponentní vrstvy
   components/
-    Landscape.tsx         # signature malovaná SVG krajina (hero pozadí)
-    Nav.tsx / Logo.tsx    # transparentní navigace, wordmark + slash mark
-    Hero.tsx              # centrovaný headline nad krajinou
+    Landscape.tsx         # atmosférický SVG motiv vody (hero pozadí)
+    Nav.tsx               # sticky navigace + mobilní menu (hamburger)
+    Logo.tsx / logo.svg   # logo komponenta + optimalizovaná kresba
+    Hero.tsx              # centrované logo + headline nad motivem vody
     TrustStrip.tsx        # pruh důvěry (mikro-popisek + hodnoty)
     Services.tsx          # karty služeb
-    Process.tsx           # tři kroky postupu
+    Process.tsx           # postup čištění (3 kroky + 2 metody)
     WhyUs.tsx             # 2sloupcový blok „proč my"
+    Gallery.tsx           # reference — porovnání před / po (placeholdery)
     Stats.tsx             # banding s čísly
+    OrderProcess.tsx      # jak objednat (4 kroky)
+    Faq.tsx               # časté dotazy (<details>)
     Contact.tsx           # kontaktní výzva (telefon, e-mail)
     Footer.tsx
+    CallBar.tsx           # sticky mobilní lišta s tlačítkem „Zavolat"
 ```
 
-## Kontaktní údaje (z původního webu)
+## Reference (před / po)
+
+`Gallery.tsx` je připravená na reálné fotky. Vložte snímky do
+`public/reference/` a v poli `ITEMS` doplňte cesty `before`/`after` —
+placeholdery se automaticky nahradí porovnávacím posuvníkem.
+
+## Kontaktní údaje
 
 - Telefon: +420 775 222 760
 - E-mail: info@umyjemefasadu.cz
 
-> Texty jsou převzaté a parafrázované z původního webu umyjemefasadu.cz a
-> z veřejně dostupných informací o oboru; doladění copy je na zadavateli.
+> Texty jsou parafrázované z původního webu a z veřejně dostupných informací
+> o oboru; finální doladění copy je na zadavateli.

@@ -2,7 +2,7 @@
 const ITEMS = [
   "Pojištěno u Generali",
   "Ekologické přípravky",
-  "Záruka až 8 let",
+  "Ochrana 5–10 let",
   "Roky zkušeností",
 ];
 

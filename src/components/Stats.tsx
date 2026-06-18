@@ -1,7 +1,7 @@
 const STATS = [
-  { value: "8+", label: "let záruka na ochranu" },
+  { value: "5–10", label: "let účinné ochrany" },
   { value: "100 %", label: "ekologické přípravky" },
-  { value: "0", label: "kompromisů v kvalitě" },
+  { value: "0 Kč", label: "za prohlídku a nabídku" },
 ];
 
 export default function Stats() {

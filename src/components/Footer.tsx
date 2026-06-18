@@ -46,7 +46,8 @@ export default function Footer() {
           style={{ borderColor: "var(--color-lichen)" }}
         >
           <span className="micro-label text-botanical-ink/60">
-            © {new Date().getFullYear()} Umyjeme Fasádu s.r.o.
+            {/* TODO: doplňte skutečné IČO firmy */}
+            © {new Date().getFullYear()} Umyjeme Fasádu s.r.o. · IČO 00000000
           </span>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <a

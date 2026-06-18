@@ -4,7 +4,7 @@ const STEPS = [
   {
     no: "01",
     title: "Poptávka",
-    desc: "Ozvěte se nám přes formulář, e-mailem nebo telefonicky. Řekneme si, co potřebujete.",
+    desc: "Ozvěte se nám telefonicky nebo e-mailem. Řekneme si, co potřebujete.",
   },
   {
     no: "02",
