@@ -26,10 +26,37 @@ Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 
 ```bash
 npm install
-npm run dev      # vývojový server
-npm run build    # typová kontrola + produkční build do dist/
-npm run preview  # náhled produkčního buildu
+npm run dev         # vývojový server
+npm run build       # typová kontrola + produkční build do dist/
+npm run preview     # náhled produkčního buildu
+npm run gen:assets  # vygeneruje raster assety (OG obrázek, PNG ikony) z SVG
 ```
+
+## Logo a značkové assety
+
+- **Živé logo** je vykreslené jako inline SVG v `src/components/Logo.tsx`
+  (varianty `compact` a `full`) — díky tomu dědí web font a značkové barvy
+  a zůstává ostré v každé velikosti.
+- **Samostatný zdroj** loga je v `public/logo.svg`.
+- **Raster assety** (`public/og-image.png`, `apple-touch-icon.png`,
+  `favicon-32.png`) generuje `scripts/gen-assets.mjs` přes `npm run gen:assets`.
+- **Meta tagy** pro náhled odkazu (Open Graph + Twitter) jsou v `index.html`.
+  Po nasazení na ostrou doménu zkontrolujte absolutní URL u `og:image`.
+
+### Nahrazení vlastním logem (z .eps)
+
+`.eps` nelze použít přímo na webu — převeďte ho na **SVG**:
+
+1. Otevřete `.eps` v Illustratoru/Inkscape, **text převeďte na křivky**
+   (Type → Create Outlines) a exportujte jako **SVG**.
+2. Nahraďte obsah `public/logo.svg` a (volitelně) vložte stejné cesty do
+   `src/components/Logo.tsx`, nebo přepněte komponentu na
+   `<img src="/logo.svg" />`, pokud nepotřebujete měnit barvy přes CSS.
+3. Spusťte `npm run gen:assets`, aby se přegeneroval OG obrázek a ikony.
+
+> Logo na webu je vektorová rekreace původní značky (střecha, růžový
+> nápis, modrá voda, maskot Poseidona). Pro 100% shodu vložte vlastní
+> SVG převedené z `.eps`.
 
 ## Struktura
 
