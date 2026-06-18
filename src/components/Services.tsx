@@ -16,8 +16,8 @@ const stroke = {
 
 const SERVICES: Service[] = [
   {
-    title: "Mytí fasád",
-    desc: "Tlakové mytí horkou vodou s pečlivou regulací tlaku a teploty podle typu omítky. Odstraníme plísně, řasy, lišejníky i usazené saze a prach.",
+    title: "Mytí a čištění fasád",
+    desc: "Tlakové mytí horkou vodou v kombinaci se speciální chemií. Odstraníme organické nečistoty — plísně, řasy a lišejníky — i ty anorganické: saze, prach a mastnotu. Tlak, teplotu i trysky volíme podle typu a stavu omítky.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <path d="M5 23 V8 L14 4 L23 8 V23" {...stroke} />
@@ -28,7 +28,7 @@ const SERVICES: Service[] = [
   },
   {
     title: "Čištění střech",
-    desc: "Vrátíme střeše původní barvu a zbavíme ji mechu a nánosů. Šetrný postup, který prodlouží životnost krytiny.",
+    desc: "Vrátíme střeše původní barvu a zbavíme ji mechu, řas a nánosů. Šetrný postup s ohledem na typ krytiny, který prodlouží její životnost a obnoví odvod vody.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <path d="M4 13 L14 5 L24 13" {...stroke} />
@@ -38,8 +38,8 @@ const SERVICES: Service[] = [
     ),
   },
   {
-    title: "Dlažba a chodníky",
-    desc: "Důkladné tlakové čištění dlažby, teras a chodníků. Odstraníme zelený povlak, mech i zašlou špínu mezi spárami.",
+    title: "Čištění dlažby a chodníků",
+    desc: "Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby. Odstraníme zelený povlak, mech i zašlou špínu ze spár a vrátíme povrchům čistý, svěží vzhled.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <rect x="4" y="4" width="8" height="8" rx="1.5" {...stroke} />
@@ -51,7 +51,7 @@ const SERVICES: Service[] = [
   },
   {
     title: "Odstranění graffiti",
-    desc: "Citlivé odstranění graffiti a postřiků z fasád i veřejných ploch bez poškození podkladu.",
+    desc: "Citlivé odstranění graffiti, postřiků a posprejování z fasád i veřejných ploch — bez poškození podkladu. Plochu lze následně ošetřit ochranným nátěrem proti dalšímu posprejování.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <path d="M6 18 L16 8 L20 12 L10 22 H6 Z" {...stroke} />
@@ -61,7 +61,7 @@ const SERVICES: Service[] = [
   },
   {
     title: "Nanoimpregnace",
-    desc: "Speciální nanoimpregnace, která brání opětovnému růstu plísní a usazování nečistot. Fasáda zůstane v kondici minimálně 8 let.",
+    desc: "Na vyčištěnou fasádu naneseme speciální nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot. Podle typu fasády a podmínek vydrží její účinek zhruba 5–10 let.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <path d="M14 4 C 8 11, 6 15, 6 18 a8 8 0 0 0 16 0 c0-3-2-7-8-14 Z" {...stroke} />
@@ -70,8 +70,8 @@ const SERVICES: Service[] = [
     ),
   },
   {
-    title: "Nátěry fasád",
-    desc: "Opravíme drobné vady a oživíme barvu kvalitním nátěrem. Fasáda získá nejen čistotu, ale i novou ochranu.",
+    title: "Nátěry a opravy fasád",
+    desc: "Opravíme drobné vady a oživíme barvu kvalitním fasádním nátěrem. Fasáda tak získá nejen čistotu, ale i novou ochranu a sjednocený, svěží vzhled.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28">
         <rect x="5" y="4" width="14" height="7" rx="1.5" {...stroke} />

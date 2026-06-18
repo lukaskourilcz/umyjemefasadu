@@ -6,16 +6,23 @@
   Akkurat substituted with Inter; Fragment Mono loaded from Google Fonts.
 */
 @theme {
-  /* Colors */
-  --color-cream-paper: #fbfdf6;
-  --color-botanical-ink: #0a1d08;
-  --color-bark-brown: #31200b;
-  --color-warm-loam: #4a3212;
-  --color-forest-floor: #203b14;
-  --color-sage-mist: #eff2e8;
-  --color-lichen: #e0e5d5;
-  --color-moss-veil: #d7e8b5;
-  --color-eucalyptus: #c5ccb6;
+  /*
+    Rebrand palette — Adaline structure (cream canvas, hairline borders,
+    20px radii, near-zero elevation) recolored toward the brand logo's
+    magenta + cyan "water" accents. Token names are kept stable so the
+    component layer continues to reference them.
+  */
+  --color-cream-paper: #fbfdfe; /* cool near-white: canvas, cards, inverted text */
+  --color-botanical-ink: #101820; /* cool near-black: text, borders */
+  --color-bark-brown: #1f3a47; /* secondary deep cool tone */
+  --color-warm-loam: #e6007e; /* PRIMARY ACTION — magenta, the brand CTA */
+  --color-magenta-deep: #c10068; /* primary action hover */
+  --color-forest-floor: #1ba5e0; /* secondary accent — cyan (water) */
+  --color-cyan-deep: #1488c4;
+  --color-sage-mist: #eef4f8; /* surface 1 — cool mist banding */
+  --color-lichen: #e2e9ee; /* surface 2 */
+  --color-moss-veil: #d7eefb; /* tag / highlight — soft cyan fill */
+  --color-eucalyptus: #c4d0d8; /* surface 4 — decorative borders */
   --color-onyx: #000000;
 
   /* Typography — families */
@@ -56,8 +63,8 @@
   --radius-image: 8px;
   --radius-control: 20px;
 
-  /* Shadow — the single permitted ring */
-  --shadow-subtle: rgba(99, 143, 61, 0.1) 0px 0px 0px 1px;
+  /* Shadow — the single permitted ring (cyan-tinted) */
+  --shadow-subtle: rgba(27, 165, 224, 0.12) 0px 0px 0px 1px;
 }
 
 @layer base {
@@ -139,7 +146,7 @@
     transition: background-color 0.25s ease, transform 0.25s ease;
   }
   .btn-primary:hover {
-    background-color: var(--color-forest-floor);
+    background-color: var(--color-magenta-deep);
     transform: translateY(-1px);
   }
 

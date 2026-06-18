@@ -14,33 +14,33 @@ export default function Landscape({ className = "" }: { className?: string }) {
       role="presentation"
     >
       <defs>
-        {/* Cream dawn sky fading into sage haze */}
+        {/* Cool dawn sky fading into a soft cyan haze */}
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#fbfdf6" />
-          <stop offset="55%" stopColor="#f4f7ec" />
-          <stop offset="100%" stopColor="#eff2e8" />
+          <stop offset="0%" stopColor="#fbfdfe" />
+          <stop offset="55%" stopColor="#eef6fb" />
+          <stop offset="100%" stopColor="#e2eff8" />
         </linearGradient>
         {/* Distant misty hills */}
         <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#e0e5d5" />
-          <stop offset="100%" stopColor="#d7e0c8" />
+          <stop offset="0%" stopColor="#d6e4ee" />
+          <stop offset="100%" stopColor="#c7dae8" />
         </linearGradient>
         <linearGradient id="hillMid" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#c5ccb6" />
-          <stop offset="100%" stopColor="#b6c0a6" />
+          <stop offset="0%" stopColor="#aecbe0" />
+          <stop offset="100%" stopColor="#97bcd8" />
         </linearGradient>
-        {/* Still lake reflecting the sky */}
+        {/* Still lake reflecting the cyan sky */}
         <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#eff2e8" />
-          <stop offset="100%" stopColor="#dce4cf" />
+          <stop offset="0%" stopColor="#dcf0fb" />
+          <stop offset="100%" stopColor="#bfe2f5" />
         </linearGradient>
         {/* Soft atmospheric blur for mist */}
         <filter id="mist" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="9" />
         </filter>
         <radialGradient id="sunHaze" cx="72%" cy="26%" r="40%">
-          <stop offset="0%" stopColor="#fbfdf6" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#fbfdf6" stopOpacity="0" />
+          <stop offset="0%" stopColor="#fbfdfe" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#fbfdfe" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -69,15 +69,15 @@ export default function Landscape({ className = "" }: { className?: string }) {
         fill="url(#lake)"
       />
 
-      {/* Near sage bank */}
+      {/* Near bank */}
       <path
         d="M0 560 C 300 528, 560 560, 820 548 C 1080 536, 1260 566, 1440 548 L1440 720 L0 720 Z"
-        fill="#c5ccb6"
+        fill="#a9c7df"
         opacity="0.95"
       />
       <path
         d="M0 642 C 360 612, 700 644, 1040 628 C 1240 619, 1360 640, 1440 632 L1440 720 L0 720 Z"
-        fill="#b3bca2"
+        fill="#8fb4d2"
       />
 
       {/* Bonsai-like trees on the far bank */}
@@ -98,7 +98,7 @@ export default function Landscape({ className = "" }: { className?: string }) {
       </g>
 
       {/* Solitary bench on the near bank */}
-      <g stroke="#0a1d08" strokeWidth="3" strokeLinecap="round" opacity="0.85">
+      <g stroke="#101820" strokeWidth="3" strokeLinecap="round" opacity="0.85">
         <line x1="560" y1="600" x2="660" y2="592" />
         <line x1="560" y1="612" x2="660" y2="604" />
         <line x1="566" y1="600" x2="566" y2="630" />

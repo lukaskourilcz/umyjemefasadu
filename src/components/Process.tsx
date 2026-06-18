@@ -18,6 +18,19 @@ const STEPS = [
   },
 ];
 
+const METHODS = [
+  {
+    tag: "Horkou vodou",
+    title: "Tlakové mytí horkou vodou",
+    desc: "Fasádu umyjeme horkou vodou pod regulovaným tlakem. Tlak i teplotu pečlivě hlídáme a trysky volíme podle typu omítky tak, abychom povrch nepoškodili.",
+  },
+  {
+    tag: "Bez horké vody",
+    title: "Aktivní pěna a nástřik",
+    desc: "U citlivějších omítek volíme šetrnou variantu: necháme působit přípravek na organické nečistoty (cca 30 minut) a poté nanášíme aktivní pěnu s vysokým obsahem tenzidů na prach, mastnotu a smog.",
+  },
+];
+
 export default function Process() {
   return (
     <section
@@ -68,6 +81,35 @@ export default function Process() {
             </li>
           ))}
         </ol>
+
+        {/* Two approaches — chosen podle typu a stavu fasády */}
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {METHODS.map((m, i) => (
+            <div
+              key={m.title}
+              className="fade-up rounded-[20px] border p-8"
+              style={{
+                backgroundColor: "var(--color-cream-paper)",
+                borderColor: "var(--color-eucalyptus)",
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <span className="tag mb-4">{m.tag}</span>
+              <h3
+                className="font-akkurat font-bold text-botanical-ink"
+                style={{ fontSize: "20px", letterSpacing: "-0.04em" }}
+              >
+                {m.title}
+              </h3>
+              <p
+                className="font-akkurat mt-3 text-botanical-ink/75"
+                style={{ fontSize: "16px", lineHeight: 1.6, letterSpacing: "-0.04em" }}
+              >
+                {m.desc}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

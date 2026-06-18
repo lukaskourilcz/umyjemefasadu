@@ -7,6 +7,8 @@ import Services from "./components/Services";
 import Process from "./components/Process";
 import WhyUs from "./components/WhyUs";
 import Stats from "./components/Stats";
+import OrderProcess from "./components/OrderProcess";
+import Faq from "./components/Faq";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -39,6 +41,8 @@ export default function App() {
         <Process />
         <WhyUs />
         <Stats />
+        <OrderProcess />
+        <Faq />
         <Contact />
       </main>
       <Footer />
