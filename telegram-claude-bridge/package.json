@@ -1,0 +1,21 @@
+{
+  "name": "telegram-claude-bridge",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Kick off Claude coding tasks across your local git repos from Telegram",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "latest",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3"
+  }
+}
