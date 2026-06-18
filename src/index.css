@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/*
+  Adaline — "botanical journal at dawn"
+  Design tokens mapped to Tailwind v4 theme.
+  Akkurat substituted with Inter; Fragment Mono loaded from Google Fonts.
+*/
+@theme {
+  /* Colors */
+  --color-cream-paper: #fbfdf6;
+  --color-botanical-ink: #0a1d08;
+  --color-bark-brown: #31200b;
+  --color-warm-loam: #4a3212;
+  --color-forest-floor: #203b14;
+  --color-sage-mist: #eff2e8;
+  --color-lichen: #e0e5d5;
+  --color-moss-veil: #d7e8b5;
+  --color-eucalyptus: #c5ccb6;
+  --color-onyx: #000000;
+
+  /* Typography — families */
+  --font-akkurat: "Inter", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-fragment-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+
+  /* Typography — scale */
+  --text-caption: 12px;
+  --text-caption--line-height: 1;
+  --text-caption--letter-spacing: -0.48px;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.43;
+  --text-body-sm--letter-spacing: -0.56px;
+  --text-body: 18px;
+  --text-body--line-height: 1.67;
+  --text-body--letter-spacing: -0.72px;
+  --text-heading-sm: 47px;
+  --text-heading-sm--line-height: 0.98;
+  --text-heading-sm--letter-spacing: -1.88px;
+  --text-display: 53px;
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -2.12px;
+
+  /* Spacing */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-128: 128px;
+  --spacing-160: 160px;
+
+  /* Radii */
+  --radius-image: 8px;
+  --radius-control: 20px;
+
+  /* Shadow — the single permitted ring */
+  --shadow-subtle: rgba(99, 143, 61, 0.1) 0px 0px 0px 1px;
+}
+
+@layer base {
+  :root {
+    --page-max: 1200px;
+  }
+
+  * {
+    /* The tight tracking is Akkurat's signature density. */
+    letter-spacing: -0.04em;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream-paper);
+    color: var(--color-botanical-ink);
+    font-family: var(--font-akkurat);
+    font-size: var(--text-body);
+    line-height: 1.67;
+    font-feature-settings: "calt", "kern";
+  }
+
+  /* Fragment Mono never gets the Akkurat tracking. */
+  .font-fragment-mono {
+    letter-spacing: 0.02em;
+  }
+
+  ::selection {
+    background-color: var(--color-moss-veil);
+    color: var(--color-botanical-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-forest-floor);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: var(--page-max);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  /* Micro-label — the technical whisper */
+  .micro-label {
+    font-family: var(--font-fragment-mono);
+    font-size: var(--text-body-sm);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-botanical-ink);
+  }
+
+  /* Primary filled action — the single chromatic CTA */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--color-warm-loam);
+    color: var(--color-cream-paper);
+    border-radius: var(--radius-control);
+    padding: 16px 32px;
+    font-family: var(--font-akkurat);
+    font-size: var(--text-body-sm);
+    font-weight: 700;
+    line-height: 1;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-forest-floor);
+    transform: translateY(-1px);
+  }
+
+  /* Ghost / outlined action */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: transparent;
+    color: var(--color-botanical-ink);
+    border: 1px solid var(--color-botanical-ink);
+    border-radius: var(--radius-control);
+    padding: 12px 24px;
+    font-family: var(--font-akkurat);
+    font-size: var(--text-body-sm);
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  .btn-ghost:hover {
+    background-color: var(--color-botanical-ink);
+    color: var(--color-cream-paper);
+  }
+
+  /* Tag / badge — the only green fill, used small */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-moss-veil);
+    color: var(--color-botanical-ink);
+    border-radius: 9999px;
+    padding: 4px 12px;
+    font-family: var(--font-fragment-mono);
+    font-size: var(--text-body-sm);
+    letter-spacing: 0.02em;
+  }
+
+  /* Card surface — border defines edge, not elevation */
+  .card {
+    background-color: var(--color-cream-paper);
+    border: 1px solid var(--color-eucalyptus);
+    border-radius: var(--radius-control);
+    padding: 32px;
+  }
+}
+
+@layer utilities {
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .fade-up {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
