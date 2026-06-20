@@ -21,6 +21,9 @@ export default function CallBar() {
       }}
     >
       <div className="flex items-center gap-3 p-3">
+        <a href="#kontakt" className="btn-ghost flex-1">
+          Poptávka
+        </a>
         <a
           href="tel:+420775222760"
           className="btn-primary flex-1"
@@ -36,9 +39,6 @@ export default function CallBar() {
             />
           </svg>
           Zavolat
-        </a>
-        <a href="#kontakt" className="btn-ghost flex-1">
-          Poptávka
         </a>
       </div>
     </div>

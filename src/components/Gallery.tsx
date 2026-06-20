@@ -32,7 +32,7 @@ export default function Gallery() {
     >
       <div className="container-page">
         <SectionHeading
-          label="Reference"
+          label=""
           title="Před čištěním a po něm"
           intro="Skutečné zakázky před čištěním a po něm. Posuvníkem porovnáte stav fasády, střechy i dlažby."
         />

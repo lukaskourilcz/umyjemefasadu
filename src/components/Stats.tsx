@@ -1,5 +1,5 @@
 const STATS = [
-  { value: "5–10", label: "let účinné ochrany" },
+  { value: "5 – 10", label: "let účinné ochrany" },
   { value: "100 %", label: "ekologické přípravky" },
   { value: "0 Kč", label: "za prohlídku a nabídku" },
 ];

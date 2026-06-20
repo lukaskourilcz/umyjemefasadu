@@ -53,7 +53,7 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
         />
       </div>
 
-      <div className="container-page grid items-center gap-10 pb-16 pt-[72px] md:grid-cols-2 md:gap-14 md:pb-10 md:pt-[96px]">
+      <div className="container-page grid items-center gap-14 pb-16 pt-[72px] md:grid-cols-2 md:gap-14 md:pb-10 md:pt-[96px]">
         {/* Left - decorative photo collage. Purely visual: not clickable and not
             zoomable; tiles crop via object-cover so they sit neatly side by side. */}
         <div className="fade-up" aria-hidden="true">
@@ -74,7 +74,7 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
           <span className="tag mb-8 fade-up">Fasády · Střechy · Dlažba</span>
 
           <h1
-            className="font-akkurat max-w-[18ch] text-balance break-words text-botanical-ink fade-up"
+            className="font-akkurat max-w-[18ch] text-balance break-words text-botanical-ink mt-2 fade-up"
             style={{
               fontWeight: 400,
               fontSize: "clamp(32px, 5.2vw, 53px)",
@@ -94,7 +94,7 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
             na&nbsp;další roky.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-start gap-3 fade-up">
+          <div className="mt-10 flex flex-wrap items-center justify-end gap-3 fade-up md:justify-start">
             <a href="#kontakt" className="btn-primary">
               Získat nezávaznou cenovou nabídku
             </a>
