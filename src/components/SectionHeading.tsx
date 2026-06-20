@@ -17,9 +17,9 @@ export default function SectionHeading({
         className="font-akkurat text-botanical-ink"
         style={{
           fontWeight: 400,
-          fontSize: "clamp(30px, 4.4vw, 47px)",
-          lineHeight: 0.98,
-          letterSpacing: "-1.88px",
+          fontSize: "clamp(25px, 4.4vw, 47px)",
+          lineHeight: 1.02,
+          letterSpacing: "-1.4px",
           maxWidth: "20ch",
         }}
       >

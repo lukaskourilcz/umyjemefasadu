@@ -1,4 +1,5 @@
 import SectionHeading from "./SectionHeading";
+import { TEXT } from "../lib/text";
 
 const STEPS = [
   {
@@ -9,7 +10,7 @@ const STEPS = [
   {
     no: "02",
     title: "Prohlídka na místě",
-    desc: "Domluvíme termín a přijedeme se na objekt podívat — zdarma a bez závazku.",
+    desc: "Domluvíme termín a přijedeme se na objekt podívat, zdarma a bez závazku.",
   },
   {
     no: "03",
@@ -19,7 +20,7 @@ const STEPS = [
   {
     no: "04",
     title: "Nezávazná nabídka",
-    desc: "Připravíme cenovou nabídku na míru. Rozhodnutí je čistě na vás — bez poplatků.",
+    desc: "Připravíme cenovou nabídku na míru. Rozhodnutí je na vás, bez poplatků.",
   },
 ];
 
@@ -28,9 +29,9 @@ export default function OrderProcess() {
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
         <SectionHeading
-          label="Jak objednat"
+          label=""
           title="Od poptávky k čisté fasádě ve čtyřech krocích"
-          intro="Cenu vždy stanovujeme individuálně podle konkrétního objektu — žádné poplatky a žádné závazky předem."
+          intro="Cenu vždy stanovujeme individuálně podle konkrétního objektu. Žádné poplatky ani závazky předem."
         />
 
         <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -54,13 +55,13 @@ export default function OrderProcess() {
               </div>
               <h3
                 className="font-akkurat mt-4 font-bold text-botanical-ink"
-                style={{ fontSize: "20px", letterSpacing: "-0.04em" }}
+                style={TEXT.cardTitle}
               >
                 {s.title}
               </h3>
               <p
                 className="font-akkurat mt-2 text-botanical-ink/75"
-                style={{ fontSize: "16px", lineHeight: 1.55, letterSpacing: "-0.04em" }}
+                style={TEXT.bodyTight}
               >
                 {s.desc}
               </p>

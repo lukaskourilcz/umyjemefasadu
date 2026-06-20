@@ -1,5 +1,5 @@
 /**
- * Hero backdrop — on-brand "clean water" motif.
+ * Hero backdrop - on-brand "clean water" motif.
  * Calm layered water surface in the brand cyan, soft foam crests, drifting
  * droplets and a pair of faint splash arcs that echo the logo's water mark.
  * A few sparse magenta droplets tie it to the primary accent. Soft edges,
@@ -95,7 +95,7 @@ export default function Landscape({ className = "" }: { className?: string }) {
         opacity="0.7"
       />
 
-      {/* Drifting droplets — cyan, with two sparse magenta accents */}
+      {/* Drifting droplets - cyan, with two sparse magenta accents */}
       <g>
         <circle cx="240" cy="300" r="9" fill="#5ec7ef" opacity="0.55" />
         <circle cx="1180" cy="318" r="11" fill="#5ec7ef" opacity="0.5" />

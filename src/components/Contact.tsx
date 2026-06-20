@@ -12,12 +12,12 @@ export default function Contact() {
           }}
         >
           <div className="grid grid-cols-1 gap-10 p-8 md:grid-cols-2 md:items-center md:p-14">
-            <div>
+            <div className="pl-3 md:pl-0">
               <SectionHeading
                 align="left"
-                label="Kontakt"
+                label=""
                 title="Pošleme vám nezávaznou cenovou nabídku"
-                intro="Napište nebo zavolejte — domluvíme termín prohlídky zdarma a navrhneme řešení přesně pro vaši fasádu."
+                intro="Napište nebo zavolejte. Domluvíme termín prohlídky zdarma a navrhneme řešení pro vaši fasádu."
               />
             </div>
 
@@ -36,7 +36,7 @@ export default function Contact() {
                   </span>
                   <span
                     className="font-akkurat font-bold text-botanical-ink"
-                    style={{ fontSize: "22px", letterSpacing: "-0.04em" }}
+                    style={{ fontSize: "clamp(16px, 4.5vw, 22px)", letterSpacing: "-0.04em" }}
                   >
                     +420 775 222 760
                   </span>
@@ -58,16 +58,12 @@ export default function Contact() {
                   </span>
                   <span
                     className="font-akkurat font-bold text-botanical-ink"
-                    style={{ fontSize: "22px", letterSpacing: "-0.04em" }}
+                    style={{ fontSize: "clamp(16px, 4.5vw, 22px)", letterSpacing: "-0.04em" }}
                   >
                     info@umyjemefasadu.cz
                   </span>
                 </span>
                 <Arrow />
-              </a>
-
-              <a href="tel:+420775222760" className="btn-primary mt-1 w-full">
-                Zavolat hned
               </a>
             </div>
           </div>

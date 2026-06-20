@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
+import { useScrolledPast } from "../hooks/useScrolledPast";
 
 /**
- * Sticky mobile action bar — phone is the primary conversion path, so it
+ * Sticky mobile action bar - phone is the primary conversion path, so it
  * stays one tap away. Appears only on small screens, and only after the user
  * scrolls past the hero so it never covers the hero's own CTAs.
  */
 export default function CallBar() {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 600);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const show = useScrolledPast(600);
 
   return (
     <div
@@ -28,6 +21,9 @@ export default function CallBar() {
       }}
     >
       <div className="flex items-center gap-3 p-3">
+        <a href="#kontakt" className="btn-ghost flex-1">
+          Poptávka
+        </a>
         <a
           href="tel:+420775222760"
           className="btn-primary flex-1"
@@ -43,9 +39,6 @@ export default function CallBar() {
             />
           </svg>
           Zavolat
-        </a>
-        <a href="#kontakt" className="btn-ghost flex-1">
-          Poptávka
         </a>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import SectionHeading from "./SectionHeading";
+import { TEXT } from "../lib/text";
 
 const FAQ = [
   {
@@ -7,7 +8,7 @@ const FAQ = [
   },
   {
     q: "Nepoškodí tlakové mytí omítku?",
-    a: "Ne. Tlak, teplotu vody i trysky volíme vždy podle typu a stavu omítky. U citlivějších povrchů sáhneme po šetrnější variantě bez horké vody — s přípravkem a aktivní pěnou.",
+    a: "Ne. Tlak, teplotu vody i trysky volíme vždy podle typu a stavu omítky. U citlivějších povrchů sáhneme po šetrnější variantě bez horké vody, s přípravkem a aktivní pěnou.",
   },
   {
     q: "Jsou použité přípravky bezpečné?",
@@ -15,7 +16,7 @@ const FAQ = [
   },
   {
     q: "Kolik to bude stát?",
-    a: "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru — bez poplatků a závazků.",
+    a: "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků.",
   },
   {
     q: "Co všechno umíte vyčistit?",
@@ -27,10 +28,12 @@ export default function Faq() {
   return (
     <section
       className="scroll-mt-24 py-20 md:py-28"
-      style={{ backgroundColor: "var(--color-sage-mist)" }}
+      style={{
+        background: "linear-gradient(160deg, #fef7fa 0%, #fcedf4 100%)",
+      }}
     >
       <div className="container-page">
-        <SectionHeading label="Časté dotazy" title="Co se nejčastěji ptáte" />
+        <SectionHeading label="" title="Co se nejčastěji ptáte" />
 
         <div className="mx-auto mt-12 flex max-w-[820px] flex-col gap-3">
           {FAQ.map((item, i) => (
@@ -67,7 +70,7 @@ export default function Faq() {
               </summary>
               <p
                 className="font-akkurat px-6 pb-6 text-botanical-ink/75"
-                style={{ fontSize: "16px", lineHeight: 1.6, letterSpacing: "-0.04em" }}
+                style={TEXT.body}
               >
                 {item.a}
               </p>
