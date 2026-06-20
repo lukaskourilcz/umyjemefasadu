@@ -11,7 +11,7 @@ export default function Footer() {
     >
       <div className="container-page flex flex-row items-center justify-between gap-5 pt-14 pb-28 md:gap-10 md:py-14">
         <a href="#top" aria-label="Umyjeme Fasádu, domů" className="shrink-0">
-          <Logo variant="full" height={192} className="h-[96px] w-auto md:h-[192px]" />
+          <Logo variant="full" height={192} className="h-[116px] w-auto md:h-[192px]" />
         </a>
 
         {/* Legal + contact (in place of the former nav links) */}
