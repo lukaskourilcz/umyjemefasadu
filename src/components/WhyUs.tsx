@@ -1,9 +1,11 @@
 import SectionHeading from "./SectionHeading";
+import { TEXT } from "../lib/text";
+import { CheckIcon } from "./icons";
 
 const POINTS = [
   {
     title: "Šetrné a ekologické přípravky",
-    desc: "Používáme jen ty nejlepší aplikační přípravky — ekologické, bezpečné a ohleduplné k okolí i k povrchu budovy.",
+    desc: "Používáme ekologické a bezpečné přípravky, ohleduplné k okolí i k povrchu budovy.",
   },
   {
     title: "Ochrana na dlouhé roky",
@@ -26,9 +28,9 @@ export default function WhyUs() {
         <div className="lg:sticky lg:top-28">
           <SectionHeading
             align="left"
-            label="Proč my"
+            label=""
             title="Špinavá fasáda nemusí znamenat novou omítku"
-            intro="Jsme na trhu noví, ale za sebou máme roky zkušeností s čištěním fasád, střech i dlažby. Místo drahé rekonstrukce vrátíme povrchu čistotu a svěží vzhled."
+            intro="Jsme na trhu noví, ale za sebou máme roky zkušeností s čištěním fasád, střech i dlažby. Místo drahé rekonstrukce vrátíme povrchu čistotu a původní vzhled."
           />
           <a href="#kontakt" className="btn-primary mt-8 fade-up">
             Domluvit prohlídku zdarma
@@ -50,16 +52,7 @@ export default function WhyUs() {
                 className="mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
                 style={{ backgroundColor: "var(--color-moss-veil)" }}
               >
-                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true">
-                  <path
-                    d="M3 8.5 L6.5 12 L13 4"
-                    fill="none"
-                    stroke="#0a1d08"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <CheckIcon size={14} />
               </span>
               <div>
                 <h3
@@ -70,7 +63,7 @@ export default function WhyUs() {
                 </h3>
                 <p
                   className="font-akkurat mt-1 text-botanical-ink/75"
-                  style={{ fontSize: "16px", lineHeight: 1.55, letterSpacing: "-0.04em" }}
+                  style={TEXT.bodyTight}
                 >
                   {p.desc}
                 </p>

@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useFadeUpReveal } from "./hooks/useFadeUpReveal";
 import Landscape from "./components/Landscape";
 import Nav from "./components/Nav";
+import RevealHero from "./components/RevealHero";
+import dirtyHero from "./assets/dirty-hero.webp";
+import cleanHero from "./assets/clean-hero.webp";
 import Hero from "./components/Hero";
 import TrustStrip from "./components/TrustStrip";
 import Services from "./components/Services";
@@ -15,28 +18,18 @@ import Footer from "./components/Footer";
 import CallBar from "./components/CallBar";
 
 export default function App() {
-  // Quiet, deliberate scroll reveals — disabled under reduced-motion via CSS.
-  useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>(".fade-up");
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            e.target.classList.add("in-view");
-            io.unobserve(e.target);
-          }
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
+  // Quiet, deliberate scroll reveals - disabled under reduced-motion via CSS.
+  useFadeUpReveal();
 
   return (
     <>
       <Nav />
       <main>
+        <RevealHero
+          before={dirtyHero}
+          after={cleanHero}
+          label=""
+        />
         <Hero backdrop={<Landscape className="h-full w-full" />} />
         <TrustStrip />
         <Services />

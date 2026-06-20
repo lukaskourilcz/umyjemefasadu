@@ -1,19 +1,12 @@
-import { useEffect, useState } from "react";
+import { useScrolledPast } from "../hooks/useScrolledPast";
 
 /**
- * Sticky mobile action bar — phone is the primary conversion path, so it
+ * Sticky mobile action bar - phone is the primary conversion path, so it
  * stays one tap away. Appears only on small screens, and only after the user
  * scrolls past the hero so it never covers the hero's own CTAs.
  */
 export default function CallBar() {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 600);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const show = useScrolledPast(600);
 
   return (
     <div

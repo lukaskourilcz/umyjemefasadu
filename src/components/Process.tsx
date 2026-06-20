@@ -1,10 +1,11 @@
 import SectionHeading from "./SectionHeading";
+import { TEXT } from "../lib/text";
 
 const STEPS = [
   {
     no: "01",
     title: "Aplikace přípravku",
-    desc: "Naneseme přípravek na odstranění organických (plísně, řasy, lišejníky) i anorganických nečistot — saze, prach a mastnoty.",
+    desc: "Naneseme přípravek na odstranění organických (plísně, řasy, lišejníky) i anorganických nečistot (saze, prach a mastnota).",
   },
   {
     no: "02",
@@ -36,45 +37,44 @@ export default function Process() {
     <section
       id="postup"
       className="scroll-mt-24 py-20 md:py-28"
-      style={{ backgroundColor: "var(--color-sage-mist)" }}
+      style={{
+        background: "linear-gradient(180deg, #eef6fd 0%, #e1f0fb 100%)",
+      }}
     >
       <div className="container-page">
         <SectionHeading
-          label="Jak to probíhá"
-          title="Jak čistíme fasádu — krok za krokem"
-          intro="Postup volíme podle typu a stavu fasády — od první aplikace přípravku až po závěrečnou ochranu."
+          label="Jak čistíme fasádu"
+          title="Krok za krokem"
+          intro="Postup volíme podle typu a stavu fasády, od první aplikace přípravku až po závěrečnou ochranu."
         />
 
         <ol className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
           {STEPS.map((s, i) => (
             <li
               key={s.no}
-              className="fade-up relative rounded-[20px] border p-8"
-              style={{
-                backgroundColor: "var(--color-cream-paper)",
-                borderColor: "var(--color-eucalyptus)",
-                transitionDelay: `${i * 80}ms`,
-              }}
+              className="card fade-up flex flex-col items-start gap-4"
+              style={{ transitionDelay: `${i * 80}ms` }}
             >
               <span
-                className="font-fragment-mono block"
+                className="font-fragment-mono inline-flex h-12 w-12 items-center justify-center rounded-full"
                 style={{
-                  fontSize: "14px",
+                  backgroundColor: "var(--color-moss-veil)",
                   color: "var(--color-forest-floor)",
+                  fontSize: "15px",
                   letterSpacing: "0.02em",
                 }}
               >
                 {s.no}
               </span>
               <h3
-                className="font-akkurat mt-5 font-bold text-botanical-ink"
-                style={{ fontSize: "22px", letterSpacing: "-0.04em" }}
+                className="font-akkurat font-bold text-botanical-ink"
+                style={TEXT.cardTitle}
               >
                 {s.title}
               </h3>
               <p
-                className="font-akkurat mt-3 text-botanical-ink/75"
-                style={{ fontSize: "16px", lineHeight: 1.6, letterSpacing: "-0.04em" }}
+                className="font-akkurat text-botanical-ink/75"
+                style={TEXT.body}
               >
                 {s.desc}
               </p>
@@ -82,28 +82,24 @@ export default function Process() {
           ))}
         </ol>
 
-        {/* Two approaches — chosen podle typu a stavu fasády */}
+        {/* Two approaches - chosen podle typu a stavu fasády */}
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
           {METHODS.map((m, i) => (
             <div
               key={m.title}
-              className="fade-up rounded-[20px] border p-8"
-              style={{
-                backgroundColor: "var(--color-cream-paper)",
-                borderColor: "var(--color-eucalyptus)",
-                transitionDelay: `${i * 80}ms`,
-              }}
+              className="card fade-up flex flex-col items-start gap-4"
+              style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <span className="tag mb-4">{m.tag}</span>
+              <span className="tag">{m.tag}</span>
               <h3
                 className="font-akkurat font-bold text-botanical-ink"
-                style={{ fontSize: "20px", letterSpacing: "-0.04em" }}
+                style={TEXT.cardTitle}
               >
                 {m.title}
               </h3>
               <p
-                className="font-akkurat mt-3 text-botanical-ink/75"
-                style={{ fontSize: "16px", lineHeight: 1.6, letterSpacing: "-0.04em" }}
+                className="font-akkurat text-botanical-ink/75"
+                style={TEXT.body}
               >
                 {m.desc}
               </p>

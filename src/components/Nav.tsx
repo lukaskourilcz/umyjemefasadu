@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
+import { useScrolledPast } from "../hooks/useScrolledPast";
 
 const LINKS = [
   { href: "#sluzby", label: "Služby" },
@@ -9,17 +10,10 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolledPast(12);
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Publish the live nav-row height so the hero can offset itself exactly
   // (the bar overlaps the hero, and its height differs per breakpoint).
@@ -29,7 +23,7 @@ export default function Nav() {
     const setVar = () =>
       document.documentElement.style.setProperty(
         "--nav-h",
-        `${Math.round(row.getBoundingClientRect().height)}px`
+        `${Math.round(row.getBoundingClientRect().height)}px`,
       );
     setVar();
     const ro = new ResizeObserver(setVar);
@@ -41,7 +35,7 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const mq = window.matchMedia("(min-width: 768px)");
+    const mq = window.matchMedia("(min-width: 1024px)");
     const onChange = () => mq.matches && setOpen(false);
     window.addEventListener("keydown", onKey);
     mq.addEventListener("change", onChange);
@@ -57,7 +51,8 @@ export default function Nav() {
       ref={navRef}
       className="sticky top-0 z-50 w-full transition-colors duration-300"
       style={{
-        backgroundColor: scrolled || open ? "rgba(251,253,246,0.82)" : "transparent",
+        backgroundColor:
+          scrolled || open ? "rgba(251,251,252,0.82)" : "transparent",
         backdropFilter: scrolled || open ? "blur(10px)" : "none",
         borderBottom:
           scrolled || open
@@ -65,14 +60,36 @@ export default function Nav() {
             : "1px solid transparent",
       }}
     >
-      <nav className="container-page flex items-center justify-between gap-4 py-4">
-        {/* Left — desktop nav links */}
-        <div className="hidden flex-1 items-center gap-7 md:flex">
+      <nav className="container-page relative flex items-center justify-between gap-4 py-4">
+        {/* Brand mark - anchored 120px from the left, gently levitating like a
+            cloud, with a soft drop-shadow. Full size (172px) on tablet and up;
+            scaled down only on phones (<768px). Absolute → no effect on the bar
+            height (--nav-h); pointer-events on the link only. */}
+        <a
+          href="#top"
+          aria-label="Umyjeme Fasádu, domů"
+          className="logo-float pointer-events-none absolute left-[5px] top-[-5px] z-10 opacity-[0.95] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
+        >
+          <Logo
+            variant="full"
+            source="nav"
+            height={172}
+            className="pointer-events-auto block h-[110px] w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] md:h-[180px]"
+          />
+        </a>
+
+        {/* Left - spacer; the logo (positioned absolutely above) overlaps this
+            corner without inflating the bar height. */}
+        <div className="flex-1" />
+
+        {/* Center - nav links, shown from 1200px where the full-size logo clears
+            them; below that the hamburger takes over. */}
+        <div className="hidden flex-1 items-center justify-center gap-7 lg:flex">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="font-akkurat font-bold text-botanical-ink/80 transition-colors hover:text-botanical-ink"
+              className="font-akkurat whitespace-nowrap font-bold text-botanical-ink/80 transition-colors hover:text-botanical-ink"
               style={{ fontSize: "14px" }}
             >
               {l.label}
@@ -80,19 +97,11 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Center — logo */}
-        <div className="flex flex-1 justify-start md:justify-center">
-          <Logo />
-        </div>
-
-        {/* Right — CTA pair (desktop) + menu toggle (mobile) */}
+        {/* Right - CTA pair (desktop) + menu toggle (mobile) */}
         <div className="flex flex-1 items-center justify-end gap-3">
-          <a href="#kontakt" className="btn-ghost hidden md:inline-flex">
-            Kontakt
-          </a>
           <a
             href="#kontakt"
-            className="btn-primary hidden whitespace-nowrap sm:inline-flex"
+            className="btn-primary hidden whitespace-nowrap px-6 py-3 sm:inline-flex"
           >
             Nezávazná poptávka
           </a>
@@ -100,7 +109,7 @@ export default function Nav() {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border md:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden"
             style={{ borderColor: "var(--color-eucalyptus)" }}
             aria-label={open ? "Zavřít menu" : "Otevřít menu"}
             aria-expanded={open}
@@ -132,7 +141,7 @@ export default function Nav() {
       <div
         id="mobile-menu"
         ref={panelRef}
-        className="overflow-hidden transition-[max-height] duration-300 ease-out md:hidden"
+        className="overflow-hidden transition-[max-height] duration-300 ease-out lg:hidden"
         style={{ maxHeight: open ? "420px" : "0px" }}
       >
         <div className="container-page flex flex-col gap-1 pb-5">
@@ -147,10 +156,12 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
+          {/* Only show the CTA here when it isn't already in the bar (the bar's
+              CTA appears from sm up), so it never duplicates. */}
           <a
             href="#kontakt"
             onClick={() => setOpen(false)}
-            className="btn-primary mt-4 w-full"
+            className="btn-primary mt-4 w-full sm:hidden"
           >
             Nezávazná poptávka
           </a>

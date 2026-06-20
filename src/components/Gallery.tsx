@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionHeading from "./SectionHeading";
 
 /**
- * Before / after reference gallery — the single highest-impact trust element
+ * Before / after reference gallery - the single highest-impact trust element
  * for a cleaning business. Items are wired through a data array so real photos
  * drop straight in: replace `before`/`after` with image paths (e.g. files in
  * public/reference/) and the placeholder panels become <img> automatically.
@@ -15,19 +15,26 @@ type Item = {
 
 // TODO: replace with real before/after photos once supplied by the client.
 const ITEMS: Item[] = [
-  { label: "Rodinný dům — severní fasáda" },
-  { label: "Střecha — odstranění mechu" },
-  { label: "Zámková dlažba — terasa" },
+  { label: "Rodinný dům, fasáda" },
+  { label: "Střecha, odstranění mechu" },
+  { label: "Zámková dlažba, terasa" },
 ];
 
 export default function Gallery() {
   return (
-    <section id="galerie" className="scroll-mt-24 py-20 md:py-28">
+    <section
+      id="galerie"
+      className="scroll-mt-24 py-20 md:py-28"
+      style={{
+        background:
+          "linear-gradient(180deg, var(--color-lichen) 0%, var(--color-cream-paper) 42%)",
+      }}
+    >
       <div className="container-page">
         <SectionHeading
           label="Reference"
-          title="Výsledek, který je vidět na první pohled"
-          intro="Reálné zakázky před čištěním a po něm. Posuvníkem porovnáte stav fasády, střechy i dlažby."
+          title="Před čištěním a po něm"
+          intro="Skutečné zakázky před čištěním a po něm. Posuvníkem porovnáte stav fasády, střechy i dlažby."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,7 +70,7 @@ function BeforeAfter({ item }: { item: Item }) {
     <div className="relative aspect-[4/3] select-none">
       {/* AFTER (full) */}
       <Layer src={item.after} kind="after" show={hasPhotos} />
-      {/* BEFORE — full-size, revealed from the left via clip-path (no distortion) */}
+      {/* BEFORE - full-size, revealed from the left via clip-path (no distortion) */}
       <div
         className="absolute inset-0"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
