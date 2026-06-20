@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { BRAND_GRADIENT } from "../lib/constants";
 
 /**
  * Horizontal photo carousel - up to ~10 photos. Native scroll-snap drives the
@@ -75,10 +76,7 @@ export default function PhotoCarousel({ photos }: { photos: CarouselPhoto[] }) {
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 opacity-[0.12] transition-opacity duration-500 ease-out group-hover:opacity-0"
               style={{
-                background:
-                  i % 2 === 0
-                    ? "linear-gradient(150deg, #1ba5e0 0%, #1488c4 100%)"
-                    : "linear-gradient(150deg, #e6007e 0%, #ff5fb0 100%)",
+                background: i % 2 === 0 ? BRAND_GRADIENT.blue : BRAND_GRADIENT.pink,
               }}
             />
           </figure>

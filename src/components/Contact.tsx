@@ -1,4 +1,5 @@
 import SectionHeading from "./SectionHeading";
+import { CONTACT } from "../lib/constants";
 
 export default function Contact() {
   return (
@@ -23,7 +24,7 @@ export default function Contact() {
 
             <div className="flex flex-col gap-5">
               <a
-                href="tel:+420775222760"
+                href={CONTACT.phoneHref}
                 className="group flex items-center justify-between gap-4 rounded-[20px] border p-6 transition-colors"
                 style={{
                   backgroundColor: "var(--color-sage-mist)",
@@ -36,16 +37,16 @@ export default function Contact() {
                   </span>
                   <span
                     className="font-akkurat font-bold text-botanical-ink"
-                    style={{ fontSize: "clamp(16px, 4.5vw, 22px)", letterSpacing: "-0.04em" }}
+                    style={{ fontSize: "clamp(16px, 2.4vw, 22px)", letterSpacing: "-0.04em" }}
                   >
-                    +420 775 222 760
+                    {CONTACT.phoneDisplay}
                   </span>
                 </span>
                 <Arrow />
               </a>
 
               <a
-                href="mailto:info@umyjemefasadu.cz"
+                href={CONTACT.emailHref}
                 className="group flex items-center justify-between gap-4 rounded-[20px] border p-6 transition-colors"
                 style={{
                   backgroundColor: "var(--color-sage-mist)",
@@ -58,9 +59,9 @@ export default function Contact() {
                   </span>
                   <span
                     className="font-akkurat font-bold text-botanical-ink"
-                    style={{ fontSize: "clamp(16px, 4.5vw, 22px)", letterSpacing: "-0.04em" }}
+                    style={{ fontSize: "clamp(16px, 2.4vw, 22px)", letterSpacing: "-0.04em" }}
                   >
-                    info@umyjemefasadu.cz
+                    {CONTACT.email}
                   </span>
                 </span>
                 <Arrow />
