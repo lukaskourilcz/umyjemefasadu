@@ -1,4 +1,5 @@
 import { useScrolledPast } from "../hooks/useScrolledPast";
+import { CONTACT } from "../lib/constants";
 
 /**
  * Sticky mobile action bar - phone is the primary conversion path, so it
@@ -25,9 +26,9 @@ export default function CallBar() {
           Poptávka
         </a>
         <a
-          href="tel:+420775222760"
+          href={CONTACT.phoneHref}
           className="btn-primary flex-1"
-          aria-label="Zavolat na +420 775 222 760"
+          aria-label={`Zavolat na ${CONTACT.phoneDisplay}`}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path

@@ -71,7 +71,6 @@ export default function Nav() {
           className="logo-float pointer-events-none absolute left-[5px] top-[-5px] z-10 opacity-[0.95] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
         >
           <Logo
-            variant="full"
             source="nav"
             height={172}
             className="pointer-events-auto block h-[110px] w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] md:h-[180px]"

@@ -14,7 +14,6 @@
   */
   --color-cream-paper: #fbfdfe; /* cool near-white: canvas, cards, inverted text */
   --color-botanical-ink: #101820; /* cool near-black: text, borders */
-  --color-bark-brown: #1f3a47; /* secondary deep cool tone */
   --color-warm-loam: #e6007e; /* PRIMARY ACTION - magenta, the brand CTA */
   --color-magenta-deep: #c10068; /* primary action hover */
   --color-forest-floor: #1ba5e0; /* secondary accent - cyan (water) */
@@ -23,7 +22,6 @@
   --color-lichen: #e2e9ee; /* surface 2 */
   --color-moss-veil: #d7eefb; /* tag / highlight - soft cyan fill */
   --color-eucalyptus: #c4d0d8; /* surface 4 - decorative borders */
-  --color-onyx: #000000;
 
   /* Typography - families */
   --font-akkurat: "Inter", ui-sans-serif, system-ui, -apple-system,
@@ -31,22 +29,13 @@
   --font-fragment-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo,
     Monaco, Consolas, monospace;
 
-  /* Typography - scale */
-  --text-caption: 12px;
-  --text-caption--line-height: 1;
-  --text-caption--letter-spacing: -0.48px;
+  /* Typography - scale (only the steps the component layer actually uses) */
   --text-body-sm: 14px;
   --text-body-sm--line-height: 1.43;
   --text-body-sm--letter-spacing: -0.56px;
   --text-body: 18px;
   --text-body--line-height: 1.67;
   --text-body--letter-spacing: -0.72px;
-  --text-heading-sm: 47px;
-  --text-heading-sm--line-height: 0.98;
-  --text-heading-sm--letter-spacing: -1.88px;
-  --text-display: 53px;
-  --text-display--line-height: 1;
-  --text-display--letter-spacing: -2.12px;
 
   /* Spacing */
   --spacing-8: 8px;
@@ -60,7 +49,6 @@
   --spacing-160: 160px;
 
   /* Radii */
-  --radius-image: 8px;
   --radius-control: 20px;
 
   /* Shadow - the single permitted ring (cyan-tinted) */
@@ -237,13 +225,6 @@
   }
   .rise-in {
     animation: rise-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  /* Stagger helpers for sequenced entrances */
-  .rise-in-1 {
-    animation-delay: 0.15s;
-  }
-  .rise-in-2 {
-    animation-delay: 0.32s;
   }
 
   @media (prefers-reduced-motion: reduce) {

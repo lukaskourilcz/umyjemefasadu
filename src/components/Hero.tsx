@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { ReactNode } from "react";
 import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { BRAND_GRADIENT } from "../lib/constants";
 import fasada1 from "../assets/fasada1.webm";
 import fasada2 from "../assets/fasada2.webm";
 import fasada3 from "../assets/fasada3.webm";
@@ -137,9 +138,7 @@ const PHOTOS: Photo[] = [
 function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
   // Brand tint over each clip: pink on the 1st and 4th tiles, blue on 2nd/3rd.
   const overlay =
-    index === 0 || index === 3
-      ? "linear-gradient(150deg, #e6007e 0%, #ff5fb0 100%)"
-      : "linear-gradient(150deg, #1ba5e0 0%, #1488c4 100%)";
+    index === 0 || index === 3 ? BRAND_GRADIENT.pink : BRAND_GRADIENT.blue;
   return (
     <div
       className="relative aspect-[4/5] w-full select-none overflow-hidden rounded-[16px] border"
