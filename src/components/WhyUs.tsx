@@ -37,7 +37,7 @@ export default function WhyUs() {
 
           {/* Written guarantee, certificate-style. TODO: potvrďte skutečnou délku záruky. */}
           <div
-            className="mt-12 flex w-fit overflow-hidden rounded-[14px] border fade-up"
+            className="mx-auto mt-12 flex w-fit overflow-hidden rounded-[14px] border fade-up"
             style={{ borderColor: "var(--color-eucalyptus)" }}
           >
             <div
