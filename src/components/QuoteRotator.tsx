@@ -23,14 +23,6 @@ const QUOTES = [
 // Reading time scales with quote length.
 const quoteMs = (text: string) => Math.min(3200 + text.length * 40, 10000);
 
-const initials = (name: string) =>
-  name
-    .split(/\s+/)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-
 /**
  * One quote at a time; it holds long enough to read (progress bar shows how
  * long), then the next one animates in. No rotation under reduced-motion.
@@ -52,7 +44,7 @@ export default function QuoteRotator() {
 
   return (
     <div
-      className="mt-12 border-t pt-6"
+      className="mt-12 max-w-[400px] border-t pt-6"
       style={{ borderColor: "var(--color-eucalyptus)" }}
     >
       <div className="flex items-baseline justify-between">
@@ -72,43 +64,29 @@ export default function QuoteRotator() {
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 500,
-            fontSize: "clamp(17px, 1.4vw, 20px)",
+            fontSize: "clamp(16px, 1.3vw, 19px)",
             lineHeight: 1.45,
-            maxWidth: "42ch",
+            maxWidth: "38ch",
             textIndent: "-0.45em",
           }}
         >
           &bdquo;{q.text}&ldquo;
         </blockquote>
 
-        {/* Attribution - monogram + right-aligned credentials */}
-        <figcaption className="mt-5 flex items-center justify-end gap-3">
-          <div className="text-right">
-            <div
-              className="text-botanical-ink"
-              style={{ fontSize: "14px", fontWeight: 700 }}
-            >
-              {q.name}
-            </div>
-            <div
-              className="font-fragment-mono mt-0.5 text-botanical-ink/50"
-              style={{ fontSize: "12px", letterSpacing: "0.02em" }}
-            >
-              {q.meta}
-            </div>
-          </div>
-          <span
-            aria-hidden="true"
-            className="font-fragment-mono grid h-10 w-10 shrink-0 place-items-center rounded-[10px]"
-            style={{
-              backgroundColor: "var(--color-moss-veil)",
-              color: "var(--color-cyan-deep)",
-              fontSize: "13px",
-              letterSpacing: "0.02em",
-            }}
+        {/* Attribution - right-aligned, eased off the edge */}
+        <figcaption className="mt-5 pr-6 text-right">
+          <div
+            className="text-botanical-ink"
+            style={{ fontSize: "14px", fontWeight: 700 }}
           >
-            {initials(q.name)}
-          </span>
+            {q.name}
+          </div>
+          <div
+            className="font-fragment-mono mt-0.5 text-botanical-ink/50"
+            style={{ fontSize: "12px", letterSpacing: "0.02em" }}
+          >
+            {q.meta}
+          </div>
         </figcaption>
       </figure>
 
