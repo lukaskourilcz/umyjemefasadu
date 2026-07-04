@@ -21,7 +21,7 @@ const QUOTES = [
 ];
 
 // Reading time scales with quote length.
-const quoteMs = (text: string) => Math.min(3200 + text.length * 40, 10000);
+const quoteMs = (text: string) => Math.min(6000 + text.length * 55, 16000);
 
 /**
  * One quote at a time; it holds long enough to read (progress bar shows how
@@ -44,21 +44,13 @@ export default function QuoteRotator() {
 
   return (
     <div
-      className="mt-12 max-w-[400px] border-t pt-6"
+      className="mt-12 border-t pt-6"
       style={{ borderColor: "var(--color-eucalyptus)" }}
     >
-      <div className="flex items-baseline justify-between">
-        <span className="micro-label text-botanical-ink/50">Řekli o nás</span>
-        <span
-          className="font-fragment-mono text-botanical-ink/40"
-          style={{ fontSize: "12px", letterSpacing: "0.02em" }}
-        >
-          {index + 1} / {QUOTES.length}
-        </span>
-      </div>
+      <span className="micro-label text-botanical-ink/50">Řekli o nás</span>
 
       {/* key remount re-runs the entrance animation per quote */}
-      <figure key={index} className="quote-in m-0 min-h-44">
+      <figure key={index} className="quote-in mx-auto min-h-44 max-w-[400px]">
         <blockquote
           className="mt-4 text-botanical-ink"
           style={{
