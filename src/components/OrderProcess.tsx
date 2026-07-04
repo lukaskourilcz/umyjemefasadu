@@ -29,14 +29,13 @@ export default function OrderProcess() {
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
         <SectionHeading
-          label=""
           title="Od poptávky k čisté fasádě ve čtyřech krocích"
           intro="Cenu vždy stanovujeme individuálně podle konkrétního objektu. Žádné poplatky ani závazky předem."
         />
 
-        <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s, i) => (
-            <li key={s.no} className="fade-up" style={{ transitionDelay: `${i * 70}ms` }}>
+        <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 fade-up sm:grid-cols-2 lg:grid-cols-4">
+          {STEPS.map((s) => (
+            <li key={s.no}>
               <div className="flex items-center gap-3">
                 <span
                   className="font-fragment-mono"
@@ -54,15 +53,12 @@ export default function OrderProcess() {
                 />
               </div>
               <h3
-                className="font-akkurat mt-4 font-bold text-botanical-ink"
+                className="mt-4 font-bold text-botanical-ink"
                 style={TEXT.cardTitle}
               >
                 {s.title}
               </h3>
-              <p
-                className="font-akkurat mt-2 text-botanical-ink/75"
-                style={TEXT.bodyTight}
-              >
+              <p className="mt-2 text-botanical-ink/75" style={TEXT.bodyTight}>
                 {s.desc}
               </p>
             </li>

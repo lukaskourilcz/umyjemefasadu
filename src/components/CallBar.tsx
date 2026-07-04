@@ -11,7 +11,7 @@ export default function CallBar() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-40 md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 lg:hidden"
       style={{
         transform: show ? "translateY(0)" : "translateY(120%)",
         transition: "transform 0.3s ease",

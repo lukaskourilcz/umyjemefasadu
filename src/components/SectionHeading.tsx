@@ -3,36 +3,47 @@ export default function SectionHeading({
   title,
   intro,
   align = "center",
+  tone = "light",
 }: {
-  label: string;
+  label?: string;
   title: string;
   intro?: string;
   align?: "center" | "left";
+  tone?: "light" | "dark";
 }) {
-  const alignment = align === "center" ? "items-center text-center" : "items-start text-left";
+  const alignment =
+    align === "center" ? "items-center text-center" : "items-start text-left";
+  const dark = tone === "dark";
   return (
     <div className={`flex flex-col ${alignment} fade-up`}>
-      <span className="micro-label mb-4 text-botanical-ink/70">{label}</span>
+      {label && (
+        <span
+          className={`micro-label mb-4 ${
+            dark ? "text-cream-paper/60" : "text-botanical-ink/60"
+          }`}
+        >
+          {label}
+        </span>
+      )}
       <h2
-        className="font-akkurat text-botanical-ink"
+        className={dark ? "text-cream-paper" : "text-botanical-ink"}
         style={{
-          fontWeight: 400,
-          fontSize: "clamp(25px, 4.4vw, 47px)",
-          lineHeight: 1.02,
-          letterSpacing: "-1.4px",
-          maxWidth: "20ch",
+          fontWeight: 600,
+          fontSize: "clamp(28px, 4.8vw, 50px)",
+          lineHeight: 1.05,
+          maxWidth: "22ch",
         }}
       >
         {title}
       </h2>
       {intro && (
         <p
-          className="font-akkurat mt-5 text-botanical-ink/75"
+          className={dark ? "text-cream-paper/70" : "text-botanical-ink/75"}
           style={{
-            fontSize: "18px",
-            lineHeight: 1.67,
-            letterSpacing: "-0.72px",
+            fontSize: "var(--text-body)",
+            lineHeight: 1.65,
             maxWidth: "56ch",
+            marginTop: "20px",
           }}
         >
           {intro}

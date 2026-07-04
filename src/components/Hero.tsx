@@ -1,8 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-import { BRAND_GRADIENT } from "../lib/constants";
 import fasada1 from "../assets/fasada1.webm";
 import fasada2 from "../assets/fasada2.webm";
 import fasada3 from "../assets/fasada3.webm";
@@ -55,53 +54,55 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
       </div>
 
       <div className="container-page grid items-center gap-14 pb-16 pt-[72px] md:grid-cols-2 md:gap-14 md:pb-10 md:pt-[96px]">
-        {/* Left - decorative photo collage. Purely visual: not clickable and not
-            zoomable; tiles crop via object-cover so they sit neatly side by side. */}
-        <div className="fade-up" aria-hidden="true">
-          <div className="flex gap-3 sm:gap-4">
-            <div className="flex flex-1 flex-col gap-3 sm:gap-4">
-              <PhotoTile photo={PHOTOS[0]} index={0} />
-              <PhotoTile photo={PHOTOS[1]} index={1} />
-            </div>
-            <div className="flex flex-1 flex-col gap-3 pt-8 sm:gap-4 sm:pt-12">
-              <PhotoTile photo={PHOTOS[2]} index={2} />
-              <PhotoTile photo={PHOTOS[3]} index={3} />
-            </div>
-          </div>
-        </div>
+        {/* Copy first on phones (the collage would otherwise push the value
+            proposition below the fold); collage left / copy right from md up. */}
+        <div className="order-1 flex flex-col items-start text-left md:order-2">
+          <span className="micro-label mb-8 text-botanical-ink/60 fade-up">
+            Fasády · Střechy · Dlažba
+          </span>
 
-        {/* Right - copy */}
-        <div className="flex flex-col items-start text-left">
-          <span className="tag mb-8 fade-up">Fasády · Střechy · Dlažba</span>
-
-          <h1
-            className="font-akkurat max-w-[18ch] text-balance break-words text-botanical-ink mt-2 fade-up"
+          <h2
+            className="max-w-[18ch] text-balance break-words text-botanical-ink mt-2 fade-up"
             style={{
-              fontWeight: 400,
+              fontWeight: 500,
               fontSize: "clamp(32px, 5.2vw, 53px)",
               lineHeight: 1.04,
-              letterSpacing: "-2.12px",
             }}
           >
             Vrátíme fasádě čistý vzhled bez drahé rekonstrukce.
-          </h1>
+          </h2>
 
           <p
-            className="font-akkurat mt-7 max-w-[52ch] text-botanical-ink/75 fade-up"
-            style={{ fontSize: "18px", lineHeight: 1.67, letterSpacing: "-0.72px" }}
+            className="mt-7 max-w-[52ch] text-botanical-ink/75 fade-up"
+            style={{ fontSize: "var(--text-body)", lineHeight: 1.65 }}
           >
             Tlakovým mytím horkou vodou a&nbsp;šetrnou chemií odstraníme plísně,
             řasy, saze i&nbsp;prach. Povrch zůstane čistý a&nbsp;chráněný
             na&nbsp;další roky.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-end gap-3 fade-up md:justify-start">
-            <a href="#kontakt" className="btn-primary">
+          <div className="mt-10 flex w-full flex-wrap items-center justify-start gap-3 fade-up md:w-auto">
+            <a href="#kontakt" className="btn-primary w-full sm:w-auto">
               Získat nezávaznou cenovou nabídku
             </a>
-            <a href="#postup" className="btn-ghost">
+            <a href="#postup" className="btn-ghost w-full sm:w-auto">
               Jak to probíhá
             </a>
+          </div>
+        </div>
+
+        {/* Decorative video collage. Purely visual: not clickable and not
+            zoomable; tiles crop via object-cover so they sit neatly side by side. */}
+        <div className="order-2 fade-up md:order-1" aria-hidden="true">
+          <div className="flex gap-3 sm:gap-4">
+            <div className="flex flex-1 flex-col gap-3 sm:gap-4">
+              <VideoTile video={VIDEOS[0]} />
+              <VideoTile video={VIDEOS[1]} />
+            </div>
+            <div className="flex flex-1 flex-col gap-3 pt-8 sm:gap-4 sm:pt-12">
+              <VideoTile video={VIDEOS[2]} />
+              <VideoTile video={VIDEOS[3]} />
+            </div>
           </div>
         </div>
       </div>
@@ -109,10 +110,8 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
   );
 }
 
-/** Hero photo collage - replace `src` with real photo paths (e.g. files in
- *  public/reference/) and the placeholder tiles play the clip automatically. */
-type Photo = { src?: string; tone: string; position?: string };
-const PHOTOS: Photo[] = [
+type Video = { src: string; position?: string; tone: string };
+const VIDEOS: Video[] = [
   {
     src: fasada1,
     position: "top",
@@ -135,30 +134,42 @@ const PHOTOS: Photo[] = [
   },
 ];
 
-function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
-  // Brand tint over each clip: pink on the 1st and 4th tiles, blue on 2nd/3rd.
-  const overlay =
-    index === 0 || index === 3 ? BRAND_GRADIENT.pink : BRAND_GRADIENT.blue;
+function VideoTile({ video }: { video: Video }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const reduced = usePrefersReducedMotion();
+
+  // The four clips total several MB - defer playback (and the bulk of the
+  // download, thanks to preload="metadata") until the tile is on screen, and
+  // pause again off-screen. Under reduced-motion the clips never play; the
+  // poster frame from the metadata load stands in as a still.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduced]);
+
   return (
     <div
-      className="relative aspect-[4/5] w-full select-none overflow-hidden rounded-[16px] border"
-      style={{ borderColor: "var(--color-eucalyptus)", background: photo.tone }}
+      className="relative aspect-[4/5] w-full select-none overflow-hidden rounded-[12px] border"
+      style={{ borderColor: "var(--color-eucalyptus)", background: video.tone }}
     >
-      {photo.src && (
-        <video
-          src={photo.src}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover"
-          style={{ objectPosition: photo.position }}
-        />
-      )}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{ background: overlay, opacity: 0.25 }}
+      <video
+        ref={ref}
+        src={video.src}
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-cover"
+        style={{ objectPosition: video.position }}
       />
     </div>
   );

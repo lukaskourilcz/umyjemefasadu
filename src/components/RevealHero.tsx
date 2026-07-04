@@ -85,9 +85,11 @@ export default function RevealHero({ before, after, label }: Props) {
     <section
       ref={trackRef}
       aria-label="Porovnání fasády před vyčištěním a po vyčištění"
-      className="relative"
-      // ~1 viewport of scroll to complete the reveal (collapsed when reduced).
-      style={{ height: reduced ? "auto" : "200vh" }}
+      // Short scroll track: the reveal completes in well under one extra
+      // viewport so the value proposition below arrives quickly (shorter
+      // still on phones, where scroll distance is expensive).
+      className={`relative ${reduced ? "" : "h-[130svh] md:h-[160vh]"}`}
+      style={reduced ? { height: "auto" } : undefined}
     >
       <div
         ref={panelRef}
@@ -123,11 +125,11 @@ export default function RevealHero({ before, after, label }: Props) {
             edge with a clamp so it stays far-left on desktop yet never clips on
             smaller screens. */}
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[6px] pr-4 md:pl-[16px] lg:pl-[40px]">
-          <h2
-            className="rise-in font-akkurat flex flex-col items-start gap-0 font-bold uppercase"
+          <h1
+            className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
             style={{
               fontSize: "clamp(42px, 11vw, 72px)",
-              lineHeight: 0.75,
+              lineHeight: 0.78,
               letterSpacing: "-0.03em",
               textShadow: "0 2px 20px rgba(16,24,32,0.55)",
               // Darker (10%) over the dirty photo, brightening to white as the
@@ -145,7 +147,7 @@ export default function RevealHero({ before, after, label }: Props) {
             <span className="px-[0.32em] py-[0.22em]" style={HEADLINE_GLASS}>
               vaši fasádu
             </span>
-          </h2>
+          </h1>
         </div>
 
         {/* Horizontal divider tracking the reveal edge */}
@@ -215,17 +217,20 @@ export default function RevealHero({ before, after, label }: Props) {
             }}
           />
           <div className="container-page relative flex items-end justify-between gap-4 pb-8">
-            {label && (
-              <p
-                className="font-akkurat font-bold text-cream-paper"
-                style={{
-                  fontSize: "clamp(15px, 2.5vw, 19px)",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                {label}
-              </p>
-            )}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Primary conversion path, available in the very first viewport. */}
+              <a href="#kontakt" className="btn-primary pointer-events-auto">
+                Nezávazná poptávka
+              </a>
+              {label && (
+                <p
+                  className="font-bold text-cream-paper"
+                  style={{ fontSize: "clamp(15px, 2.5vw, 19px)" }}
+                >
+                  {label}
+                </p>
+              )}
+            </div>
             {!reduced && (
               <span
                 className="micro-label flex items-center gap-2 text-cream-paper"

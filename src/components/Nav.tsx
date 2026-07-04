@@ -7,6 +7,8 @@ const LINKS = [
   { href: "#postup", label: "Postup" },
   { href: "#proc-my", label: "Proč my" },
   { href: "#galerie", label: "Reference" },
+  { href: "#cenik", label: "Ceník" },
+  { href: "#kontakt", label: "Kontakt" },
 ];
 
 export default function Nav() {
@@ -35,7 +37,7 @@ export default function Nav() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const mq = window.matchMedia("(min-width: 1024px)");
+    const mq = window.matchMedia("(min-width: 1200px)");
     const onChange = () => mq.matches && setOpen(false);
     window.addEventListener("keydown", onKey);
     mq.addEventListener("change", onChange);
@@ -61,14 +63,13 @@ export default function Nav() {
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
-        {/* Brand mark - anchored 120px from the left, gently levitating like a
-            cloud, with a soft drop-shadow. Full size (172px) on tablet and up;
-            scaled down only on phones (<768px). Absolute → no effect on the bar
-            height (--nav-h); pointer-events on the link only. */}
+        {/* Brand mark - absolute → no effect on the bar height (--nav-h);
+            pointer-events on the link only. Full size (180px) on tablet and up;
+            scaled down only on phones (<768px). */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="logo-float pointer-events-none absolute left-[5px] top-[-5px] z-10 opacity-[0.95] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
+          className="pointer-events-none absolute left-[5px] top-[-5px] z-10 opacity-[0.95] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
         >
           <Logo
             source="nav"
@@ -83,12 +84,12 @@ export default function Nav() {
 
         {/* Center - nav links, shown from 1200px where the full-size logo clears
             them; below that the hamburger takes over. */}
-        <div className="hidden flex-1 items-center justify-center gap-7 lg:flex">
+        <div className="hidden flex-1 items-center justify-center gap-7 min-[1200px]:flex">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="font-akkurat whitespace-nowrap font-bold text-botanical-ink/80 transition-colors hover:text-botanical-ink"
+              className="whitespace-nowrap font-bold text-botanical-ink/80 transition-colors hover:text-botanical-ink"
               style={{ fontSize: "14px" }}
             >
               {l.label}
@@ -108,7 +109,7 @@ export default function Nav() {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border min-[1200px]:hidden"
             style={{ borderColor: "var(--color-eucalyptus)" }}
             aria-label={open ? "Zavřít menu" : "Otevřít menu"}
             aria-expanded={open}
@@ -140,7 +141,7 @@ export default function Nav() {
       <div
         id="mobile-menu"
         ref={panelRef}
-        className="overflow-hidden transition-[max-height] duration-300 ease-out lg:hidden"
+        className="overflow-hidden transition-[max-height] duration-300 ease-out min-[1200px]:hidden"
         style={{ maxHeight: open ? "420px" : "0px" }}
       >
         <div className="container-page flex flex-col gap-1 pb-5">
@@ -149,7 +150,7 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-akkurat border-b py-3 font-bold text-botanical-ink/80"
+              className="border-b py-3 font-bold text-botanical-ink/80"
               style={{ fontSize: "16px", borderColor: "var(--color-lichen)" }}
             >
               {l.label}

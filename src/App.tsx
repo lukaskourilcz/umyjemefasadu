@@ -9,8 +9,11 @@ import TrustStrip from "./components/TrustStrip";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import WhyUs from "./components/WhyUs";
-import Gallery from "./components/Gallery";
 import Stats from "./components/Stats";
+import Team from "./components/Team";
+import References from "./components/References";
+import Pricing from "./components/Pricing";
+import Advice from "./components/Advice";
 import OrderProcess from "./components/OrderProcess";
 import Faq from "./components/Faq";
 import Contact from "./components/Contact";
@@ -25,20 +28,21 @@ export default function App() {
     <>
       <Nav />
       <main>
-        <RevealHero
-          before={dirtyHero}
-          after={cleanHero}
-          label=""
-        />
+        <RevealHero before={dirtyHero} after={cleanHero} />
         <Hero backdrop={<Landscape className="h-full w-full" />} />
         <TrustStrip />
         <Services />
         <Process />
         <WhyUs />
-        <Gallery />
         <Stats />
+        <Team />
+        {/* Gallery (before/after sliders) is intentionally unmounted until real
+            paired photos exist - see src/components/Gallery.tsx */}
+        <References />
+        <Pricing />
         <OrderProcess />
         <Faq />
+        <Advice />
         <Contact />
       </main>
       <Footer />

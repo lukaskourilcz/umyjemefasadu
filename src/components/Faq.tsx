@@ -26,52 +26,44 @@ const FAQ = [
 
 export default function Faq() {
   return (
-    <section
-      className="scroll-mt-24 py-20 md:py-28"
-      style={{
-        background: "linear-gradient(160deg, #fef7fa 0%, #fcedf4 100%)",
-      }}
-    >
+    <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading label="" title="Co se nejčastěji ptáte" />
+        <SectionHeading title="Co se nejčastěji ptáte" />
 
-        <div className="mx-auto mt-12 flex max-w-[820px] flex-col gap-3">
-          {FAQ.map((item, i) => (
+        {/* Divider list - the calmest section on the page. */}
+        <div
+          className="mx-auto mt-12 flex max-w-[820px] flex-col border-t fade-up"
+          style={{ borderColor: "var(--color-eucalyptus)" }}
+        >
+          {FAQ.map((item) => (
             <details
               key={item.q}
-              className="group fade-up rounded-[20px] border"
-              style={{
-                backgroundColor: "var(--color-cream-paper)",
-                borderColor: "var(--color-eucalyptus)",
-                transitionDelay: `${i * 50}ms`,
-              }}
+              className="group border-b"
+              style={{ borderColor: "var(--color-eucalyptus)" }}
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-6">
                 <span
-                  className="font-akkurat font-bold text-botanical-ink"
-                  style={{ fontSize: "18px", letterSpacing: "-0.04em" }}
+                  className="font-bold text-botanical-ink"
+                  style={{ fontSize: "18px", fontFamily: "var(--font-display)" }}
                 >
                   {item.q}
                 </span>
-                <span
-                  className="grid h-7 w-7 shrink-0 place-items-center rounded-full transition-transform duration-300 group-open:rotate-45"
-                  style={{ backgroundColor: "var(--color-moss-veil)" }}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 14 14"
                   aria-hidden="true"
+                  className="shrink-0 transition-transform duration-300 group-open:rotate-45"
                 >
-                  <svg width="14" height="14" viewBox="0 0 14 14">
-                    <path
-                      d="M7 2 V12 M2 7 H12"
-                      stroke="#101820"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </span>
+                  <path
+                    d="M7 2 V12 M2 7 H12"
+                    stroke="#101820"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </summary>
-              <p
-                className="font-akkurat px-6 pb-6 text-botanical-ink/75"
-                style={TEXT.body}
-              >
+              <p className="pb-6 pr-8 text-botanical-ink/75" style={TEXT.body}>
                 {item.a}
               </p>
             </details>

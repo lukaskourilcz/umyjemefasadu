@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 /*
-  Adaline - "botanical journal at dawn"
-  Design tokens mapped to Tailwind v4 theme.
-  Akkurat substituted with Inter; Fragment Mono loaded from Google Fonts.
+  Umyjeme Fasádu design tokens (Tailwind v4 theme).
+  Body: Inter. Display (headings): Space Grotesk. Mono: Fragment Mono.
+  Note: color token names (botanical-ink, moss-veil, ...) are legacy names
+  from the original theme; the values are the current brand palette.
 */
 @theme {
   /*
@@ -26,16 +27,16 @@
   /* Typography - families */
   --font-akkurat: "Inter", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui,
+    sans-serif;
   --font-fragment-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo,
     Monaco, Consolas, monospace;
 
-  /* Typography - scale (only the steps the component layer actually uses) */
+  /* Typography - fluid scale (only the steps the component layer uses) */
   --text-body-sm: 14px;
   --text-body-sm--line-height: 1.43;
-  --text-body-sm--letter-spacing: -0.56px;
-  --text-body: 18px;
-  --text-body--line-height: 1.67;
-  --text-body--letter-spacing: -0.72px;
+  --text-body: clamp(16px, 1.1vw + 12px, 18px);
+  --text-body--line-height: 1.65;
 
   /* Spacing */
   --spacing-8: 8px;
@@ -48,8 +49,8 @@
   --spacing-128: 128px;
   --spacing-160: 160px;
 
-  /* Radii */
-  --radius-control: 20px;
+  /* Radii - crisp corners; big pill radii read generic */
+  --radius-control: 12px;
 
   /* Shadow - the single permitted ring (cyan-tinted) */
   --shadow-subtle: rgba(27, 165, 224, 0.12) 0px 0px 0px 1px;
@@ -58,11 +59,6 @@
 @layer base {
   :root {
     --page-max: 1200px;
-  }
-
-  * {
-    /* The tight tracking is Akkurat's signature density. */
-    letter-spacing: -0.04em;
   }
 
   html {
@@ -77,11 +73,20 @@
     color: var(--color-botanical-ink);
     font-family: var(--font-akkurat);
     font-size: var(--text-body);
-    line-height: 1.67;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
     font-feature-settings: "calt", "kern";
   }
 
-  /* Fragment Mono never gets the Akkurat tracking. */
+  /* Headings carry the display face; tight tracking stays heading-only. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
   .font-fragment-mono {
     letter-spacing: 0.02em;
   }
@@ -164,25 +169,19 @@
     color: var(--color-cream-paper);
   }
 
-  /* Tag / badge - the only green fill, used small */
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--color-moss-veil);
-    color: var(--color-botanical-ink);
-    border-radius: 9999px;
-    padding: 4px 12px;
-    font-family: var(--font-fragment-mono);
-    font-size: var(--text-body-sm);
-    letter-spacing: 0.02em;
+  /* Form field on the dark contact panel */
+  .input-dark {
+    background-color: rgba(251, 253, 254, 0.07);
+    border: 1px solid rgba(251, 253, 254, 0.18);
+    border-radius: 12px;
+    color: var(--color-cream-paper);
+    padding: 12px 16px;
+    /* 16px+ prevents iOS focus zoom */
+    font-size: 16px;
+    font-family: var(--font-akkurat);
   }
-
-  /* Card surface - border defines edge, not elevation */
-  .card {
-    background-color: var(--color-cream-paper);
-    border: 1px solid var(--color-eucalyptus);
-    border-radius: var(--radius-control);
-    padding: 32px;
+  .input-dark::placeholder {
+    color: rgba(251, 253, 254, 0.4);
   }
 }
 
@@ -195,21 +194,6 @@
   .fade-up.in-view {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* Gentle cloud-like levitation for the nav logo */
-  @keyframes logo-float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-7px);
-    }
-  }
-  .logo-float {
-    animation: logo-float 6s ease-in-out infinite;
-    will-change: transform;
   }
 
   /* Opening entrance — fade + rise, runs once on load */
@@ -227,6 +211,36 @@
     animation: rise-in 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  /* Rotating customer quote - each swap re-runs the entrance. */
+  @keyframes quote-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .quote-in {
+    animation: quote-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Story-style progress segment for the card carousels; duration is set
+     inline to match the slide interval. */
+  @keyframes progress-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  .progress-fill {
+    transform-origin: left;
+    animation: progress-fill linear both;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -236,8 +250,12 @@
       transform: none;
       transition: none;
     }
-    .logo-float,
-    .rise-in {
+    .rise-in,
+    .quote-in {
+      animation: none;
+    }
+    /* Static full segment marks the active photo instead of a filling bar. */
+    .progress-fill {
       animation: none;
     }
   }
