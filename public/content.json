@@ -183,12 +183,7 @@
         "desc": "Nakonec naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot na dlouhé roky."
       }
     ],
-    "methods": [
-      {
-        "title": "Tlakové mytí horkou vodou",
-        "desc": "Fasádu umyjeme vodou pod regulovaným tlakem. Tlak pečlivě hlídáme a trysky volíme podle typu podkladu tak, abychom povrch nepoškodili."
-      }
-    ]
+    "methods": []
   },
   "whyUs": {
     "heading": "Špinavá fasáda nemusí znamenat novou omítku!",

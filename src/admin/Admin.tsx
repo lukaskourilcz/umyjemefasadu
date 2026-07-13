@@ -93,19 +93,44 @@ function externalizeMedia(node: Json, uploads: { path: string; dataUrl: string }
   return node;
 }
 
+/** Krátký otisk obsahu — koncept se váže ke konkrétní publikované verzi. */
+function fingerprint(value: unknown): string {
+  const s = JSON.stringify(value);
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+  return String(h);
+}
+
+// Otisk aktuálně publikované verze; nastavuje se při načtení administrace
+// a po každé publikaci.
+let draftBase = "";
+
 function saveDraft(content: Content) {
   try {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(content));
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ base: draftBase, content }));
     return true;
   } catch {
     return false; // nejspíš překročena kapacita (velká videa)
   }
 }
 
-function loadDraft(): Content | null {
+/**
+ * Načte rozpracovaný koncept — ale jen pokud vznikl nad AKTUÁLNĚ publikovanou
+ * verzí obsahu. Zastaralý koncept (např. z okna otevřeného před poslední
+ * publikací) se zahodí; jinak by „Uložit a publikovat" tiše vrátilo na web
+ * už smazaný nebo přepsaný obsah.
+ */
+function loadDraft(initial: Content): Content | null {
+  draftBase = fingerprint(initial);
   try {
     const raw = localStorage.getItem(DRAFT_KEY);
-    return raw ? (JSON.parse(raw) as Content) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { base?: string; content?: Content };
+    if (!parsed || typeof parsed !== "object" || parsed.base !== draftBase) {
+      localStorage.removeItem(DRAFT_KEY);
+      return null;
+    }
+    return parsed.content ?? null;
   } catch {
     return null;
   }
@@ -265,7 +290,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
   const narrow = useNarrow();
 
   const [content, setContent] = useState<Content>(() => {
-    const draft = loadDraft();
+    const draft = loadDraft(initialContent);
     return draft ?? clone(initialContent);
   });
   const [status, setStatus] = useState<{ kind: "idle" | "ok" | "err" | "busy"; msg: string }>({
@@ -314,7 +339,9 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
       if (!res.ok) {
         throw new Error(data?.error || `Chyba serveru (${res.status})`);
       }
-      // Po publikaci pracujeme dál s cestami místo data URL.
+      // Po publikaci pracujeme dál s cestami místo data URL a koncept se
+      // váže k právě publikované verzi.
+      draftBase = fingerprint(out);
       setContent(out);
       saveDraft(out);
       setStatus({

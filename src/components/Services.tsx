@@ -178,11 +178,12 @@ export default function Services() {
   const { heading, intro, featured, tintCards, photoCards } =
     useContent().services;
 
-  // Bento se dopočítává podle počtu karet, aby mřížka nikdy nenechala díru:
-  // sm má 2 sloupce (featured přes oba), lg 3 sloupce s featured 2×2.
+  // Bento: první řádek = velká featured karta (2 sloupce) + jedna menší
+  // vedle ní; druhý řádek = tři stejně velké karty. Poslední karta se
+  // dopočítává podle počtu, aby mřížka nikdy nenechala díru.
   const total = tintCards.length + photoCards.length;
   const smLast = total % 2 === 1 ? "sm:col-span-2" : "";
-  const lgRemainder = (total - 2) % 3;
+  const lgRemainder = (total - 1) % 3;
   const lgLast =
     lgRemainder === 2
       ? "lg:col-span-2"
@@ -196,13 +197,12 @@ export default function Services() {
       <div className="container-page">
         <SectionHeading title={heading} intro={intro} />
 
-        {/* Bento - the flagship service is a full-bleed photo cell; two
-            supporting services sit on tinted surfaces beside it, three more
-            photo cells close the grid. No breakpoint leaves an orphan. */}
+        {/* Bento - řádek 1: velká featured karta + jedna menší vedle;
+            řádek 2: tři stejné foto karty. No breakpoint leaves an orphan. */}
         <div className="mt-12 grid grid-cols-1 gap-4 fade-up sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {/* Featured */}
           <article
-            className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:row-span-2 lg:min-h-0"
+            className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:min-h-0"
           >
             <img
               src={featured.image}
