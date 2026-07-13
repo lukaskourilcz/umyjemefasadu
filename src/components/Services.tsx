@@ -177,6 +177,20 @@ const TINT_BG = ["var(--color-moss-veil)", "var(--color-lichen)"];
 export default function Services() {
   const { heading, intro, featured, tintCards, photoCards } =
     useContent().services;
+
+  // Bento se dopočítává podle počtu karet, aby mřížka nikdy nenechala díru:
+  // sm má 2 sloupce (featured přes oba), lg 3 sloupce s featured 2×2.
+  const total = tintCards.length + photoCards.length;
+  const smLast = total % 2 === 1 ? "sm:col-span-2" : "";
+  const lgRemainder = (total - 2) % 3;
+  const lgLast =
+    lgRemainder === 2
+      ? "lg:col-span-2"
+      : lgRemainder === 1
+        ? "lg:col-span-3"
+        : "lg:col-span-1";
+  const lastCardClass = `${smLast} ${lgLast}`.trim();
+
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
@@ -239,9 +253,7 @@ export default function Services() {
               alt={card.alt}
               title={card.title}
               desc={card.desc}
-              className={
-                i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
-              }
+              className={i === photoCards.length - 1 ? lastCardClass : ""}
             />
           ))}
         </div>
