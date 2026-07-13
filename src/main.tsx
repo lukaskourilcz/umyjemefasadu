@@ -7,7 +7,9 @@ import { ContentProvider, loadContent } from "./content";
 const root = createRoot(document.getElementById("root")!);
 
 // Administrace žije na /dev — načítá se jen tam, na běžný web nepřidává váhu.
-const isAdmin = window.location.pathname.replace(/\/+$/, "") === "/dev";
+// Toleruje koncové lomítko i velikost písmen (/dev, /dev/, /DEV).
+const isAdmin =
+  window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/dev";
 
 async function boot() {
   const content = await loadContent();
