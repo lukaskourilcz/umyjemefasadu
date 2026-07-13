@@ -200,7 +200,7 @@ export default function References() {
           {STUDIES.map((s, si) => (
             <article
               key={`${s.type}-${s.city}-${si}`}
-              className="flex flex-col overflow-hidden rounded-[14px] border"
+              className="card-hover flex flex-col overflow-hidden rounded-[14px] border"
               style={{
                 borderColor: "var(--color-eucalyptus)",
                 backgroundColor: "var(--color-cream-paper)",

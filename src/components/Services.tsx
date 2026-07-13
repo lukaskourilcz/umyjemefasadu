@@ -111,7 +111,7 @@ function PhotoCard({
 }) {
   return (
     <article
-      className={`flex flex-col overflow-hidden rounded-[14px] border ${className}`}
+      className={`card-hover flex flex-col overflow-hidden rounded-[14px] border ${className}`}
       style={{
         borderColor: "var(--color-eucalyptus)",
         backgroundColor: "var(--color-cream-paper)",
