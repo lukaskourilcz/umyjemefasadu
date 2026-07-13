@@ -26,22 +26,23 @@ type Props = {
   label?: string;
 };
 
+// „Před vyčištěním" — šedý štítek: signalizuje špinavý, zašlý stav.
 const LABEL_STYLE = {
   fontSize: "clamp(11px, 1.75vw, 17px)",
   color: "var(--color-cream-paper)",
   textShadow: "0 1px 6px rgba(16,24,32,0.4)",
-  // Frosted-glass highlight in the secondary (water) accent, blurring the
-  // photo behind it. Follows the theme colors set in /dev.
-  backgroundColor: "color-mix(in srgb, var(--color-forest-floor) 55%, transparent)",
+  backgroundColor: "rgba(95,104,112,0.6)",
   backdropFilter: "blur(8px)",
   WebkitBackdropFilter: "blur(8px)",
 } as const;
 
-// "Po vyčištění" variant — primary (brand) fill, so the label shifts from the
-// water accent to the brand color as the clean photo wipes in.
+// „Po vyčištění" — štítek se s odhalením čisté fotky prosvětlí do žluté,
+// takže přechod šedá → žlutá signalizuje umytí do čista.
 const LABEL_STYLE_AFTER = {
   ...LABEL_STYLE,
-  backgroundColor: "color-mix(in srgb, var(--color-warm-loam) 55%, transparent)",
+  color: "var(--color-botanical-ink)",
+  textShadow: "none",
+  backgroundColor: "rgba(245,194,52,0.75)",
 } as const;
 
 // Glass applied per headline line so the blur sits only behind the text,
@@ -221,8 +222,9 @@ export default function RevealHero({ before, after, label }: Props) {
           />
           <div className="container-page relative flex items-end justify-between gap-4 pb-8">
             <div className="flex flex-wrap items-center gap-3">
-              {/* Primary conversion path, available in the very first viewport. */}
-              <a href="#kontakt" className="btn-primary pointer-events-auto">
+              {/* Konverzní tlačítko jen na telefonech - od sm výš už stejné
+                  tlačítko drží lepicí lišta nahoře, dvakrát ho tu nechceme. */}
+              <a href="#kontakt" className="btn-primary pointer-events-auto sm:hidden">
                 {rh.cta}
               </a>
               {label && (
