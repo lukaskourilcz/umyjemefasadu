@@ -1,23 +1,12 @@
 import SectionHeading from "./SectionHeading";
-
-// TODO: nahraďte skutečnými orientačními cenami.
-const ROWS = [
-  { service: "Mytí a čištění fasád", price: "od 95 Kč/m²", note: "dle znečištění a výšky objektu" },
-  { service: "Čištění střech", price: "od 120 Kč/m²", note: "dle typu krytiny" },
-  { service: "Čištění dlažby a chodníků", price: "od 60 Kč/m²", note: "včetně spár" },
-  { service: "Odstranění graffiti", price: "od 350 Kč/m²", note: "dle podkladu a barvy" },
-  { service: "Nanoimpregnace", price: "od 85 Kč/m²", note: "ochrana 5–10 let" },
-  { service: "Nátěry a opravy fasád", price: "individuálně", note: "dle rozsahu" },
-];
+import { useContent } from "../content";
 
 export default function Pricing() {
+  const { heading, intro, rows: ROWS, footnote, cta } = useContent().pricing;
   return (
     <section id="cenik" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading
-          title="Orientační ceník"
-          intro="Přesnou cenu stanovíme po prohlídce zdarma - záleží na typu povrchu, míře znečištění a přístupu k objektu."
-        />
+        <SectionHeading title={heading} intro={intro} />
 
         <div
           className="mx-auto mt-12 max-w-[860px] border-t fade-up"
@@ -55,11 +44,10 @@ export default function Pricing() {
 
         <div className="mx-auto mt-8 flex max-w-[860px] flex-col items-start gap-6 fade-up sm:flex-row sm:items-center sm:justify-between">
           <p className="text-botanical-ink/60" style={{ fontSize: "14px" }}>
-            Ceny jsou orientační, bez DPH. Přesnou nabídku připravíme po
-            bezplatné prohlídce objektu.
+            {footnote}
           </p>
           <a href="#kontakt" className="btn-ghost shrink-0">
-            Chci přesnou nabídku
+            {cta}
           </a>
         </div>
       </div>

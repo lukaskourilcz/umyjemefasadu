@@ -1,17 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import { useScrolledPast } from "../hooks/useScrolledPast";
-
-const LINKS = [
-  { href: "#sluzby", label: "Služby" },
-  { href: "#postup", label: "Postup" },
-  { href: "#proc-my", label: "Proč my" },
-  { href: "#galerie", label: "Reference" },
-  { href: "#cenik", label: "Ceník" },
-  { href: "#kontakt", label: "Kontakt" },
-];
+import { useContent } from "../content";
 
 export default function Nav() {
+  const { nav } = useContent();
+  const LINKS = nav.links;
   const scrolled = useScrolledPast(12);
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -103,7 +97,7 @@ export default function Nav() {
             href="#kontakt"
             className="btn-primary hidden whitespace-nowrap px-6 py-3 sm:inline-flex"
           >
-            Nezávazná poptávka
+            {nav.cta}
           </a>
 
           {/* Mobile hamburger */}
@@ -163,7 +157,7 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             className="btn-primary mt-4 w-full sm:hidden"
           >
-            Nezávazná poptávka
+            {nav.cta}
           </a>
         </div>
       </div>

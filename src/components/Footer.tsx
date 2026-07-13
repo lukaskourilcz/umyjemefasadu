@@ -1,17 +1,10 @@
 import { useRef } from "react";
 import Logo from "./Logo";
-import { CONTACT } from "../lib/constants";
-
-const LINKS = [
-  { href: "#sluzby", label: "Služby" },
-  { href: "#postup", label: "Postup" },
-  { href: "#proc-my", label: "Proč my" },
-  { href: "#galerie", label: "Reference" },
-  { href: "#cenik", label: "Ceník" },
-  { href: "#kontakt", label: "Kontakt" },
-];
+import { useContent, phoneHref, emailHref } from "../content";
 
 export default function Footer() {
+  const { business, nav, footer } = useContent();
+  const LINKS = nav.links;
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   return (
@@ -54,21 +47,21 @@ export default function Footer() {
 
           <div className="flex flex-col gap-2 md:items-end md:pt-2 md:text-right">
             <a
-              href={CONTACT.phoneHref}
+              href={phoneHref(business.phone)}
               className="font-fragment-mono text-botanical-ink/70 hover:text-botanical-ink"
               style={{ fontSize: "14px", letterSpacing: "0.02em" }}
             >
-              {CONTACT.phoneDisplay}
+              {business.phone}
             </a>
             <a
-              href={CONTACT.emailHref}
+              href={emailHref(business.email)}
               className="font-fragment-mono text-botanical-ink/70 hover:text-botanical-ink"
               style={{ fontSize: "14px", letterSpacing: "0.02em" }}
             >
-              {CONTACT.email}
+              {business.email}
             </a>
             <span className="micro-label text-botanical-ink/50">
-              Po–Pá 7:00–18:00
+              {business.hours}
             </span>
           </div>
         </div>
@@ -78,18 +71,20 @@ export default function Footer() {
           style={{ borderColor: "var(--color-lichen)" }}
         >
           <span className="micro-label text-botanical-ink/60">
-            {/* TODO: doplňte skutečné IČO, DIČ, sídlo a spisovou značku. */}
-            © {new Date().getFullYear()} Umyjeme Fasádu s.r.o. · IČO 00000000 ·
-            DIČ CZ00000000
-            <br />
-            Lorem ipsum 123, 602 00 Brno · sp. zn. C 00000 vedená u KS v Brně
+            © {new Date().getFullYear()}{" "}
+            {footer.legalLine.split("\n").map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </span>
           <button
             type="button"
             onClick={() => dialogRef.current?.showModal()}
             className="micro-label self-start text-botanical-ink/60 underline underline-offset-4 hover:text-botanical-ink md:self-auto"
           >
-            Ochrana osobních údajů
+            {footer.privacyLabel}
           </button>
         </div>
       </div>
@@ -105,19 +100,17 @@ export default function Footer() {
       >
         <div className="flex flex-col gap-4 p-7 md:p-9">
           <h2 style={{ fontSize: "22px", fontWeight: 700 }}>
-            Zásady ochrany osobních údajů
+            {footer.privacyTitle}
           </h2>
-          {/* TODO: nahraďte skutečnými zásadami zpracování osobních údajů. */}
-          <p style={{ fontSize: "15px", lineHeight: 1.6 }} className="text-botanical-ink/75">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Správcem
-            osobních údajů je Umyjeme Fasádu s.r.o. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
-          </p>
-          <p style={{ fontSize: "15px", lineHeight: 1.6 }} className="text-botanical-ink/75">
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat. Osobní údaje zpracováváme
-            výhradně za účelem vyřízení poptávky.
-          </p>
+          {footer.privacyBody.map((para, i) => (
+            <p
+              key={i}
+              style={{ fontSize: "15px", lineHeight: 1.6 }}
+              className="text-botanical-ink/75"
+            >
+              {para}
+            </p>
+          ))}
           <form method="dialog" className="mt-2 self-end">
             <button className="btn-ghost">Zavřít</button>
           </form>

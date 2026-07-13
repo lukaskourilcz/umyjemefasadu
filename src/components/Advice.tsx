@@ -1,38 +1,15 @@
 import SectionHeading from "./SectionHeading";
-
-// TODO: až vzniknou skutečné články, doplňte odkazy a odstraňte štítek "Připravujeme".
-const ARTICLES = [
-  {
-    no: "01",
-    title: "Kdy je správný čas umýt fasádu",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    no: "02",
-    title: "Plíseň, nebo řasa? Jak je poznat",
-    excerpt:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    no: "03",
-    title: "Jak funguje nanoimpregnace",
-    excerpt:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-];
+import { useContent } from "../content";
 
 export default function Advice() {
+  const { heading, intro, badge, articles: ARTICLES } = useContent().advice;
   return (
     <section
       className="scroll-mt-24 py-20 md:py-28"
       style={{ backgroundColor: "var(--color-sage-mist)" }}
     >
       <div className="container-page">
-        <SectionHeading
-          title="Rady a návody"
-          intro="Co byste měli vědět o fasádě, střeše i dlažbě, než nás zavoláte."
-        />
+        <SectionHeading title={heading} intro={intro} />
 
         {/* Editorial columns - hairline rules instead of card chrome. */}
         <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-10 fade-up md:grid-cols-3">
@@ -50,7 +27,7 @@ export default function Advice() {
                   {a.no}
                 </span>
                 <span className="micro-label text-botanical-ink/45">
-                  Připravujeme
+                  {badge}
                 </span>
               </div>
               <h3

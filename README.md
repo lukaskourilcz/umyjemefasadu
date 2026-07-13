@@ -23,6 +23,18 @@ Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 - Bez externích obrázků — motiv vody i ikony jsou inline SVG, logo je
   optimalizované SVG vložené přes Vite `?raw`
 
+## Administrace obsahu (`/dev`)
+
+Web má vestavěnou administraci pro úpravu **všech textů a fotek/videí** bez
+programování — dostupná na adrese `/<web>/dev`, heslo `fasada`.
+
+- Veškerý obsah je v `public/content.json`; web ho čte za běhu (`useContent()`).
+- Administrace (`src/admin/`) ukládá změny přes serverless funkci
+  `api/save.js`, která je commitne do repozitáře → Vercel web sám znovu nasadí.
+- Podrobný návod pro majitele i jednorázové nastavení Vercelu (proměnné
+  `GITHUB_TOKEN`, `GITHUB_REPO`, `ADMIN_PASSWORD`) je v
+  [`docs/ADMINISTRACE.md`](docs/ADMINISTRACE.md).
+
 ## Vývoj
 
 ```bash

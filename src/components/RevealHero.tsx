@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { clamp } from "../lib/utils";
+import { useContent } from "../content";
 
 /**
  * Scroll-driven before/after hero.
@@ -51,6 +52,7 @@ const HEADLINE_GLASS = {
 } as const;
 
 export default function RevealHero({ before, after, label }: Props) {
+  const rh = useContent().revealHero;
   const trackRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -138,15 +140,15 @@ export default function RevealHero({ before, after, label }: Props) {
                 "color-mix(in srgb, #e2e4e5, #fbfdfe calc(var(--p, 0) * 100%))",
             }}
           >
-            <span className="px-[0.32em] py-[0.22em]" style={HEADLINE_GLASS}>
-              Poskytneme
-            </span>
-            <span className="px-[0.32em] py-[0.22em]" style={HEADLINE_GLASS}>
-              lesk pro
-            </span>
-            <span className="px-[0.32em] py-[0.22em]" style={HEADLINE_GLASS}>
-              vaši fasádu
-            </span>
+            {rh.headlineLines.map((line, i) => (
+              <span
+                key={i}
+                className="px-[0.32em] py-[0.22em]"
+                style={HEADLINE_GLASS}
+              >
+                {line}
+              </span>
+            ))}
           </h1>
         </div>
 
@@ -179,13 +181,13 @@ export default function RevealHero({ before, after, label }: Props) {
               className="micro-label absolute right-0 top-0 whitespace-nowrap rounded-l-full py-2 pl-3.5 pr-1.5 font-bold"
               style={LABEL_STYLE}
             >
-              Před
+              {rh.labelBeforePrefix}
             </span>
             <span
               className="micro-label absolute left-0 top-0 whitespace-nowrap rounded-r-full py-2 pl-1.5 pr-3.5 font-bold"
               style={LABEL_STYLE}
             >
-              vyčištěním
+              {rh.labelBeforeSuffix}
             </span>
           </div>
           <div
@@ -196,13 +198,13 @@ export default function RevealHero({ before, after, label }: Props) {
               className="micro-label absolute right-0 top-0 whitespace-nowrap rounded-l-full py-2 pl-3.5 pr-1.5 font-bold"
               style={LABEL_STYLE_AFTER}
             >
-              Po
+              {rh.labelAfterPrefix}
             </span>
             <span
               className="micro-label absolute left-0 top-0 whitespace-nowrap rounded-r-full py-2 pl-1.5 pr-3.5 font-bold"
               style={LABEL_STYLE_AFTER}
             >
-              vyčištění
+              {rh.labelAfterSuffix}
             </span>
           </div>
         </div>
@@ -220,7 +222,7 @@ export default function RevealHero({ before, after, label }: Props) {
             <div className="flex flex-wrap items-center gap-3">
               {/* Primary conversion path, available in the very first viewport. */}
               <a href="#kontakt" className="btn-primary pointer-events-auto">
-                Nezávazná poptávka
+                {rh.cta}
               </a>
               {label && (
                 <p
@@ -236,7 +238,7 @@ export default function RevealHero({ before, after, label }: Props) {
                 className="micro-label flex items-center gap-2 text-cream-paper"
                 style={{ opacity: "calc(1 - var(--p))" }}
               >
-                Skrolujte
+                {rh.scrollCue}
                 <svg
                   width="14"
                   height="20"

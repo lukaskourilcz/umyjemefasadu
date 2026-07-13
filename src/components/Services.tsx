@@ -1,9 +1,6 @@
 import { useState } from "react";
 import SectionHeading from "./SectionHeading";
-import pic5 from "../assets/pic5.webp";
-import pic7 from "../assets/pic7.webp";
-import pic9 from "../assets/pic9.webp";
-import pic10 from "../assets/pic10.webp";
+import { useContent } from "../content";
 
 const stroke = {
   fill: "none",
@@ -161,26 +158,41 @@ function TintCard({
   );
 }
 
+// Ikony dlaždicových karet zůstávají v kódu (nejsou editovatelné); text ano.
+const TINT_ICONS: JSX.Element[] = [
+  <svg width="32" height="32" viewBox="0 0 28 28">
+    <rect x="4" y="4" width="8" height="8" rx="1.5" {...stroke} />
+    <rect x="16" y="4" width="8" height="8" rx="1.5" {...stroke} />
+    <rect x="4" y="16" width="8" height="8" rx="1.5" {...stroke} />
+    <rect x="16" y="16" width="8" height="8" rx="1.5" {...stroke} />
+  </svg>,
+  <svg width="32" height="32" viewBox="0 0 28 28">
+    <rect x="5" y="4" width="14" height="7" rx="1.5" {...stroke} />
+    <path d="M19 7 H23 V12 H14 V11" {...stroke} />
+    <path d="M14 12 V16 H12 V24 H16 V16 H14" {...stroke} />
+  </svg>,
+];
+const TINT_BG = ["var(--color-moss-veil)", "var(--color-lichen)"];
+
 export default function Services() {
+  const { heading, intro, featured, tintCards, photoCards } =
+    useContent().services;
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading
-          title="Kompletní čištění fasád, střech i dlažby"
-          intro="Od fasád přes střechy až po dlažbu. Postup, tlak i přípravky volíme podle typu a stavu každého povrchu."
-        />
+        <SectionHeading title={heading} intro={intro} />
 
         {/* Bento - the flagship service is a full-bleed photo cell; two
             supporting services sit on tinted surfaces beside it, three more
             photo cells close the grid. No breakpoint leaves an orphan. */}
         <div className="mt-12 grid grid-cols-1 gap-4 fade-up sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
-          {/* Featured - Mytí a čištění fasád */}
+          {/* Featured */}
           <article
             className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:row-span-2 lg:min-h-0"
           >
             <img
-              src={pic5}
-              alt="Umytá fasáda bytového domu po tlakovém čištění"
+              src={featured.image}
+              alt={featured.alt}
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover"
             />
@@ -197,67 +209,41 @@ export default function Services() {
                 className="text-cream-paper"
                 style={{ fontSize: "clamp(22px, 2.6vw, 30px)", fontWeight: 700 }}
               >
-                Mytí a čištění fasád
+                {featured.title}
               </h3>
               <p
                 className="max-w-[52ch] text-cream-paper/85"
                 style={{ fontSize: "15px", lineHeight: 1.6 }}
               >
-                Tlakové mytí horkou vodou v kombinaci se speciální chemií.
-                Odstraníme organické nečistoty (plísně, řasy a lišejníky)
-                i anorganické (saze, prach a mastnota). Tlak, teplotu i trysky
-                volíme podle typu a stavu omítky.
+                {featured.desc}
               </p>
             </div>
           </article>
 
           {/* Right rail - tinted, icon-led */}
-          <TintCard
-            background="var(--color-moss-veil)"
-            title="Čištění dlažby a chodníků"
-            desc="Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby. Odstraníme zelený povlak, mech i zašlou špínu ze spár."
-            icon={
-              <svg width="32" height="32" viewBox="0 0 28 28">
-                <rect x="4" y="4" width="8" height="8" rx="1.5" {...stroke} />
-                <rect x="16" y="4" width="8" height="8" rx="1.5" {...stroke} />
-                <rect x="4" y="16" width="8" height="8" rx="1.5" {...stroke} />
-                <rect x="16" y="16" width="8" height="8" rx="1.5" {...stroke} />
-              </svg>
-            }
-          />
-          <TintCard
-            background="var(--color-lichen)"
-            title="Nátěry a opravy fasád"
-            desc="Opravíme drobné vady a oživíme barvu kvalitním fasádním nátěrem. Fasáda získá novou ochranu a sjednocený, svěží vzhled."
-            icon={
-              <svg width="32" height="32" viewBox="0 0 28 28">
-                <rect x="5" y="4" width="14" height="7" rx="1.5" {...stroke} />
-                <path d="M19 7 H23 V12 H14 V11" {...stroke} />
-                <path d="M14 12 V16 H12 V24 H16 V16 H14" {...stroke} />
-              </svg>
-            }
-          />
+          {tintCards.map((card, i) => (
+            <TintCard
+              key={card.title || i}
+              background={TINT_BG[i] ?? TINT_BG[0]}
+              title={card.title}
+              desc={card.desc}
+              icon={TINT_ICONS[i] ?? TINT_ICONS[0]}
+            />
+          ))}
 
           {/* Bottom row - photo-led */}
-          <PhotoCard
-            img={pic9}
-            alt="Práce z montážní plošiny u rodinného domu"
-            title="Čištění střech"
-            desc="Vrátíme střeše původní barvu a zbavíme ji mechu, řas a nánosů. Šetrný postup podle typu krytiny prodlouží její životnost a obnoví odvod vody."
-          />
-          <PhotoCard
-            img={pic7}
-            alt="Odstraňování graffiti z podchodu"
-            title="Odstranění graffiti"
-            desc="Citlivé odstranění graffiti a postřiků z fasád i veřejných ploch bez poškození podkladu, včetně ochranného nátěru proti dalšímu posprejování."
-          />
-          <PhotoCard
-            img={pic10}
-            alt="Ošetření fasády rodinného domu z plošiny"
-            title="Nanoimpregnace"
-            desc="Na vyčištěnou fasádu naneseme nanoimpregnaci, která brání růstu plísní a usazování nečistot. Účinek vydrží zhruba 5–10 let."
-            className="sm:col-span-2 lg:col-span-1"
-          />
+          {photoCards.map((card, i) => (
+            <PhotoCard
+              key={card.title || i}
+              img={card.image}
+              alt={card.alt}
+              title={card.title}
+              desc={card.desc}
+              className={
+                i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""
+              }
+            />
+          ))}
         </div>
       </div>
     </section>

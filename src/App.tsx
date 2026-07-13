@@ -1,9 +1,8 @@
 import { useFadeUpReveal } from "./hooks/useFadeUpReveal";
+import { useContent } from "./content";
 import Landscape from "./components/Landscape";
 import Nav from "./components/Nav";
 import RevealHero from "./components/RevealHero";
-import dirtyHero from "./assets/dirty-hero.webp";
-import cleanHero from "./assets/clean-hero.webp";
 import Hero from "./components/Hero";
 import TrustStrip from "./components/TrustStrip";
 import Services from "./components/Services";
@@ -19,16 +18,22 @@ import Faq from "./components/Faq";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import CallBar from "./components/CallBar";
+import PreviewBanner from "./components/PreviewBanner";
 
 export default function App() {
   // Quiet, deliberate scroll reveals - disabled under reduced-motion via CSS.
   useFadeUpReveal();
+  const { revealHero } = useContent();
 
   return (
     <>
+      <PreviewBanner />
       <Nav />
       <main>
-        <RevealHero before={dirtyHero} after={cleanHero} />
+        <RevealHero
+          before={revealHero.beforeImage}
+          after={revealHero.afterImage}
+        />
         <Hero backdrop={<Landscape className="h-full w-full" />} />
         <TrustStrip />
         <Services />

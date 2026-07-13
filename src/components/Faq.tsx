@@ -1,34 +1,13 @@
 import SectionHeading from "./SectionHeading";
 import { TEXT } from "../lib/text";
-
-const FAQ = [
-  {
-    q: "Jak dlouho vydrží fasáda čistá?",
-    a: "Po vyčištění nanášíme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot. Podle typu fasády, povětrnostních podmínek a okolí se její účinek pohybuje zhruba mezi 5 a 10 lety.",
-  },
-  {
-    q: "Nepoškodí tlakové mytí omítku?",
-    a: "Ne. Tlak, teplotu vody i trysky volíme vždy podle typu a stavu omítky. U citlivějších povrchů sáhneme po šetrnější variantě bez horké vody, s přípravkem a aktivní pěnou.",
-  },
-  {
-    q: "Jsou použité přípravky bezpečné?",
-    a: "Ano. Používáme ekologické a bezpečné přípravky, které jsou ohleduplné k okolí i k povrchu budovy. Zároveň jsme pojištěni u pojišťovny Generali.",
-  },
-  {
-    q: "Kolik to bude stát?",
-    a: "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků.",
-  },
-  {
-    q: "Co všechno umíte vyčistit?",
-    a: "Fasády, střechy, dlažbu i chodníky. Odstraníme plísně, mech, řasy, saze, prach i graffiti a nečistoty, které na povrch nepatří. Nabízíme také nátěry a opravy fasád.",
-  },
-];
+import { useContent } from "../content";
 
 export default function Faq() {
+  const { heading, items: FAQ } = useContent().faq;
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading title="Co se nejčastěji ptáte" />
+        <SectionHeading title={heading} />
 
         {/* Divider list - the calmest section on the page. */}
         <div

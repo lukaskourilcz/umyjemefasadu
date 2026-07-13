@@ -2,12 +2,23 @@ import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-import fasada1 from "../assets/fasada1.webm";
-import fasada2 from "../assets/fasada2.webm";
-import fasada3 from "../assets/fasada3.webm";
-import fasada4 from "../assets/fasada4.webm";
+import { useContent } from "../content";
+
+// Barevné podklady/oříznutí dlaždic zůstávají v kódu; editovatelná jsou videa.
+const TILE_STYLE = [
+  { position: "top", tone: "linear-gradient(150deg, #cfe7f6 0%, #a9d4ee 100%)" },
+  { position: "top", tone: "linear-gradient(150deg, #d7eefb 0%, #bfe2f5 100%)" },
+  { position: "top", tone: "linear-gradient(150deg, #c7d6de 0%, #aebfc8 100%)" },
+  { position: "top", tone: "linear-gradient(150deg, #dbeaf3 0%, #b9d8ec 100%)" },
+] as const;
 
 export default function Hero({ backdrop }: { backdrop: ReactNode }) {
+  const hero = useContent().hero;
+  const VIDEOS: Video[] = hero.videos.map((src, i) => ({
+    src,
+    position: TILE_STYLE[i]?.position ?? "top",
+    tone: TILE_STYLE[i]?.tone ?? TILE_STYLE[0].tone,
+  }));
   const parallaxRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -58,7 +69,7 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
             proposition below the fold); collage left / copy right from md up. */}
         <div className="order-1 flex flex-col items-start text-left md:order-2">
           <span className="micro-label mb-8 text-botanical-ink/60 fade-up">
-            Fasády · Střechy · Dlažba
+            {hero.eyebrow}
           </span>
 
           <h2
@@ -69,24 +80,22 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
               lineHeight: 1.04,
             }}
           >
-            Vrátíme fasádě čistý vzhled bez drahé rekonstrukce.
+            {hero.title}
           </h2>
 
           <p
             className="mt-7 max-w-[52ch] text-botanical-ink/75 fade-up"
             style={{ fontSize: "var(--text-body)", lineHeight: 1.65 }}
           >
-            Tlakovým mytím horkou vodou a&nbsp;šetrnou chemií odstraníme plísně,
-            řasy, saze i&nbsp;prach. Povrch zůstane čistý a&nbsp;chráněný
-            na&nbsp;další roky.
+            {hero.body}
           </p>
 
           <div className="mt-10 flex w-full flex-wrap items-center justify-start gap-3 fade-up md:w-auto">
             <a href="#kontakt" className="btn-primary w-full sm:w-auto">
-              Získat nezávaznou cenovou nabídku
+              {hero.ctaPrimary}
             </a>
             <a href="#postup" className="btn-ghost w-full sm:w-auto">
-              Jak to probíhá
+              {hero.ctaSecondary}
             </a>
           </div>
         </div>
@@ -111,28 +120,6 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
 }
 
 type Video = { src: string; position?: string; tone: string };
-const VIDEOS: Video[] = [
-  {
-    src: fasada1,
-    position: "top",
-    tone: "linear-gradient(150deg, #cfe7f6 0%, #a9d4ee 100%)",
-  },
-  {
-    src: fasada2,
-    position: "top",
-    tone: "linear-gradient(150deg, #d7eefb 0%, #bfe2f5 100%)",
-  },
-  {
-    src: fasada3,
-    position: "top",
-    tone: "linear-gradient(150deg, #c7d6de 0%, #aebfc8 100%)",
-  },
-  {
-    src: fasada4,
-    position: "top",
-    tone: "linear-gradient(150deg, #dbeaf3 0%, #b9d8ec 100%)",
-  },
-];
 
 function VideoTile({ video }: { video: Video }) {
   const ref = useRef<HTMLVideoElement>(null);

@@ -1,20 +1,11 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { CONTACT } from "../lib/constants";
 import { CheckIcon } from "./icons";
-
-const PROMISES = ["Ozveme se do 24 hodin", "Prohlídka a nabídka zdarma"];
-
-// TODO: skutečná města / region působnosti.
-const AREAS = ["Brno", "Vyškov", "Blansko", "Hodonín", "a okolí do 60 km"];
-
-// TODO: doplňte endpoint formuláře (např. https://formspree.io/f/xxxx).
-// Dokud je prázdný, formulář otevře e-mail s předvyplněnou zprávou.
-const FORM_ENDPOINT = "";
+import { useContent, phoneHref, emailHref } from "../content";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-function buildMailto(data: FormData) {
+function buildMailto(data: FormData, email: string) {
   const subject = "Poptávka z webu umyjemefasadu.cz";
   const body = [
     `Jméno: ${data.get("name") ?? ""}`,
@@ -22,12 +13,18 @@ function buildMailto(data: FormData) {
     "",
     `${data.get("message") ?? ""}`,
   ].join("\n");
-  return `${CONTACT.emailHref}?subject=${encodeURIComponent(
+  return `${emailHref(email)}?subject=${encodeURIComponent(
     subject,
   )}&body=${encodeURIComponent(body)}`;
 }
 
 export default function Contact() {
+  const { business, contact } = useContent();
+  const PROMISES = contact.promises;
+  const AREAS = contact.areas;
+  const FORM_ENDPOINT = contact.formEndpoint;
+  const emailLink = emailHref(business.email);
+  const phoneLink = phoneHref(business.phone);
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -36,7 +33,7 @@ export default function Contact() {
     const data = new FormData(form);
 
     if (!FORM_ENDPOINT) {
-      window.location.href = buildMailto(data);
+      window.location.href = buildMailto(data, business.email);
       return;
     }
 
@@ -75,14 +72,13 @@ export default function Contact() {
                   maxWidth: "18ch",
                 }}
               >
-                Pošleme vám nezávaznou cenovou nabídku
+                {contact.heading}
               </h2>
               <p
                 className="mt-5 text-cream-paper/70"
                 style={{ fontSize: "var(--text-body)", lineHeight: 1.65, maxWidth: "44ch" }}
               >
-                Napište nebo zavolejte. Domluvíme termín prohlídky zdarma
-                a&nbsp;navrhneme řešení pro vaši fasádu.
+                {contact.body}
               </p>
 
               <ul className="mt-7 flex flex-col gap-2.5">
@@ -98,7 +94,7 @@ export default function Contact() {
 
               <div className="mt-7">
                 <span className="micro-label text-cream-paper/50">
-                  Kde působíme
+                  {contact.areasLabel}
                 </span>
                 <p
                   className="font-fragment-mono mt-2 text-cream-paper/80"
@@ -109,28 +105,32 @@ export default function Contact() {
               </div>
 
               <div className="mt-9 flex flex-col gap-4">
-                <a href={CONTACT.phoneHref} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">Telefon</span>
+                <a href={phoneLink} className="group flex flex-col">
+                  <span className="micro-label text-cream-paper/50">
+                    {contact.phoneLabel}
+                  </span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(20px, 3vw, 26px)" }}
                   >
-                    {CONTACT.phoneDisplay}
+                    {business.phone}
                   </span>
                   <span
                     className="font-fragment-mono text-cream-paper/50"
                     style={{ fontSize: "12px", letterSpacing: "0.02em" }}
                   >
-                    Po–Pá 7:00–18:00
+                    {contact.hours}
                   </span>
                 </a>
-                <a href={CONTACT.emailHref} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">E-mail</span>
+                <a href={emailLink} className="group flex flex-col">
+                  <span className="micro-label text-cream-paper/50">
+                    {contact.emailLabel}
+                  </span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(17px, 2.4vw, 22px)" }}
                   >
-                    {CONTACT.email}
+                    {business.email}
                   </span>
                 </a>
               </div>
@@ -143,24 +143,25 @@ export default function Contact() {
                   className="text-cream-paper"
                   style={{ fontSize: "24px", fontWeight: 700 }}
                 >
-                  Děkujeme za poptávku
+                  {contact.sentTitle}
                 </h3>
                 <p
                   className="text-cream-paper/70"
                   style={{ fontSize: "16px", lineHeight: 1.6, maxWidth: "40ch" }}
                 >
-                  Ozveme se vám do 24 hodin. Spěchá to? Zavolejte na{" "}
-                  <a href={CONTACT.phoneHref} className="underline text-cream-paper">
-                    {CONTACT.phoneDisplay}
+                  {contact.sentBody}{" "}
+                  <a href={phoneLink} className="underline text-cream-paper">
+                    {business.phone}
                   </a>
-                  .
                 </p>
               </div>
             ) : (
               <form className="flex flex-col gap-4" onSubmit={onSubmit}>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="micro-label text-cream-paper/60">Jméno</span>
+                    <span className="micro-label text-cream-paper/60">
+                      {contact.formNameLabel}
+                    </span>
                     <input
                       type="text"
                       name="name"
@@ -171,7 +172,9 @@ export default function Contact() {
                     />
                   </label>
                   <label className="flex flex-col gap-1.5">
-                    <span className="micro-label text-cream-paper/60">Telefon</span>
+                    <span className="micro-label text-cream-paper/60">
+                      {contact.formPhoneLabel}
+                    </span>
                     <input
                       type="tel"
                       name="phone"
@@ -184,12 +187,12 @@ export default function Contact() {
                 </div>
                 <label className="flex flex-col gap-1.5">
                   <span className="micro-label text-cream-paper/60">
-                    Co potřebujete vyčistit?
+                    {contact.formMessageLabel}
                   </span>
                   <textarea
                     name="message"
                     rows={5}
-                    placeholder="Rodinný dům, fasáda cca 200 m²…"
+                    placeholder={contact.formMessagePlaceholder}
                     className="input-dark resize-y"
                   />
                 </label>
@@ -198,21 +201,20 @@ export default function Contact() {
                   disabled={status === "sending"}
                   className="btn-primary mt-2 w-full disabled:opacity-60 sm:w-auto"
                 >
-                  {status === "sending" ? "Odesílám…" : "Odeslat poptávku"}
+                  {status === "sending" ? "Odesílám…" : contact.formSubmit}
                 </button>
                 {status === "error" && (
                   <p className="text-cream-paper" style={{ fontSize: "14px" }}>
                     Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám
                     napište na{" "}
-                    <a href={CONTACT.emailHref} className="underline">
-                      {CONTACT.email}
+                    <a href={emailLink} className="underline">
+                      {business.email}
                     </a>
                     .
                   </p>
                 )}
                 <p className="text-cream-paper/50" style={{ fontSize: "13px" }}>
-                  Odesláním souhlasíte se zpracováním osobních údajů za účelem
-                  vyřízení poptávky.
+                  {contact.consent}
                   {!FORM_ENDPOINT &&
                     " Formulář otevře váš e-mail s předvyplněnou zprávou; žádná data se neukládají."}
                 </p>
