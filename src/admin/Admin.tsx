@@ -233,7 +233,8 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
   function unlock(e: FormEvent) {
     e.preventDefault();
-    if (pw === ADMIN_PW) {
+    // Tolerujeme mezery/nové řádky navíc (časté při kopírování hesla).
+    if (pw.trim() === ADMIN_PW) {
       sessionStorage.setItem(UNLOCK_KEY, "1");
       setUnlocked(true);
       setPwError(false);
@@ -250,7 +251,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
       const res = await fetch("/api/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pw || ADMIN_PW, content: out, uploads }),
+        body: JSON.stringify({ password: pw.trim() || ADMIN_PW, content: out, uploads }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
