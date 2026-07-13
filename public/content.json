@@ -174,7 +174,7 @@
       {
         "no": "02",
         "title": "Tlakové mytí vodou",
-        "desc": "Fasádu umyjeme vodou pod regulovaným tlakem. Tlak pečlivě hlídáme a trysky volíme podle typu podkladu tak, abychom povrch nepoškodili."
+        "desc": "Fasádu omyjeme vodou pod regulovaným tlakem. Tlak i trysky volíme podle typu a stavu podkladu."
       },
       {
         "no": "03",
@@ -182,7 +182,12 @@
         "desc": "Nakonec naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot na dlouhé roky."
       }
     ],
-    "methods": []
+    "methods": [
+      {
+        "title": "Tlakové mytí horkou vodou",
+        "desc": "Fasádu umyjeme vodou pod regulovaným tlakem. Tlak pečlivě hlídáme a trysky volíme podle typu podkladu tak, abychom povrch nepoškodili."
+      }
+    ]
   },
   "whyUs": {
     "heading": "Špinavá fasáda nemusí znamenat novou omítku!",
@@ -513,7 +518,7 @@
     "consent": "Odesláním souhlasíte se zpracováním osobních údajů za účelem vyřízení poptávky."
   },
   "footer": {
-    "legalLine": "Umyjeme Fasádu s.r.o. · Hodonín",
+    "legalLine": "Umyjeme Fasádu s.r.o. · IČO 23770082",
     "privacyLabel": "Ochrana osobních údajů",
     "privacyTitle": "Zásady ochrany osobních údajů",
     "privacyBody": [
