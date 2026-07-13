@@ -75,8 +75,32 @@ export default function Risks() {
               {solutionDesc}
             </p>
           </div>
-          <a href="#kontakt" className="btn-primary justify-self-start md:justify-self-end">
-            {solutionCta}
+          {/* Tichý odkaz místo dalšího magenta tlačítka - hlavní CTA drží
+              horní lišta a sekce Proč my; tady stačí editorial šipka. */}
+          <a
+            href="#kontakt"
+            className="group inline-flex items-center gap-2 justify-self-start whitespace-nowrap font-bold text-cream-paper md:justify-self-end"
+            style={{ fontSize: "15px" }}
+          >
+            <span className="underline decoration-1 underline-offset-8">
+              {solutionCta}
+            </span>
+            <svg
+              width="18"
+              height="14"
+              viewBox="0 0 18 14"
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            >
+              <path
+                d="M1 7 H16 M11 2 L16 7 L11 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </a>
         </div>
       </div>

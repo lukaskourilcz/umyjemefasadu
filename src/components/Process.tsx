@@ -54,36 +54,38 @@ export default function Process() {
           ))}
         </ol>
 
-        {/* Metody - s jedinou kartou drží mřížka střed (žádná prázdná půlka) */}
-        <div
-          className={`mx-auto mt-14 grid grid-cols-1 gap-5 fade-up ${
-            METHODS.length > 1 ? "max-w-[900px] md:grid-cols-2" : "max-w-[560px]"
-          }`}
-        >
-          {METHODS.map((m) => (
-            <div
-              key={m.title}
-              className="flex flex-col items-start gap-4 rounded-[14px] border p-6 md:p-7"
-              style={{
-                backgroundColor: "rgba(251,253,254,0.06)",
-                borderColor: "rgba(251,253,254,0.14)",
-              }}
-            >
-              <h3
-                className="text-cream-paper"
-                style={{ fontSize: "clamp(18px, 1vw + 14px, 20px)", fontWeight: 700 }}
+        {/* Metody - volitelné doplňkové karty; bez položek se blok nevykreslí. */}
+        {METHODS.length > 0 && (
+          <div
+            className={`mx-auto mt-14 grid grid-cols-1 gap-5 fade-up ${
+              METHODS.length > 1 ? "max-w-[900px] md:grid-cols-2" : "max-w-[560px]"
+            }`}
+          >
+            {METHODS.map((m) => (
+              <div
+                key={m.title}
+                className="flex flex-col items-start gap-4 rounded-[14px] border p-6 md:p-7"
+                style={{
+                  backgroundColor: "rgba(251,253,254,0.06)",
+                  borderColor: "rgba(251,253,254,0.14)",
+                }}
               >
-                {m.title}
-              </h3>
-              <p
-                className="text-cream-paper/70"
-                style={{ fontSize: "16px", lineHeight: 1.6 }}
-              >
-                {m.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+                <h3
+                  className="text-cream-paper"
+                  style={{ fontSize: "clamp(18px, 1vw + 14px, 20px)", fontWeight: 700 }}
+                >
+                  {m.title}
+                </h3>
+                <p
+                  className="text-cream-paper/70"
+                  style={{ fontSize: "16px", lineHeight: 1.6 }}
+                >
+                  {m.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
