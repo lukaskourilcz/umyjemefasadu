@@ -31,11 +31,18 @@ const logoMark = (x, y, w, h) => `
   <svg x="${x}" y="${y}" width="${w}" height="${h}" viewBox="${LOGO_VIEWBOX}"
        preserveAspectRatio="xMidYMid meet">${LOGO_INNER}</svg>`;
 
-// --- App icon (rounded cream square holding the real mark) ------------------
+// --- App icon --------------------------------------------------------------
+// Favicon/ikonka = růžová kapka (public/favicon.svg): celé logo je v 16-32px
+// nečitelné. OG obrázek níže dál nese kompletní logo.
+const dropRaw = readFileSync(out("favicon.svg"), "utf8");
+const DROP_INNER = dropRaw
+  .replace(/^[\s\S]*?<svg[^>]*>/, "")
+  .replace(/<\/svg>\s*$/, "");
+
 const iconSvg = (size) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="${CREAM}"/>
-  ${logoMark(2, 2, 28, 28)}
+  <svg x="4" y="3" width="24" height="26" viewBox="0 0 32 32">${DROP_INNER}</svg>
 </svg>`;
 
 // --- Social / OG image (1200x630) -------------------------------------------
