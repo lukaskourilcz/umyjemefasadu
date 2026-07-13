@@ -1,14 +1,9 @@
 import { CheckIcon } from "./icons";
+import { useContent } from "../content";
 
 /** Quiet trust row - proof reads professional when it whispers. */
-const ITEMS = [
-  "Pojištěno u Generali",
-  "Ekologické přípravky",
-  "Ochrana 5–10 let",
-  "Prohlídka a nabídka zdarma",
-];
-
 export default function TrustStrip() {
+  const ITEMS = useContent().trustStrip.items;
   return (
     <section
       className="border-y"

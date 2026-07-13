@@ -1,36 +1,9 @@
 import SectionHeading from "./SectionHeading";
-
-const STEPS = [
-  {
-    no: "01",
-    title: "Aplikace přípravku",
-    desc: "Naneseme přípravek na odstranění organických (plísně, řasy, lišejníky) i anorganických nečistot (saze, prach a mastnota).",
-  },
-  {
-    no: "02",
-    title: "Tlakové mytí horkou vodou",
-    desc: "Fasádu omyjeme horkou vodou pod regulovaným tlakem. Tlak, teplotu i trysky volíme podle typu a stavu omítky.",
-  },
-  {
-    no: "03",
-    title: "Nanoimpregnace a ochrana",
-    desc: "Nakonec naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot na dlouhé roky.",
-  },
-];
-
-const METHODS = [
-  {
-    title: "Tlakové mytí horkou vodou",
-    desc: "Fasádu umyjeme horkou vodou pod regulovaným tlakem. Tlak i teplotu pečlivě hlídáme a trysky volíme podle typu omítky tak, abychom povrch nepoškodili.",
-  },
-  {
-    title: "Aktivní pěna a nástřik",
-    desc: "U citlivějších omítek volíme šetrnou variantu: necháme působit přípravek na organické nečistoty (cca 30 minut) a poté nanášíme aktivní pěnu s vysokým obsahem tenzidů na prach, mastnotu a smog.",
-  },
-];
+import { useContent } from "../content";
 
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
+  const { heading, intro, steps: STEPS, methods: METHODS } = useContent().process;
   return (
     <section
       id="postup"
@@ -38,11 +11,7 @@ export default function Process() {
       style={{ backgroundColor: "var(--color-botanical-ink)" }}
     >
       <div className="container-page">
-        <SectionHeading
-          tone="dark"
-          title="Jak čistíme, krok za krokem"
-          intro="Postup volíme podle typu a stavu fasády, od první aplikace přípravku až po závěrečnou ochranu."
-        />
+        <SectionHeading tone="dark" title={heading} intro={intro} />
 
         {/* Vertical timeline - mono numbers on a hairline rail. */}
         <ol className="mx-auto mt-14 flex max-w-[720px] flex-col fade-up">

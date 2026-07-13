@@ -1,13 +1,8 @@
-// TODO: nahraďte skutečnými čísly firmy - smyšlená čísla by se obrátila proti nám.
-const STATS = [
-  { value: "12 500+", label: "m² umytých ploch" },
-  { value: "180+", label: "dokončených zakázek" },
-  { value: "25+", label: "měst a obcí" },
-  { value: "15+", label: "let praxe v týmu" },
-];
+import { useContent } from "../content";
 
 /** Slim editorial number band - proof in figures, no banner theatrics. */
 export default function Stats() {
+  const STATS = useContent().stats.items;
   return (
     <section
       className="border-y"

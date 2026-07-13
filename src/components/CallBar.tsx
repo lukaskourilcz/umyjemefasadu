@@ -1,5 +1,5 @@
 import { useScrolledPast } from "../hooks/useScrolledPast";
-import { CONTACT } from "../lib/constants";
+import { useContent, phoneHref } from "../content";
 
 /**
  * Sticky mobile action bar - phone is the primary conversion path, so it
@@ -7,6 +7,7 @@ import { CONTACT } from "../lib/constants";
  * scrolls past the hero so it never covers the hero's own CTAs.
  */
 export default function CallBar() {
+  const { business, callBar } = useContent();
   const show = useScrolledPast(600);
 
   return (
@@ -23,12 +24,12 @@ export default function CallBar() {
     >
       <div className="flex items-center gap-3 p-3">
         <a href="#kontakt" className="btn-ghost flex-1">
-          Poptávka
+          {callBar.inquiry}
         </a>
         <a
-          href={CONTACT.phoneHref}
+          href={phoneHref(business.phone)}
           className="btn-primary flex-1"
-          aria-label={`Zavolat na ${CONTACT.phoneDisplay}`}
+          aria-label={`Zavolat na ${business.phone}`}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path
@@ -39,7 +40,7 @@ export default function CallBar() {
               strokeLinejoin="round"
             />
           </svg>
-          Zavolat
+          {callBar.call}
         </a>
       </div>
     </div>

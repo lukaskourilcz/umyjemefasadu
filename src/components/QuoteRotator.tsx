@@ -1,24 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-
-// TODO: nahraďte skutečnými referencemi zákazníků.
-const QUOTES = [
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fasáda vypadá jako nová, sed do eiusmod tempor incididunt ut labore et dolore.",
-    name: "Jana N.",
-    meta: "Brno · mytí fasády",
-  },
-  {
-    text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    name: "Miroslav K.",
-    meta: "Vyškov · čištění střechy",
-  },
-  {
-    text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    name: "SVJ Letná",
-    meta: "Hodonín · fasáda + nano",
-  },
-];
+import { useContent } from "../content";
 
 // Reading time scales with quote length.
 const quoteMs = (text: string) => Math.min(6000 + text.length * 55, 16000);
@@ -28,26 +10,29 @@ const quoteMs = (text: string) => Math.min(6000 + text.length * 55, 16000);
  * long), then the next one animates in. No rotation under reduced-motion.
  */
 export default function QuoteRotator() {
+  const { quotesLabel, quotes: QUOTES } = useContent().whyUs;
   const [index, setIndex] = useState(0);
   const reduced = usePrefersReducedMotion();
+  const safeIndex = index % Math.max(QUOTES.length, 1);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || QUOTES.length === 0) return;
     const id = setTimeout(
       () => setIndex((i) => (i + 1) % QUOTES.length),
-      quoteMs(QUOTES[index].text),
+      quoteMs(QUOTES[safeIndex].text),
     );
     return () => clearTimeout(id);
-  }, [index, reduced]);
+  }, [index, reduced, QUOTES, safeIndex]);
 
-  const q = QUOTES[index];
+  if (QUOTES.length === 0) return null;
+  const q = QUOTES[safeIndex];
 
   return (
     <div
       className="mt-12 border-t pt-6"
       style={{ borderColor: "var(--color-eucalyptus)" }}
     >
-      <span className="micro-label text-botanical-ink/50">Řekli o nás</span>
+      <span className="micro-label text-botanical-ink/50">{quotesLabel}</span>
 
       {/* key remount re-runs the entrance animation per quote */}
       <figure key={index} className="quote-in mx-auto min-h-44 max-w-[400px]">

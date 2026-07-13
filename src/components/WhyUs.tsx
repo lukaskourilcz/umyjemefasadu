@@ -1,41 +1,29 @@
 import SectionHeading from "./SectionHeading";
 import QuoteRotator from "./QuoteRotator";
 import { TEXT } from "../lib/text";
-
-const POINTS = [
-  {
-    title: "Šetrné a ekologické přípravky",
-    desc: "Používáme ekologické a bezpečné přípravky, ohleduplné k okolí i k povrchu budovy.",
-  },
-  {
-    title: "Ochrana na dlouhé roky",
-    desc: "Po umytí fasádu chráníme před budoucím znečištěním. Díky nanoimpregnaci účinek vydrží podle podmínek zhruba 5–10 let.",
-  },
-  {
-    title: "Pojištěni u Generali",
-    desc: "Jsme pojištěni, takže váš majetek je při práci v bezpečí a za výsledek neseme plnou odpovědnost.",
-  },
-  {
-    title: "Férový a osobní přístup",
-    desc: "Malý tým, který si za svou prací stojí. Řekneme vám rovnou, co má smysl a co ne.",
-  },
-];
+import { useContent } from "../content";
 
 export default function WhyUs() {
+  const {
+    heading,
+    intro,
+    cta,
+    guaranteeNumber,
+    guaranteeUnit,
+    guaranteeTitle,
+    guaranteeDesc,
+    points: POINTS,
+  } = useContent().whyUs;
   return (
     <section id="proc-my" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="lg:sticky lg:top-28">
-          <SectionHeading
-            align="left"
-            title="Špinavá fasáda nemusí znamenat novou omítku"
-            intro="Jsme na trhu noví, ale za sebou máme roky zkušeností s čištěním fasád, střech i dlažby. Místo drahé rekonstrukce vrátíme povrchu čistotu a původní vzhled."
-          />
+          <SectionHeading align="left" title={heading} intro={intro} />
           <a href="#kontakt" className="btn-primary mt-8 fade-up">
-            Domluvit prohlídku zdarma
+            {cta}
           </a>
 
-          {/* Written guarantee, certificate-style. TODO: potvrďte skutečnou délku záruky. */}
+          {/* Written guarantee, certificate-style. */}
           <div
             className="mx-auto mt-12 flex w-fit overflow-hidden rounded-[14px] border fade-up"
             style={{ borderColor: "var(--color-eucalyptus)" }}
@@ -53,13 +41,13 @@ export default function WhyUs() {
                   lineHeight: 1,
                 }}
               >
-                24
+                {guaranteeNumber}
               </span>
               <span
                 className="font-fragment-mono mt-1 uppercase text-cream-paper/60"
                 style={{ fontSize: "10px", letterSpacing: "0.12em" }}
               >
-                měsíců
+                {guaranteeUnit}
               </span>
             </div>
 
@@ -92,13 +80,13 @@ export default function WhyUs() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Písemná záruka
+                {guaranteeTitle}
               </span>
               <p
                 className="max-w-[24ch] text-botanical-ink/65"
                 style={{ fontSize: "14px", lineHeight: 1.5, margin: 0 }}
               >
-                Na všechny provedené práce, černé na bílém.
+                {guaranteeDesc}
               </p>
             </div>
           </div>

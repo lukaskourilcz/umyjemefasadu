@@ -1,0 +1,412 @@
+{
+  "business": {
+    "phone": "+420 775 222 760",
+    "email": "info@umyjemefasadu.cz",
+    "hours": "Po–Pá 8:00–17:00"
+  },
+  "nav": {
+    "links": [
+      { "href": "#proc-cistit", "label": "Proč čistit" },
+      { "href": "#rizika", "label": "Rizika" },
+      { "href": "#sluzby", "label": "Služby" },
+      { "href": "#postup", "label": "Postup" },
+      { "href": "#proc-my", "label": "Proč my" },
+      { "href": "#galerie", "label": "Reference" },
+      { "href": "#cenik", "label": "Ceník" },
+      { "href": "#kontakt", "label": "Kontakt" }
+    ],
+    "cta": "Nezávazná poptávka"
+  },
+  "revealHero": {
+    "beforeImage": "/media/dirty-hero.webp",
+    "afterImage": "/media/clean-hero.webp",
+    "headlineLines": ["Poskytneme", "lesk pro", "vaši fasádu"],
+    "labelBeforePrefix": "Před",
+    "labelBeforeSuffix": "vyčištěním",
+    "labelAfterPrefix": "Po",
+    "labelAfterSuffix": "vyčištění",
+    "cta": "Nezávazná poptávka",
+    "scrollCue": "Skrolujte"
+  },
+  "hero": {
+    "eyebrow": "Fasády · Střechy · Dlažba",
+    "title": "Vrátíme fasádě čistý vzhled bez drahé rekonstrukce.",
+    "body": "Vysokotlakovým mytím vodou a nízkotlakovou aplikací speciálních chemických prostředků odstraníme plísně, řasy, saze, pavučinky i prach. Povrch zůstane čistý, zdravý a při použití ochranné vrstvy i chráněný na další roky.",
+    "ctaPrimary": "Získat nezávaznou cenovou nabídku",
+    "ctaSecondary": "Jak to probíhá",
+    "videos": [
+      "/media/fasada1.webm",
+      "/media/fasada2.webm",
+      "/media/fasada3.webm",
+      "/media/fasada4.webm"
+    ]
+  },
+  "trustStrip": {
+    "items": [
+      "Pojištěno u Generali",
+      "Ekologické přípravky",
+      "Ochrana 5–10 let",
+      "Prohlídka a nabídka zdarma"
+    ]
+  },
+  "whyClean": {
+    "heading": "Proč si nechat vyčistit fasádu?",
+    "paragraphs": [
+      "Vaše fasáda je jako vizitka domu – první, čeho si každý všimne. Časem se na ní ale usadí prach, smog, řasy a plísně, které ji zbarví do šeda nebo zelena. My vám ji vrátíme do původní krásy!",
+      "Používáme vysokotlaké čištění v kombinaci se speciálními chemickými prostředky, které odstraní i hluboko usazené nečistoty a zároveň ochrání povrch na dlouhou dobu. Výsledek? Fasáda, která vypadá jako nová, dům září čistotou a vy ušetříte peníze za nový nátěr či drahou rekonstrukci."
+    ],
+    "bullets": [
+      "💧 Čistíme šetrně, účinně a dlouhodobě.",
+      "🌿 Používáme profesionální a velmi kvalitní chemii.",
+      "🏠 Obnovíme vzhled vašeho domu během jediného dne."
+    ],
+    "protectionTitle": "Ochrana proti vodě",
+    "protectionIntro": "Ochranu fasády proti vodě řešíme impregnací (hydrofobizací) – nátěrem či nástřikem, který odpuzuje vodu, ale nechá zeď dýchat.",
+    "protectionBullets": [
+      "Voda se vsakuje minimálně, stéká po povrchu",
+      "Snižuje růst řas a plísní",
+      "Chrání před mrazem – voda neproniká, nepraská omítka",
+      "Prodlužuje životnost fasády klidně o 5–10 let"
+    ],
+    "protectionHow": "Impregnace vytvoří neviditelnou vrstvu: kapky vody stečou dolů (tzv. lotus efekt) a vodní pára může ven, takže fasáda nezatuchne."
+  },
+  "risks": {
+    "heading": "Rizika znečištěné fasády",
+    "intro": "Znečištěná fasáda není jen kosmetický problém. Hlavním rizikem jsou plísně, které mohou ohrozit budovu i zdraví obyvatel. Tady je přehled, proč to řešit.",
+    "items": [
+      {
+        "no": "1",
+        "title": "Plísně mohou pronikat dovnitř zdiva",
+        "desc": "Pokud se plíseň rozšíří hlouběji do omítky nebo zateplovací vrstvy, může postupně pronikat až k vnitřní straně stěny. Tím se zvyšuje vlhkost zdiva a vznikají ideální podmínky pro růst plísní i uvnitř domu, kde už ohrožují zdraví obyvatel."
+      },
+      {
+        "no": "2",
+        "title": "Riziko pro zdraví obyvatel",
+        "desc": "Spóry plísní uvolňované do vzduchu mohou vyvolávat alergie, podráždění dýchacích cest a očí, zhoršovat astma i chronické záněty průdušek a při dlouhodobém působení oslabovat imunitu. I když je plíseň zvenku, vítr a ventilace mohou spóry zanášet dovnitř oken nebo větracího systému."
+      },
+      {
+        "no": "3",
+        "title": "Poškozuje fasádu a izolaci",
+        "desc": "Plísně a řasy zadržují vlhkost, ta časem rozrušuje nátěry, omítku i tepelnou izolaci. To může vést ke snížení účinnosti zateplení, zvýšení vlhkosti v interiéru a vyšším nákladům na vytápění."
+      }
+    ],
+    "solutionTitle": "Řešení = pravidelná údržba",
+    "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu."
+  },
+  "services": {
+    "heading": "Kompletní čištění fasád, střech i dlažby",
+    "intro": "Od fasád přes střechy až po dlažbu. Postup, tlak i přípravky volíme podle typu a stavu každého povrchu.",
+    "featured": {
+      "image": "/media/pic5.webp",
+      "alt": "Umytá fasáda bytového domu po tlakovém čištění",
+      "title": "Mytí a čištění fasád",
+      "desc": "Tlakové mytí horkou vodou v kombinaci se speciální chemií. Odstraníme organické nečistoty (plísně, řasy a lišejníky) i anorganické (saze, prach a mastnota). Tlak, teplotu i trysky volíme podle typu a stavu omítky."
+    },
+    "tintCards": [
+      {
+        "title": "Čištění dlažby a chodníků",
+        "desc": "Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby. Odstraníme zelený povlak, mech i zašlou špínu ze spár."
+      }
+    ],
+    "photoCards": [
+      {
+        "image": "/media/pic9.webp",
+        "alt": "Práce z montážní plošiny u rodinného domu",
+        "title": "Čištění střech",
+        "desc": "Vrátíme střeše původní vzhled, zbavíme ji mechu, řas a nánosů. Šetrný postup podle typu krytiny prodlouží její životnost a obnoví odvod vody."
+      },
+      {
+        "image": "/media/pic7.webp",
+        "alt": "Odstraňování graffiti z podchodu",
+        "title": "Odstranění graffiti",
+        "desc": "Citlivé odstranění graffiti a postřiků z fasád i veřejných ploch bez poškození podkladu, včetně ochranného nátěru proti dalšímu posprejování."
+      },
+      {
+        "image": "/media/pic10.webp",
+        "alt": "Ošetření fasády rodinného domu z plošiny",
+        "title": "Nanoimpregnace",
+        "desc": "Na vyčištěnou fasádu naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování dalších nečistot. Účinek vydrží zhruba 5–10 let v závislosti na umístění objektu."
+      }
+    ]
+  },
+  "process": {
+    "heading": "Jak čistíme, krok za krokem",
+    "intro": "Postup volíme podle typu a stavu fasády, od první aplikace přípravku až po závěrečnou ochranu.",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Aplikace speciálních přípravků nízkotlakovou technologií",
+        "desc": "Naneseme přípravek na odstranění organických (plísně, řasy, lišejníky) i anorganických nečistot (saze, prach a mastnota)."
+      },
+      {
+        "no": "02",
+        "title": "Tlakové mytí vodou",
+        "desc": "Fasádu omyjeme vodou pod regulovaným tlakem. Tlak i trysky volíme podle typu a stavu podkladu."
+      },
+      {
+        "no": "03",
+        "title": "Nanoimpregnace a ochrana",
+        "desc": "Nakonec naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot na dlouhé roky."
+      }
+    ],
+    "methods": [
+      {
+        "title": "Tlakové mytí horkou vodou",
+        "desc": "Fasádu umyjeme vodou pod regulovaným tlakem. Tlak pečlivě hlídáme a trysky volíme podle typu podkladu tak, abychom povrch nepoškodili."
+      }
+    ]
+  },
+  "whyUs": {
+    "heading": "Špinavá fasáda nemusí znamenat novou omítku!",
+    "intro": "Na trhu jsme sice noví, ale za sebou máme roky zkušeností s čištěním a ochranou fasád, střech i dlažby. Místo drahé rekonstrukce vrátíme povrchu čistotu, původní vzhled a zdravý stav pro delší a funkční životnost.",
+    "cta": "Domluvit prohlídku zdarma",
+    "guaranteeNumber": "60",
+    "guaranteeUnit": "měsíců",
+    "guaranteeTitle": "Písemná záruka",
+    "guaranteeDesc": "Na všechny provedené práce, černé na bílém.",
+    "points": [
+      {
+        "title": "Šetrné a ekologické přípravky",
+        "desc": "Používáme ekologické a bezpečné přípravky, ohleduplné k okolí i k čištěným povrchům."
+      },
+      {
+        "title": "Ochrana na dlouhé roky",
+        "desc": "Po umytí fasádu, střechu či dlažbu chráníme před budoucím znečištěním. Díky nanoimpregnaci účinek vydrží podle podmínek zhruba 5–10 let u fasád a střech, u dlažby a teras 3–5+ let dle zatížení."
+      },
+      {
+        "title": "Pojištěni u Generali",
+        "desc": "Jsme pojištěni, takže Váš majetek je při práci v bezpečí a za výsledek neseme plnou odpovědnost."
+      },
+      {
+        "title": "Férový a osobní přístup",
+        "desc": "Malý tým, který si za svou prací stojí. Řekneme vám rovnou, co má smysl a co ne."
+      }
+    ],
+    "quotesLabel": "Řekli o nás",
+    "quotes": [
+      {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fasáda vypadá jako nová, sed do eiusmod tempor incididunt ut labore et dolore.",
+        "name": "Jana N.",
+        "meta": "Brno · mytí fasády"
+      },
+      {
+        "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "name": "Miroslav K.",
+        "meta": "Vyškov · čištění střechy"
+      },
+      {
+        "text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "name": "SVJ Letná",
+        "meta": "Hodonín · fasáda + nano"
+      }
+    ]
+  },
+  "stats": {
+    "visible": false,
+    "items": [
+      { "value": "12 500+", "label": "m² umytých ploch" },
+      { "value": "180+", "label": "dokončených zakázek" },
+      { "value": "25+", "label": "měst a obcí" },
+      { "value": "15+", "label": "let praxe v týmu" }
+    ]
+  },
+  "team": {
+    "visible": false,
+    "heading": "Kdo za tím stojí",
+    "intro": "Firma je nová, ruce nejsou. Lorem ipsum dolor sit amet, consectetur adipiscing elit - sed diam nonummy nibh euismod tincidunt.",
+    "image": "/media/pic3.webp",
+    "imageAlt": "Náš tým při čištění fasády v ochranných pomůckách",
+    "members": [
+      {
+        "name": "Jan Novák",
+        "role": "Zakladatel & vedoucí technik",
+        "exp": "15 let praxe",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "name": "Petr Svoboda",
+        "role": "Technik",
+        "exp": "10 let praxe",
+        "bio": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    ]
+  },
+  "references": {
+    "heading": "Vybrané zakázky",
+    "intro": "Konkrétní objekty, rozsah a postup - takhle vypadá naše práce v číslech i na fotkách.",
+    "studies": [
+      {
+        "type": "Bytový dům",
+        "city": "Brno",
+        "facts": [
+          { "label": "Rozsah", "value": "1 250 m²" },
+          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+        ],
+        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Severní fasáda lorem ipsum plísně a řasy, sed do eiusmod tempor incididunt ut labore magna aliqua.",
+        "images": [
+          { "src": "/media/pic1.webp", "alt": "Mytí fasády bytového domu z montážní plošiny" },
+          { "src": "/media/pic4.webp", "alt": "Čištění fasády kloubovou plošinou" },
+          { "src": "/media/pic5.webp", "alt": "Umytá fasáda bytového domu" }
+        ]
+      },
+      {
+        "type": "Rodinný dům",
+        "city": "Vyškov",
+        "facts": [
+          { "label": "Rozsah", "value": "320 m²" },
+          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+        ],
+        "desc": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+        "images": [
+          { "src": "/media/pic6.webp", "alt": "Čištění štítu rodinného domu z montážní plošiny" },
+          { "src": "/media/pic10.webp", "alt": "Ošetření fasády rodinného domu z plošiny" }
+        ]
+      },
+      {
+        "type": "Řadový dům",
+        "city": "Blansko",
+        "facts": [
+          { "label": "Rozsah", "value": "450 m²" },
+          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+        ],
+        "desc": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.",
+        "images": [
+          { "src": "/media/pic9.webp", "alt": "Práce z montážní plošiny u řadového domu" },
+          { "src": "/media/pic3.webp", "alt": "Náš tým při práci v ochranných pomůckách" }
+        ]
+      },
+      {
+        "type": "Komerční objekt",
+        "city": "Hodonín",
+        "facts": [
+          { "label": "Rozsah", "value": "780 m²" },
+          { "label": "Postup", "value": "odstranění graffiti" }
+        ],
+        "desc": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi.",
+        "images": [
+          { "src": "/media/pic7.webp", "alt": "Odstraňování graffiti z podchodu" },
+          { "src": "/media/pic2.webp", "alt": "Probíhající čištění s informačním bannerem" },
+          { "src": "/media/pic8.webp", "alt": "Komerční objekt před čištěním fasády" }
+        ]
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Orientační ceník",
+    "intro": "Přesnou cenu stanovíme po prohlídce zdarma - záleží na typu povrchu, míře znečištění a přístupu k objektu.",
+    "rows": [
+      { "service": "Mytí a čištění fasád", "price": "od 95 Kč/m²", "note": "dle znečištění a výšky objektu" },
+      { "service": "Čištění střech", "price": "od 120 Kč/m²", "note": "dle typu krytiny" },
+      { "service": "Čištění dlažby a chodníků", "price": "od 60 Kč/m²", "note": "včetně spár" },
+      { "service": "Odstranění graffiti", "price": "individuálně", "note": "dle podkladu a barvy" },
+      { "service": "Nanoimpregnace", "price": "od 85 Kč/m²", "note": "ochrana 5–10 let" }
+    ],
+    "footnote": "Ceny jsou orientační, bez DPH. Přesnou nabídku připravíme po bezplatné prohlídce objektu.",
+    "cta": "Chci přesnou nabídku"
+  },
+  "orderProcess": {
+    "heading": "Od poptávky k čisté fasádě (střeše či dlažbě) ve čtyřech krocích",
+    "intro": "Cenu vždy stanovujeme individuálně podle konkrétního objektu. Žádné poplatky ani závazky předem.",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Poptávka",
+        "desc": "Ozvěte se nám telefonicky nebo e-mailem. Řekneme si, co potřebujete."
+      },
+      {
+        "no": "02",
+        "title": "Prohlídka na místě",
+        "desc": "Domluvíme termín a přijedeme se na objekt podívat, zdarma a bez závazku."
+      },
+      {
+        "no": "03",
+        "title": "Zaměření a posouzení",
+        "desc": "Technik objekt zaměří, posoudí typ a stav povrchu a navrhne vhodný postup."
+      },
+      {
+        "no": "04",
+        "title": "Nezávazná nabídka",
+        "desc": "Připravíme cenovou nabídku na míru. Rozhodnutí je na vás, bez poplatků."
+      }
+    ]
+  },
+  "faq": {
+    "heading": "Co se nejčastěji ptáte",
+    "items": [
+      {
+        "q": "Jak dlouho vydrží fasáda, střecha či dlažba čistá?",
+        "a": "Po vyčištění nanášíme nanoimpregnaci, která brání opětovnému růstu mechů, plísní a usazování nečistot. Podle typu povrchu, povětrnostních podmínek a okolí se u fasád a střech účinek pohybuje zhruba mezi 5 a 10 lety, u dlažby a teras 3–5+ let dle zatížení."
+      },
+      {
+        "q": "Nepoškodí tlakové mytí omítku, střechu či dlažbu?",
+        "a": "Ne. Tlak i trysky volíme vždy podle typu a stavu daného povrchu."
+      },
+      {
+        "q": "Jsou použité přípravky bezpečné?",
+        "a": "Ano. Při čištění používáme profesionální a velmi kvalitní chemii od švédského výrobce Trion BPS, která je velmi oblíbená ve Skandinávii a střední Evropě."
+      },
+      {
+        "q": "Kolik to bude stát?",
+        "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků."
+      },
+      {
+        "q": "Co všechno umíte vyčistit?",
+        "a": "Fasády, střechy, dlažbu i chodníky. Odstraníme biologické znečištění povrchů – plísně, mechy, řasy, lišejníky a další mikrobiologické a organické nečistoty. V neposlední řadě také saze, prach, graffiti a nečistoty, které na povrch nepatří."
+      }
+    ]
+  },
+  "advice": {
+    "heading": "Rady a návody",
+    "intro": "Co byste měli vědět o fasádě, střeše i dlažbě, než nás zavoláte.",
+    "badge": "Připravujeme",
+    "articles": [
+      {
+        "no": "01",
+        "title": "Kdy je správný čas umýt fasádu",
+        "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "no": "02",
+        "title": "Plíseň, nebo řasa? Jak je poznat",
+        "excerpt": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      {
+        "no": "03",
+        "title": "Jak funguje nanoimpregnace",
+        "excerpt": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Pošleme vám nezávaznou cenovou nabídku",
+    "body": "Napište nebo zavolejte. Domluvíme termín prohlídky zdarma a navrhneme řešení pro vaši fasádu.",
+    "promises": ["Ozveme se do 24 hodin", "Prohlídka a nabídka zdarma"],
+    "areasLabel": "Kde působíme",
+    "areas": ["Hodonín – Jihomoravský kraj a okolí do 100 km"],
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-mail",
+    "hours": "Po–Pá 8:00–17:00",
+    "formEndpoint": "",
+    "formNameLabel": "Jméno",
+    "formPhoneLabel": "Telefon",
+    "formMessageLabel": "Co potřebujete vyčistit?",
+    "formMessagePlaceholder": "Rodinný dům, fasáda cca 200 m²…",
+    "formSubmit": "Odeslat poptávku",
+    "sentTitle": "Děkujeme za poptávku",
+    "sentBody": "Ozveme se vám do 24 hodin. Spěchá to? Zavolejte nám.",
+    "consent": "Odesláním souhlasíte se zpracováním osobních údajů za účelem vyřízení poptávky."
+  },
+  "footer": {
+    "legalLine": "Umyjeme Fasádu s.r.o. · IČO 00000000 · DIČ CZ00000000\nLorem ipsum 123, 602 00 Brno · sp. zn. C 00000 vedená u KS v Brně",
+    "privacyLabel": "Ochrana osobních údajů",
+    "privacyTitle": "Zásady ochrany osobních údajů",
+    "privacyBody": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Správcem osobních údajů je Umyjeme Fasádu s.r.o. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Osobní údaje zpracováváme výhradně za účelem vyřízení poptávky."
+    ]
+  },
+  "callBar": {
+    "inquiry": "Poptávka",
+    "call": "Zavolat"
+  }
+}

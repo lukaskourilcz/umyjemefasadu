@@ -1,35 +1,17 @@
 import SectionHeading from "./SectionHeading";
-import teamPhoto from "../assets/pic3.webp";
-
-// TODO: skutečná jména, role, délka praxe a medailonky členů týmu.
-const MEMBERS = [
-  {
-    name: "Jan Novák",
-    role: "Zakladatel & vedoucí technik",
-    exp: "15 let praxe",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    name: "Petr Svoboda",
-    role: "Technik",
-    exp: "10 let praxe",
-    bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
+import { useContent } from "../content";
 
 export default function Team() {
+  const { heading, intro, image, imageAlt, members: MEMBERS } =
+    useContent().team;
   return (
     <section id="tym" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <SectionHeading
-            align="left"
-            title="Kdo za tím stojí"
-            intro="Firma je nová, ruce nejsou. Lorem ipsum dolor sit amet, consectetur adipiscing elit - sed diam nonummy nibh euismod tincidunt."
-          />
+          <SectionHeading align="left" title={heading} intro={intro} />
           <img
-            src={teamPhoto}
-            alt="Náš tým při čištění fasády v ochranných pomůckách"
+            src={image}
+            alt={imageAlt}
             loading="lazy"
             className="mt-10 w-full max-w-[440px] rounded-[14px] border object-cover fade-up"
             style={{

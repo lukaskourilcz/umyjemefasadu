@@ -1,37 +1,13 @@
 import SectionHeading from "./SectionHeading";
 import { TEXT } from "../lib/text";
-
-const STEPS = [
-  {
-    no: "01",
-    title: "Poptávka",
-    desc: "Ozvěte se nám telefonicky nebo e-mailem. Řekneme si, co potřebujete.",
-  },
-  {
-    no: "02",
-    title: "Prohlídka na místě",
-    desc: "Domluvíme termín a přijedeme se na objekt podívat, zdarma a bez závazku.",
-  },
-  {
-    no: "03",
-    title: "Zaměření a posouzení",
-    desc: "Technik objekt zaměří, posoudí typ a stav povrchu a navrhne vhodný postup.",
-  },
-  {
-    no: "04",
-    title: "Nezávazná nabídka",
-    desc: "Připravíme cenovou nabídku na míru. Rozhodnutí je na vás, bez poplatků.",
-  },
-];
+import { useContent } from "../content";
 
 export default function OrderProcess() {
+  const { heading, intro, steps: STEPS } = useContent().orderProcess;
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading
-          title="Od poptávky k čisté fasádě ve čtyřech krocích"
-          intro="Cenu vždy stanovujeme individuálně podle konkrétního objektu. Žádné poplatky ani závazky předem."
-        />
+        <SectionHeading title={heading} intro={intro} />
 
         <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 fade-up sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s) => (
