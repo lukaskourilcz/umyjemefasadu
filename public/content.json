@@ -135,13 +135,14 @@
       "title": "Mytí a čištění fasád",
       "desc": "Tlakové mytí horkou vodou v kombinaci se speciální chemií. Odstraníme organické nečistoty (plísně, řasy a lišejníky) i anorganické (saze, prach a mastnota). Tlak, teplotu i trysky volíme podle typu a stavu omítky."
     },
-    "tintCards": [
+    "tintCards": [],
+    "photoCards": [
       {
+        "image": "/media/pic2.webp",
+        "alt": "Čištění zámkové dlažby před komerčním objektem",
         "title": "Čištění dlažby a chodníků",
         "desc": "Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby. Odstraníme zelený povlak, mech i zašlou špínu ze spár."
-      }
-    ],
-    "photoCards": [
+      },
       {
         "image": "/media/pic9.webp",
         "alt": "Práce z montážní plošiny u rodinného domu",
