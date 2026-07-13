@@ -43,9 +43,13 @@ const MethodIcon = (
   </svg>
 );
 
-// Ikony k údajům zakázky zůstávají v kódu, přiřazují se podle pořadí faktu
-// (0 = rozsah/plocha, 1 = doba, 2 = postup).
-const FACT_ICONS = [AreaIcon, ClockIcon, MethodIcon];
+// Ikony k údajům zakázky zůstávají v kódu, přiřazují se podle popisku faktu.
+function factIcon(label: string) {
+  const l = label.toLowerCase();
+  if (l.includes("rozsah") || l.includes("plocha") || l.includes("m²")) return AreaIcon;
+  if (l.includes("doba") || l.includes("dní") || l.includes("den")) return ClockIcon;
+  return MethodIcon;
+}
 
 const SLIDE_MS = 7000;
 
@@ -221,7 +225,7 @@ export default function References() {
                   >
                     <dt className="sr-only">{f.label}</dt>
                     <span aria-hidden="true" className="shrink-0">
-                      {FACT_ICONS[i] ?? FACT_ICONS[FACT_ICONS.length - 1]}
+                      {factIcon(f.label)}
                     </span>
                     <dd
                       className="truncate text-botanical-ink/85"

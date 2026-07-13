@@ -55,6 +55,26 @@ export type Content = {
     items: string[];
   };
 
+  /** „Proč si nechat vyčistit fasádu" — marketingová/edukační sekce nahoře. */
+  whyClean: {
+    heading: string;
+    paragraphs: string[];
+    bullets: string[];
+    protectionTitle: string;
+    protectionIntro: string;
+    protectionBullets: string[];
+    protectionHow: string;
+  };
+
+  /** „Rizika znečištěné fasády" — sekce nahoře. */
+  risks: {
+    heading: string;
+    intro: string;
+    items: { no: string; title: string; desc: string }[];
+    solutionTitle: string;
+    solutionDesc: string;
+  };
+
   services: {
     heading: string;
     intro: string;
@@ -84,10 +104,14 @@ export type Content = {
   };
 
   stats: {
+    /** Zobrazit sekci na webu? */
+    visible: boolean;
     items: { value: string; label: string }[];
   };
 
   team: {
+    /** Zobrazit sekci na webu? */
+    visible: boolean;
     heading: string;
     intro: string;
     image: string;

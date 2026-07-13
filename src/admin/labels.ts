@@ -11,16 +11,17 @@ export const SECTIONS: { key: string; title: string; help?: string }[] = [
   { key: "revealHero", title: "Úvod — fotka před / po", help: "Velká úvodní fotka s odhalením a nadpisem." },
   { key: "hero", title: "Úvod — sekce s videi", help: "Nadpis, text, tlačítka a koláž videí/gifů." },
   { key: "trustStrip", title: "Pruh důvěry", help: "Krátké body pod úvodem (pojištění, ekologie…)." },
+  { key: "whyClean", title: "Proč čistit fasádu", help: "Edukační sekce nahoře + ochrana proti vodě." },
+  { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika a doporučené řešení." },
   { key: "services", title: "Služby", help: "Karty služeb — hlavní fotka, barevné karty a foto karty." },
   { key: "process", title: "Postup čištění", help: "Kroky postupu a metody." },
   { key: "whyUs", title: "Proč my + reference", help: "Body proč my, záruka a rotující reference zákazníků." },
-  { key: "stats", title: "Čísla / statistiky", help: "Čísla v pruhu (m², zakázky…)." },
-  { key: "team", title: "Náš tým", help: "Fotka týmu a členové." },
+  { key: "stats", title: "Čísla / statistiky", help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla." },
+  { key: "team", title: "Náš tým", help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text." },
   { key: "references", title: "Vybrané zakázky", help: "Konkrétní zakázky s fotkami a údaji." },
   { key: "pricing", title: "Ceník", help: "Orientační ceník a poznámky." },
   { key: "orderProcess", title: "Jak objednat", help: "Kroky od poptávky k nabídce." },
   { key: "faq", title: "Časté dotazy", help: "Otázky a odpovědi." },
-  { key: "advice", title: "Rady a návody", help: "Připravované články." },
   { key: "contact", title: "Kontaktní sekce", help: "Závěrečná výzva a formulář." },
   { key: "footer", title: "Patička", help: "Právní údaje a ochrana osobních údajů." },
   { key: "callBar", title: "Mobilní lišta", help: "Tlačítka spodní lišty na mobilu." },
@@ -120,6 +121,17 @@ export const LABELS: Record<string, string> = {
   phoneLabel: "Popisek telefonu",
   emailLabel: "Popisek e-mailu",
 };
+
+// nové sekce + přepínač viditelnosti
+LABELS.visible = "Zobrazit sekci na webu";
+LABELS.paragraphs = "Odstavce textu";
+LABELS.bullets = "Odrážky";
+LABELS.protectionTitle = "Ochrana proti vodě — nadpis";
+LABELS.protectionIntro = "Ochrana proti vodě — úvod";
+LABELS.protectionBullets = "Ochrana proti vodě — odrážky";
+LABELS.protectionHow = "Ochrana proti vodě — jak to funguje";
+LABELS.solutionTitle = "Řešení — nadpis";
+LABELS.solutionDesc = "Řešení — text";
 
 export function labelFor(key: string): string {
   return LABELS[key] ?? key;

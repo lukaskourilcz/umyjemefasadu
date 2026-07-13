@@ -445,6 +445,21 @@ function renderNode(
   if (value && typeof value === "object") {
     return renderObject(value, path, apply, setContent, saveDraft);
   }
+  if (typeof value === "boolean") {
+    return (
+      <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
+        <input
+          type="checkbox"
+          checked={value}
+          onChange={(e) => apply(path, e.target.checked)}
+          style={{ width: 18, height: 18 }}
+        />
+        <span style={{ fontSize: 14, color: "#334155" }}>
+          {value ? "Zapnuto (zobrazuje se)" : "Vypnuto (skryto)"}
+        </span>
+      </label>
+    );
+  }
   const str = typeof value === "string" ? value : String(value ?? "");
   if (isMediaField(keyName)) {
     return <MediaInput value={str} onChange={(v) => apply(path, v)} />;
