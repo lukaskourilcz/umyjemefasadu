@@ -5,7 +5,14 @@ import { useContent } from "../content";
 export default function OrderProcess() {
   const { heading, intro, steps: STEPS } = useContent().orderProcess;
   return (
-    <section className="scroll-mt-24 py-20 md:py-28">
+    // Mist band mezi ceníkem a FAQ - drží rytmus střídání povrchů stránky.
+    <section
+      className="scroll-mt-24 border-y py-20 md:py-28"
+      style={{
+        backgroundColor: "var(--color-sage-mist)",
+        borderColor: "var(--color-lichen)",
+      }}
+    >
       <div className="container-page">
         <SectionHeading title={heading} intro={intro} />
 

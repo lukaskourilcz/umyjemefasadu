@@ -121,15 +121,15 @@
   }
 
   /* Primary filled action - the single chromatic CTA.
-     Uses a hair darker magenta than the --color-warm-loam brand token
-     (visually identical) so cream-on-magenta button text clears WCAG AA
-     (~4.7:1 vs 4.4:1). The brand accent token itself is left untouched. */
+     Derived from the theme token (editable in /dev) with a hair of black
+     mixed in (visually identical to the brand magenta) so cream-on-color
+     button text clears WCAG AA (~4.7:1 vs 4.4:1). Hover darkens further. */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background-color: #d9007a;
+    background-color: color-mix(in srgb, var(--color-warm-loam), #000 6%);
     color: var(--color-cream-paper);
     border-radius: var(--radius-control);
     padding: 16px 32px;

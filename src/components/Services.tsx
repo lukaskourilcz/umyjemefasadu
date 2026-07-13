@@ -84,7 +84,7 @@ function BeforeAfterImage({ img, alt }: { img: string; alt: string }) {
           <path
             d="M7 4 L3 9 L7 14 M11 4 L15 9 L11 14"
             fill="none"
-            stroke="#1ba5e0"
+            stroke="var(--color-forest-floor)"
             strokeWidth="1.6"
             strokeLinecap="round"
             strokeLinejoin="round"

@@ -5,8 +5,7 @@ import { useContent, phoneHref, emailHref } from "../content";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-function buildMailto(data: FormData, email: string) {
-  const subject = "Poptávka z webu umyjemefasadu.cz";
+function buildMailto(data: FormData, email: string, subject: string) {
   const body = [
     `Jméno: ${data.get("name") ?? ""}`,
     `Telefon: ${data.get("phone") ?? ""}`,
@@ -33,7 +32,11 @@ export default function Contact() {
     const data = new FormData(form);
 
     if (!FORM_ENDPOINT) {
-      window.location.href = buildMailto(data, business.email);
+      window.location.href = buildMailto(
+        data,
+        business.email,
+        contact.mailtoSubject,
+      );
       return;
     }
 
@@ -167,7 +170,7 @@ export default function Contact() {
                       name="name"
                       required
                       autoComplete="name"
-                      placeholder="Jan Novák"
+                      placeholder={contact.formNamePlaceholder}
                       className="input-dark"
                     />
                   </label>
@@ -180,7 +183,7 @@ export default function Contact() {
                       name="phone"
                       required
                       autoComplete="tel"
-                      placeholder="+420 …"
+                      placeholder={contact.formPhonePlaceholder}
                       className="input-dark"
                     />
                   </label>
@@ -201,22 +204,19 @@ export default function Contact() {
                   disabled={status === "sending"}
                   className="btn-primary mt-2 w-full disabled:opacity-60 sm:w-auto"
                 >
-                  {status === "sending" ? "Odesílám…" : contact.formSubmit}
+                  {status === "sending" ? contact.formSending : contact.formSubmit}
                 </button>
                 {status === "error" && (
                   <p className="text-cream-paper" style={{ fontSize: "14px" }}>
-                    Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám
-                    napište na{" "}
+                    {contact.formError}{" "}
                     <a href={emailLink} className="underline">
                       {business.email}
                     </a>
-                    .
                   </p>
                 )}
                 <p className="text-cream-paper/50" style={{ fontSize: "13px" }}>
                   {contact.consent}
-                  {!FORM_ENDPOINT &&
-                    " Formulář otevře váš e-mail s předvyplněnou zprávou; žádná data se neukládají."}
+                  {!FORM_ENDPOINT && ` ${contact.mailtoNote}`}
                 </p>
               </form>
             )}

@@ -30,17 +30,18 @@ const LABEL_STYLE = {
   fontSize: "clamp(11px, 1.75vw, 17px)",
   color: "var(--color-cream-paper)",
   textShadow: "0 1px 6px rgba(16,24,32,0.4)",
-  // Frosted-glass light-blue highlight blurring the photo behind it.
-  backgroundColor: "rgba(26,165,224,0.55)",
+  // Frosted-glass highlight in the secondary (water) accent, blurring the
+  // photo behind it. Follows the theme colors set in /dev.
+  backgroundColor: "color-mix(in srgb, var(--color-forest-floor) 55%, transparent)",
   backdropFilter: "blur(8px)",
   WebkitBackdropFilter: "blur(8px)",
 } as const;
 
-// "Po vyčištění" variant — yellow fill, so the label shifts blue → yellow as it
-// crossfades from the "before" state to the "after" state.
+// "Po vyčištění" variant — primary (brand) fill, so the label shifts from the
+// water accent to the brand color as the clean photo wipes in.
 const LABEL_STYLE_AFTER = {
   ...LABEL_STYLE,
-  backgroundColor: "rgba(245,194,52,0.6)",
+  backgroundColor: "color-mix(in srgb, var(--color-warm-loam) 55%, transparent)",
 } as const;
 
 // Glass applied per headline line so the blur sits only behind the text,

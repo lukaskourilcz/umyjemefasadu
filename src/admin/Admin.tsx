@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   CSSProperties,
   Dispatch,
@@ -16,6 +16,7 @@ import {
   labelFor,
   MEDIA_KEYS,
   isMediaArrayKey,
+  COLOR_KEYS,
 } from "./labels";
 
 const ADMIN_PW = "fasada";
@@ -122,6 +123,61 @@ function download(filename: string, text: string) {
 
 /* ------------------------------- UI prvky --------------------------------- */
 
+/** Úzká obrazovka (telefon)? Administrace se pak skládá pod sebe. */
+function useNarrow(breakpoint = 860): boolean {
+  const [narrow, setNarrow] = useState(
+    () => window.matchMedia(`(max-width: ${breakpoint}px)`).matches,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const onChange = () => setNarrow(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [breakpoint]);
+  return narrow;
+}
+
+/** Výběr barvy: nativní color picker + hex hodnota vedle. */
+function ColorInput({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const valid = /^#[0-9a-fA-F]{6}$/.test(value);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <input
+        type="color"
+        value={valid ? value : "#000000"}
+        onChange={(e) => onChange(e.target.value)}
+        style={{
+          width: 44,
+          height: 36,
+          padding: 2,
+          border: "1px solid #cbd5e1",
+          borderRadius: 8,
+          background: "#fff",
+          cursor: "pointer",
+        }}
+      />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value.trim())}
+        spellCheck={false}
+        style={{ ...s.input, width: 110 }}
+      />
+      {!valid && (
+        <span style={{ color: "#dc2626", fontSize: 12 }}>
+          Zadejte barvu jako #rrggbb
+        </span>
+      )}
+    </div>
+  );
+}
+
 function readFileAsDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const r = new FileReader();
@@ -206,6 +262,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
   );
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState(false);
+  const narrow = useNarrow();
 
   const [content, setContent] = useState<Content>(() => {
     const draft = loadDraft();
@@ -335,9 +392,14 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
       <header style={s.topbar}>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <strong style={{ fontSize: 16 }}>Administrace obsahu</strong>
-          <span style={{ fontSize: 12, color: "#64748b" }}>
-            Umyjeme Fasádu · úprava textů a fotek
-          </span>
+          <a
+            href="/"
+            target="_blank"
+            rel="noreferrer"
+            style={{ fontSize: 12, color: "#93c5fd", textDecoration: "underline" }}
+          >
+            Zobrazit web ↗
+          </a>
         </div>
         <div style={s.actions}>
           <button type="button" style={s.btnGhost} onClick={preview}>
@@ -378,8 +440,10 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         </div>
       )}
 
-      <div style={s.body}>
-        <nav style={s.sidebar}>
+      {/* Na telefonu se seznam sekcí položí vodorovně nad obsah (posouvá se
+          prstem), na počítači zůstává jako boční sloupec. */}
+      <div style={{ ...s.body, ...(narrow ? s.bodyNarrow : null) }}>
+        <nav style={{ ...s.sidebar, ...(narrow ? s.sidebarNarrow : null) }}>
           {SECTIONS.map((sec) => (
             <button
               key={sec.key}
@@ -387,18 +451,23 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
               onClick={() => setOpen(sec.key)}
               style={{
                 ...s.navItem,
+                ...(narrow ? s.navItemNarrow : null),
                 ...(open === sec.key ? s.navItemActive : null),
               }}
             >
               {sec.title}
             </button>
           ))}
-          <button type="button" style={s.navReset} onClick={resetOriginal}>
+          <button
+            type="button"
+            style={{ ...s.navReset, ...(narrow ? s.navItemNarrow : null) }}
+            onClick={resetOriginal}
+          >
             Obnovit původní texty
           </button>
         </nav>
 
-        <main style={s.main}>
+        <main style={{ ...s.main, ...(narrow ? s.mainNarrow : null) }}>
           {SECTIONS.filter((sec) => sec.key === open).map((sec) => (
             <section key={sec.key}>
               <h2 style={{ fontSize: 20, margin: "0 0 4px" }}>{sec.title}</h2>
@@ -464,6 +533,9 @@ function renderNode(
   const str = typeof value === "string" ? value : String(value ?? "");
   if (isMediaField(keyName)) {
     return <MediaInput value={str} onChange={(v) => apply(path, v)} />;
+  }
+  if (COLOR_KEYS.has(keyName)) {
+    return <ColorInput value={str} onChange={(v) => apply(path, v)} />;
   }
   const long = str.length > 55 || /\n/.test(str);
   return long ? (
@@ -655,6 +727,7 @@ const s: Record<string, CSSProperties> = {
   actions: { display: "flex", gap: 8, flexWrap: "wrap" },
   banner: { padding: "10px 20px", fontSize: 14 },
   body: { display: "flex", alignItems: "flex-start", gap: 0 },
+  bodyNarrow: { flexDirection: "column", alignItems: "stretch" },
   sidebar: {
     position: "sticky",
     top: 61,
@@ -668,6 +741,21 @@ const s: Record<string, CSSProperties> = {
     maxHeight: "calc(100vh - 61px)",
     overflowY: "auto",
   },
+  sidebarNarrow: {
+    position: "sticky",
+    top: 0,
+    zIndex: 5,
+    alignSelf: "stretch",
+    flexDirection: "row",
+    width: "100%",
+    maxHeight: "none",
+    overflowY: "visible",
+    overflowX: "auto",
+    padding: "10px 12px",
+    background: "#f1f5f9",
+    borderBottom: "1px solid #e2e8f0",
+    WebkitOverflowScrolling: "touch",
+  },
   navItem: {
     textAlign: "left",
     padding: "9px 12px",
@@ -677,6 +765,14 @@ const s: Record<string, CSSProperties> = {
     color: "#334155",
     fontSize: 14,
     cursor: "pointer",
+  },
+  navItemNarrow: {
+    whiteSpace: "nowrap",
+    flexShrink: 0,
+    border: "1px solid #e2e8f0",
+    borderRadius: 999,
+    background: "#fff",
+    marginTop: 0,
   },
   navItemActive: { background: "#0f172a", color: "#fff", fontWeight: 600 },
   navReset: {
@@ -696,6 +792,7 @@ const s: Record<string, CSSProperties> = {
     padding: "24px 28px 80px",
     maxWidth: 760,
   },
+  mainNarrow: { padding: "20px 16px 80px", maxWidth: "none" },
   fieldBlock: { display: "flex", flexDirection: "column", gap: 6 },
   groupBlock: {
     display: "flex",
