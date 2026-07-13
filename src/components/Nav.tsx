@@ -58,23 +58,17 @@ export default function Nav() {
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
         {/* Brand mark - absolute → no effect on the bar height (--nav-h);
-            pointer-events on the link only. Full size over the hero; once the
-            page scrolls it shrinks into the bar so it never covers content. */}
+            pointer-events on the link only. Full size (180px) on tablet and up;
+            scaled down only on phones (<768px). */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className={`pointer-events-none absolute z-10 opacity-[0.95] transition-all duration-300 ${
-            scrolled
-              ? "left-[8px] top-[6px] md:left-[12px] min-[1200px]:left-[24px]"
-              : "left-[5px] top-[-5px] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
-          }`}
+          className="pointer-events-none absolute left-[5px] top-[-5px] z-10 opacity-[0.95] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
         >
           <Logo
             source="nav"
             height={172}
-            className={`pointer-events-auto block w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] transition-[height] duration-300 ${
-              scrolled ? "h-[60px] md:h-[64px]" : "h-[110px] md:h-[180px]"
-            }`}
+            className="pointer-events-auto block h-[110px] w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] md:h-[180px]"
           />
         </a>
 
