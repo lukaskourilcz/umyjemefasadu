@@ -1,12 +1,18 @@
 import SectionHeading from "./SectionHeading";
-import { CheckIcon } from "./icons";
+import { CheckIcon, DropletIcon, LeafIcon, HouseIcon } from "./icons";
 import { useContent } from "../content";
 import { TEXT } from "../lib/text";
 
 /**
  * „Proč si nechat vyčistit fasádu" — edukační/marketingová sekce nahoře na
- * stránce. Vysvětluje přínos čištění a ochranu proti vodě (impregnaci).
+ * stránce. Editorial dvousloupec: vlevo příběh, vpravo tři přínosy jako
+ * seznam s vlasovými linkami a kreslenými ikonami (žádné kartičkové chrome).
  */
+
+// Ikony přínosů zůstávají v kódu a přiřazují se podle pořadí; texty jsou
+// editovatelné v administraci.
+const BULLET_ICONS = [DropletIcon, LeafIcon, HouseIcon];
+
 export default function WhyClean() {
   const {
     heading,
@@ -21,74 +27,102 @@ export default function WhyClean() {
   return (
     <section id="proc-cistit" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading title={heading} />
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <SectionHeading align="left" title={heading} />
+            <div className="mt-7 max-w-[58ch] fade-up">
+              {paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className="text-botanical-ink/80"
+                  style={{
+                    fontSize: "var(--text-body)",
+                    lineHeight: 1.7,
+                    marginTop: i === 0 ? 0 : 16,
+                  }}
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+          </div>
 
-        <div className="mx-auto mt-8 max-w-[760px] fade-up">
-          {paragraphs.map((p, i) => (
-            <p
-              key={i}
-              className="text-botanical-ink/80"
-              style={{ fontSize: "var(--text-body)", lineHeight: 1.7, marginTop: i === 0 ? 0 : 16 }}
-            >
-              {p}
-            </p>
-          ))}
+          {/* Tři přínosy - vlasové linky a kreslené ikony, stejný jazyk jako
+              seznam v sekci „Proč my". */}
+          <ul
+            className="flex flex-col border-t fade-up lg:mt-3"
+            style={{ borderColor: "var(--color-eucalyptus)" }}
+          >
+            {bullets.map((b, i) => {
+              const Icon = BULLET_ICONS[i % BULLET_ICONS.length];
+              return (
+                <li
+                  key={i}
+                  className="flex items-center gap-5 border-b py-6"
+                  style={{ borderColor: "var(--color-eucalyptus)" }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0"
+                    style={{ color: "var(--color-forest-floor)" }}
+                  >
+                    <Icon size={26} />
+                  </span>
+                  <span
+                    className="text-botanical-ink"
+                    style={{ fontSize: "17px", fontWeight: 600, lineHeight: 1.45 }}
+                  >
+                    {b}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
-        {/* Tři přínosy */}
-        <ul className="mx-auto mt-10 grid max-w-[900px] grid-cols-1 gap-4 fade-up sm:grid-cols-3">
-          {bullets.map((b, i) => (
-            <li
-              key={i}
-              className="rounded-[14px] border px-5 py-5 text-botanical-ink"
-              style={{
-                borderColor: "var(--color-eucalyptus)",
-                backgroundColor: "var(--color-cream-paper)",
-                fontSize: "15px",
-                lineHeight: 1.5,
-                fontWeight: 600,
-              }}
-            >
-              {b}
-            </li>
-          ))}
-        </ul>
-
-        {/* Ochrana proti vodě */}
+        {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
+            vpravo přínosy jako odškrtnutý seznam. */}
         <div
-          className="mx-auto mt-8 max-w-[900px] rounded-[16px] border p-7 fade-up md:p-9"
+          className="mt-16 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
           style={{
             borderColor: "var(--color-eucalyptus)",
             backgroundColor: "var(--color-sage-mist)",
           }}
         >
-          <h3
-            className="text-botanical-ink"
-            style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
+          <div>
+            <h3
+              className="text-botanical-ink"
+              style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
+            >
+              {protectionTitle}
+            </h3>
+            <p className="mt-3 max-w-[52ch] text-botanical-ink/80" style={TEXT.body}>
+              {protectionIntro}
+            </p>
+            <p
+              className="mt-5 max-w-[52ch] text-botanical-ink/65"
+              style={{ fontSize: "14px", lineHeight: 1.6 }}
+            >
+              {protectionHow}
+            </p>
+          </div>
+          <ul className="flex flex-col justify-center gap-3.5 md:border-l md:pl-10"
+            style={{ borderColor: "var(--color-eucalyptus)" }}
           >
-            {protectionTitle}
-          </h3>
-          <p className="mt-3 max-w-[60ch] text-botanical-ink/80" style={TEXT.body}>
-            {protectionIntro}
-          </p>
-          <ul className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {protectionBullets.map((b, i) => (
               <li key={i} className="flex items-start gap-2.5">
-                <span className="mt-0.5 shrink-0">
+                <span className="mt-1 shrink-0">
                   <CheckIcon size={16} color="var(--color-forest-floor)" />
                 </span>
-                <span className="text-botanical-ink/80" style={{ fontSize: "15px", lineHeight: 1.5 }}>
+                <span
+                  className="text-botanical-ink/85"
+                  style={{ fontSize: "15px", lineHeight: 1.55 }}
+                >
                   {b}
                 </span>
               </li>
             ))}
           </ul>
-          <p
-            className="mt-5 border-t pt-4 text-botanical-ink/65"
-            style={{ borderColor: "var(--color-eucalyptus)", fontSize: "14px", lineHeight: 1.6 }}
-          >
-            {protectionHow}
-          </p>
         </div>
       </div>
     </section>

@@ -144,6 +144,7 @@ LABELS.protectionBullets = "Ochrana proti vodě — odrážky";
 LABELS.protectionHow = "Ochrana proti vodě — jak to funguje";
 LABELS.solutionTitle = "Řešení — nadpis";
 LABELS.solutionDesc = "Řešení — text";
+LABELS.solutionCta = "Řešení — text tlačítka";
 
 export function labelFor(key: string): string {
   return LABELS[key] ?? key;
