@@ -79,8 +79,10 @@ export default function Risks() {
               horní lišta a sekce Proč my. Nad odkazem stojí kreslený domek
               s otevřenými stěnami: podtržené tlačítko tvoří jeho základy. */}
           <div className="justify-self-start md:justify-self-end">
+            {/* Minimalistický domek: jen střecha a krátké stěny vysoké jako
+                písmo odkazu; síla čar (non-scaling) odpovídá tahům textu. */}
             <svg
-              viewBox="0 0 240 88"
+              viewBox="0 0 240 52"
               aria-hidden="true"
               className="block w-full text-cream-paper"
               style={{ maxWidth: 260 }}
@@ -88,20 +90,14 @@ export default function Risks() {
               <g
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                vectorEffect="non-scaling-stroke"
               >
-                {/* střecha s přesahem a hřebenem */}
-                <path d="M14 46 L120 8 L226 46" />
-                {/* komín na pravém svahu střechy */}
-                <path d="M176 28 V14 H192 V22" />
-                {/* stěny - dole otevřené, dosedají na podtržení odkazu */}
-                <path d="M34 42 V88 M206 42 V88" />
-                {/* okno s křížem */}
-                <path d="M100 54 H140 V80 M100 54 V80 M120 54 V80 M100 67 H140" />
-                {/* jiskra čistoty vlevo */}
-                <path d="M62 58 V70 M56 64 H68" opacity="0.7" />
+                <path d="M12 40 L120 6 L228 40" vectorEffect="non-scaling-stroke" />
+                <path d="M32 36 V52" vectorEffect="non-scaling-stroke" />
+                <path d="M208 36 V52" vectorEffect="non-scaling-stroke" />
               </g>
             </svg>
             <a
