@@ -54,8 +54,12 @@ export default function Process() {
           ))}
         </ol>
 
-        {/* Two approaches - chosen podle typu a stavu fasády */}
-        <div className="mx-auto mt-14 grid max-w-[900px] grid-cols-1 gap-5 fade-up md:grid-cols-2">
+        {/* Metody - s jedinou kartou drží mřížka střed (žádná prázdná půlka) */}
+        <div
+          className={`mx-auto mt-14 grid grid-cols-1 gap-5 fade-up ${
+            METHODS.length > 1 ? "max-w-[900px] md:grid-cols-2" : "max-w-[560px]"
+          }`}
+        >
           {METHODS.map((m) => (
             <div
               key={m.title}
