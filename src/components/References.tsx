@@ -216,9 +216,11 @@ export default function References() {
                 {s.facts.map((f, i) => (
                   <div
                     key={`${f.label}-${i}`}
-                    className={`flex min-w-0 flex-1 items-center gap-2 py-3.5 ${
-                      i === 0 ? "pl-6 md:pl-7" : "border-l pl-4"
-                    } pr-3`}
+                    className={`flex items-center gap-2 py-3 ${
+                      i === 0
+                        ? "shrink-0 pl-6 md:pl-7"
+                        : "min-w-0 flex-1 border-l pl-4"
+                    } pr-4`}
                     style={
                       i > 0 ? { borderColor: "var(--color-lichen)" } : undefined
                     }
@@ -227,9 +229,19 @@ export default function References() {
                     <span aria-hidden="true" className="shrink-0">
                       {factIcon(f.label)}
                     </span>
+                    {/* Delší údaje se zalomí na dva řádky místo „…" */}
                     <dd
-                      className="truncate text-botanical-ink/85"
-                      style={{ fontSize: "14px", fontWeight: 500, margin: 0 }}
+                      className="text-botanical-ink/85"
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        margin: 0,
+                        lineHeight: 1.35,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
                     >
                       {f.value}
                     </dd>

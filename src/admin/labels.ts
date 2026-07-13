@@ -7,6 +7,7 @@
 /** Pořadí a názvy hlavních sekcí v administraci. */
 export const SECTIONS: { key: string; title: string; help?: string }[] = [
   { key: "business", title: "Kontaktní údaje", help: "Telefon, e-mail a otevírací doba. Používají se v celém webu." },
+  { key: "theme", title: "Vzhled — barvy webu", help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci." },
   { key: "nav", title: "Horní menu", help: "Odkazy v horní liště a text hlavního tlačítka." },
   { key: "revealHero", title: "Úvod — fotka před / po", help: "Velká úvodní fotka s odhalením a nadpisem." },
   { key: "hero", title: "Úvod — sekce s videi", help: "Nadpis, text, tlačítka a koláž videí/gifů." },
@@ -124,6 +125,17 @@ export const LABELS: Record<string, string> = {
 
 // nové sekce + přepínač viditelnosti
 LABELS.visible = "Zobrazit sekci na webu";
+LABELS.quotesVisible = "Zobrazit reference na webu";
+// vzhled
+LABELS.primary = "Hlavní barva (tlačítka, výzvy)";
+LABELS.secondary = "Doplňková barva (ikony, akcenty)";
+// formulář — doplňky
+LABELS.formNamePlaceholder = "Formulář — nápověda ve jménu";
+LABELS.formPhonePlaceholder = "Formulář — nápověda v telefonu";
+LABELS.formSending = "Formulář — text při odesílání";
+LABELS.formError = "Formulář — text při chybě";
+LABELS.mailtoSubject = "Předmět e-mailu s poptávkou";
+LABELS.mailtoNote = "Vysvětlivka pod formulářem (e-mail)";
 LABELS.paragraphs = "Odstavce textu";
 LABELS.bullets = "Odrážky";
 LABELS.protectionTitle = "Ochrana proti vodě — nadpis";
@@ -152,3 +164,6 @@ export const MEDIA_KEYS = new Set([
 export function isMediaArrayKey(key: string): boolean {
   return key === "videos";
 }
+
+/** Klíče, jejichž hodnota je barva (upravují se výběrem barvy, ne textem). */
+export const COLOR_KEYS = new Set(["primary", "secondary"]);

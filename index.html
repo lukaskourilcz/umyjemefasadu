@@ -75,7 +75,7 @@
         "email": "info@umyjemefasadu.cz",
         "priceRange": "$$",
         "description": "Profesionální tlakové mytí a čištění fasád, střech a dlažby. Nezávazná nabídka zdarma.",
-        "areaServed": "Česká republika",
+        "areaServed": "Hodonín, Jihomoravský kraj a okolí do 100 km",
         "knowsAbout": [
           "mytí fasád",
           "čištění střech",
@@ -86,56 +86,8 @@
       }
     </script>
 
-    <!-- FAQPage structured data - mirror of the on-page FAQ (src/components/Faq.tsx);
-         keep the two in sync when the copy changes. -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Jak dlouho vydrží fasáda čistá?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Po vyčištění nanášíme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot. Podle typu fasády, povětrnostních podmínek a okolí se její účinek pohybuje zhruba mezi 5 a 10 lety."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Nepoškodí tlakové mytí omítku?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ne. Tlak, teplotu vody i trysky volíme vždy podle typu a stavu omítky. U citlivějších povrchů sáhneme po šetrnější variantě bez horké vody, s přípravkem a aktivní pěnou."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Jsou použité přípravky bezpečné?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ano. Používáme ekologické a bezpečné přípravky, které jsou ohleduplné k okolí i k povrchu budovy. Zároveň jsme pojištěni u pojišťovny Generali."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Kolik to bude stát?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Co všechno umíte vyčistit?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Fasády, střechy, dlažbu i chodníky. Odstraníme plísně, mech, řasy, saze, prach i graffiti a nečistoty, které na povrch nepatří. Nabízíme také nátěry a opravy fasád."
-            }
-          }
-        ]
-      }
-    </script>
+    <!-- FAQPage strukturovaná data se generují za běhu z content.json
+         (src/main.tsx), takže zůstávají v synchronu s administrací. -->
   </head>
   <body>
     <div id="root"></div>

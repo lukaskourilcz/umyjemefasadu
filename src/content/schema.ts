@@ -23,6 +23,14 @@ export type Content = {
     hours: string; // např. Po–Pá 7:00–18:00
   };
 
+  /** Barvy webu — hex hodnoty, aplikují se za běhu jako CSS proměnné. */
+  theme: {
+    /** Hlavní akční barva (tlačítka, CTA). */
+    primary: string;
+    /** Doplňková barva (ikony, odkazy, akcenty). */
+    secondary: string;
+  };
+
   nav: {
     links: NavLink[];
     cta: string;
@@ -99,6 +107,8 @@ export type Content = {
     guaranteeTitle: string;
     guaranteeDesc: string;
     points: { title: string; desc: string }[];
+    /** Zobrazit rotující reference zákazníků? Zapněte, až budete mít skutečné. */
+    quotesVisible: boolean;
     quotesLabel: string;
     quotes: { text: string; name: string; meta: string }[];
   };
@@ -169,10 +179,18 @@ export type Content = {
     /** Prázdné = formulář otevře e-mail. Jinak URL (např. Formspree). */
     formEndpoint: string;
     formNameLabel: string;
+    formNamePlaceholder: string;
     formPhoneLabel: string;
+    formPhonePlaceholder: string;
     formMessageLabel: string;
     formMessagePlaceholder: string;
     formSubmit: string;
+    formSending: string;
+    formError: string;
+    /** Předmět e-mailu, který formulář předvyplní (bez vlastního serveru). */
+    mailtoSubject: string;
+    /** Vysvětlivka pod formulářem, když se odesílá přes e-mail. */
+    mailtoNote: string;
     sentTitle: string;
     sentBody: string;
     consent: string;

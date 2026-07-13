@@ -4,23 +4,55 @@
     "email": "info@umyjemefasadu.cz",
     "hours": "Po–Pá 8:00–17:00"
   },
+  "theme": {
+    "primary": "#e6007e",
+    "secondary": "#1ba5e0"
+  },
   "nav": {
     "links": [
-      { "href": "#proc-cistit", "label": "Proč čistit" },
-      { "href": "#rizika", "label": "Rizika" },
-      { "href": "#sluzby", "label": "Služby" },
-      { "href": "#postup", "label": "Postup" },
-      { "href": "#proc-my", "label": "Proč my" },
-      { "href": "#galerie", "label": "Reference" },
-      { "href": "#cenik", "label": "Ceník" },
-      { "href": "#kontakt", "label": "Kontakt" }
+      {
+        "href": "#proc-cistit",
+        "label": "Proč čistit"
+      },
+      {
+        "href": "#rizika",
+        "label": "Rizika"
+      },
+      {
+        "href": "#sluzby",
+        "label": "Služby"
+      },
+      {
+        "href": "#postup",
+        "label": "Postup"
+      },
+      {
+        "href": "#proc-my",
+        "label": "Proč my"
+      },
+      {
+        "href": "#galerie",
+        "label": "Reference"
+      },
+      {
+        "href": "#cenik",
+        "label": "Ceník"
+      },
+      {
+        "href": "#kontakt",
+        "label": "Kontakt"
+      }
     ],
     "cta": "Nezávazná poptávka"
   },
   "revealHero": {
     "beforeImage": "/media/dirty-hero.webp",
     "afterImage": "/media/clean-hero.webp",
-    "headlineLines": ["Poskytneme", "lesk pro", "vaši fasádu"],
+    "headlineLines": [
+      "Poskytneme",
+      "lesk pro",
+      "vaši fasádu"
+    ],
     "labelBeforePrefix": "Před",
     "labelBeforeSuffix": "vyčištěním",
     "labelAfterPrefix": "Po",
@@ -182,32 +214,35 @@
         "desc": "Malý tým, který si za svou prací stojí. Řekneme vám rovnou, co má smysl a co ne."
       }
     ],
+    "quotesVisible": false,
     "quotesLabel": "Řekli o nás",
     "quotes": [
       {
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fasáda vypadá jako nová, sed do eiusmod tempor incididunt ut labore et dolore.",
-        "name": "Jana N.",
-        "meta": "Brno · mytí fasády"
-      },
-      {
-        "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        "name": "Miroslav K.",
-        "meta": "Vyškov · čištění střechy"
-      },
-      {
-        "text": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "name": "SVJ Letná",
-        "meta": "Hodonín · fasáda + nano"
+        "text": "Sem vložte skutečnou recenzi od vašeho zákazníka. Sekce se zobrazí, až ji zapnete přepínačem výše.",
+        "name": "Jméno zákazníka",
+        "meta": "Město · služba"
       }
     ]
   },
   "stats": {
     "visible": false,
     "items": [
-      { "value": "12 500+", "label": "m² umytých ploch" },
-      { "value": "180+", "label": "dokončených zakázek" },
-      { "value": "25+", "label": "měst a obcí" },
-      { "value": "15+", "label": "let praxe v týmu" }
+      {
+        "value": "12 500+",
+        "label": "m² umytých ploch"
+      },
+      {
+        "value": "180+",
+        "label": "dokončených zakázek"
+      },
+      {
+        "value": "25+",
+        "label": "měst a obcí"
+      },
+      {
+        "value": "15+",
+        "label": "let praxe v týmu"
+      }
     ]
   },
   "team": {
@@ -239,54 +274,108 @@
         "type": "Bytový dům",
         "city": "Brno",
         "facts": [
-          { "label": "Rozsah", "value": "1 250 m²" },
-          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+          {
+            "label": "Rozsah",
+            "value": "1 250 m²"
+          },
+          {
+            "label": "Postup",
+            "value": "kompletní čištění vč. nanoimpregnace"
+          }
         ],
-        "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Severní fasáda lorem ipsum plísně a řasy, sed do eiusmod tempor incididunt ut labore magna aliqua.",
+        "desc": "Kompletní vyčištění fasády od řas, plísní a usazených nečistot, zakončené nanoimpregnací pro dlouhodobou ochranu povrchu.",
         "images": [
-          { "src": "/media/pic1.webp", "alt": "Mytí fasády bytového domu z montážní plošiny" },
-          { "src": "/media/pic4.webp", "alt": "Čištění fasády kloubovou plošinou" },
-          { "src": "/media/pic5.webp", "alt": "Umytá fasáda bytového domu" }
+          {
+            "src": "/media/pic1.webp",
+            "alt": "Mytí fasády bytového domu z montážní plošiny"
+          },
+          {
+            "src": "/media/pic4.webp",
+            "alt": "Čištění fasády kloubovou plošinou"
+          },
+          {
+            "src": "/media/pic5.webp",
+            "alt": "Umytá fasáda bytového domu"
+          }
         ]
       },
       {
         "type": "Rodinný dům",
         "city": "Vyškov",
         "facts": [
-          { "label": "Rozsah", "value": "320 m²" },
-          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+          {
+            "label": "Rozsah",
+            "value": "320 m²"
+          },
+          {
+            "label": "Postup",
+            "value": "kompletní čištění vč. nanoimpregnace"
+          }
         ],
-        "desc": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+        "desc": "Šetrné tlakové mytí fasády rodinného domu a ochranná nanoimpregnace proti opětovnému znečištění.",
         "images": [
-          { "src": "/media/pic6.webp", "alt": "Čištění štítu rodinného domu z montážní plošiny" },
-          { "src": "/media/pic10.webp", "alt": "Ošetření fasády rodinného domu z plošiny" }
+          {
+            "src": "/media/pic6.webp",
+            "alt": "Čištění štítu rodinného domu z montážní plošiny"
+          },
+          {
+            "src": "/media/pic10.webp",
+            "alt": "Ošetření fasády rodinného domu z plošiny"
+          }
         ]
       },
       {
         "type": "Řadový dům",
         "city": "Blansko",
         "facts": [
-          { "label": "Rozsah", "value": "450 m²" },
-          { "label": "Postup", "value": "kompletní čištění vč. nanoimpregnace" }
+          {
+            "label": "Rozsah",
+            "value": "450 m²"
+          },
+          {
+            "label": "Postup",
+            "value": "kompletní čištění vč. nanoimpregnace"
+          }
         ],
-        "desc": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.",
+        "desc": "Odstranění zeleného povlaku a nečistot z fasády a ošetření povrchu nanoimpregnací pro delší životnost.",
         "images": [
-          { "src": "/media/pic9.webp", "alt": "Práce z montážní plošiny u řadového domu" },
-          { "src": "/media/pic3.webp", "alt": "Náš tým při práci v ochranných pomůckách" }
+          {
+            "src": "/media/pic9.webp",
+            "alt": "Práce z montážní plošiny u řadového domu"
+          },
+          {
+            "src": "/media/pic3.webp",
+            "alt": "Náš tým při práci v ochranných pomůckách"
+          }
         ]
       },
       {
         "type": "Komerční objekt",
         "city": "Hodonín",
         "facts": [
-          { "label": "Rozsah", "value": "780 m²" },
-          { "label": "Postup", "value": "odstranění graffiti" }
+          {
+            "label": "Rozsah",
+            "value": "780 m²"
+          },
+          {
+            "label": "Postup",
+            "value": "odstranění graffiti"
+          }
         ],
-        "desc": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi.",
+        "desc": "Citlivé odstranění graffiti bez poškození podkladu včetně ochranného nátěru proti dalšímu posprejování.",
         "images": [
-          { "src": "/media/pic7.webp", "alt": "Odstraňování graffiti z podchodu" },
-          { "src": "/media/pic2.webp", "alt": "Probíhající čištění s informačním bannerem" },
-          { "src": "/media/pic8.webp", "alt": "Komerční objekt před čištěním fasády" }
+          {
+            "src": "/media/pic7.webp",
+            "alt": "Odstraňování graffiti z podchodu"
+          },
+          {
+            "src": "/media/pic2.webp",
+            "alt": "Probíhající čištění s informačním bannerem"
+          },
+          {
+            "src": "/media/pic8.webp",
+            "alt": "Komerční objekt před čištěním fasády"
+          }
         ]
       }
     ]
@@ -295,11 +384,31 @@
     "heading": "Orientační ceník",
     "intro": "Přesnou cenu stanovíme po prohlídce zdarma - záleží na typu povrchu, míře znečištění a přístupu k objektu.",
     "rows": [
-      { "service": "Mytí a čištění fasád", "price": "od 95 Kč/m²", "note": "dle znečištění a výšky objektu" },
-      { "service": "Čištění střech", "price": "od 120 Kč/m²", "note": "dle typu krytiny" },
-      { "service": "Čištění dlažby a chodníků", "price": "od 60 Kč/m²", "note": "včetně spár" },
-      { "service": "Odstranění graffiti", "price": "individuálně", "note": "dle podkladu a barvy" },
-      { "service": "Nanoimpregnace", "price": "od 85 Kč/m²", "note": "ochrana 5–10 let" }
+      {
+        "service": "Mytí a čištění fasád",
+        "price": "od 95 Kč/m²",
+        "note": "dle znečištění a výšky objektu"
+      },
+      {
+        "service": "Čištění střech",
+        "price": "od 120 Kč/m²",
+        "note": "dle typu krytiny"
+      },
+      {
+        "service": "Čištění dlažby a chodníků",
+        "price": "od 60 Kč/m²",
+        "note": "včetně spár"
+      },
+      {
+        "service": "Odstranění graffiti",
+        "price": "individuálně",
+        "note": "dle podkladu a barvy"
+      },
+      {
+        "service": "Nanoimpregnace",
+        "price": "od 85 Kč/m²",
+        "note": "ochrana 5–10 let"
+      }
     ],
     "footnote": "Ceny jsou orientační, bez DPH. Přesnou nabídku připravíme po bezplatné prohlídce objektu.",
     "cta": "Chci přesnou nabídku"
@@ -380,29 +489,40 @@
   "contact": {
     "heading": "Pošleme vám nezávaznou cenovou nabídku",
     "body": "Napište nebo zavolejte. Domluvíme termín prohlídky zdarma a navrhneme řešení pro vaši fasádu.",
-    "promises": ["Ozveme se do 24 hodin", "Prohlídka a nabídka zdarma"],
+    "promises": [
+      "Ozveme se do 24 hodin",
+      "Prohlídka a nabídka zdarma"
+    ],
     "areasLabel": "Kde působíme",
-    "areas": ["Hodonín – Jihomoravský kraj a okolí do 100 km"],
+    "areas": [
+      "Hodonín – Jihomoravský kraj a okolí do 100 km"
+    ],
     "phoneLabel": "Telefon",
     "emailLabel": "E-mail",
     "hours": "Po–Pá 8:00–17:00",
     "formEndpoint": "",
     "formNameLabel": "Jméno",
+    "formNamePlaceholder": "Jan Novák",
     "formPhoneLabel": "Telefon",
+    "formPhonePlaceholder": "+420 …",
     "formMessageLabel": "Co potřebujete vyčistit?",
     "formMessagePlaceholder": "Rodinný dům, fasáda cca 200 m²…",
     "formSubmit": "Odeslat poptávku",
+    "formSending": "Odesílám…",
+    "formError": "Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám napište na e-mail.",
+    "mailtoSubject": "Poptávka z webu umyjemefasadu.cz",
+    "mailtoNote": "Formulář otevře váš e-mail s předvyplněnou zprávou; žádná data se neukládají.",
     "sentTitle": "Děkujeme za poptávku",
     "sentBody": "Ozveme se vám do 24 hodin. Spěchá to? Zavolejte nám.",
     "consent": "Odesláním souhlasíte se zpracováním osobních údajů za účelem vyřízení poptávky."
   },
   "footer": {
-    "legalLine": "Umyjeme Fasádu s.r.o. · IČO 00000000 · DIČ CZ00000000\nLorem ipsum 123, 602 00 Brno · sp. zn. C 00000 vedená u KS v Brně",
+    "legalLine": "Umyjeme Fasádu s.r.o. · Hodonín",
     "privacyLabel": "Ochrana osobních údajů",
     "privacyTitle": "Zásady ochrany osobních údajů",
     "privacyBody": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Správcem osobních údajů je Umyjeme Fasádu s.r.o. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Osobní údaje zpracováváme výhradně za účelem vyřízení poptávky."
+      "Správcem osobních údajů je Umyjeme Fasádu s.r.o. Osobní údaje z poptávkového formuláře (jméno, telefon a text zprávy) zpracováváme výhradně za účelem vyřízení vaší poptávky a přípravy cenové nabídky.",
+      "Údaje nepředáváme třetím stranám, nepoužíváme je k marketingu a neuchováváme je déle, než je pro vyřízení poptávky potřeba. Máte právo na přístup ke svým údajům, jejich opravu i výmaz — stačí nám napsat na e-mail."
     ]
   },
   "callBar": {

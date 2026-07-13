@@ -10,7 +10,7 @@ const quoteMs = (text: string) => Math.min(6000 + text.length * 55, 16000);
  * long), then the next one animates in. No rotation under reduced-motion.
  */
 export default function QuoteRotator() {
-  const { quotesLabel, quotes: QUOTES } = useContent().whyUs;
+  const { quotesVisible, quotesLabel, quotes: QUOTES } = useContent().whyUs;
   const [index, setIndex] = useState(0);
   const reduced = usePrefersReducedMotion();
   const safeIndex = index % Math.max(QUOTES.length, 1);
@@ -24,7 +24,8 @@ export default function QuoteRotator() {
     return () => clearTimeout(id);
   }, [index, reduced, QUOTES, safeIndex]);
 
-  if (QUOTES.length === 0) return null;
+  // Skryto, dokud majitel v administraci nezapne skutečné reference.
+  if (!quotesVisible || QUOTES.length === 0) return null;
   const q = QUOTES[safeIndex];
 
   return (
