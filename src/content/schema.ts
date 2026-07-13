@@ -81,6 +81,8 @@ export type Content = {
     items: { no: string; title: string; desc: string }[];
     solutionTitle: string;
     solutionDesc: string;
+    /** Text tlačítka pod doporučením (vede na kontakt). */
+    solutionCta: string;
   };
 
   services: {

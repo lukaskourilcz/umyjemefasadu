@@ -88,9 +88,9 @@
       "Používáme vysokotlaké čištění v kombinaci se speciálními chemickými prostředky, které odstraní i hluboko usazené nečistoty a zároveň ochrání povrch na dlouhou dobu. Výsledek? Fasáda, která vypadá jako nová, dům září čistotou a vy ušetříte peníze za nový nátěr či drahou rekonstrukci."
     ],
     "bullets": [
-      "💧 Čistíme šetrně, účinně a dlouhodobě.",
-      "🌿 Používáme profesionální a velmi kvalitní chemii.",
-      "🏠 Obnovíme vzhled vašeho domu během jediného dne."
+      "Čistíme šetrně, účinně a dlouhodobě.",
+      "Používáme profesionální a velmi kvalitní chemii.",
+      "Obnovíme vzhled vašeho domu během jediného dne."
     ],
     "protectionTitle": "Ochrana proti vodě",
     "protectionIntro": "Ochranu fasády proti vodě řešíme impregnací (hydrofobizací) – nátěrem či nástřikem, který odpuzuje vodu, ale nechá zeď dýchat.",
@@ -107,23 +107,24 @@
     "intro": "Znečištěná fasáda není jen kosmetický problém. Hlavním rizikem jsou plísně, které mohou ohrozit budovu i zdraví obyvatel. Tady je přehled, proč to řešit.",
     "items": [
       {
-        "no": "1",
+        "no": "01",
         "title": "Plísně mohou pronikat dovnitř zdiva",
         "desc": "Pokud se plíseň rozšíří hlouběji do omítky nebo zateplovací vrstvy, může postupně pronikat až k vnitřní straně stěny. Tím se zvyšuje vlhkost zdiva a vznikají ideální podmínky pro růst plísní i uvnitř domu, kde už ohrožují zdraví obyvatel."
       },
       {
-        "no": "2",
+        "no": "02",
         "title": "Riziko pro zdraví obyvatel",
         "desc": "Spóry plísní uvolňované do vzduchu mohou vyvolávat alergie, podráždění dýchacích cest a očí, zhoršovat astma i chronické záněty průdušek a při dlouhodobém působení oslabovat imunitu. I když je plíseň zvenku, vítr a ventilace mohou spóry zanášet dovnitř oken nebo větracího systému."
       },
       {
-        "no": "3",
+        "no": "03",
         "title": "Poškozuje fasádu a izolaci",
         "desc": "Plísně a řasy zadržují vlhkost, ta časem rozrušuje nátěry, omítku i tepelnou izolaci. To může vést ke snížení účinnosti zateplení, zvýšení vlhkosti v interiéru a vyšším nákladům na vytápění."
       }
     ],
-    "solutionTitle": "Řešení = pravidelná údržba",
-    "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu."
+    "solutionTitle": "Řešením je pravidelná údržba",
+    "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu.",
+    "solutionCta": "Domluvit prohlídku zdarma"
   },
   "services": {
     "heading": "Kompletní čištění fasád, střech i dlažby",
