@@ -144,8 +144,8 @@
         "desc": "Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby. Odstraníme zelený povlak, mech i zašlou špínu ze spár."
       },
       {
-        "image": "/media/pic9.webp",
-        "alt": "Práce z montážní plošiny u rodinného domu",
+        "image": "/media/pic15.webp",
+        "alt": "Čištění okrajů střechy a podhledů rodinného domu z lešení",
         "title": "Čištění střech",
         "desc": "Vrátíme střeše původní vzhled, zbavíme ji mechu, řas a nánosů. Šetrný postup podle typu krytiny prodlouží její životnost a obnoví odvod vody."
       },
@@ -184,6 +184,39 @@
       }
     ],
     "methods": []
+  },
+  "fieldWork": {
+    "visible": true,
+    "eyebrow": "Náš tým v akci",
+    "heading": "Přímo z akce",
+    "intro": "Žádné fotky z fotobanky — všechny záběry pocházejí z našich zakázek. Lešení, zabezpečené pracoviště a poctivá práce od rána do večera.",
+    "items": [
+      {
+        "src": "/media/pic13.webp",
+        "alt": "Zašedlá fasáda řadového domu před mytím, připravené lešení a bezpečnostní kužely",
+        "label": "Stav před čištěním"
+      },
+      {
+        "src": "/media/pic11.webp",
+        "alt": "Pracovník omývá horní patro domu vysokotlakým čističem z pojízdného lešení",
+        "label": "Tlakové mytí z lešení"
+      },
+      {
+        "src": "/media/pic12.webp",
+        "alt": "Lešení s firemním bannerem a bezpečnostním značením před čištěným domem",
+        "label": "Zabezpečené pracoviště"
+      },
+      {
+        "src": "/media/pic14.webp",
+        "alt": "Mytí fasády staršího rodinného domu prodlouženou tyčí z lešení",
+        "label": "Šetrně i ke starší omítce"
+      },
+      {
+        "src": "/media/pic16.webp",
+        "alt": "Pracovník v týmovém tričku Umyjeme Fasádu nanáší čisticí prostředek teleskopickou tyčí",
+        "label": "Aplikace přípravku"
+      }
+    ]
   },
   "whyUs": {
     "heading": "Špinavá fasáda nemusí znamenat novou omítku!",

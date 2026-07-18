@@ -16,6 +16,7 @@ export const SECTIONS: { key: string; title: string; help?: string }[] = [
   { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika a doporučené řešení." },
   { key: "services", title: "Služby", help: "Karty služeb — hlavní fotka, barevné karty a foto karty." },
   { key: "process", title: "Postup čištění", help: "Kroky postupu a metody." },
+  { key: "fieldWork", title: "Přímo z akce — fotky z práce", help: "Pás skutečných fotek a krátkých klipů z realizací. Videa (webm/mp4) se v pásu přehrávají samy; nahrají se stejně jako fotka." },
   { key: "whyUs", title: "Proč my + reference", help: "Body proč my, záruka a rotující reference zákazníků." },
   { key: "stats", title: "Čísla / statistiky", help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla." },
   { key: "team", title: "Náš tým", help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text." },
