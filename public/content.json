@@ -183,7 +183,10 @@
         "desc": "Nakonec naneseme nanoimpregnaci, která brání opětovnému růstu plísní a usazování nečistot na dlouhé roky."
       }
     ],
-    "methods": []
+    "methods": [],
+    "video": "/media/fasada6.webm",
+    "videoAlt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou je vidět okamžitě",
+    "videoLabel": "Rozdíl je vidět hned"
   },
   "fieldWork": {
     "visible": true,
@@ -207,19 +210,14 @@
         "label": "Zabezpečené pracoviště"
       },
       {
-        "src": "/media/fasada6.webm",
-        "alt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou",
-        "label": "Rozdíl je vidět hned"
+        "src": "/media/fasada7.webm",
+        "alt": "Pracovník čistí fasádu z lešení vysoko nad zemí",
+        "label": "Práce ve výškách"
       },
       {
         "src": "/media/pic14.webp",
         "alt": "Mytí fasády staršího rodinného domu prodlouženou tyčí z lešení",
         "label": "Šetrně i ke starší omítce"
-      },
-      {
-        "src": "/media/fasada7.webm",
-        "alt": "Pracovník čistí fasádu z lešení vysoko nad zemí",
-        "label": "Práce ve výškách"
       },
       {
         "src": "/media/fasada8.webm",
