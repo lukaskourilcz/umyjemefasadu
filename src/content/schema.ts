@@ -100,6 +100,17 @@ export type Content = {
     methods: { title: string; desc: string }[];
   };
 
+  /** „Přímo z akce" — pás skutečných fotek a klipů z práce na zakázkách. */
+  fieldWork: {
+    /** Zobrazit sekci na webu? */
+    visible: boolean;
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    /** Fotky i videa (webm/mp4) — typ se pozná podle přípony souboru. */
+    items: { src: string; alt: string; label: string }[];
+  };
+
   whyUs: {
     heading: string;
     intro: string;
