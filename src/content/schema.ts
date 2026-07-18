@@ -98,6 +98,10 @@ export type Content = {
     intro: string;
     steps: { no: string; title: string; desc: string }[];
     methods: { title: string; desc: string }[];
+    /** Široký klip (webm/mp4) pod kroky — prázdné pole = bez videa. */
+    video: string;
+    videoAlt: string;
+    videoLabel: string;
   };
 
   /** „Přímo z akce" — pás skutečných fotek a klipů z práce na zakázkách. */

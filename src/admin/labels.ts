@@ -65,6 +65,9 @@ export const LABELS: Record<string, string> = {
   beforeImage: "Fotka PŘED",
   afterImage: "Fotka PO",
   src: "Soubor",
+  video: "Video (webm/mp4)",
+  videoAlt: "Popis videa (pro čtečky a SEO)",
+  videoLabel: "Popisek na videu",
   // kontakt
   phone: "Telefon",
   email: "E-mail",
@@ -160,6 +163,7 @@ export const MEDIA_KEYS = new Set([
   "beforeImage",
   "afterImage",
   "src",
+  "video",
 ]);
 
 /** Je pole (string[]) seznam médií? (podle názvu klíče) */

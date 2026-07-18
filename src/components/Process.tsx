@@ -1,9 +1,38 @@
+import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
 
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
-  const { heading, intro, steps: STEPS, methods: METHODS } = useContent().process;
+  const {
+    heading,
+    intro,
+    steps: STEPS,
+    methods: METHODS,
+    video,
+    videoAlt,
+    videoLabel,
+  } = useContent().process;
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const reduced = usePrefersReducedMotion();
+
+  // Klip hraje jen na obrazovce (a nikdy pod reduced-motion) — stejný
+  // přístup jako dlaždice v Hero a v pásu „Přímo z akce".
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el || reduced) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduced, video]);
+
   return (
     <section
       id="postup"
@@ -53,6 +82,47 @@ export default function Process() {
             </li>
           ))}
         </ol>
+
+        {/* Široký klip - postup v praxi. Horizontální formát vyvažuje
+            svislou časovou osu; bez souboru se blok nevykreslí. */}
+        {video && (
+          <figure
+            className="relative m-0 mx-auto mt-14 aspect-video w-full max-w-[900px] overflow-hidden rounded-[14px] border fade-up"
+            style={{ borderColor: "rgba(251,253,254,0.14)" }}
+          >
+            <video
+              ref={videoRef}
+              src={video}
+              aria-label={videoAlt}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+              style={{
+                background:
+                  "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
+              }}
+            />
+            <figcaption
+              className="font-fragment-mono absolute inset-x-0 bottom-0 flex items-center gap-2 p-5 uppercase"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.1em",
+                color: "rgba(251,253,254,0.92)",
+              }}
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                <path d="M1.5 1 L9 5 L1.5 9 Z" fill="currentColor" />
+              </svg>
+              {videoLabel}
+            </figcaption>
+          </figure>
+        )}
 
         {/* Metody - volitelné doplňkové karty; bez položek se blok nevykreslí. */}
         {METHODS.length > 0 && (
