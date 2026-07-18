@@ -130,8 +130,8 @@
     "heading": "Kompletní čištění fasád, střech i dlažby",
     "intro": "Od fasád přes střechy až po dlažbu. Postup, tlak i přípravky volíme podle typu a stavu každého povrchu.",
     "featured": {
-      "image": "/media/pic5.webp",
-      "alt": "Umytá fasáda bytového domu po tlakovém čištění",
+      "image": "/media/pic11.webp",
+      "alt": "Tlakové mytí fasády rodinného domu z lešení",
       "title": "Mytí a čištění fasád",
       "desc": "Tlakové mytí horkou vodou v kombinaci se speciální chemií. Odstraníme organické nečistoty (plísně, řasy a lišejníky) i anorganické (saze, prach a mastnota). Tlak, teplotu i trysky volíme podle typu a stavu omítky."
     },
@@ -189,7 +189,7 @@
     "visible": true,
     "eyebrow": "Náš tým v akci",
     "heading": "Přímo z akce",
-    "intro": "Žádné fotky z fotobanky — všechny záběry pocházejí z našich zakázek. Lešení, zabezpečené pracoviště a poctivá práce od rána do večera.",
+    "intro": "Takhle vypadá běžný den našeho týmu na zakázce — zabezpečené pracoviště, profesionální technika a pečlivá práce v každém kroku.",
     "items": [
       {
         "src": "/media/pic13.webp",
@@ -197,8 +197,8 @@
         "label": "Stav před čištěním"
       },
       {
-        "src": "/media/pic11.webp",
-        "alt": "Pracovník omývá horní patro domu vysokotlakým čističem z pojízdného lešení",
+        "src": "/media/fasada5.webm",
+        "alt": "Tlakové mytí horního patra domu z pojízdného lešení",
         "label": "Tlakové mytí z lešení"
       },
       {
@@ -207,13 +207,23 @@
         "label": "Zabezpečené pracoviště"
       },
       {
+        "src": "/media/fasada6.webm",
+        "alt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou",
+        "label": "Rozdíl je vidět hned"
+      },
+      {
         "src": "/media/pic14.webp",
         "alt": "Mytí fasády staršího rodinného domu prodlouženou tyčí z lešení",
         "label": "Šetrně i ke starší omítce"
       },
       {
-        "src": "/media/pic16.webp",
-        "alt": "Pracovník v týmovém tričku Umyjeme Fasádu nanáší čisticí prostředek teleskopickou tyčí",
+        "src": "/media/fasada7.webm",
+        "alt": "Pracovník čistí fasádu z lešení vysoko nad zemí",
+        "label": "Práce ve výškách"
+      },
+      {
+        "src": "/media/fasada8.webm",
+        "alt": "Nanášení čisticího přípravku na fasádu teleskopickou tyčí",
         "label": "Aplikace přípravku"
       }
     ]
@@ -279,8 +289,8 @@
     "visible": false,
     "heading": "Kdo za tím stojí",
     "intro": "Firma je nová, ruce nejsou. Lorem ipsum dolor sit amet, consectetur adipiscing elit - sed diam nonummy nibh euismod tincidunt.",
-    "image": "/media/pic3.webp",
-    "imageAlt": "Náš tým při čištění fasády v ochranných pomůckách",
+    "image": "/media/pic16.webp",
+    "imageAlt": "Člen týmu Umyjeme Fasádu při aplikaci čisticího přípravku teleskopickou tyčí",
     "members": [
       {
         "name": "Jan Novák",
