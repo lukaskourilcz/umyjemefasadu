@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 
@@ -177,6 +177,22 @@ const TINT_BG = ["var(--color-moss-veil)", "var(--color-lichen)"];
 export default function Services() {
   const { heading, intro, featured, tintCards, photoCards } =
     useContent().services;
+  const { video: featuredVideo, videoAlt: featuredVideoAlt } = useContent().process;
+  const featuredVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = featuredVideoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) el.play().catch(() => {});
+        else el.pause();
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [featuredVideo]);
 
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
@@ -190,11 +206,16 @@ export default function Services() {
           <article
             className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:min-h-0"
           >
-            <img
-              src={featured.image}
-              alt={featured.alt}
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover"
+            <video
+              ref={featuredVideoRef}
+              src={featuredVideo}
+              poster={featured.image}
+              aria-label={featuredVideoAlt}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div
               aria-hidden="true"

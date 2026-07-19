@@ -129,12 +129,19 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 115%;
-    height: 88%;
+    width: 122%;
+    height: 82%;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(ellipse 60% 50% at 50% 45%, #fff 55%, rgba(255,255,255,.85) 72%, rgba(255,255,255,0) 100%);
-    filter: blur(6px);
+    border-radius: 48% 52% 46% 54% / 58% 46% 54% 42%;
+    background:
+      radial-gradient(ellipse 34% 58% at 18% 58%, #fff 0 72%, transparent 74%),
+      radial-gradient(ellipse 38% 66% at 42% 42%, #fff 0 74%, transparent 76%),
+      radial-gradient(ellipse 40% 62% at 68% 46%, #fff 0 74%, transparent 76%),
+      radial-gradient(ellipse 32% 54% at 88% 60%, #fff 0 72%, transparent 74%),
+      linear-gradient(#fff, #fff);
+    filter: blur(2px);
+    opacity: 0.96;
+    box-shadow: 0 5px 18px rgba(16, 24, 32, 0.12);
   }
 
   /* Primary filled action - the single chromatic CTA.
@@ -274,14 +281,6 @@
     animation: quote-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  @keyframes process-video-in {
-    from { opacity: 0.35; transform: scale(1.01); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  .process-video-in {
-    animation: process-video-in 0.35s ease-out both;
-  }
-
   /* Story-style progress segment for the card carousels; duration is set
      inline to match the slide interval. */
   @keyframes progress-fill {
@@ -307,8 +306,7 @@
       transition: none;
     }
     .rise-in,
-    .quote-in,
-    .process-video-in {
+    .quote-in {
       animation: none;
     }
     /* Static full segment marks the active photo instead of a filling bar. */
