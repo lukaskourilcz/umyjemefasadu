@@ -66,7 +66,7 @@ export default function Nav() {
           <Logo
             source="nav"
             height={42}
-            className="pointer-events-auto relative block h-[29px] w-auto drop-shadow-[0_1px_1px_rgba(255,255,255,.7)] md:h-[41px]"
+            className="pointer-events-auto relative block h-[25px] w-auto drop-shadow-[0_1px_1px_rgba(255,255,255,.7)] md:h-[35px]"
           />
         </a>
 

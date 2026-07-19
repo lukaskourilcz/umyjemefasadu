@@ -195,7 +195,7 @@
     "video": "/media/fasada6.webm",
     "videoAlt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou je vidět okamžitě",
     "videoLabel": "Rozdíl je vidět hned",
-    "sideVideo": "/media/fasada5.webm",
+    "sideVideo": "/media/tlakove-myti-postup.webp",
     "sideVideoAlt": "Tlakové mytí horního patra domu z pojízdného lešení",
     "sideVideoLabel": "Tlakové mytí z lešení"
   },
@@ -211,7 +211,7 @@
         "label": "Stav před čištěním"
       },
       {
-        "src": "/media/fasada5.webm",
+        "src": "/media/tlakove-myti-akce.webp",
         "alt": "Tlakové mytí horního patra domu z pojízdného lešení",
         "label": "Tlakové mytí z lešení"
       },
