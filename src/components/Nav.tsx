@@ -57,16 +57,24 @@ export default function Nav() {
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
-        {/* Compact transparent wordmark floats without changing bar height. */}
+        {/* Brand mark - absolute → no effect on the bar height (--nav-h);
+            pointer-events on the link only. Full size over the hero; once the
+            page scrolls it shrinks into the bar so it never covers content. */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="pointer-events-none absolute left-[18px] top-[14px] z-10 md:left-[16px] md:top-[12px] min-[1200px]:left-[50px]"
+          className={`pointer-events-none absolute z-10 opacity-[0.95] transition-all duration-300 ${
+            scrolled
+              ? "left-[8px] top-[6px] md:left-[12px] min-[1200px]:left-[24px]"
+              : "left-[5px] top-[-5px] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
+          }`}
         >
           <Logo
             source="nav"
-            height={42}
-            className="pointer-events-auto relative block h-[25px] w-auto drop-shadow-[0_1px_1px_rgba(255,255,255,.7)] md:h-[35px]"
+            height={172}
+            className={`pointer-events-auto block w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] transition-[height] duration-300 ${
+              scrolled ? "h-[60px] md:h-[64px]" : "h-[110px] md:h-[180px]"
+            }`}
           />
         </a>
 
