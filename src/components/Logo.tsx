@@ -10,12 +10,13 @@
  * caller via `height` (and/or responsive height classes in `className`).
  */
 import logoUrl from "../assets/logo.svg";
+import logoNavUrl from "../assets/logo-nav.svg";
 
 type Source = "default" | "nav";
 
 const SRC: Record<Source, string> = {
   default: logoUrl,
-  nav: "/wordmark.png",
+  nav: logoNavUrl,
 };
 
 export default function Logo({
