@@ -72,9 +72,7 @@ export default function Nav() {
           <Logo
             source="nav"
             height={172}
-            className={`pointer-events-auto block w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] transition-[height] duration-300 ${
-              scrolled ? "h-[60px] md:h-[64px]" : "h-[110px] md:h-[180px]"
-            }`}
+            className="pointer-events-auto block h-[110px] w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] md:h-[180px]"
           />
         </a>
 
