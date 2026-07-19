@@ -6,14 +6,14 @@
 
 /** Pořadí a názvy hlavních sekcí v administraci. */
 export const SECTIONS: { key: string; title: string; help?: string }[] = [
-  { key: "business", title: "Kontaktní údaje", help: "Telefon, e-mail a otevírací doba. Používají se v celém webu." },
+  { key: "business", title: "Firma a kontaktní údaje", help: "Název firmy, sídlo, IČO, telefon, e-mail a otevírací doba. Používají se v celém webu." },
   { key: "theme", title: "Vzhled — barvy webu", help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci." },
   { key: "nav", title: "Horní menu", help: "Odkazy v horní liště a text hlavního tlačítka." },
   { key: "revealHero", title: "Úvod — fotka před / po", help: "Velká úvodní fotka s odhalením a nadpisem." },
   { key: "hero", title: "Úvod — sekce s videi", help: "Nadpis, text, tlačítka a koláž videí/gifů." },
   { key: "trustStrip", title: "Pruh důvěry", help: "Krátké body pod úvodem (pojištění, ekologie…)." },
   { key: "whyClean", title: "Proč čistit fasádu", help: "Edukační sekce, ochrana proti vodě a široká fotografie výsledku." },
-  { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika, fotografie stavu před čištěním a doporučené řešení." },
+  { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika a doporučené řešení s výzvou k bezplatné prohlídce." },
   { key: "services", title: "Služby", help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty." },
   { key: "process", title: "Postup čištění", help: "Kroky postupu a malé doprovodné video vedle časové osy." },
   { key: "whyUs", title: "Proč my + reference", help: "Body proč my, záruka a rotující reference zákazníků." },
@@ -76,6 +76,9 @@ export const LABELS: Record<string, string> = {
   phone: "Telefon",
   email: "E-mail",
   hours: "Otevírací doba",
+  companyName: "Oficiální název firmy",
+  address: "Sídlo firmy",
+  companyId: "IČO",
   // reveal hero
   headlineLines: "Řádky velkého nadpisu",
   labelBeforePrefix: "Štítek PŘED — 1. slovo",

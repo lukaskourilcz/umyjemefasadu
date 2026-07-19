@@ -18,6 +18,9 @@ export type StudyImage = { src: string; alt: string };
 export type Content = {
   /** Sdílené kontaktní údaje (nav, patička, kontakt, mobilní lišta). */
   business: {
+    companyName: string;
+    address: string;
+    companyId: string;
     phone: string; // vč. mezinárodní předvolby, např. +420 775 222 760
     email: string;
     hours: string; // např. Po–Pá 7:00–18:00
@@ -86,9 +89,6 @@ export type Content = {
     solutionDesc: string;
     /** Text tlačítka pod doporučením (vede na kontakt). */
     solutionCta: string;
-    image: string;
-    imageAlt: string;
-    imageLabel: string;
   };
 
   services: {

@@ -29,6 +29,8 @@
     BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui,
     sans-serif;
+  --font-hero: "Barlow Condensed", "Arial Narrow", "Inter", ui-sans-serif,
+    sans-serif;
   --font-fragment-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo,
     Monaco, Consolas, monospace;
 
@@ -131,32 +133,46 @@
     z-index: 0;
     left: 50%;
     top: 50%;
-    width: 116%;
-    height: 62%;
+    width: 118%;
+    height: 145%;
     transform: translate(-50%, -50%);
     border-radius: 999px;
     background: #fff;
-    box-shadow: 0 8px 24px rgba(16, 24, 32, 0.15);
+    box-shadow: 0 8px 22px rgba(16, 24, 32, 0.12);
   }
-  .logo-cloud::before,
-  .logo-cloud::after {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    border-radius: 50%;
-    background: #fff;
+
+  .mobile-disclosure {
+    margin-top: 32px;
   }
-  .logo-cloud::before {
-    width: 46%;
-    aspect-ratio: 1;
-    left: 6%;
-    top: -38%;
+  .mobile-disclosure > summary {
+    display: flex;
+    min-height: 56px;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid var(--color-eucalyptus);
+    border-radius: 12px;
+    background: var(--color-cream-paper);
+    padding: 15px 18px;
+    color: var(--color-botanical-ink);
+    font-size: 15px;
+    font-weight: 700;
   }
-  .logo-cloud::after {
-    width: 52%;
-    aspect-ratio: 1;
-    right: 5%;
-    top: -44%;
+  .mobile-disclosure > summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-disclosure > summary svg {
+    flex: 0 0 auto;
+    color: var(--color-cyan-deep);
+    transition: transform 200ms ease;
+  }
+  .mobile-disclosure[open] > summary svg {
+    transform: rotate(180deg);
+  }
+  .mobile-disclosure-panel {
+    padding-top: 2px;
   }
 
   /* Primary filled action - the single chromatic CTA.

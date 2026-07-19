@@ -63,13 +63,13 @@ export default function Nav() {
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="pointer-events-none absolute left-[14px] top-[3px] z-10 md:left-[10px] md:top-[3px] min-[1200px]:left-[50px]"
+          className="pointer-events-none absolute left-[18px] top-[10px] z-10 md:left-[16px] md:top-[9px] min-[1200px]:left-[50px]"
         >
           <span className="logo-cloud" aria-hidden="true" />
           <Logo
             source="nav"
-            height={153}
-            className="pointer-events-auto relative z-[1] block h-[94px] w-auto drop-shadow-[0_6px_8px_rgba(16,24,32,0.26)] md:h-[153px]"
+            height={58}
+            className="pointer-events-auto relative z-[1] block h-[38px] w-auto md:h-[52px]"
           />
         </a>
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
+import MobileDisclosure from "./MobileDisclosure";
 
 const stroke = {
   fill: "none",
@@ -202,7 +203,8 @@ export default function Services() {
 
         {/* Bento - řádek 1: velká featured karta + jedna menší vedle;
             řádek 2: tři stejné foto karty. No breakpoint leaves an orphan. */}
-        <div className="mt-12 grid grid-cols-1 gap-4 fade-up sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        <MobileDisclosure label="Prohlédnout všechny služby">
+        <div className="mt-8 grid grid-cols-1 gap-4 fade-up sm:mt-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {/* Featured */}
           <article
             className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:min-h-0"
@@ -265,6 +267,7 @@ export default function Services() {
             />
           ))}
         </div>
+        </MobileDisclosure>
       </div>
     </section>
   );

@@ -113,3 +113,6 @@ Nejjednodušší je **Fine-grained personal access token**:
 - **Ukládání**: `api/save.js` (Vercel serverless) → commit do GitHubu →
   automatické nasazení.
 - Routování `/dev` zajišťuje `vercel.json` (rewrite na `index.html`).
+## Přímé odesílání poptávek
+
+Kontaktní formulář odesílá poptávky přes serverovou funkci `/api/contact` a službu Resend. Ve Vercelu nastavte proměnnou `RESEND_API_KEY`. Volitelně lze nastavit `CONTACT_EMAIL` (výchozí je `info@umyjemefasadu.cz`) a `CONTACT_FROM` po ověření vlastní domény v Resendu.
