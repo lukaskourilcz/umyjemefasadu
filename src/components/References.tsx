@@ -194,7 +194,7 @@ export default function References() {
       style={{ backgroundColor: "var(--color-sage-mist)" }}
     >
       <div className="container-page">
-        <SectionHeading title={heading} intro={intro} />
+        <SectionHeading label="Reference" title={heading} intro={intro} />
 
         <div className="mx-auto mt-14 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:grid-cols-2 md:gap-6">
           {STUDIES.map((s, si) => (

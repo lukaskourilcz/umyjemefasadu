@@ -178,24 +178,10 @@ export default function Services() {
   const { heading, intro, featured, tintCards, photoCards } =
     useContent().services;
 
-  // Bento: první řádek = velká featured karta (2 sloupce) + jedna menší
-  // vedle ní; druhý řádek = tři stejně velké karty. Poslední karta se
-  // dopočítává podle počtu, aby mřížka nikdy nenechala díru.
-  const total = tintCards.length + photoCards.length;
-  const smLast = total % 2 === 1 ? "sm:col-span-2" : "";
-  const lgRemainder = (total - 1) % 3;
-  const lgLast =
-    lgRemainder === 2
-      ? "lg:col-span-2"
-      : lgRemainder === 1
-        ? "lg:col-span-3"
-        : "lg:col-span-1";
-  const lastCardClass = `${smLast} ${lgLast}`.trim();
-
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading title={heading} intro={intro} />
+        <SectionHeading label="Naše služby" title={heading} intro={intro} />
 
         {/* Bento - řádek 1: velká featured karta + jedna menší vedle;
             řádek 2: tři stejné foto karty. No breakpoint leaves an orphan. */}
@@ -253,7 +239,7 @@ export default function Services() {
               alt={card.alt}
               title={card.title}
               desc={card.desc}
-              className={i === photoCards.length - 1 ? lastCardClass : ""}
+              className={i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}
             />
           ))}
         </div>

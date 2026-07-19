@@ -21,7 +21,7 @@ export default function Risks() {
       }}
     >
       <div className="container-page">
-        <SectionHeading title={heading} intro={intro} />
+        <SectionHeading label="Rizika" title={heading} intro={intro} />
 
         <ol className="mx-auto mt-14 grid max-w-[1000px] grid-cols-1 gap-x-8 gap-y-10 fade-up md:grid-cols-3">
           {items.map((r) => (
@@ -55,6 +55,12 @@ export default function Risks() {
             </li>
           ))}
         </ol>
+
+        <figure className="relative m-0 mx-auto mt-14 aspect-[21/9] max-w-[1000px] overflow-hidden rounded-[14px] border fade-up" style={{ borderColor: "var(--color-eucalyptus)" }}>
+          <img src="/media/pic13.webp" alt="Zašedlá fasáda domu před mytím, připravené lešení a bezpečnostní kužely" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }} />
+          <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">Stav před čištěním</figcaption>
+        </figure>
 
         {/* Doporučení - tmavý závěr sekce s výzvou k akci. */}
         <div

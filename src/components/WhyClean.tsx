@@ -78,6 +78,12 @@ export default function WhyClean() {
               );
             })}
           </ul>
+
+          <figure className="relative m-0 mt-2 aspect-[21/9] overflow-hidden rounded-[14px] border fade-up lg:col-span-2" style={{ borderColor: "var(--color-eucalyptus)" }}>
+            <img src="/media/pic16.webp" alt="Aplikace čisticího přípravku teleskopickou tyčí" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }} />
+            <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">Aplikace přípravku</figcaption>
+          </figure>
         </div>
 
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
