@@ -57,19 +57,16 @@ export default function Nav() {
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
-        {/* Brand mark - absolute → no effect on the bar height (--nav-h);
-            pointer-events on the link only. Full size (180px) on tablet and up;
-            scaled down only on phones (<768px). */}
+        {/* Compact transparent wordmark floats without changing bar height. */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="pointer-events-none absolute left-[18px] top-[10px] z-10 md:left-[16px] md:top-[9px] min-[1200px]:left-[50px]"
+          className="pointer-events-none absolute left-[18px] top-[14px] z-10 md:left-[16px] md:top-[12px] min-[1200px]:left-[50px]"
         >
-          <span className="logo-cloud" aria-hidden="true" />
           <Logo
             source="nav"
-            height={58}
-            className="pointer-events-auto relative z-[1] block h-[38px] w-auto md:h-[52px]"
+            height={42}
+            className="pointer-events-auto relative block h-[29px] w-auto drop-shadow-[0_1px_1px_rgba(255,255,255,.7)] md:h-[41px]"
           />
         </a>
 
