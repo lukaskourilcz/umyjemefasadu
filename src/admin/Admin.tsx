@@ -221,12 +221,23 @@ function MediaInput({
 }) {
   const ref = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [error, setError] = useState("");
   const has = Boolean(value);
   const video = has && isVideo(value);
   const isNew = isDataUrl(value);
 
   async function pick(file?: File) {
     if (!file) return;
+    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
+      setError("Vyberte obrázek nebo video.");
+      return;
+    }
+    if (file.size > 4 * 1024 * 1024) {
+      setError("Soubor je větší než 4 MB. Před nahráním ho prosím zmenšete.");
+      return;
+    }
+    setError("");
     setBusy(true);
     try {
       onChange(await readFileAsDataUrl(file));
@@ -236,8 +247,13 @@ function MediaInput({
   }
 
   return (
-    <div style={s.mediaWrap}>
-      <div style={s.mediaPreview}>
+    <div
+      style={{ ...s.mediaWrap, ...(dragging ? s.mediaWrapDragging : null) }}
+      onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+      onDragLeave={() => setDragging(false)}
+      onDrop={(e) => { e.preventDefault(); setDragging(false); pick(e.dataTransfer.files?.[0]); }}
+    >
+      <div style={s.mediaPreview} onClick={() => ref.current?.click()}>
         {has ? (
           video ? (
             <video
@@ -245,14 +261,15 @@ function MediaInput({
               muted
               loop
               playsInline
-              autoPlay
+              controls
+              preload="metadata"
               style={s.mediaEl}
             />
           ) : (
             <img src={value} alt="" style={s.mediaEl} />
           )
         ) : (
-          <span style={{ color: "#94a3b8", fontSize: 13 }}>bez souboru</span>
+          <span style={{ color: "#718096", fontSize: 13 }}>Přetáhněte soubor sem</span>
         )}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
@@ -264,13 +281,13 @@ function MediaInput({
         >
           {busy ? "Nahrávám…" : has ? "Nahradit soubor" : "Nahrát soubor"}
         </button>
-        <span style={s.mediaMeta}>
-          {isNew ? "nový soubor (uloží se při publikaci)" : value || "—"}
-        </span>
+        <span style={s.mediaHint}>JPG, PNG, WEBP, WEBM nebo MP4 · maximálně 4 MB</span>
+        <span style={s.mediaMeta}>{isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}</span>
+        {error && <span style={s.mediaError}>{error}</span>}
         <input
           ref={ref}
           type="file"
-          accept="image/*,video/*"
+          accept="image/jpeg,image/png,image/webp,video/webm,video/mp4"
           style={{ display: "none" }}
           onChange={(e) => pick(e.target.files?.[0])}
         />
@@ -298,10 +315,15 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     msg: "",
   });
   const [open, setOpen] = useState<string>(SECTIONS[0].key);
+  const [sectionQuery, setSectionQuery] = useState("");
 
   const dirty = useMemo(
     () => JSON.stringify(content) !== JSON.stringify(initialContent),
     [content, initialContent],
+  );
+  const visibleSections = useMemo(
+    () => SECTIONS.filter((sec) => `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase())),
+    [sectionQuery],
   );
 
   function apply(path: Path, value: Json) {
@@ -417,18 +439,25 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
   return (
     <div style={s.appWrap}>
       <header style={s.topbar}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <strong style={{ fontSize: 16 }}>Administrace obsahu</strong>
+        <div style={s.brandBlock}>
+          <span style={s.brandMark}>UF</span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+          <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
           <a
             href="/"
             target="_blank"
             rel="noreferrer"
-            style={{ fontSize: 12, color: "#93c5fd", textDecoration: "underline" }}
+            style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
           >
             Zobrazit web ↗
           </a>
+          </div>
         </div>
         <div style={s.actions}>
+          <span style={{ ...s.dirtyBadge, ...(dirty ? s.dirtyBadgeActive : null) }}>
+            {dirty ? "Neuložené změny" : "Vše uloženo"}
+          </span>
           <button type="button" style={s.btnGhost} onClick={preview}>
             Náhled
           </button>
@@ -471,7 +500,19 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
           prstem), na počítači zůstává jako boční sloupec. */}
       <div style={{ ...s.body, ...(narrow ? s.bodyNarrow : null) }}>
         <nav style={{ ...s.sidebar, ...(narrow ? s.sidebarNarrow : null) }}>
-          {SECTIONS.map((sec) => (
+          {!narrow && (
+            <div style={s.searchWrap}>
+              <span style={s.searchIcon}>⌕</span>
+              <input
+                value={sectionQuery}
+                onChange={(e) => setSectionQuery(e.target.value)}
+                placeholder="Najít sekci…"
+                aria-label="Najít sekci"
+                style={s.searchInput}
+              />
+            </div>
+          )}
+          {visibleSections.map((sec, index) => (
             <button
               key={sec.key}
               type="button"
@@ -482,6 +523,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
                 ...(open === sec.key ? s.navItemActive : null),
               }}
             >
+              <span style={s.navNumber}>{String(index + 1).padStart(2, "0")}</span>
               {sec.title}
             </button>
           ))}
@@ -497,7 +539,8 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         <main style={{ ...s.main, ...(narrow ? s.mainNarrow : null) }}>
           {SECTIONS.filter((sec) => sec.key === open).map((sec) => (
             <section key={sec.key}>
-              <h2 style={{ fontSize: 20, margin: "0 0 4px" }}>{sec.title}</h2>
+              <span style={s.sectionEyebrow}>UPRAVUJETE SEKCI</span>
+              <h2 style={s.sectionTitle}>{sec.title}</h2>
               {sec.help && (
                 <p style={{ color: "#64748b", fontSize: 13, margin: "0 0 20px" }}>
                   {sec.help}
@@ -718,7 +761,7 @@ const s: Record<string, CSSProperties> = {
     minHeight: "100vh",
     display: "grid",
     placeItems: "center",
-    background: "#0f172a",
+    background: "radial-gradient(circle at 20% 10%, rgba(27,165,224,.18), transparent 35%), #101820",
     padding: 20,
     fontFamily: "Inter, system-ui, sans-serif",
   },
@@ -728,15 +771,16 @@ const s: Record<string, CSSProperties> = {
     gap: 14,
     background: "#fff",
     padding: 28,
-    borderRadius: 16,
+    borderRadius: 14,
     width: "min(360px, 100%)",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
+    boxShadow: "0 24px 70px rgba(0,0,0,0.3)",
+    border: "1px solid rgba(255,255,255,.2)",
   },
   appWrap: {
     minHeight: "100vh",
-    background: "#f1f5f9",
+    background: "#fbfdfe",
     fontFamily: "Inter, system-ui, sans-serif",
-    color: "#0f172a",
+    color: "#101820",
   },
   topbar: {
     position: "sticky",
@@ -747,11 +791,29 @@ const s: Record<string, CSSProperties> = {
     justifyContent: "space-between",
     gap: 16,
     flexWrap: "wrap",
-    padding: "12px 20px",
-    background: "#0f172a",
+    padding: "14px 24px",
+    background: "rgba(16,24,32,.97)",
     color: "#fff",
+    borderBottom: "1px solid rgba(255,255,255,.1)",
+    backdropFilter: "blur(12px)",
   },
-  actions: { display: "flex", gap: 8, flexWrap: "wrap" },
+  brandBlock: { display: "flex", alignItems: "center", gap: 12 },
+  brandMark: {
+    width: 42,
+    height: 42,
+    borderRadius: 12,
+    display: "grid",
+    placeItems: "center",
+    background: "linear-gradient(135deg,#e6007e,#c10068)",
+    color: "#fff",
+    fontFamily: "Space Grotesk, sans-serif",
+    fontWeight: 800,
+    fontSize: 14,
+  },
+  adminEyebrow: { color: "#1ba5e0", fontSize: 10, letterSpacing: ".14em", fontFamily: "Fragment Mono, monospace" },
+  actions: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" },
+  dirtyBadge: { padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,.08)", color: "#94a3b8", fontSize: 11, fontWeight: 700 },
+  dirtyBadgeActive: { background: "rgba(230,0,126,.15)", color: "#ff7fc5" },
   banner: { padding: "10px 20px", fontSize: 14 },
   body: { display: "flex", alignItems: "flex-start", gap: 0 },
   bodyNarrow: { flexDirection: "column", alignItems: "stretch" },
@@ -762,11 +824,13 @@ const s: Record<string, CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     gap: 2,
-    padding: 12,
-    width: 240,
+    padding: 18,
+    width: 274,
     flexShrink: 0,
     maxHeight: "calc(100vh - 61px)",
     overflowY: "auto",
+    background: "#f5f8fa",
+    borderRight: "1px solid #e2e9ee",
   },
   sidebarNarrow: {
     position: "sticky",
@@ -779,19 +843,22 @@ const s: Record<string, CSSProperties> = {
     overflowY: "visible",
     overflowX: "auto",
     padding: "10px 12px",
-    background: "#f1f5f9",
+    background: "rgba(251,253,254,.96)",
     borderBottom: "1px solid #e2e8f0",
     WebkitOverflowScrolling: "touch",
   },
   navItem: {
     textAlign: "left",
-    padding: "9px 12px",
-    borderRadius: 8,
+    padding: "10px 12px",
+    borderRadius: 10,
     border: "none",
     background: "transparent",
-    color: "#334155",
+    color: "#42515d",
     fontSize: 14,
     cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: 10,
   },
   navItemNarrow: {
     whiteSpace: "nowrap",
@@ -801,7 +868,11 @@ const s: Record<string, CSSProperties> = {
     background: "#fff",
     marginTop: 0,
   },
-  navItemActive: { background: "#0f172a", color: "#fff", fontWeight: 600 },
+  navItemActive: { background: "#101820", color: "#fff", fontWeight: 700, boxShadow: "0 7px 18px rgba(16,24,32,.13)" },
+  navNumber: { fontFamily: "Fragment Mono, monospace", fontSize: 10, color: "#1ba5e0", minWidth: 18 },
+  searchWrap: { position: "relative", marginBottom: 8 },
+  searchIcon: { position: "absolute", left: 12, top: 8, color: "#80909d", fontSize: 18 },
+  searchInput: { width: "100%", boxSizing: "border-box", border: "1px solid #d6e0e6", borderRadius: 10, padding: "10px 12px 10px 34px", background: "#fff", fontSize: 13, outline: "none" },
   navReset: {
     marginTop: 14,
     textAlign: "left",
@@ -816,26 +887,29 @@ const s: Record<string, CSSProperties> = {
   main: {
     flex: 1,
     minWidth: 0,
-    padding: "24px 28px 80px",
-    maxWidth: 760,
+    padding: "38px 42px 100px",
+    maxWidth: 900,
   },
   mainNarrow: { padding: "20px 16px 80px", maxWidth: "none" },
-  fieldBlock: { display: "flex", flexDirection: "column", gap: 6 },
+  sectionEyebrow: { color: "#1488c4", fontFamily: "Fragment Mono, monospace", fontSize: 11, letterSpacing: ".12em" },
+  sectionTitle: { fontFamily: "Space Grotesk, Inter, sans-serif", fontSize: 30, lineHeight: 1.1, margin: "8px 0 6px", letterSpacing: "-0.03em" },
+  fieldBlock: { display: "flex", flexDirection: "column", gap: 7, padding: "2px 0" },
   groupBlock: {
     display: "flex",
     flexDirection: "column",
     gap: 6,
-    padding: 16,
+    padding: 20,
     background: "#fff",
-    borderRadius: 12,
-    border: "1px solid #e2e8f0",
+    borderRadius: 14,
+    border: "1px solid #e2e9ee",
+    boxShadow: "0 1px 0 rgba(16,24,32,.02)",
   },
-  fieldLabel: { fontSize: 13, fontWeight: 600, color: "#475569" },
+  fieldLabel: { fontSize: 12, fontWeight: 750, color: "#42515d", letterSpacing: ".01em" },
   input: {
     width: "100%",
     padding: "10px 12px",
-    borderRadius: 8,
-    border: "1px solid #cbd5e1",
+    borderRadius: 10,
+    border: "1px solid #c4d0d8",
     fontSize: 14,
     fontFamily: "inherit",
     background: "#fff",
@@ -843,9 +917,9 @@ const s: Record<string, CSSProperties> = {
   },
   textarea: {
     width: "100%",
-    padding: "10px 12px",
-    borderRadius: 8,
-    border: "1px solid #cbd5e1",
+    padding: "12px 14px",
+    borderRadius: 10,
+    border: "1px solid #c4d0d8",
     fontSize: 14,
     fontFamily: "inherit",
     lineHeight: 1.5,
@@ -854,10 +928,10 @@ const s: Record<string, CSSProperties> = {
     boxSizing: "border-box",
   },
   arrayItem: {
-    padding: 14,
+    padding: 16,
     background: "#fff",
     borderRadius: 12,
-    border: "1px solid #e2e8f0",
+    border: "1px solid #e2e9ee",
   },
   arrayItemHead: {
     display: "flex",
@@ -881,7 +955,7 @@ const s: Record<string, CSSProperties> = {
   btnAdd: {
     alignSelf: "flex-start",
     padding: "8px 14px",
-    borderRadius: 8,
+    borderRadius: 10,
     border: "1px dashed #94a3b8",
     background: "transparent",
     color: "#475569",
@@ -892,15 +966,15 @@ const s: Record<string, CSSProperties> = {
     padding: "10px 16px",
     borderRadius: 8,
     border: "none",
-    background: "#e6007e",
+    background: "#d80076",
     color: "#fff",
     fontSize: 14,
-    fontWeight: 600,
+    fontWeight: 700,
     cursor: "pointer",
   },
   btnGhost: {
     padding: "9px 14px",
-    borderRadius: 8,
+    borderRadius: 10,
     border: "1px solid rgba(255,255,255,0.25)",
     background: "transparent",
     color: "#fff",
@@ -909,25 +983,26 @@ const s: Record<string, CSSProperties> = {
   },
   btnSmall: {
     padding: "7px 12px",
-    borderRadius: 7,
-    border: "1px solid #cbd5e1",
-    background: "#f8fafc",
-    color: "#0f172a",
+    borderRadius: 10,
+    border: "1px solid #101820",
+    background: "#101820",
+    color: "#fff",
     fontSize: 13,
     cursor: "pointer",
     whiteSpace: "nowrap",
   },
-  mediaWrap: { display: "flex", gap: 12, alignItems: "flex-start" },
+  mediaWrap: { display: "grid", gridTemplateColumns: "minmax(180px, 260px) minmax(0,1fr)", gap: 16, alignItems: "center", padding: 12, borderRadius: 12, border: "1px dashed #c4d0d8", background: "#f8fbfc", transition: "border-color .2s, background .2s" },
+  mediaWrapDragging: { borderColor: "#1ba5e0", background: "#eaf7fd" },
   mediaPreview: {
-    width: 120,
-    height: 84,
-    flexShrink: 0,
-    borderRadius: 8,
+    width: "100%",
+    aspectRatio: "16 / 10",
+    borderRadius: 10,
     overflow: "hidden",
     background: "#f1f5f9",
     border: "1px solid #e2e8f0",
     display: "grid",
     placeItems: "center",
+    cursor: "pointer",
   },
   mediaEl: { width: "100%", height: "100%", objectFit: "cover" },
   mediaMeta: {
@@ -936,4 +1011,6 @@ const s: Record<string, CSSProperties> = {
     wordBreak: "break-all",
     overflowWrap: "anywhere",
   },
+  mediaHint: { fontSize: 11, color: "#718096", lineHeight: 1.45 },
+  mediaError: { fontSize: 12, color: "#c53030", fontWeight: 600 },
 };

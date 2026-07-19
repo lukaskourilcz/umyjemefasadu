@@ -100,7 +100,10 @@
       "Chrání před mrazem – voda neproniká, nepraská omítka",
       "Prodlužuje životnost fasády klidně o 5 až 10 let"
     ],
-    "protectionHow": "Impregnace vytvoří neviditelnou vrstvu: kapky vody stečou dolů (tzv. lotus efekt) a vodní pára může ven, takže fasáda nezatuchne."
+    "protectionHow": "Impregnace vytvoří neviditelnou vrstvu: kapky vody stečou dolů (tzv. lotus efekt) a vodní pára může ven, takže fasáda nezatuchne.",
+    "image": "/media/clean-hero.webp",
+    "imageAlt": "Čistá fasáda po dokončení práce",
+    "imageLabel": "Výsledek po vyčištění"
   },
   "risks": {
     "heading": "Rizika znečištěné fasády",
@@ -124,13 +127,18 @@
     ],
     "solutionTitle": "Řešením je pravidelná údržba",
     "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu.",
-    "solutionCta": "Domluvit prohlídku zdarma"
+    "solutionCta": "Domluvit prohlídku zdarma",
+    "image": "/media/pic13.webp",
+    "imageAlt": "Zašedlá fasáda domu před mytím, připravené lešení a bezpečnostní kužely",
+    "imageLabel": "Stav před čištěním"
   },
   "services": {
     "heading": "Kompletní čištění fasád, střech i dlažby",
     "intro": "Od fasád přes střechy až po dlažbu. Postup, tlak i přípravky volíme podle typu a stavu každého povrchu.",
     "featured": {
       "image": "/media/pic11.webp",
+      "video": "/media/fasada6.webm",
+      "videoAlt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou je vidět okamžitě",
       "alt": "Tlakové mytí fasády rodinného domu z lešení",
       "title": "Mytí a čištění fasád",
       "desc": "Tlakové mytí horkou vodou v kombinaci se speciální chemií. Odstraníme organické nečistoty (plísně, řasy a lišejníky) i anorganické (saze, prach a mastnota). Tlak, teplotu i trysky volíme podle typu a stavu omítky."
@@ -186,7 +194,10 @@
     "methods": [],
     "video": "/media/fasada6.webm",
     "videoAlt": "Detail čištění fasády — rozdíl mezi umytou a špinavou omítkou je vidět okamžitě",
-    "videoLabel": "Rozdíl je vidět hned"
+    "videoLabel": "Rozdíl je vidět hned",
+    "sideVideo": "/media/fasada5.webm",
+    "sideVideoAlt": "Tlakové mytí horního patra domu z pojízdného lešení",
+    "sideVideoLabel": "Tlakové mytí z lešení"
   },
   "fieldWork": {
     "visible": true,

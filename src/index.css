@@ -127,21 +127,36 @@
 
   .logo-cloud {
     position: absolute;
+    isolation: isolate;
+    z-index: 0;
     left: 50%;
     top: 50%;
-    width: 122%;
-    height: 82%;
+    width: 116%;
+    height: 62%;
     transform: translate(-50%, -50%);
-    border-radius: 48% 52% 46% 54% / 58% 46% 54% 42%;
-    background:
-      radial-gradient(ellipse 34% 58% at 18% 58%, #fff 0 72%, transparent 74%),
-      radial-gradient(ellipse 38% 66% at 42% 42%, #fff 0 74%, transparent 76%),
-      radial-gradient(ellipse 40% 62% at 68% 46%, #fff 0 74%, transparent 76%),
-      radial-gradient(ellipse 32% 54% at 88% 60%, #fff 0 72%, transparent 74%),
-      linear-gradient(#fff, #fff);
-    filter: blur(2px);
-    opacity: 0.96;
-    box-shadow: 0 5px 18px rgba(16, 24, 32, 0.12);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(16, 24, 32, 0.15);
+  }
+  .logo-cloud::before,
+  .logo-cloud::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .logo-cloud::before {
+    width: 46%;
+    aspect-ratio: 1;
+    left: 6%;
+    top: -38%;
+  }
+  .logo-cloud::after {
+    width: 52%;
+    aspect-ratio: 1;
+    right: 5%;
+    top: -44%;
   }
 
   /* Primary filled action - the single chromatic CTA.

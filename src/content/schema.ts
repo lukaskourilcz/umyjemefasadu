@@ -72,6 +72,9 @@ export type Content = {
     protectionIntro: string;
     protectionBullets: string[];
     protectionHow: string;
+    image: string;
+    imageAlt: string;
+    imageLabel: string;
   };
 
   /** „Rizika znečištěné fasády" — sekce nahoře. */
@@ -83,12 +86,15 @@ export type Content = {
     solutionDesc: string;
     /** Text tlačítka pod doporučením (vede na kontakt). */
     solutionCta: string;
+    image: string;
+    imageAlt: string;
+    imageLabel: string;
   };
 
   services: {
     heading: string;
     intro: string;
-    featured: { image: string; alt: string; title: string; desc: string };
+    featured: { image: string; video: string; videoAlt: string; alt: string; title: string; desc: string };
     tintCards: { title: string; desc: string }[];
     photoCards: { image: string; alt: string; title: string; desc: string }[];
   };
@@ -102,6 +108,9 @@ export type Content = {
     video: string;
     videoAlt: string;
     videoLabel: string;
+    sideVideo: string;
+    sideVideoAlt: string;
+    sideVideoLabel: string;
   };
 
   /** „Přímo z akce" — pás skutečných fotek a klipů z práce na zakázkách. */

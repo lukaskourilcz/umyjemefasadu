@@ -177,7 +177,8 @@ const TINT_BG = ["var(--color-moss-veil)", "var(--color-lichen)"];
 export default function Services() {
   const { heading, intro, featured, tintCards, photoCards } =
     useContent().services;
-  const { video: featuredVideo, videoAlt: featuredVideoAlt } = useContent().process;
+  const featuredVideo = featured.video;
+  const featuredVideoAlt = featured.videoAlt;
   const featuredVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
