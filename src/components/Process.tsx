@@ -14,22 +14,29 @@ export default function Process() {
     videoAlt,
     videoLabel,
   } = useContent().process;
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { fieldWork } = useContent();
+  const clips = [
+    { src: video, alt: videoAlt, label: videoLabel, position: "center 45%" },
+    ...fieldWork.items
+      .filter((item) => /\.(webm|mp4)(\?|$)/i.test(item.src))
+      .map((item, index) => ({ ...item, position: ["center 35%", "center 30%", "center 42%"][index] ?? "center" })),
+  ].filter((clip) => clip.src);
+  const videoRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
 
   // Klip hraje jen na obrazovce (a nikdy pod reduced-motion) — stejný
   // přístup jako dlaždice v Hero a v pásu „Přímo z akce".
   useEffect(() => {
-    const el = videoRef.current;
-    if (!el || reduced) return;
+    const root = videoRef.current;
+    if (!root || reduced) return;
+    const videos = Array.from(root.querySelectorAll("video"));
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) el.play().catch(() => {});
-        else el.pause();
+        videos.forEach((el) => entry.isIntersecting ? el.play().catch(() => {}) : el.pause());
       },
       { threshold: 0.2 },
     );
-    io.observe(el);
+    io.observe(root);
     return () => io.disconnect();
   }, [reduced, video]);
 
@@ -40,7 +47,7 @@ export default function Process() {
       style={{ backgroundColor: "var(--color-botanical-ink)" }}
     >
       <div className="container-page">
-        <SectionHeading tone="dark" title={heading} intro={intro} />
+        <SectionHeading label="Náš postup" tone="dark" title={heading} intro={intro} />
 
         {/* Vertical timeline - mono numbers on a hairline rail. */}
         <ol className="mx-auto mt-14 flex max-w-[720px] flex-col fade-up">
@@ -85,44 +92,18 @@ export default function Process() {
 
         {/* Široký klip - postup v praxi. Horizontální formát vyvažuje
             svislou časovou osu; bez souboru se blok nevykreslí. */}
-        {video && (
-          <figure
-            className="relative m-0 mx-auto mt-14 aspect-video w-full max-w-[900px] overflow-hidden rounded-[14px] border fade-up"
-            style={{ borderColor: "rgba(251,253,254,0.14)" }}
-          >
-            <video
-              ref={videoRef}
-              src={video}
-              aria-label={videoAlt}
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
-              style={{
-                background:
-                  "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
-              }}
-            />
-            <figcaption
-              className="font-fragment-mono absolute inset-x-0 bottom-0 flex items-center gap-2 p-5 uppercase"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "0.1em",
-                color: "rgba(251,253,254,0.92)",
-              }}
-            >
-              <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-                <path d="M1.5 1 L9 5 L1.5 9 Z" fill="currentColor" />
-              </svg>
-              {videoLabel}
-            </figcaption>
-          </figure>
-        )}
+        <div ref={videoRef} className="mx-auto mt-14 grid max-w-[1000px] grid-cols-1 gap-4 fade-up sm:grid-cols-2">
+          {clips.map((clip, index) => (
+            <figure key={clip.src} className={`relative m-0 overflow-hidden rounded-[14px] border ${index === 0 ? "aspect-video sm:col-span-2" : "aspect-[4/5] sm:aspect-[16/10]"}`} style={{ borderColor: "rgba(251,253,254,0.14)" }}>
+              <video src={clip.src} aria-label={clip.alt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: clip.position }} />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.68),rgba(16,24,32,0))" }} />
+              <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 flex items-center gap-2 p-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">
+                <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1 L9 5 L1.5 9 Z" fill="currentColor" /></svg>
+                {clip.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
 
         {/* Metody - volitelné doplňkové karty; bez položek se blok nevykreslí. */}
         {METHODS.length > 0 && (

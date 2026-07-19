@@ -6,10 +6,10 @@ import { useContent } from "../content";
 
 // Barevné podklady/oříznutí dlaždic zůstávají v kódu; editovatelná jsou videa.
 const TILE_STYLE = [
-  { position: "top", tone: "linear-gradient(150deg, #cfe7f6 0%, #a9d4ee 100%)" },
-  { position: "top", tone: "linear-gradient(150deg, #d7eefb 0%, #bfe2f5 100%)" },
-  { position: "top", tone: "linear-gradient(150deg, #c7d6de 0%, #aebfc8 100%)" },
-  { position: "top", tone: "linear-gradient(150deg, #dbeaf3 0%, #b9d8ec 100%)" },
+  { position: "center 28%", tone: "linear-gradient(150deg, #cfe7f6 0%, #a9d4ee 100%)" },
+  { position: "center 42%", tone: "linear-gradient(150deg, #d7eefb 0%, #bfe2f5 100%)" },
+  { position: "center 30%", tone: "linear-gradient(150deg, #c7d6de 0%, #aebfc8 100%)" },
+  { position: "center 38%", tone: "linear-gradient(150deg, #dbeaf3 0%, #b9d8ec 100%)" },
 ] as const;
 
 export default function Hero({ backdrop }: { backdrop: ReactNode }) {

@@ -115,6 +115,28 @@
     color: var(--color-botanical-ink);
   }
 
+  .section-eyebrow {
+    color: var(--color-cyan-deep);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .section-eyebrow-dark {
+    color: var(--color-forest-floor);
+  }
+
+  .logo-cloud {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 115%;
+    height: 88%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse 60% 50% at 50% 45%, #fff 55%, rgba(255,255,255,.85) 72%, rgba(255,255,255,0) 100%);
+    filter: blur(6px);
+  }
+
   /* Primary filled action - the single chromatic CTA.
      Derived from the theme token (editable in /dev) with a hair of black
      mixed in (visually identical to the brand magenta) so cream-on-color

@@ -57,6 +57,11 @@ export default function Contact() {
 
   return (
     <section id="kontakt" className="scroll-mt-24 py-20 md:py-28">
+      <figure className="relative m-0 mb-12 h-[68vh] min-h-[520px] w-full overflow-hidden md:mb-16 md:h-[85vh]">
+        <img src="/media/pic12.webp" alt="Zabezpečené pracoviště s lešením a firemním bannerem" loading="lazy" className="absolute inset-0 h-full w-full object-cover [object-position:center_35%]" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.42),rgba(16,24,32,0))" }} />
+        <figcaption className="container-page font-fragment-mono absolute inset-x-0 bottom-0 pb-6 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">Zabezpečené pracoviště</figcaption>
+      </figure>
       <div className="container-page">
         {/* The page's closing dark moment - grounds the layout and makes the
             conversion point unmissable. */}

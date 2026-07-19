@@ -7,7 +7,7 @@ export default function Faq() {
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading title={heading} />
+        <SectionHeading label="FAQ" title={heading} />
 
         {/* Divider list - the calmest section on the page. */}
         <div

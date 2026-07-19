@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { clamp } from "../lib/utils";
@@ -58,10 +58,30 @@ export default function RevealHero({ before, after, label }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [mobile, setMobile] = useState(false);
+  const [dragProgress, setDragProgress] = useState(50);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 1199px)");
+    const sync = () => setMobile(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (mobile) {
+      panelRef.current?.style.setProperty("--p", (dragProgress / 100).toFixed(2));
+    }
+  }, [mobile, dragProgress]);
 
   useRafScroll(() => {
     const panel = panelRef.current;
     if (!panel) return;
+    if (mobile) {
+      panel.style.setProperty("--p", (dragProgress / 100).toFixed(2));
+      return;
+    }
     if (reduced) {
       // Static, balanced split so the before/after still reads without motion.
       panel.style.setProperty("--p", "0.5");
@@ -92,8 +112,8 @@ export default function RevealHero({ before, after, label }: Props) {
       // Short scroll track: the reveal completes in well under one extra
       // viewport so the value proposition below arrives quickly (shorter
       // still on phones, where scroll distance is expensive).
-      className={`relative ${reduced ? "" : "h-[130svh] md:h-[160vh]"}`}
-      style={reduced ? { height: "auto" } : undefined}
+      className={`relative ${mobile ? "h-[520px]" : reduced ? "" : "h-[160vh]"}`}
+      style={!mobile && reduced ? { height: "auto" } : undefined}
     >
       <div
         ref={panelRef}
@@ -101,13 +121,25 @@ export default function RevealHero({ before, after, label }: Props) {
         style={{
           // `--p` is updated on scroll; everything below reads it.
           ["--p" as string]: "0",
-          position: reduced ? "relative" : "sticky",
-          top: "var(--nav-h, 76px)",
-          height: reduced
+          position: mobile || reduced ? "relative" : "sticky",
+          top: mobile ? 0 : "var(--nav-h, 76px)",
+          height: mobile ? "520px" : reduced
             ? "min(78vh, 620px)"
             : "calc(100svh - var(--nav-h, 76px))",
         }}
       >
+        {mobile && (
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={dragProgress}
+            onChange={(event) => setDragProgress(Number(event.target.value))}
+            aria-label="Porovnání fasády před a po"
+            className="absolute inset-0 z-20 m-0 h-full w-full cursor-ns-resize opacity-0"
+            style={{ touchAction: "pan-y" }}
+          />
+        )}
         {/* AFTER - clean, full-frame. Revealed from the top down as --p grows. */}
         <div
           className="absolute inset-0"
@@ -128,25 +160,26 @@ export default function RevealHero({ before, after, label }: Props) {
         {/* Hero headline - vertically centered, offset from the viewport's left
             edge with a clamp so it stays far-left on desktop yet never clips on
             smaller screens. */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-[6px] pr-4 md:pl-[16px] lg:pl-[40px]">
+        <div className={`pointer-events-none absolute left-0 right-0 z-10 flex px-5 lg:px-10 ${mobile ? "bottom-7 items-end" : "inset-y-0 items-center"}`}>
           <h1
             className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
             style={{
-              fontSize: "clamp(42px, 11vw, 72px)",
-              lineHeight: 0.78,
+              fontSize: mobile ? "38px" : "clamp(42px, 11vw, 72px)",
+              lineHeight: mobile ? 0.92 : 0.78,
               letterSpacing: "-0.03em",
               textShadow: "0 2px 20px rgba(16,24,32,0.55)",
               // Darker (10%) over the dirty photo, brightening to white as the
               // clean image is revealed (tracks the scroll progress --p).
-              color:
-                "color-mix(in srgb, #e2e4e5, #fbfdfe calc(var(--p, 0) * 100%))",
+              color: mobile
+                ? "#fbfdfe"
+                : "color-mix(in srgb, #e2e4e5, #fbfdfe calc(var(--p, 0) * 100%))",
             }}
           >
-            {rh.headlineLines.map((line, i) => (
+            {(mobile ? [rh.headlineLines.join(" ")] : rh.headlineLines).map((line, i) => (
               <span
                 key={i}
-                className="px-[0.32em] py-[0.22em]"
-                style={HEADLINE_GLASS}
+                className={mobile ? "" : "px-[0.32em] py-[0.22em]"}
+                style={mobile ? undefined : HEADLINE_GLASS}
               >
                 {line}
               </span>
@@ -220,7 +253,7 @@ export default function RevealHero({ before, after, label }: Props) {
                 "linear-gradient(0deg, rgba(16,24,32,0.55) 0%, rgba(16,24,32,0) 100%)",
             }}
           />
-          <div className="container-page relative flex items-end justify-between gap-4 pb-8">
+          <div className={`container-page relative flex items-end justify-between gap-4 pb-8 ${mobile ? "hidden" : ""}`}>
             <div className="flex flex-wrap items-center gap-3">
               {/* Konverzní tlačítko jen na telefonech - od sm výš už stejné
                   tlačítko drží lepicí lišta nahoře, dvakrát ho tu nechceme. */}

@@ -18,9 +18,7 @@ export default function SectionHeading({
     <div className={`flex flex-col ${alignment} fade-up`}>
       {label && (
         <span
-          className={`micro-label mb-4 ${
-            dark ? "text-cream-paper/60" : "text-botanical-ink/60"
-          }`}
+          className={`micro-label section-eyebrow mb-4 ${dark ? "section-eyebrow-dark" : ""}`}
         >
           {label}
         </span>
