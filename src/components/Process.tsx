@@ -3,6 +3,8 @@ import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
 
+const isVideo = (src: string) => /\.(webm|mp4|m4v|mov)(\?|$)/i.test(src);
+
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
   const { heading, intro, steps: STEPS, methods: METHODS, sideVideo, sideVideoAlt, sideVideoLabel } = useContent().process;
@@ -53,7 +55,11 @@ export default function Process() {
 
           {sideVideo && (
             <figure className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black" style={{ borderColor: "rgba(251,253,254,0.14)" }}>
-              <video ref={videoRef} src={sideVideo} aria-label={sideVideoAlt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
+              {isVideo(sideVideo) ? (
+                <video ref={videoRef} src={sideVideo} aria-label={sideVideoAlt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
+              ) : (
+                <img src={sideVideo} alt={sideVideoAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+              )}
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.74),rgba(16,24,32,0))" }} />
               <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">{sideVideoLabel}</figcaption>
             </figure>
