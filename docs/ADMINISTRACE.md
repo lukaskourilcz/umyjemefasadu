@@ -23,8 +23,10 @@ Vlevo je seznam sekcí webu (Úvod, Služby, Ceník, Kontakt…). Klikněte na
 sekci a upravte texty přímo v polích.
 
 - **Texty** – stačí přepsat obsah pole.
-- **Fotky a videa** – u každého obrázku je tlačítko **„Nahradit soubor"**.
-  Vyberte fotku nebo video z počítače/telefonu a hned uvidíte náhled.
+- **Fotky a videa** – soubor můžete přetáhnout přímo na velký náhled nebo
+  použít tlačítko **„Nahradit soubor"**. Nový obsah uvidíte okamžitě.
+- Každý mediální blok přesně popisuje, kde se na webu používá (například
+  „Fotka PŘED“, „Hlavní video služby“ nebo „Malé video vedle postupu“).
 - **Přidat/ubrat položku** – u seznamů (služby, reference, ceník, dotazy…)
   použijte tlačítko **„+ Přidat další"**, šipky **↑ ↓** pro pořadí a **✕**
   pro smazání.
@@ -53,8 +55,9 @@ a web se **sám během cca 1–2 minut** aktualizuje pro všechny návštěvník
 
 ### Dobré vědět
 
-- Velká videa nahrávejte raději **po jednom** a poté publikujte – jsou velká
-  a najednou by se nemusela odeslat.
+- Maximální velikost jednoho souboru je **4 MB**. Větší fotku uložte jako
+  WEBP/JPG a video jako WEBM/MP4 v rozumném rozlišení.
+- Velká videa nahrávejte raději **po jednom** a poté publikujte.
 - Fotky ideálně ve formátu **JPG/WEBP**, videa jako **WEBM/MP4**.
 
 ---

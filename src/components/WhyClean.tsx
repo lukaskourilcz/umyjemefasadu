@@ -22,6 +22,9 @@ export default function WhyClean() {
     protectionIntro,
     protectionBullets,
     protectionHow,
+    image,
+    imageAlt,
+    imageLabel,
   } = useContent().whyClean;
 
   return (
@@ -80,9 +83,9 @@ export default function WhyClean() {
           </ul>
 
           <figure className="relative m-0 mt-2 aspect-[21/9] overflow-hidden rounded-[14px] border fade-up lg:col-span-2" style={{ borderColor: "var(--color-eucalyptus)" }}>
-            <img src="/media/clean-hero.webp" alt="Čistá fasáda po dokončení práce" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+            <img src={image} alt={imageAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }} />
-            <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">Výsledek po vyčištění</figcaption>
+            <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">{imageLabel}</figcaption>
           </figure>
         </div>
 

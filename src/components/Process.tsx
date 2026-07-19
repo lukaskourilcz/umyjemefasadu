@@ -5,16 +5,7 @@ import { useContent } from "../content";
 
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
-  const {
-    heading,
-    intro,
-    steps: STEPS,
-    methods: METHODS,
-  } = useContent().process;
-  const { fieldWork } = useContent();
-  const scaffoldClip = fieldWork.items.find((item) =>
-    item.label.toLowerCase().includes("tlakové mytí z lešení"),
-  );
+  const { heading, intro, steps: STEPS, methods: METHODS, sideVideo, sideVideoAlt, sideVideoLabel } = useContent().process;
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -32,7 +23,7 @@ export default function Process() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduced, scaffoldClip?.src]);
+  }, [reduced, sideVideo]);
 
   return (
     <section
@@ -60,11 +51,11 @@ export default function Process() {
             ))}
           </ol>
 
-          {scaffoldClip && (
+          {sideVideo && (
             <figure className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black" style={{ borderColor: "rgba(251,253,254,0.14)" }}>
-              <video ref={videoRef} src={scaffoldClip.src} aria-label={scaffoldClip.alt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
+              <video ref={videoRef} src={sideVideo} aria-label={sideVideoAlt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.74),rgba(16,24,32,0))" }} />
-              <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">{scaffoldClip.label}</figcaption>
+              <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">{sideVideoLabel}</figcaption>
             </figure>
           )}
         </div>

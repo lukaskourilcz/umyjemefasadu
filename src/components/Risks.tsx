@@ -8,7 +8,7 @@ import { TEXT } from "../lib/text";
  * a Objednávka) a tmavý závěr s doporučením a výzvou k akci.
  */
 export default function Risks() {
-  const { heading, intro, items, solutionTitle, solutionDesc, solutionCta } =
+  const { heading, intro, items, solutionTitle, solutionDesc, solutionCta, image, imageAlt, imageLabel } =
     useContent().risks;
 
   return (
@@ -57,9 +57,9 @@ export default function Risks() {
         </ol>
 
         <figure className="relative m-0 mx-auto mt-14 aspect-[21/9] max-w-[1000px] overflow-hidden rounded-[14px] border fade-up" style={{ borderColor: "var(--color-eucalyptus)" }}>
-          <img src="/media/pic13.webp" alt="Zašedlá fasáda domu před mytím, připravené lešení a bezpečnostní kužely" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <img src={image} alt={imageAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
           <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }} />
-          <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">Stav před čištěním</figcaption>
+          <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">{imageLabel}</figcaption>
         </figure>
 
         {/* Doporučení - tmavý závěr sekce s výzvou k akci. */}
@@ -81,57 +81,25 @@ export default function Risks() {
               {solutionDesc}
             </p>
           </div>
-          {/* Tichý odkaz místo dalšího magenta tlačítka - hlavní CTA drží
-              horní lišta a sekce Proč my. Nad odkazem stojí kreslený domek
-              s otevřenými stěnami: podtržené tlačítko tvoří jeho základy. */}
-          <div className="justify-self-start md:justify-self-end">
-            {/* Minimalistický domek: jen střecha a krátké stěny vysoké jako
-                písmo odkazu; síla čar (non-scaling) odpovídá tahům textu. */}
-            <svg
-              viewBox="0 0 240 52"
-              aria-hidden="true"
-              className="block w-full text-cream-paper"
-              style={{ maxWidth: 260 }}
-            >
-              <g
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                vectorEffect="non-scaling-stroke"
-              >
-                <path d="M12 40 L120 6 L228 40" vectorEffect="non-scaling-stroke" />
-                <path d="M32 36 V52" vectorEffect="non-scaling-stroke" />
-                <path d="M208 36 V52" vectorEffect="non-scaling-stroke" />
-              </g>
-            </svg>
-            <a
-              href="#kontakt"
-              className="group mt-1 inline-flex w-full items-center justify-center gap-2 whitespace-nowrap font-bold text-cream-paper"
-              style={{ fontSize: "15px" }}
-            >
-              <span className="underline decoration-1 underline-offset-8">
-                {solutionCta}
-              </span>
-              <svg
-                width="18"
-                height="14"
-                viewBox="0 0 18 14"
-                aria-hidden="true"
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              >
-                <path
-                  d="M1 7 H16 M11 2 L16 7 L11 12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+          <a
+            href="#kontakt"
+            className="group flex min-w-[250px] items-center gap-4 rounded-[12px] border px-5 py-4 text-cream-paper transition-colors hover:bg-cream-paper/[.06] md:justify-self-end"
+            style={{ borderColor: "rgba(27,165,224,.42)" }}
+          >
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[10px] bg-forest-floor/15 text-forest-floor">
+              <svg width="21" height="21" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 19 V10 L12 4.5 L19 10 V19" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M9 19 V14 H15 V19 M4 19 H20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
-          </div>
+            </span>
+            <span className="flex min-w-0 flex-1 flex-col">
+              <span className="font-fragment-mono text-[10px] uppercase tracking-[.12em] text-forest-floor">Prohlídka zdarma</span>
+              <span className="mt-1 whitespace-nowrap text-[15px] font-bold">{solutionCta}</span>
+            </span>
+            <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true" className="shrink-0 transition-transform duration-300 group-hover:translate-x-1">
+              <path d="M1 7 H16 M11 2 L16 7 L11 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>
