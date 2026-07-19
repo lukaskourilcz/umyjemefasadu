@@ -68,8 +68,8 @@ export default function Nav() {
           <span className="logo-cloud" aria-hidden="true" />
           <Logo
             source="nav"
-            height={172}
-            className="pointer-events-auto relative block h-[110px] w-auto drop-shadow-[0_8px_10px_rgba(16,24,32,0.4)] md:h-[180px]"
+            height={153}
+            className="pointer-events-auto relative block h-[94px] w-auto drop-shadow-[0_6px_8px_rgba(16,24,32,0.32)] md:h-[153px]"
           />
         </a>
 
