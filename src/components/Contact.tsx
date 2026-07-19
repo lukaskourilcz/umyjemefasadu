@@ -44,8 +44,8 @@ export default function Contact() {
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(data.entries())),
       });
       if (!res.ok) throw new Error(`form endpoint ${res.status}`);
       form.reset();
@@ -160,6 +160,10 @@ export default function Contact() {
               </div>
             ) : (
               <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+                <label className="sr-only" aria-hidden="true">
+                  Web
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                </label>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
                     <span className="micro-label text-cream-paper/60">

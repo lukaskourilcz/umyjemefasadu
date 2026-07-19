@@ -1,5 +1,8 @@
 {
   "business": {
+    "companyName": "UMYJEME FASÁDU s.r.o.",
+    "address": "Purkyňova 2869/4, 695 01 Hodonín",
+    "companyId": "23770082",
     "phone": "+420 775 222 760",
     "email": "info@umyjemefasadu.cz",
     "hours": "Po–Pá 8:00–17:00"
@@ -127,10 +130,7 @@
     ],
     "solutionTitle": "Řešením je pravidelná údržba",
     "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu.",
-    "solutionCta": "Domluvit prohlídku zdarma",
-    "image": "/media/pic13.webp",
-    "imageAlt": "Zašedlá fasáda domu před mytím, připravené lešení a bezpečnostní kužely",
-    "imageLabel": "Stav před čištěním"
+    "solutionCta": "Domluvit prohlídku zdarma"
   },
   "services": {
     "heading": "Kompletní čištění fasád, střech i dlažby",
@@ -549,7 +549,7 @@
     "phoneLabel": "Telefon",
     "emailLabel": "E-mail",
     "hours": "Po–Pá 8:00–17:00",
-    "formEndpoint": "",
+    "formEndpoint": "/api/contact",
     "formNameLabel": "Jméno",
     "formNamePlaceholder": "Jan Novák",
     "formPhoneLabel": "Telefon",
@@ -566,7 +566,7 @@
     "consent": "Odesláním souhlasíte se zpracováním osobních údajů za účelem vyřízení poptávky."
   },
   "footer": {
-    "legalLine": "Umyjeme Fasádu s.r.o. · Hodonín",
+    "legalLine": "UMYJEME FASÁDU s.r.o.\nPurkyňova 2869/4, 695 01 Hodonín\nIČO: 23770082",
     "privacyLabel": "Ochrana osobních údajů",
     "privacyTitle": "Zásady ochrany osobních údajů",
     "privacyBody": [

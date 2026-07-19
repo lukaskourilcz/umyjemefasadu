@@ -2,6 +2,7 @@ import SectionHeading from "./SectionHeading";
 import { CheckIcon, DropletIcon, LeafIcon, HouseIcon } from "./icons";
 import { useContent } from "../content";
 import { TEXT } from "../lib/text";
+import MobileDisclosure from "./MobileDisclosure";
 
 /**
  * „Proč si nechat vyčistit fasádu" — edukační/marketingová sekce nahoře na
@@ -91,6 +92,7 @@ export default function WhyClean() {
 
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
             vpravo přínosy jako odškrtnutý seznam. */}
+        <MobileDisclosure label="Jak chráníme fasádu proti vodě">
         <div
           className="mt-16 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
           style={{
@@ -133,6 +135,7 @@ export default function WhyClean() {
             ))}
           </ul>
         </div>
+        </MobileDisclosure>
       </div>
     </section>
   );

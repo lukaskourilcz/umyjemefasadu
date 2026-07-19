@@ -15,7 +15,7 @@ type Source = "default" | "nav";
 
 const SRC: Record<Source, string> = {
   default: logoUrl,
-  nav: logoUrl,
+  nav: "/wordmark.png",
 };
 
 export default function Logo({

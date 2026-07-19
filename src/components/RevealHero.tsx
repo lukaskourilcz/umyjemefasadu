@@ -26,33 +26,6 @@ type Props = {
   label?: string;
 };
 
-// „Před vyčištěním" — šedý štítek: signalizuje špinavý, zašlý stav.
-const LABEL_STYLE = {
-  fontSize: "clamp(11px, 1.75vw, 17px)",
-  color: "var(--color-cream-paper)",
-  textShadow: "0 1px 6px rgba(16,24,32,0.4)",
-  backgroundColor: "rgba(95,104,112,0.6)",
-  backdropFilter: "blur(8px)",
-  WebkitBackdropFilter: "blur(8px)",
-} as const;
-
-// „Po vyčištění" — štítek se s odhalením čisté fotky prosvětlí do žluté,
-// takže přechod šedá → žlutá signalizuje umytí do čista.
-const LABEL_STYLE_AFTER = {
-  ...LABEL_STYLE,
-  color: "var(--color-botanical-ink)",
-  textShadow: "none",
-  backgroundColor: "rgba(245,194,52,0.75)",
-} as const;
-
-// Glass applied per headline line so the blur sits only behind the text,
-// not the empty space between the lines.
-const HEADLINE_GLASS = {
-  backgroundColor: "rgba(16,24,32,0.1)",
-  backdropFilter: "blur(4px)",
-  WebkitBackdropFilter: "blur(4px)",
-} as const;
-
 export default function RevealHero({ before, after, label }: Props) {
   const rh = useContent().revealHero;
   const trackRef = useRef<HTMLDivElement>(null);
@@ -157,29 +130,32 @@ export default function RevealHero({ before, after, label }: Props) {
           <Layer src={before} kind="before" show={hasPhotos} />
         </div>
 
-        {/* Hero headline - vertically centered, offset from the viewport's left
-            edge with a clamp so it stays far-left on desktop yet never clips on
-            smaller screens. */}
-        <div className={`pointer-events-none absolute left-0 right-0 z-10 flex px-5 lg:px-10 ${mobile ? "bottom-7 items-end" : "inset-y-0 items-center"}`}>
+        {/* Editorial headline: anchored low and left, with one continuous scrim
+            instead of a separate glass rectangle behind every line. */}
+        <div
+          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end ${mobile ? "px-5 pb-8" : "px-8 pb-14 lg:px-[max(48px,calc((100vw-1320px)/2))] lg:pb-16"}`}
+        >
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 -z-10 h-[72%]"
+            style={{ background: "linear-gradient(0deg,rgba(16,24,32,.76) 0%,rgba(16,24,32,.28) 52%,rgba(16,24,32,0) 100%)" }}
+          />
           <h1
-            className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
+            className="rise-in flex max-w-[9ch] flex-col items-start uppercase"
             style={{
-              fontSize: mobile ? "38px" : "clamp(42px, 11vw, 72px)",
-              lineHeight: mobile ? 0.92 : 0.78,
-              letterSpacing: "-0.03em",
-              textShadow: "0 2px 20px rgba(16,24,32,0.55)",
-              // Darker (10%) over the dirty photo, brightening to white as the
-              // clean image is revealed (tracks the scroll progress --p).
-              color: mobile
-                ? "#fbfdfe"
-                : "color-mix(in srgb, #e2e4e5, #fbfdfe calc(var(--p, 0) * 100%))",
+              fontFamily: "var(--font-hero)",
+              fontSize: mobile ? "54px" : "clamp(76px, 9vw, 132px)",
+              fontWeight: 700,
+              lineHeight: 0.79,
+              letterSpacing: "-0.025em",
+              textShadow: "0 3px 26px rgba(16,24,32,0.4)",
+              color: "var(--color-cream-paper)",
             }}
           >
-            {(mobile ? [rh.headlineLines.join(" ")] : rh.headlineLines).map((line, i) => (
+            {rh.headlineLines.map((line, i) => (
               <span
                 key={i}
-                className={mobile ? "" : "px-[0.32em] py-[0.22em]"}
-                style={mobile ? undefined : HEADLINE_GLASS}
+                className={i === 1 ? "ml-[.28em]" : i === 2 ? "ml-[.08em]" : ""}
               >
                 {line}
               </span>
@@ -204,42 +180,32 @@ export default function RevealHero({ before, after, label }: Props) {
           />
         </div>
 
-        {/* State label in the top-right - "Před" fades out, "Po" fades in as you
-            scroll. The prefix/suffix split is anchored at a fixed point so the
-            shared word "vyčištění(m)" never moves between the two states. */}
-        <div className="pointer-events-none absolute inset-0">
-          <div
-            className="absolute right-[calc(36px_+_6.2*clamp(11px,1.75vw,17px))] top-[20px]"
-            style={{ opacity: "calc(1 - var(--p))" }}
-          >
+        {/* Segmented state indicator stays legible at every reveal position. */}
+        <div className="pointer-events-none absolute right-4 top-4 z-10 grid w-[270px] grid-cols-2 overflow-hidden rounded-[12px] border border-white/25 bg-botanical-ink/70 p-1 shadow-[0_8px_24px_rgba(16,24,32,.18)] backdrop-blur-md sm:right-7 sm:top-6 sm:w-[300px]">
+          <div className="relative overflow-hidden rounded-[9px] px-3 py-2 text-cream-paper">
             <span
-              className="micro-label absolute right-0 top-0 whitespace-nowrap rounded-l-full py-2 pl-3.5 pr-1.5 font-bold"
-              style={LABEL_STYLE}
-            >
-              {rh.labelBeforePrefix}
-            </span>
-            <span
-              className="micro-label absolute left-0 top-0 whitespace-nowrap rounded-r-full py-2 pl-1.5 pr-3.5 font-bold"
-              style={LABEL_STYLE}
-            >
-              {rh.labelBeforeSuffix}
+              aria-hidden="true"
+              className="absolute inset-0 bg-botanical-ink"
+              style={{ opacity: "calc(1 - var(--p))" }}
+            />
+            <span className="relative flex items-center gap-2">
+              <span className="font-fragment-mono text-[9px] text-cream-paper/50">01</span>
+              <span className="font-fragment-mono text-[9px] font-bold uppercase tracking-[.08em] sm:text-[10px]">
+                {rh.labelBeforePrefix} {rh.labelBeforeSuffix}
+              </span>
             </span>
           </div>
-          <div
-            className="absolute right-[calc(36px_+_6.2*clamp(11px,1.75vw,17px))] top-[20px]"
-            style={{ opacity: "var(--p)" }}
-          >
+          <div className="relative overflow-hidden rounded-[9px] px-3 py-2 text-cream-paper">
             <span
-              className="micro-label absolute right-0 top-0 whitespace-nowrap rounded-l-full py-2 pl-3.5 pr-1.5 font-bold"
-              style={LABEL_STYLE_AFTER}
-            >
-              {rh.labelAfterPrefix}
-            </span>
-            <span
-              className="micro-label absolute left-0 top-0 whitespace-nowrap rounded-r-full py-2 pl-1.5 pr-3.5 font-bold"
-              style={LABEL_STYLE_AFTER}
-            >
-              {rh.labelAfterSuffix}
+              aria-hidden="true"
+              className="absolute inset-0 bg-cyan-deep"
+              style={{ opacity: "var(--p)" }}
+            />
+            <span className="relative flex items-center gap-2">
+              <span className="font-fragment-mono text-[9px] text-cream-paper/60">02</span>
+              <span className="font-fragment-mono text-[9px] font-bold uppercase tracking-[.08em] sm:text-[10px]">
+                {rh.labelAfterPrefix} {rh.labelAfterSuffix}
+              </span>
             </span>
           </div>
         </div>

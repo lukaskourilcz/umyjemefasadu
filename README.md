@@ -90,8 +90,15 @@ placeholdery se automaticky nahradí porovnávacím posuvníkem.
 
 ## Kontaktní údaje
 
+- Firma: UMYJEME FASÁDU s.r.o.
+- Sídlo: Purkyňova 2869/4, 695 01 Hodonín
+- IČO: 23770082
 - Telefon: +420 775 222 760
 - E-mail: info@umyjemefasadu.cz
+
+Poptávkový formulář odesílá přímo přes `api/contact.js`. Na Vercelu vyžaduje
+proměnnou `RESEND_API_KEY`; volitelně podporuje `CONTACT_EMAIL` a
+`CONTACT_FROM`.
 
 > Texty jsou parafrázované z původního webu a z veřejně dostupných informací
 > o oboru; finální doladění copy je na zadavateli.

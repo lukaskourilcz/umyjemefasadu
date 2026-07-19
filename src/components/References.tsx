@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
+import MobileDisclosure from "./MobileDisclosure";
 
 type StudyImage = { src: string; alt: string };
 
@@ -196,7 +197,8 @@ export default function References() {
       <div className="container-page">
         <SectionHeading label="Reference" title={heading} intro={intro} />
 
-        <div className="mx-auto mt-14 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:grid-cols-2 md:gap-6">
+        <MobileDisclosure label="Prohlédnout realizované zakázky">
+        <div className="mx-auto mt-8 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:mt-14 sm:grid-cols-2 md:gap-6">
           {STUDIES.map((s, si) => (
             <article
               key={`${s.type}-${s.city}-${si}`}
@@ -258,6 +260,7 @@ export default function References() {
             </article>
           ))}
         </div>
+        </MobileDisclosure>
       </div>
     </section>
   );
