@@ -435,17 +435,17 @@
     "rows": [
       {
         "service": "Mytí a čištění fasád",
-        "price": "od 95 Kč/m²",
+        "price": "od 85 Kč/m²",
         "note": "dle znečištění a výšky objektu"
       },
       {
         "service": "Čištění střech",
-        "price": "od 120 Kč/m²",
+        "price": "od 99 Kč/m²",
         "note": "dle typu krytiny"
       },
       {
         "service": "Čištění dlažby a chodníků",
-        "price": "od 60 Kč/m²",
+        "price": "od 50 Kč/m²",
         "note": "včetně spár"
       },
       {
@@ -455,7 +455,7 @@
       },
       {
         "service": "Nanoimpregnace",
-        "price": "od 85 Kč/m²",
+        "price": "od 75 Kč/m²",
         "note": "ochrana 5–10 let"
       }
     ],
