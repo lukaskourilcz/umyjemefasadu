@@ -149,6 +149,10 @@ protože každý publish z `/dev` vytvoří na této větvi nový commit. Vercel
 mít automatické nasazení z téže větve. Přesměrování DNS a skutečné doručení
 formuláře je nutné ověřit po nasazení; viz [`NEEDED.md`](NEEDED.md).
 
+Aktuální stav integrace, preview deploymentu a přechodu vlastní domény je v
+[`HANDOFF.md`](HANDOFF.md). Úspěšný Vercel preview build se nesmí zaměňovat za
+ostrý provoz na `www.umyjemefasadu.cz`.
+
 `telegram-claude-bridge/` je samostatný pomocný projekt s vlastní dokumentací a
 není součástí buildu ani deploymentu webu.
 

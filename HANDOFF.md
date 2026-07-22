@@ -2,7 +2,10 @@
 
 Aktualizováno: **22. 7. 2026**
 
-Pracovní větev: `codex/full-site-modernization`
+Výchozí větev: `main`
+
+Modernizace byla sloučená přes [PR #26](https://github.com/lukaskourilcz/umyjemefasadu/pull/26)
+do `main` merge commitem `a88f8a9` dne 22. 7. 2026.
 
 Tento soubor je výchozí bod pro dalšího agenta. Než začne měnit kód, musí si
 přečíst také [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md),
@@ -40,7 +43,8 @@ Dosavadní logické commity této větve:
 - `b3f7712` — automatické quality gates;
 - `343f975` — finální auditní opravy, SSR, mobilní disclosure a bezpečnostní
   publikační brány;
-- dokumentační předání je v následujícím commitu.
+- `9fd464f` — ověřený dokumentační handoff;
+- `29d92f8` — GitHub Actions v7 bez deprecated runtime warningu.
 
 ## Poslední ověřené výsledky
 
@@ -60,6 +64,17 @@ Před předáním byly spuštěné `npm run format:check`, `npm run validate`,
 musí agent spustit stejnou sadu znovu a skutečný výsledek zapsat do
 `docs/VALIDATION.md`.
 
+## Stav integrace a hostingu
+
+- PR #26 je sloučený a GitHub workflow `Quality` pro merge commit prošlo.
+- Vercel vytvořil úspěšný deployment, GitHub ho však označuje jako prostředí
+  **Preview**, nikoli Production.
+- Ověřený preview build je dostupný na adrese
+  `https://umyjemefasadu-jzr804mc2-lukas-kourils-projects.vercel.app`.
+- K 22. 7. 2026 doména `www.umyjemefasadu.cz` stále odpovídá ze serveru
+  **Webnode** a `/dev` na ní vrací 404. Modernizace tedy ještě není na vlastní
+  doméně veřejně aktivní.
+
 ## Co ještě zbývá
 
 Repozitář neobsahuje produkční secrets ani přístup k provozním účtům. Následující
@@ -72,12 +87,10 @@ přístupy:
    poptávku;
 3. provést autentizovaný desktopový i mobilní smoke test celého `/dev`, včetně
    uploadu, zálohy, preview a bezpečného publish flow;
-4. ověřit DNS, canonical doménu a automatický deployment z větve odpovídající
-   `GITHUB_BRANCH`;
-5. před merge zkontrolovat, zda se `origin/main` neposunul, případně větev
-   bezpečně aktualizovat bez přepsání cizích změn;
-6. teprve po výslovném pokynu pushnout větev, otevřít/mergeovat PR a ověřit
-   produkční deployment.
+4. ve Vercelu nastavit produkční větev na `main`, přiřadit vlastní doménu,
+   upravit DNS mimo Webnode a znovu ověřit canonical, `/dev` i formulář;
+5. potvrdit, že `GITHUB_BRANCH=main`, aby publikace z administrace vytvářela
+   commity ve stejné větvi, ze které Vercel nasazuje produkci.
 
 Neověřené reference, statistiky, tým a citace musí zůstat vypnuté. Dočasná
 distribuovaná ochrana proti abuse a monitoring jsou dále vedené v `NEEDED.md`;

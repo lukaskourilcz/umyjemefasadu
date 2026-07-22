@@ -24,7 +24,10 @@ skrytá.
 - [ ] **Ověřit produkční doménu a DNS** — `umyjemefasadu.cz` i
       `www.umyjemefasadu.cz` musí směřovat na aktuální Vercel projekt, mít HTTPS a
       jednu kanonickou variantu. Poté zkontrolovat canonical, Open Graph, sitemap a
-      formulář přímo na ostré doméně. `[imp:5]` `[owner:me]`
+      formulář přímo na ostré doméně. Kontrola 22. 7. 2026 zjistila, že `www`
+      stále obsluhuje Webnode a `/dev` vrací 404. Vercel deployment merge commitu
+      je úspěšný, ale v GitHubu vedený jako **Preview**; nejdřív nastavte ve Vercelu
+      produkční větev `main`, přiřaďte doménu a upravte DNS. `[imp:5]` `[owner:me]`
 - [ ] **Právně schválit ochranu osobních údajů** — potvrdit správce údajů,
       účel, právní titul, příjemce Resend, dobu uchování a kontaktní údaje. Aktuální
       text je věcný technický základ, ne právní stanovisko. `[imp:5]` `[owner:me]`
@@ -90,3 +93,5 @@ skrytá.
       CI. `[owner:ai]`
 - [x] Sladit README, administrátorský návod, design systém, validační záznam a
       agentní instrukce se skutečnou implementací. `[owner:ai]`
+- [x] Pushnout auditní větev, nechat projít GitHub CI a Vercel preview a sloučit
+      PR #26 do `main` merge commitem `a88f8a9`. `[owner:ai]`

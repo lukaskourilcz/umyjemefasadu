@@ -160,3 +160,19 @@ ochrana; viz `NEEDED.md`.
 Repozitář nemůže sám potvrdit DNS, Vercel secrets, GitHub token, Resend doménu,
 reálné doručení e-mailu, právní text ani obchodní fakta. Tyto body jsou
 blokující pro ostrý provoz a jsou rozepsané v [`../NEEDED.md`](../NEEDED.md).
+
+## Integrace a deployment
+
+- [PR #26](https://github.com/lukaskourilcz/umyjemefasadu/pull/26) byl 22. 7.
+  2026 sloučen do `main` merge commitem `a88f8a9`.
+- GitHub workflow `Quality` prošlo na PR i následném pushi merge commitu do
+  `main`. Druhý běh používá `actions/checkout@v7` a `actions/setup-node@v7`
+  bez deprecated runtime anotace.
+- Vercel deployment merge commitu dokončil build úspěšně, ale GitHub Deployment
+  API ho eviduje jako prostředí **Preview**, nikoli Production.
+- Preview URL vrátila HTTP 200, předrenderovaný H1, vložený obsah a správné
+  bezpečnostní hlavičky; `/dev` vrátil HTTP 200 s `noindex`, `no-store` a
+  `X-Robots-Tag`.
+- `https://www.umyjemefasadu.cz/` při kontrole stále vracelo původní Webnode
+  web a `/dev` HTTP 404. Ostrý DNS cutover proto není vydáván za dokončený;
+  přesný owner krok je v `NEEDED.md`.
