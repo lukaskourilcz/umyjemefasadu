@@ -19,9 +19,7 @@ import {
   COLOR_KEYS,
 } from "./labels";
 
-const ADMIN_PW = "fasada";
 const DRAFT_KEY = "uf_admin_draft";
-const UNLOCK_KEY = "uf_admin_unlocked";
 
 type Json = unknown;
 type Path = (string | number)[];
@@ -61,11 +59,8 @@ function extFromDataUrl(dataUrl: string): string {
     "image/png": "png",
     "image/jpeg": "jpg",
     "image/jpg": "jpg",
-    "image/gif": "gif",
-    "image/svg+xml": "svg",
     "video/webm": "webm",
     "video/mp4": "mp4",
-    "video/quicktime": "mov",
   };
   return map[mime] ?? "bin";
 }
@@ -203,13 +198,33 @@ function ColorInput({
   );
 }
 
-function readFileAsDataUrl(file: File): Promise<string> {
+function readFileAsDataUrl(file: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const r = new FileReader();
     r.onload = () => resolve(r.result as string);
     r.onerror = reject;
     r.readAsDataURL(file);
   });
+}
+
+/** Photos are normalised in the browser so the admin stays within the
+ * serverless request limit without asking the client to use an image editor. */
+async function optimisePhoto(file: File): Promise<Blob> {
+  if (file.type === "image/webp") return file;
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, 1920 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+  canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Fotografii se nepodařilo zpracovat.");
+  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/webp", 0.9),
+  );
+  if (!blob) throw new Error("Fotografii se nepodařilo zpracovat.");
+  return blob;
 }
 
 function MediaInput({
@@ -229,18 +244,35 @@ function MediaInput({
 
   async function pick(file?: File) {
     if (!file) return;
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
-      setError("Vyberte obrázek nebo video.");
+    const allowed = new Set([
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "video/webm",
+      "video/mp4",
+    ]);
+    if (!allowed.has(file.type)) {
+      setError("Vyberte JPG, PNG, WEBP, WEBM nebo MP4.");
       return;
     }
-    if (file.size > 4 * 1024 * 1024) {
-      setError("Soubor je větší než 4 MB. Před nahráním ho prosím zmenšete.");
+    if (file.size > 12 * 1024 * 1024) {
+      setError("Zdrojový soubor je větší než 12 MB.");
       return;
     }
     setError("");
     setBusy(true);
     try {
-      onChange(await readFileAsDataUrl(file));
+      const prepared = file.type.startsWith("image/") ? await optimisePhoto(file) : file;
+      if (prepared.size > 2_700_000) {
+        throw new Error(
+          file.type.startsWith("video/")
+            ? "Video je větší než 2,7 MB. Převeďte ho prosím na kratší WEBM."
+            : "Obrázek je i po optimalizaci větší než 2,7 MB.",
+        );
+      }
+      onChange(await readFileAsDataUrl(prepared));
+    } catch (caught) {
+      setError((caught as Error).message || "Soubor se nepodařilo zpracovat.");
     } finally {
       setBusy(false);
     }
@@ -281,7 +313,7 @@ function MediaInput({
         >
           {busy ? "Nahrávám…" : has ? "Nahradit soubor" : "Nahrát soubor"}
         </button>
-        <span style={s.mediaHint}>JPG, PNG, WEBP, WEBM nebo MP4 · maximálně 4 MB</span>
+        <span style={s.mediaHint}>JPG a PNG automaticky převedeme do kvalitního WEBP · publikovaný soubor max. 2,7 MB</span>
         <span style={s.mediaMeta}>{isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}</span>
         {error && <span style={s.mediaError}>{error}</span>}
         <input
@@ -299,17 +331,20 @@ function MediaInput({
 /* ------------------------------- Admin app -------------------------------- */
 
 export default function Admin({ initialContent }: { initialContent: Content }) {
-  const [unlocked, setUnlocked] = useState(
-    () => sessionStorage.getItem(UNLOCK_KEY) === "1",
-  );
+  const [auth, setAuth] = useState<"loading" | "locked" | "unlocked">("loading");
+  const [baseCommitSha, setBaseCommitSha] = useState<string | null>(null);
   const [pw, setPw] = useState("");
-  const [pwError, setPwError] = useState(false);
+  const [pwError, setPwError] = useState("");
+  const [loginBusy, setLoginBusy] = useState(false);
   const narrow = useNarrow();
 
   const [content, setContent] = useState<Content>(() => {
     const draft = loadDraft(initialContent);
     return draft ?? clone(initialContent);
   });
+  const [publishedContent, setPublishedContent] = useState<Content>(() =>
+    clone(initialContent),
+  );
   const [status, setStatus] = useState<{ kind: "idle" | "ok" | "err" | "busy"; msg: string }>({
     kind: "idle",
     msg: "",
@@ -318,8 +353,8 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
   const [sectionQuery, setSectionQuery] = useState("");
 
   const dirty = useMemo(
-    () => JSON.stringify(content) !== JSON.stringify(initialContent),
-    [content, initialContent],
+    () => JSON.stringify(content) !== JSON.stringify(publishedContent),
+    [content, publishedContent],
   );
   const visibleSections = useMemo(
     () => SECTIONS.filter((sec) => `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase())),
@@ -335,42 +370,93 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     setStatus({ kind: "idle", msg: "" });
   }
 
-  function unlock(e: FormEvent) {
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/session", { credentials: "same-origin" })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (cancelled) return;
+        if (response.ok && data.authenticated) {
+          setBaseCommitSha(data.baseCommitSha || null);
+          setAuth("unlocked");
+        } else {
+          setAuth("locked");
+        }
+      })
+      .catch(() => !cancelled && setAuth("locked"));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function unlock(e: FormEvent) {
     e.preventDefault();
-    // Tolerujeme mezery/nové řádky navíc (časté při kopírování hesla).
-    if (pw.trim() === ADMIN_PW) {
-      sessionStorage.setItem(UNLOCK_KEY, "1");
-      setUnlocked(true);
-      setPwError(false);
-    } else {
-      setPwError(true);
+    setLoginBusy(true);
+    setPwError("");
+    try {
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw.trim() }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Přihlášení selhalo.");
+      setBaseCommitSha(data.baseCommitSha || null);
+      setPw("");
+      setAuth("unlocked");
+    } catch (error) {
+      setPwError((error as Error).message);
+    } finally {
+      setLoginBusy(false);
     }
   }
 
+  async function logout() {
+    await fetch("/api/admin/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    }).catch(() => undefined);
+    setAuth("locked");
+    setBaseCommitSha(null);
+  }
+
   async function publish() {
+    if (!baseCommitSha) {
+      setStatus({
+        kind: "err",
+        msg: "Nelze ověřit publikovanou verzi. Obnovte stránku a přihlaste se znovu.",
+      });
+      return;
+    }
     setStatus({ kind: "busy", msg: "Ukládám a publikuji…" });
     const uploads: { path: string; dataUrl: string }[] = [];
     const out = externalizeMedia(clone(content), uploads) as Content;
     try {
       const res = await fetch("/api/save", {
         method: "POST",
+        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pw.trim() || ADMIN_PW, content: out, uploads }),
+        body: JSON.stringify({ baseCommitSha, content: out, uploads }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        throw new Error(data?.error || `Chyba serveru (${res.status})`);
+        const details = Array.isArray(data?.details) ? ` ${data.details.join(" ")}` : "";
+        throw new Error((data?.error || `Chyba serveru (${res.status})`) + details);
       }
       // Po publikaci pracujeme dál s cestami místo data URL a koncept se
       // váže k právě publikované verzi.
       draftBase = fingerprint(out);
       setContent(out);
+      setPublishedContent(clone(out));
+      setBaseCommitSha(data.commit);
       saveDraft(out);
       setStatus({
         kind: "ok",
         msg: "Uloženo. Web se během cca 1–2 minut sám aktualizuje.",
       });
     } catch (err) {
+      if ((err as Error).message.includes("Přihlášení vypršelo")) setAuth("locked");
       setStatus({
         kind: "err",
         msg:
@@ -395,7 +481,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
   function discard() {
     if (!confirm("Zahodit všechny neuložené změny a vrátit se k publikované verzi?")) return;
-    const base = clone(initialContent);
+    const base = clone(publishedContent);
     setContent(base);
     saveDraft(base);
     setStatus({ kind: "idle", msg: "" });
@@ -409,15 +495,28 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     setStatus({ kind: "idle", msg: "" });
   }
 
-  if (!unlocked) {
+  if (auth === "loading") {
+    return (
+      <div style={s.gateWrap} role="status" aria-live="polite">
+        <div style={s.gateCard}>
+          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+          <h1 style={{ fontSize: 22, margin: 0 }}>Ověřuji přihlášení…</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (auth === "locked") {
     return (
       <div style={s.gateWrap}>
         <form onSubmit={unlock} style={s.gateCard}>
+          <span style={s.adminEyebrow}>UMYJEME FASÁDU</span>
           <h1 style={{ fontSize: 22, margin: 0 }}>Administrace webu</h1>
           <p style={{ color: "#64748b", fontSize: 14, margin: 0 }}>
             Zadejte heslo pro úpravu obsahu.
           </p>
           <input
+            aria-label="Heslo do administrace"
             type="password"
             value={pw}
             autoFocus
@@ -426,10 +525,10 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
             style={s.input}
           />
           {pwError && (
-            <span style={{ color: "#dc2626", fontSize: 13 }}>Nesprávné heslo.</span>
+            <span role="alert" style={{ color: "#b42318", fontSize: 13 }}>{pwError}</span>
           )}
-          <button type="submit" style={s.btnPrimary}>
-            Vstoupit
+          <button type="submit" style={s.btnPrimary} disabled={loginBusy}>
+            {loginBusy ? "Ověřuji…" : "Vstoupit"}
           </button>
         </form>
       </div>
@@ -471,6 +570,9 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
           <button type="button" style={s.btnGhost} onClick={discard} disabled={!dirty}>
             Zahodit změny
           </button>
+          <button type="button" style={s.btnGhost} onClick={logout}>
+            Odhlásit
+          </button>
           <button
             type="button"
             style={s.btnPrimary}
@@ -484,6 +586,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
       {status.msg && (
         <div
+          role={status.kind === "err" ? "alert" : "status"}
           style={{
             ...s.banner,
             background:
