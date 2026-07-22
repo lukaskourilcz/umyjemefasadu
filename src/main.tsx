@@ -19,13 +19,19 @@ const isAdmin =
 function applyTheme(theme: Content["theme"]) {
   const el = document.documentElement.style;
   if (/^#[0-9a-f]{6}$/i.test(theme.primary)) {
+    el.setProperty("--color-action", theme.primary);
     el.setProperty("--color-warm-loam", theme.primary);
+    el.setProperty(
+      "--color-action-hover",
+      `color-mix(in srgb, ${theme.primary}, #000 18%)`,
+    );
     el.setProperty(
       "--color-magenta-deep",
       `color-mix(in srgb, ${theme.primary}, #000 18%)`,
     );
   }
   if (/^#[0-9a-f]{6}$/i.test(theme.secondary)) {
+    el.setProperty("--color-accent", theme.secondary);
     el.setProperty("--color-forest-floor", theme.secondary);
     el.setProperty(
       "--color-cyan-deep",

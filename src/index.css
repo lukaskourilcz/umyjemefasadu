@@ -7,6 +7,21 @@
   from the original theme; the values are the current brand palette.
 */
 @theme {
+  /* Canonical semantic palette. New component code must use these names. */
+  --color-action: #d80076;
+  --color-action-hover: #b80064;
+  --color-accent: #087eaf;
+  --color-text: #101820;
+  --color-text-muted: #4b5a64;
+  --color-text-inverse: #fbfdfe;
+  --color-canvas: #fbfdfe;
+  --color-surface: #eef4f8;
+  --color-surface-strong: #101820;
+  --color-border: #cbd6dd;
+  --color-border-subtle: #e2e9ee;
+  --color-error: #b42318;
+  --color-success: #067647;
+
   /*
     Rebrand palette - Adaline structure (cream canvas, hairline borders,
     20px radii, near-zero elevation) recolored toward the brand logo's
@@ -54,6 +69,9 @@
 @layer base {
   :root {
     --page-max: 1200px;
+    --content-max: 760px;
+    --section-space: clamp(64px, 8vw, 112px);
+    --focus-ring: 3px solid var(--color-accent);
   }
 
   html {
@@ -92,8 +110,8 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-forest-floor);
-    outline-offset: 2px;
+    outline: var(--focus-ring);
+    outline-offset: 3px;
     border-radius: 4px;
   }
 }
