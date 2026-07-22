@@ -10,6 +10,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   // Publish the live nav-row height so the hero can offset itself exactly
   // (the bar overlaps the hero, and its height differs per breakpoint).
@@ -27,15 +28,24 @@ export default function Nav() {
     return () => ro.disconnect();
   }, []);
 
-  // Close the mobile menu on Escape or when the viewport grows to desktop.
+  // Keep keyboard focus inside a predictable menu flow and prevent the page
+  // behind the open mobile menu from scrolling.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    panelRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
     const mq = window.matchMedia("(min-width: 1200px)");
     const onChange = () => mq.matches && setOpen(false);
     window.addEventListener("keydown", onKey);
     mq.addEventListener("change", onChange);
     return () => {
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKey);
       mq.removeEventListener("change", onChange);
     };
@@ -57,17 +67,12 @@ export default function Nav() {
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
-        {/* Brand mark - absolute → no effect on the bar height (--nav-h);
-            pointer-events on the link only. Full size over the hero; once the
-            page scrolls it shrinks into the bar so it never covers content. */}
+        {/* The complete mark deliberately floats above the bar at one stable
+            size. It never shrinks on scroll. */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className={`pointer-events-none absolute z-10 opacity-[0.95] transition-all duration-300 ${
-            scrolled
-              ? "left-[8px] top-[6px] md:left-[12px] min-[1200px]:left-[24px]"
-              : "left-[5px] top-[-5px] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
-          }`}
+          className="pointer-events-none absolute left-[5px] top-[6px] z-10 opacity-[0.95] md:left-[10px] md:top-[8px] min-[1200px]:left-[50px]"
         >
           <Logo
             source="nav"
@@ -106,6 +111,7 @@ export default function Nav() {
 
           {/* Mobile hamburger */}
           <button
+            ref={toggleRef}
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border min-[1200px]:hidden"
             style={{ borderColor: "var(--color-eucalyptus)" }}
@@ -135,40 +141,35 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile menu panel - capped to the space under the bar and scrollable,
-          so all links stay reachable however many the admin adds. */}
-      <div
-        id="mobile-menu"
-        ref={panelRef}
-        className="overflow-hidden transition-[max-height] duration-300 ease-out min-[1200px]:hidden"
-        style={{
-          maxHeight: open ? "calc(100dvh - var(--nav-h, 76px) - 8px)" : "0px",
-          overflowY: open ? "auto" : "hidden",
-        }}
-      >
-        <div className="container-page flex flex-col gap-1 pb-5">
-          {LINKS.map((l) => (
+      {open && (
+        <div
+          id="mobile-menu"
+          ref={panelRef}
+          className="max-h-[calc(100dvh-var(--nav-h,76px)-8px)] overflow-y-auto border-t bg-canvas min-[1200px]:hidden"
+          style={{ borderColor: "var(--color-border-subtle)" }}
+        >
+          <div className="container-page flex flex-col gap-1 pb-5">
+            {LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="border-b py-3 font-bold text-text-muted hover:text-text"
+                style={{ fontSize: "16px", borderColor: "var(--color-border-subtle)" }}
+              >
+                {l.label}
+              </a>
+            ))}
             <a
-              key={l.href}
-              href={l.href}
+              href="#kontakt"
               onClick={() => setOpen(false)}
-              className="border-b py-3 font-bold text-botanical-ink/80"
-              style={{ fontSize: "16px", borderColor: "var(--color-lichen)" }}
+              className="btn-primary mt-4 w-full sm:hidden"
             >
-              {l.label}
+              {nav.cta}
             </a>
-          ))}
-          {/* Only show the CTA here when it isn't already in the bar (the bar's
-              CTA appears from sm up), so it never duplicates. */}
-          <a
-            href="#kontakt"
-            onClick={() => setOpen(false)}
-            className="btn-primary mt-4 w-full sm:hidden"
-          >
-            {nav.cta}
-          </a>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }

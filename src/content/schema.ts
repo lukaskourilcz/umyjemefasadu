@@ -156,6 +156,8 @@ export type Content = {
   };
 
   references: {
+    /** Zobrazit pouze s ověřenými názvy, lokalitami a údaji zakázek. */
+    visible: boolean;
     heading: string;
     intro: string;
     studies: {

@@ -19,15 +19,15 @@ export default function WhyUs() {
         <div className="lg:sticky lg:top-28">
           <SectionHeading align="left" title={heading} intro={intro} />
 
-          {/* Written guarantee, certificate-style. */}
-          <div
-            className="mx-auto mt-12 flex w-fit overflow-hidden rounded-[18px] border fade-up"
-            style={{ borderColor: "var(--color-eucalyptus)" }}
-          >
+          {guaranteeNumber && guaranteeTitle && (
             <div
-              className="flex flex-col items-center justify-center px-9 py-8"
-              style={{ backgroundColor: "var(--color-botanical-ink)" }}
+              className="mx-auto mt-12 flex w-fit overflow-hidden rounded-[18px] border fade-up"
+              style={{ borderColor: "var(--color-eucalyptus)" }}
             >
+              <div
+                className="flex flex-col items-center justify-center px-9 py-8"
+                style={{ backgroundColor: "var(--color-botanical-ink)" }}
+              >
               <span
                 className="text-cream-paper"
                 style={{
@@ -45,16 +45,16 @@ export default function WhyUs() {
               >
                 {guaranteeUnit}
               </span>
-            </div>
+              </div>
 
             {/* Perforated coupon edge */}
-            <div
-              aria-hidden="true"
-              className="border-l border-dashed"
-              style={{ borderColor: "var(--color-eucalyptus)" }}
-            />
+              <div
+                aria-hidden="true"
+                className="border-l border-dashed"
+                style={{ borderColor: "var(--color-eucalyptus)" }}
+              />
 
-            <div className="flex flex-col justify-center gap-1.5 px-9 py-8">
+              <div className="flex flex-col justify-center gap-1.5 px-9 py-8">
               <span
                 className="flex items-center gap-2.5 text-botanical-ink"
                 style={{ fontSize: "20px", fontWeight: 700 }}
@@ -84,8 +84,9 @@ export default function WhyUs() {
               >
                 {guaranteeDesc}
               </p>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Rotating social proof - pinned with the sticky column, so it
               keeps cycling while the reader scans the list. */}

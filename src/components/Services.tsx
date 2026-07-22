@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
-import MobileDisclosure from "./MobileDisclosure";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
 const stroke = {
   fill: "none",
@@ -14,89 +14,7 @@ const stroke = {
 const TITLE_STYLE = { fontSize: "19px", fontWeight: 700 } as const;
 const DESC_STYLE = { fontSize: "15px", lineHeight: 1.55 } as const;
 
-/**
- * Draggable before/after reveal. Until real paired photos exist, the same
- * photo stands in for both states - the "before" side is dimmed (0.65 opacity
- * over ink) so the wipe is visible. Swap `before` for a real photo later.
- */
-function BeforeAfterImage({ img, alt }: { img: string; alt: string }) {
-  const [pos, setPos] = useState(50);
-  return (
-    <div className="relative aspect-[16/10] w-full select-none overflow-hidden">
-      {/* AFTER - clean, full frame */}
-      <img
-        src={img}
-        alt={alt}
-        loading="lazy"
-        draggable={false}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      {/* BEFORE - dimmed copy, revealed from the left via clip-path */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          clipPath: `inset(0 ${100 - pos}% 0 0)`,
-          backgroundColor: "var(--color-botanical-ink)",
-        }}
-      >
-        <img
-          src={img}
-          alt=""
-          loading="lazy"
-          draggable={false}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ opacity: 0.65 }}
-        />
-      </div>
-
-      {/* Slider input - drives the reveal; pan-y keeps vertical page scroll
-          working when the touch starts on the image. */}
-      <input
-        type="range"
-        min={0}
-        max={100}
-        value={pos}
-        onChange={(e) => setPos(Number(e.target.value))}
-        aria-label="Porovnání před a po"
-        className="peer absolute inset-0 z-10 h-full w-full cursor-ew-resize opacity-0"
-        style={{ touchAction: "pan-y" }}
-      />
-
-      {/* Divider + handle */}
-      <div
-        className="pointer-events-none absolute inset-y-0"
-        style={{ left: `${pos}%`, transform: "translateX(-50%)" }}
-      >
-        <div
-          className="h-full w-0.5"
-          style={{ backgroundColor: "var(--color-cream-paper)" }}
-        />
-      </div>
-      <div
-        className="pointer-events-none absolute top-1/2 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full peer-focus-visible:ring-2 peer-focus-visible:ring-forest-floor"
-        style={{
-          left: `${pos}%`,
-          backgroundColor: "var(--color-cream-paper)",
-          boxShadow: "var(--shadow-subtle)",
-        }}
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-          <path
-            d="M7 4 L3 9 L7 14 M11 4 L15 9 L11 14"
-            fill="none"
-            stroke="var(--color-forest-floor)"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-/** Photo-led service card with the before/after reveal on top. */
+/** Photo-led service card. A comparison is used only when a real pair exists. */
 function PhotoCard({
   img,
   alt,
@@ -112,13 +30,20 @@ function PhotoCard({
 }) {
   return (
     <article
-      className={`card-hover flex flex-col overflow-hidden rounded-[14px] border ${className}`}
+      className={`card-hover flex w-[82vw] max-w-[330px] shrink-0 snap-start flex-col overflow-hidden rounded-[14px] border sm:w-auto sm:max-w-none sm:shrink ${className}`}
       style={{
         borderColor: "var(--color-eucalyptus)",
         backgroundColor: "var(--color-cream-paper)",
       }}
     >
-      <BeforeAfterImage img={img} alt={alt} />
+      <img
+        src={img}
+        alt={alt}
+        loading="lazy"
+        width="825"
+        height="1100"
+        className="aspect-[16/10] w-full object-cover"
+      />
       <div className="flex flex-col gap-1.5 p-5 md:p-6">
         <h3 className="text-botanical-ink" style={TITLE_STYLE}>
           {title}
@@ -181,43 +106,50 @@ export default function Services() {
   const featuredVideo = featured.video;
   const featuredVideoAlt = featured.videoAlt;
   const featuredVideoRef = useRef<HTMLVideoElement>(null);
+  const reduced = usePrefersReducedMotion();
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const el = featuredVideoRef.current;
-    if (!el) return;
+    if (!el || reduced) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) el.play().catch(() => {});
+        if (entry.isIntersecting) setVideoReady(true);
         else el.pause();
       },
       { threshold: 0.2 },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [featuredVideo]);
+  }, [featuredVideo, reduced]);
+
+  useEffect(() => {
+    if (videoReady && !reduced) featuredVideoRef.current?.play().catch(() => {});
+  }, [videoReady, reduced]);
 
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
         <SectionHeading label="Naše služby" title={heading} intro={intro} />
+        <p className="mt-6 text-sm font-semibold text-text-muted sm:hidden">
+          Posunutím do strany zobrazíte všechny služby.
+        </p>
 
-        {/* Bento - řádek 1: velká featured karta + jedna menší vedle;
-            řádek 2: tři stejné foto karty. No breakpoint leaves an orphan. */}
-        <MobileDisclosure label="Prohlédnout všechny služby">
-        <div className="mt-8 grid grid-cols-1 gap-4 fade-up sm:mt-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        {/* All primary services stay visible on mobile; they are essential
+            sales information, not optional disclosure content. */}
+        <div className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3">
           {/* Featured */}
           <article
-            className="relative min-h-[420px] overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] lg:min-h-0"
+            className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0"
           >
             <video
               ref={featuredVideoRef}
-              src={featuredVideo}
+              src={videoReady && !reduced ? featuredVideo : undefined}
               poster={featured.image}
               aria-label={featuredVideoAlt}
-              loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div
@@ -267,7 +199,6 @@ export default function Services() {
             />
           ))}
         </div>
-        </MobileDisclosure>
       </div>
     </section>
   );

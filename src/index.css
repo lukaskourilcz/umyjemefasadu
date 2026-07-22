@@ -250,6 +250,29 @@
   .input-dark::placeholder {
     color: rgba(251, 253, 254, 0.4);
   }
+
+  .comparison-range {
+    min-height: 44px;
+    accent-color: var(--color-action);
+    cursor: ew-resize;
+  }
+
+  .comparison-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-border);
+  }
+
+  .comparison-range::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+    border: 3px solid var(--color-canvas);
+    border-radius: 50%;
+    background: var(--color-action);
+    box-shadow: 0 0 0 1px var(--color-border);
+    -webkit-appearance: none;
+  }
 }
 
 @layer base {
