@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import MobileDisclosure from "./MobileDisclosure";
 
 const stroke = {
   fill: "none",
@@ -20,26 +21,24 @@ function PhotoCard({
   alt,
   title,
   desc,
-  ready,
   className = "",
 }: {
   img: string;
   alt: string;
   title: string;
   desc: string;
-  ready: boolean;
   className?: string;
 }) {
   return (
     <article
-      className={`card-hover flex w-[82vw] max-w-[330px] shrink-0 snap-start flex-col overflow-hidden rounded-[14px] border sm:w-auto sm:max-w-none sm:shrink ${className}`}
+      className={`card-hover flex flex-col overflow-hidden rounded-[14px] border ${className}`}
       style={{
         borderColor: "var(--color-eucalyptus)",
         backgroundColor: "var(--color-cream-paper)",
       }}
     >
       <img
-        src={ready ? img : undefined}
+        src={img}
         alt={alt}
         loading="lazy"
         width="825"
@@ -107,25 +106,8 @@ export default function Services() {
   const featuredVideo = featured.video;
   const featuredVideoAlt = featured.videoAlt;
   const featuredVideoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
-  const [mediaReady, setMediaReady] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setMediaReady(true);
-        observer.disconnect();
-      },
-      { rootMargin: "100px" },
-    );
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const el = featuredVideoRef.current;
@@ -146,80 +128,74 @@ export default function Services() {
   }, [videoReady, reduced]);
 
   return (
-    <section ref={sectionRef} id="sluzby" className="scroll-mt-24 py-20 md:py-28">
+    <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
         <SectionHeading label="Naše služby" title={heading} intro={intro} />
-        <p className="mt-6 text-sm font-semibold text-text-muted sm:hidden">
-          Posunutím do strany zobrazíte všechny služby.
-        </p>
+        <MobileDisclosure label="Prohlédnout všechny služby">
+          {/* Původní bento kompozice; média se stále načtou až těsně před
+              příchodem sekce do viewportu. */}
+          <div className="mt-8 grid grid-cols-1 gap-4 fade-up sm:mt-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+            {/* Featured */}
+            <article className="relative min-h-[420px] overflow-hidden rounded-[14px] bg-surface-strong sm:col-span-2 sm:min-h-[460px] lg:min-h-0">
+              <video
+                ref={featuredVideoRef}
+                src={videoReady && !reduced ? featuredVideo : undefined}
+                poster={featured.image}
+                aria-label={featuredVideoAlt}
+                loop
+                muted
+                playsInline
+                preload="none"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(16,24,32,0) 28%, rgba(16,24,32,0.5) 60%, rgba(16,24,32,0.9) 100%)",
+                }}
+              />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-8 pb-9 md:p-11 md:pb-12">
+                <h3
+                  className="text-cream-paper"
+                  style={{ fontSize: "clamp(22px, 2.6vw, 30px)", fontWeight: 700 }}
+                >
+                  {featured.title}
+                </h3>
+                <p
+                  className="max-w-[52ch] text-cream-paper/85"
+                  style={{ fontSize: "15px", lineHeight: 1.6 }}
+                >
+                  {featured.desc}
+                </p>
+              </div>
+            </article>
 
-        {/* All primary services stay visible on mobile; they are essential
-            sales information, not optional disclosure content. */}
-        <div
-          tabIndex={0}
-          aria-label="Přehled služeb, posouvatelný vodorovně"
-          className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3"
-        >
-          {/* Featured */}
-          <article className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] bg-surface-strong sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0">
-            <video
-              ref={featuredVideoRef}
-              src={videoReady && !reduced ? featuredVideo : undefined}
-              poster={mediaReady ? featured.image : undefined}
-              aria-label={featuredVideoAlt}
-              muted
-              playsInline
-              preload="none"
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(16,24,32,0) 28%, rgba(16,24,32,0.5) 60%, rgba(16,24,32,0.9) 100%)",
-              }}
-            />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-8 pb-9 md:p-11 md:pb-12">
-              <h3
-                className="text-cream-paper"
-                style={{ fontSize: "clamp(22px, 2.6vw, 30px)", fontWeight: 700 }}
-              >
-                {featured.title}
-              </h3>
-              <p
-                className="max-w-[52ch] text-cream-paper/85"
-                style={{ fontSize: "15px", lineHeight: 1.6 }}
-              >
-                {featured.desc}
-              </p>
-            </div>
-          </article>
+            {/* Right rail - tinted, icon-led */}
+            {tintCards.map((card, i) => (
+              <TintCard
+                key={card.title || i}
+                background={TINT_BG[i] ?? TINT_BG[0]}
+                title={card.title}
+                desc={card.desc}
+                icon={TINT_ICONS[i] ?? TINT_ICONS[0]}
+              />
+            ))}
 
-          {/* Right rail - tinted, icon-led */}
-          {tintCards.map((card, i) => (
-            <TintCard
-              key={card.title || i}
-              background={TINT_BG[i] ?? TINT_BG[0]}
-              title={card.title}
-              desc={card.desc}
-              icon={TINT_ICONS[i] ?? TINT_ICONS[0]}
-            />
-          ))}
-
-          {/* Bottom row - photo-led */}
-          {photoCards.map((card, i) => (
-            <PhotoCard
-              key={card.title || i}
-              img={card.image}
-              alt={card.alt}
-              title={card.title}
-              desc={card.desc}
-              ready={mediaReady}
-              className={i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}
-            />
-          ))}
-        </div>
+            {/* Bottom row - photo-led */}
+            {photoCards.map((card, i) => (
+              <PhotoCard
+                key={card.title || i}
+                img={card.image}
+                alt={card.alt}
+                title={card.title}
+                desc={card.desc}
+                className={i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}
+              />
+            ))}
+          </div>
+        </MobileDisclosure>
       </div>
     </section>
   );

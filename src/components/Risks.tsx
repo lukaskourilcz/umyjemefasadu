@@ -100,7 +100,7 @@ export default function Risks() {
               </span>
               <span className="flex min-w-0 flex-1 flex-col">
                 <span className="font-fragment-mono text-[10px] uppercase tracking-[.12em] text-forest-floor">
-                  Prohlídka zdarma
+                  Posouzení objektu
                 </span>
                 <span className="mt-1 whitespace-nowrap text-[15px] font-bold">{solutionCta}</span>
               </span>
