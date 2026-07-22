@@ -71,6 +71,10 @@ Poslední úplný běh před finálním commitem musí mít:
 - axe: žádný `serious` ani `critical` nález na testovaných projektech;
 - produkční dependency audit: 0 známých zranitelností.
 
+GitHub workflow používá `actions/checkout@v7` a `actions/setup-node@v7`; tím
+nepoužívá deprecated Node 20 runtime samotných Actions. Testovaný projekt dál
+záměrně běží na Node.js 20.19 podle produkční konfigurace.
+
 Testované scénáře zahrnují:
 
 - H1, hlavní CTA, telefon a absenci horizontálního overflow;
