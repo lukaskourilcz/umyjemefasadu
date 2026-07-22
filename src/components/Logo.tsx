@@ -30,6 +30,8 @@ export default function Logo({
       src={SRC[source]}
       alt="Umyjeme Fasádu"
       height={height}
+      loading={source === "nav" ? "eager" : "lazy"}
+      decoding="async"
       className={className}
       style={{ display: "block", width: "auto" }}
     />

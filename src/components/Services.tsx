@@ -137,7 +137,11 @@ export default function Services() {
 
         {/* All primary services stay visible on mobile; they are essential
             sales information, not optional disclosure content. */}
-        <div className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3">
+        <div
+          tabIndex={0}
+          aria-label="Přehled služeb, posouvatelný vodorovně"
+          className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3"
+        >
           {/* Featured */}
           <article
             className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0"

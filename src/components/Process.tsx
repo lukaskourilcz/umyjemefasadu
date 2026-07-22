@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
@@ -8,14 +8,31 @@ const isVideo = (src: string) => /\.(webm|mp4|m4v|mov)(\?|$)/i.test(src);
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
   const { heading, intro, steps: STEPS, methods: METHODS, sideVideo, sideVideoAlt, sideVideoLabel } = useContent().process;
+  const figureRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [mediaReady, setMediaReady] = useState(false);
+
+  useEffect(() => {
+    const element = figureRef.current;
+    if (!element || !sideVideo) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setMediaReady(true);
+        observer.disconnect();
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [sideVideo]);
 
   // Klip hraje jen na obrazovce (a nikdy pod reduced-motion) — stejný
   // přístup jako dlaždice v Hero a v pásu „Přímo z akce".
   useEffect(() => {
     const el = videoRef.current;
-    if (!el || reduced) return;
+    if (!el || reduced || !mediaReady) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) el.play().catch(() => {});
@@ -25,7 +42,7 @@ export default function Process() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduced, sideVideo]);
+  }, [mediaReady, reduced, sideVideo]);
 
   return (
     <section
@@ -54,11 +71,24 @@ export default function Process() {
           </ol>
 
           {sideVideo && (
-            <figure className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black" style={{ borderColor: "rgba(251,253,254,0.14)" }}>
-              {isVideo(sideVideo) ? (
+            <figure ref={figureRef} className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black" style={{ borderColor: "rgba(251,253,254,0.14)" }}>
+              {mediaReady && isVideo(sideVideo) ? (
                 <video ref={videoRef} src={sideVideo} aria-label={sideVideoAlt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
+              ) : mediaReady ? (
+                <img
+                  src={
+                    reduced && sideVideo.endsWith("tlakove-myti-postup.webp")
+                      ? "/media/pic12.webp"
+                      : sideVideo
+                  }
+                  alt={sideVideoAlt}
+                  loading="lazy"
+                  width="400"
+                  height="711"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
               ) : (
-                <img src={sideVideo} alt={sideVideoAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+                <div aria-hidden="true" className="absolute inset-0 bg-text" />
               )}
               <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.74),rgba(16,24,32,0))" }} />
               <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">{sideVideoLabel}</figcaption>

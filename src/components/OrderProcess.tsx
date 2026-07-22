@@ -19,7 +19,11 @@ export default function OrderProcess() {
           Posunutím do strany projdete všechny kroky.
         </p>
 
-        <ol className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 fade-up sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
+        <ol
+          tabIndex={0}
+          aria-label="Postup objednávky, posouvatelný vodorovně"
+          className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 fade-up sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:pb-0 lg:grid-cols-4"
+        >
           {STEPS.map((s) => (
             <li key={s.no} className="w-[78vw] max-w-[310px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink">
               <div className="flex items-center gap-3">

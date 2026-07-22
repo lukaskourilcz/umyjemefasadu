@@ -28,6 +28,8 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const sentRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (status === "sent") sentRef.current?.focus();
@@ -47,8 +49,9 @@ export default function Contact() {
     }
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
-      const firstInvalid = form.querySelector<HTMLElement>("[aria-invalid='true']");
-      window.requestAnimationFrame(() => firstInvalid?.focus());
+      window.requestAnimationFrame(() =>
+        (nextErrors.name ? nameRef.current : phoneRef.current)?.focus(),
+      );
       return;
     }
 
@@ -196,6 +199,7 @@ export default function Contact() {
                       {contact.formNameLabel}
                     </span>
                     <input
+                      ref={nameRef}
                       id="contact-name"
                       type="text"
                       name="name"
@@ -217,6 +221,7 @@ export default function Contact() {
                       {contact.formPhoneLabel}
                     </span>
                     <input
+                      ref={phoneRef}
                       id="contact-phone"
                       type="tel"
                       name="phone"

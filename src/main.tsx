@@ -35,7 +35,7 @@ function applyTheme(theme: Content["theme"]) {
     el.setProperty("--color-forest-floor", theme.secondary);
     el.setProperty(
       "--color-cyan-deep",
-      `color-mix(in srgb, ${theme.secondary}, #000 18%)`,
+      `color-mix(in srgb, ${theme.secondary}, #000 38%)`,
     );
   }
 }
@@ -64,6 +64,8 @@ async function boot() {
   applyTheme(content.theme);
 
   if (isAdmin) {
+    const robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (robots) robots.content = "noindex, nofollow, noarchive";
     const { default: Admin } = await import("./admin/Admin.tsx");
     root.render(
       <StrictMode>

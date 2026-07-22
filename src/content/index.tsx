@@ -58,16 +58,27 @@ export function mergeContent(override: Json): Content {
  */
 export async function loadContent(): Promise<Content> {
   let merged: Content = clone(defaultContent);
+  let hasInlineContent = false;
 
   try {
-    const res = await fetch(`/content.json?v=${Date.now()}`, {
-      cache: "no-store",
-    });
-    if (res.ok) {
-      merged = mergeContent(await res.json());
+    const inline = document.getElementById("initial-content")?.textContent;
+    if (inline) {
+      merged = mergeContent(JSON.parse(inline));
+      hasInlineContent = true;
     }
   } catch {
-    // Síť selhala — použijeme výchozí obsah (web se vždy zobrazí).
+    // Poškozený inline obsah nesmí zablokovat bezpečný síťový fallback.
+  }
+
+  if (!hasInlineContent) {
+    try {
+      const res = await fetch("/content.json", { cache: "no-cache" });
+      if (res.ok) {
+        merged = mergeContent(await res.json());
+      }
+    } catch {
+      // Síť selhala — použijeme výchozí obsah (web se vždy zobrazí).
+    }
   }
 
   // Náhled neuložených změn z administrace (jen v tomto prohlížeči).
