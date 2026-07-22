@@ -1,104 +1,164 @@
 # Umyjeme Fasádu
 
-Marketingový web pro firmu **Umyjeme Fasádu s.r.o.** — profesionální mytí a
-čištění fasád, střech a dlažby.
+Produkční lead-generation web společnosti **UMYJEME FASÁDU s.r.o.** pro
+profesionální čištění fasád, střech, dlažby a dalších venkovních povrchů.
+Hlavním cílem webu je přivést návštěvníka k nezávazné prohlídce nebo telefonu
+a přitom působit věcně, důvěryhodně a lokálně.
 
-## Vizuální styl
+## Aktuální řešení
 
-Čisté, světlé „cream" plátno (`#fbfdfe`) s téměř černým textem (`#101820`),
-vlasovými linkami místo stínů a 20px „pill" rádiusy. Akcenty vycházejí přímo
-ze značkového loga: **magenta `#e6007e`** jako jediná akční barva (CTA) a
-**cyan `#1ba5e0`** jako sekundární „vodní" akcent. Typografie: **Inter**
-(humanistický bezpatkový základ) + **Fragment Mono** pro mikro-popisky.
-Hero kotví atmosférický SVG motiv vody v značkových tónech (vrstvená hladina,
-pěna, kapky), který odkazuje na vodní prvek z loga.
+- Úvod okamžitě vysvětluje nabídku, ukazuje autentické porovnání před/po a
+  nabízí poptávku i telefon bez vynuceného skrolování.
+- Veřejná stránka používá pouze skutečná lokální média. Neověřené reference,
+  statistiky a tým jsou připravené v obsahu, ale zůstávají vypnuté.
+- Mobilní verze zachovává všechny důležité informace, zkracuje dlouhé seznamy
+  pomocí zřetelných horizontálních kolekcí a velké hero porovnání zpřístupní na
+  jedno klepnutí bez počátečního stahování obou fotografií.
+- Kontaktní formulář odesílá poptávku přes serverovou funkci a Resend.
+- Správa textů a médií je dostupná na `/dev`; publikace vytvoří bezpečný commit
+  do GitHubu a následný Vercel deployment.
+- Veřejný obsah, admin i API mají automatické lint, unit, E2E a accessibility
+  kontroly. Naměřené výsledky jsou v [`docs/VALIDATION.md`](docs/VALIDATION.md).
 
-Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
+Designová a obsahová pravidla jsou v
+[`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md). Neověřené obchodní údaje a
+externí kroky jsou vedené v [`NEEDED.md`](NEEDED.md). Aktuální stav pracovní
+větve a přesné pokračování pro dalšího agenta shrnuje
+[`HANDOFF.md`](HANDOFF.md).
 
-## Tech stack
+## Technologie
 
-- **Vite 6** + **React 18** + **TypeScript**
-- **Tailwind CSS v4** (`@tailwindcss/vite`, tokeny v `@theme`)
-- Fonty z Google Fonts: **Inter**, **Fragment Mono**
-- Bez externích obrázků — motiv vody i ikony jsou inline SVG, logo je
-  optimalizované SVG vložené přes Vite `?raw`
+- Vite 6, React 18 a strict TypeScript
+- Tailwind CSS v4 a sémantické tokeny v `src/index.css`
+- systémové sans-serif a monospace fonty bez externího font requestu
+- Vercel serverless funkce v `api/`
+- Vitest, Testing Library, Playwright a axe
+- ESLint, Prettier a GitHub Actions
 
-## Administrace obsahu (`/dev`)
+## Architektura
 
-Web má vestavěnou administraci pro úpravu **všech textů a fotek/videí** bez
-programování — dostupná na adrese `/<web>/dev`, heslo `fasada`.
+```text
+api/
+  admin/                 přihlášení, ověření session a odhlášení
+  contact.js             přímé odeslání poptávky přes Resend
+  save.js                validovaná publikace obsahu do GitHubu
+src/
+  admin/                 lazy-loaded editor na /dev
+  components/            sekce veřejného webu
+  content/               typy, defaulty, loader a ContentContext
+  hooks/                 sdílené UI a media hooky
+public/
+  content.json           publikovaný editovatelný obsah
+  media/                 autentické fotografie, videa a animované WebP
+tests/
+  e2e/                   konverzní, responzivní a a11y scénáře
+docs/
+  ADMINISTRACE.md        návod pro majitele a správce
+  DESIGN_SYSTEM.md       závazná vizuální pravidla
+  VALIDATION.md          reprodukovatelný záznam auditu a měření
+```
 
-- Veškerý obsah je v `public/content.json`; web ho čte za běhu (`useContent()`).
-- Administrace (`src/admin/`) ukládá změny přes serverless funkci
-  `api/save.js`, která je commitne do repozitáře → Vercel web sám znovu nasadí.
-- Podrobný návod pro majitele i jednorázové nastavení Vercelu (proměnné
-  `GITHUB_TOKEN`, `GITHUB_REPO`, `ADMIN_PASSWORD`) je v
-  [`docs/ADMINISTRACE.md`](docs/ADMINISTRACE.md).
+Build veřejnou stránku předrenderuje do hotového HTML a vloží do ní také
+`public/content.json`. Nadpis, nabídka i hero jsou proto dostupné bez čekání na
+JavaScript nebo další JSON request; React následně HTML hydratuje. Síťové
+načtení `/content.json` zůstává pouze jako fallback. `/dev` předrenderovaný
+obsah odstraní a admin načte dynamickým importem, takže nezvětšuje hlavní
+veřejný bundle.
 
-## Vývoj
+### Veřejná cesta
+
+Pořadí hlavních částí je: navigace → nabídka a porovnání před/po → ověřené body
+důvěry → služby → postup → práce v terénu → proč my → ceník → objednání → FAQ →
+kontakt → patička. Volitelné sekce `stats`, `team` a `references` se vykreslí jen
+při `visible: true` a po doplnění skutečných údajů.
+
+## Lokální vývoj
+
+Používejte Node.js 20; CI běží na 20.19.
 
 ```bash
-npm install
-npm run dev         # vývojový server
-npm run build       # typová kontrola + produkční build do dist/
-npm run preview     # náhled produkčního buildu
-npm run gen:assets  # vygeneruje raster assety (OG obrázek, PNG ikony) z loga
+npm ci
+npm run dev
 ```
 
-## Logo a značkové assety
+Samotný Vite server obslouží veřejné UI a statický náhled `/dev`, nikoli Vercel
+serverless API. Přihlášení, publikaci a skutečné odeslání formuláře testujte v
+prostředí Vercel se správně nastavenými proměnnými.
 
-- **Živé logo** je optimalizované SVG v `src/components/logo.svg`, vložené do
-  `src/components/Logo.tsx` přes `?raw`. Varianty `compact` (nav, patička) a
-  `full` (hero) renderují stejnou kresbu v různé velikosti.
-- **Samostatná kopie** loga je v `public/logo.svg`; originální export (CorelDRAW)
-  je uchovaný v `public/logo-white.svg`.
-- **Raster assety** (`public/og-image.png`, `apple-touch-icon.png`,
-  `favicon-32.png`) generuje `scripts/gen-assets.mjs` z `public/logo.svg`
-  přes `npm run gen:assets`.
-- **Meta tagy + LocalBusiness JSON-LD** jsou v `index.html`. Po nasazení na
-  ostrou doménu zkontrolujte absolutní URL u `og:image` a doplňte adresu/IČO.
+### Kontrolní příkazy
 
-## Struktura
-
-```
-src/
-  App.tsx                 # skládá sekce + scroll-reveal
-  index.css               # @theme tokeny + base/komponentní vrstvy
-  components/
-    Landscape.tsx         # atmosférický SVG motiv vody (hero pozadí)
-    Nav.tsx               # sticky navigace + mobilní menu (hamburger)
-    Logo.tsx / logo.svg   # logo komponenta + optimalizovaná kresba
-    Hero.tsx              # centrované logo + headline nad motivem vody
-    TrustStrip.tsx        # pruh důvěry (mikro-popisek + hodnoty)
-    Services.tsx          # karty služeb
-    Process.tsx           # postup čištění (3 kroky + 2 metody)
-    WhyUs.tsx             # 2sloupcový blok „proč my"
-    Gallery.tsx           # reference — porovnání před / po (placeholdery)
-    Stats.tsx             # banding s čísly
-    OrderProcess.tsx      # jak objednat (4 kroky)
-    Faq.tsx               # časté dotazy (<details>)
-    Contact.tsx           # kontaktní výzva (telefon, e-mail)
-    Footer.tsx
-    CallBar.tsx           # sticky mobilní lišta s tlačítkem „Zavolat"
+```bash
+npm run check:types     # TypeScript bez emitování
+npm run lint            # ESLint, nulová tolerance warnings
+npm run format:check    # kontrola Prettier formátu
+npm test                # Vitest unit/component/security testy
+npm run test:coverage   # Vitest s coverage
+npm run build           # typy + klientský/SSR build + předrenderování HTML
+npm run test:e2e        # Playwright + axe, vyžaduje Chromium
+npm run validate        # lint + unit testy + build
+npm run preview         # náhled posledního buildu
 ```
 
-## Reference (před / po)
+Před prvním E2E během nainstalujte prohlížeč:
 
-`Gallery.tsx` je připravená na reálné fotky. Vložte snímky do
-`public/reference/` a v poli `ITEMS` doplňte cesty `before`/`after` —
-placeholdery se automaticky nahradí porovnávacím posuvníkem.
+```bash
+npx playwright install chromium
+```
 
-## Kontaktní údaje
+CI na pull requestu a na `main` spouští lint, unit testy, build a E2E.
 
-- Firma: UMYJEME FASÁDU s.r.o.
-- Sídlo: Purkyňova 2869/4, 695 01 Hodonín
-- IČO: 23770082
-- Telefon: +420 775 222 760
-- E-mail: info@umyjemefasadu.cz
+## Obsah a administrace
 
-Poptávkový formulář odesílá přímo přes `api/contact.js`. Na Vercelu vyžaduje
-proměnnou `RESEND_API_KEY`; volitelně podporuje `CONTACT_EMAIL` a
-`CONTACT_FROM`.
+Administrace na `/dev` nemá žádné výchozí heslo. Bez serverových secrets selže
+uzavřeně. Přihlašovací session je podepsaná, `HttpOnly`, `SameSite=Strict` a v
+produkci `Secure`. Podrobný postup, limity médií, recovery a přesný seznam
+proměnných jsou v [`docs/ADMINISTRACE.md`](docs/ADMINISTRACE.md).
 
-> Texty jsou parafrázované z původního webu a z veřejně dostupných informací
-> o oboru; finální doladění copy je na zadavateli.
+Povinné pro publikování:
+
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET` — náhodná hodnota dlouhá alespoň 32 znaků
+- `GITHUB_TOKEN`
+- `GITHUB_REPO`
+- volitelně `GITHUB_BRANCH` — výchozí `main`
+
+Povinné pro kontaktní formulář:
+
+- `RESEND_API_KEY`
+- doporučeně `CONTACT_EMAIL` a `CONTACT_FROM`
+
+Hodnoty patří pouze do Vercel Environment Variables nebo lokálního necommitovaného
+souboru. Nikdy je nevkládejte do klientského kódu ani dokumentace.
+
+## Média a značka
+
+- Plné logo s postavou se používá jako stabilně velký plovoucí prvek navigace a
+  jako značka v patičce.
+- Navigace používá optimalizovaný průhledný WebP; logo se při skrolování
+  nezmenšuje.
+- Hero fotografie jsou optimalizované WebP, přednačtené z HTML a nejsou lazy.
+- Větší animovaná média pod prvním viewportem se aktivují až poblíž viewportu a
+  při `prefers-reduced-motion` se zobrazí statický snímek.
+- Nové JPG/PNG fotografie admin před uploadem převede na WebP a omezí delší
+  stranu na 1920 px.
+
+## Produkce
+
+Projekt je určený pro Vercel. Produkční větev musí odpovídat `GITHUB_BRANCH`,
+protože každý publish z `/dev` vytvoří na této větvi nový commit. Vercel pak musí
+mít automatické nasazení z téže větve. Přesměrování DNS a skutečné doručení
+formuláře je nutné ověřit po nasazení; viz [`NEEDED.md`](NEEDED.md).
+
+`telegram-claude-bridge/` je samostatný pomocný projekt s vlastní dokumentací a
+není součástí buildu ani deploymentu webu.
+
+## Používané firemní údaje
+
+Název, sídlo a IČO dodal majitel. Telefon a e-mail jsou převzaté z dosavadního
+webu a před ostrým provozem čekají na potvrzení podle [`NEEDED.md`](NEEDED.md).
+
+- **Firma:** UMYJEME FASÁDU s.r.o.
+- **Sídlo:** Purkyňova 2869/4, 695 01 Hodonín
+- **IČO:** 23770082
+- **Telefon:** +420 775 222 760
+- **E-mail:** info@umyjemefasadu.cz

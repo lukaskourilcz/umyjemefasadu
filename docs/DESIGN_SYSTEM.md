@@ -18,7 +18,7 @@ poptávek a telefonátů bez oslabení důvěryhodnosti značky**.
 ## 2. Principy
 
 1. Nabídka, lokalita a kontakt musí být zřejmé v prvním viewportu.
-2. Jeden hlavní krok: **Domluvit prohlídku zdarma**. Sekundární krok: zavolat.
+2. Jeden hlavní krok: **Domluvit prohlídku**. Sekundární krok: zavolat.
 3. Důkaz před tvrzením: výsledek práce, postup a technika jsou přesvědčivější
    než čísla, certifikáty nebo recenze bez ověřeného zdroje.
 4. Klidná hierarchie: méně sekcí, kratší text, jasné nadpisy, konzistentní rytmus.
@@ -53,11 +53,14 @@ akcentovou roli. Bílé písmo na akční barvě musí mít kontrast alespoň 4,
 
 ## 4. Typografie
 
-- Základ: `Inter`, systémové sans-serif fallbacky.
-- Nadpisy: `Space Grotesk`, poté `Inter`; používat střídmě, ne condensed nebo
-  efektní display fonty.
-- Technické mikro-popisky: `Fragment Mono`, pouze pro čísla kroku, štítky a
-  drobná metadata. Nikdy pro odstavce.
+- Základ i nadpisy: rychlý systémový stack `system-ui`, platformní UI font,
+  `Segoe UI Variable`, Segoe UI a sans-serif fallback. Web nestahuje externí
+  fonty.
+- Nadpisy odlišuje váha, měřítko, řádkování a střídmý tracking; nepoužívat
+  condensed nebo efektní display fonty.
+- Technické mikro-popisky: systémový monospace stack (`ui-monospace`, SFMono,
+  Menlo, Monaco, Consolas), pouze pro čísla kroku, štítky a drobná metadata.
+  Nikdy pro odstavce.
 - Fluidní role: display `clamp(2.25rem, 6vw, 5.25rem)`, H1
   `clamp(2rem, 4.5vw, 4rem)`, H2 `clamp(1.75rem, 3vw, 3rem)`, H3
   `clamp(1.125rem, 1.2vw, 1.375rem)`, text `clamp(1rem, .35vw + .92rem, 1.125rem)`.
@@ -98,7 +101,7 @@ akcentovou roli. Bílé písmo na akční barvě musí mít kontrast alespoň 4,
 - Standardní poměry: hero 16:9 až 4:3, obsahová fotografie 4:3, vertikální
   záběr 4:5. `object-position` se nastavuje vědomě.
 - Obrázky pod prvním viewportem: WebP/JPEG, `loading="lazy"`, rozměry nebo
-  `aspect-ratio`, smysluplný alt. Hero: vysoká priorita a bez lazy loadingu.
+  `aspect-ratio`, smysluplný alt. Hero: přednačtené z HTML a bez lazy loadingu.
 - Krátká videa: WebM/MP4, bez zvuku, `playsInline`, metadata nebo `none`, poster,
   přehrávání pouze ve viewportu. Animovaný WebP je přípustný pro malé důkazní
   karty, ale musí být lazy a pod praktickým rozpočtem.
@@ -137,7 +140,7 @@ panel s uzamčením pozadí, řízením focusu, Escape a návratem focusu spouš
 
 ### Tlačítka a odkazy
 
-- Primární: magenta, konkrétní sloveso (`Domluvit prohlídku zdarma`).
+- Primární: magenta, konkrétní sloveso (`Domluvit prohlídku`).
 - Sekundární: tmavý/transparentní s jasnou hranicí (`Zavolat 775 222 760`).
 - Textový odkaz jen pro terciární navigaci. `Zjistit více` se nepoužívá, pokud
   lze pojmenovat cíl.
@@ -157,7 +160,9 @@ jednoduché řádky/karty. Karta nesmí předstírat případovou studii bez ov�
 ### Porovnání před/po
 
 Ovládání je nativní range se jménem, klávesnicí a viditelnou hodnotou. Oba
-obrazy mají shodný poměr. Načte se okamžitě, ale nesmí blokovat první CTA.
+obrazy mají shodný poměr. Na desktopu se načte okamžitě; na úzkém mobilu může
+být za jasně pojmenovaným disclosure a načíst se až po otevření. Nikdy nesmí
+blokovat první CTA.
 
 ### Postup, ceník, FAQ
 
@@ -174,17 +179,20 @@ technologie. Submit stav je oznamovaný. Vždy je viditelná telefonní alternat
 
 ### Patička a mobilní CTA
 
-Patička uvádí ověřený název, sídlo, IČO, telefon, e-mail a ochranu osobních
-údajů. Mobilní CTA má safe-area padding, nezakrývá poslední pole ani právní
-odkazy a obsahuje maximálně dvě konkrétní akce.
+Patička uvádí název, sídlo, IČO, telefon, e-mail a ochranu osobních údajů.
+Název, sídlo a IČO musí být dodané majitelem; kontakty musí být potvrzené v
+`NEEDED.md`. Mobilní CTA má safe-area padding, nezakrývá poslední pole ani
+právní odkazy a obsahuje maximálně dvě konkrétní akce.
 
 ## 11. Responzivní chování
 
 - Kontrolní šířky: 320, 360, 390, 768, 1024, 1280, 1440 a 1920 px; navíc
   844 × 390 landscape a zoom 200 %.
 - Na 320 px nesmí vzniknout horizontální scroll, oříznutý nadpis ani tlačítko.
-- Essential content (služby, bezpečnost, cena, důkaz, kontakt) nesmí být na
-  mobilu skrytý v disclosure. Disclosure je jen pro doplňující technický text.
+- Essential content (nabídka, služby, bezpečnost, cena a kontakt) nesmí být na
+  mobilu skrytý v disclosure. Velké podpůrné médium může být za jedním jasně
+  pojmenovaným disclosure, pokud se tím významně zkrátí cesta a nenačte se před
+  otevřením.
 - Sticky prvky nesmí překrýt ovládání; spodní padding stránky respektuje jejich
   skutečnou výšku a `env(safe-area-inset-bottom)`.
 
@@ -196,7 +204,7 @@ odkazy a obsahuje maximálně dvě konkrétní akce.
 roky`, `zaručeně`) ani zdravotní diagnózy bez zdroje.
 - Rozsahy zapisovat `5–10 let`, cenu `95 Kč/m²`, čas `8.00–17.00` nebo jednotně
   podle zvolené redakční normy. Pomlčka `–`, ne spojovník.
-- CTA: `Domluvit prohlídku zdarma`, `Získat přesnou nabídku`, `Zavolat`.
+- CTA: `Domluvit prohlídku`, `Získat přesnou nabídku`, `Zavolat`.
 - Faktuální přísliby (záruka, pojištění, dojezd, odezva, ceny, životnost) musí
   být potvrzené v `NEEDED.md` nebo skryté.
 

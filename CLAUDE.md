@@ -11,7 +11,8 @@ autentické důkazy mají přednost před vizuální novostí.
 
 - `src/components/`: veřejné React komponenty.
 - `src/content/`: TypeScript schema, výchozí obsah a loader.
-- `public/content.json`: živý obsah načítaný za běhu.
+- `public/content.json`: publikovaný obsah vložený do předrenderovaného HTML;
+  samostatný request slouží jen jako runtime fallback.
 - `src/admin/`: lazy-loaded administrace na `/dev`.
 - `api/`: Vercel funkce pro přihlášení/publikování a kontakt.
 - `public/media/`: lokální autentická média.
@@ -20,7 +21,7 @@ autentické důkazy mají přednost před vizuální novostí.
 ## Příkazy
 
 Používejte skripty z `package.json`: instalace `npm ci`, vývoj `npm run dev`,
-formát `npm run format:check`, lint `npm run lint`, typy `npm run typecheck`,
+formát `npm run format:check`, lint `npm run lint`, typy `npm run check:types`,
 unit testy `npm test`, build `npm run build`, E2E `npm run test:e2e` a úplná
 kontrola `npm run validate`. Pokud skript zatím neexistuje, nepředstírejte jeho
 výsledek; přidejte jej pouze s odpovídající konfigurací.
