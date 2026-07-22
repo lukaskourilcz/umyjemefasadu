@@ -9,6 +9,21 @@ const DRAFT_KEY = "uf_admin_draft";
 type Json = unknown;
 type Path = (string | number)[];
 
+const EMPTY_LIST_ITEM_TEMPLATES: Record<string, Json> = {
+  "services.tintCards": { title: "", desc: "" },
+  "process.methods": { title: "", desc: "" },
+  "whyUs.quotes": { text: "", name: "", meta: "" },
+  "stats.items": { value: "", label: "" },
+  "team.members": { name: "", role: "", exp: "", bio: "" },
+  "references.studies": {
+    type: "",
+    city: "",
+    facts: [{ label: "", value: "" }],
+    desc: "",
+    images: [],
+  },
+};
+
 /* ----------------------------- pomocné funkce ----------------------------- */
 
 function clone<T>(v: T): T {
@@ -321,6 +336,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     kind: "idle",
     msg: "",
   });
+  const [draftWarning, setDraftWarning] = useState("");
   const [open, setOpen] = useState<string>(SECTIONS[0].key);
   const [sectionQuery, setSectionQuery] = useState("");
 
@@ -335,6 +351,18 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
       ),
     [sectionQuery],
   );
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      const stored = saveDraft(content);
+      setDraftWarning(
+        stored
+          ? ""
+          : "Koncept se nevejde do úložiště prohlížeče. Změny zůstanou v tomto okně, ale po jeho zavření se mohou ztratit. Publikujte je nebo si stáhněte zálohu.",
+      );
+    }, 0);
+    return () => window.clearTimeout(timeout);
+  }, [content]);
 
   function apply(path: Path, value: Json) {
     setContent((c) => {
@@ -580,6 +608,12 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         </div>
       )}
 
+      {draftWarning && (
+        <div role="alert" style={{ ...s.banner, background: "#422006", color: "#fde68a" }}>
+          {draftWarning}
+        </div>
+      )}
+
       {/* Na telefonu se seznam sekcí položí vodorovně nad obsah (posouvá se
           prstem), na počítači zůstává jako boční sloupec. */}
       <div style={{ ...s.body, ...(narrow ? s.bodyNarrow : null) }}>
@@ -748,6 +782,25 @@ function getIn(root: Json, path: Path): Json {
   return path.reduce<Json>((acc, k) => (acc as Record<string, Json>)?.[k as string], root);
 }
 
+export function listItemTemplate(path: Path): Json | undefined {
+  const name = path.filter((part): part is string => typeof part === "string").join(".");
+  if (Object.prototype.hasOwnProperty.call(EMPTY_LIST_ITEM_TEMPLATES, name)) {
+    return clone(EMPTY_LIST_ITEM_TEMPLATES[name]);
+  }
+
+  let node: Json = defaultContent;
+  for (const part of path) {
+    if (Array.isArray(node) && typeof part === "number") {
+      node = node[0];
+    } else if (node && typeof node === "object") {
+      node = (node as Record<string, Json>)[part as string];
+    } else {
+      return undefined;
+    }
+  }
+  return Array.isArray(node) && node.length > 0 ? clone(node[0]) : undefined;
+}
+
 function renderArray(
   value: Json[],
   path: Path,
@@ -756,7 +809,10 @@ function renderArray(
   setContent: SetContent,
   saveDraft: SaveDraft,
 ): JSX.Element {
-  const isObjectList = value.some((v) => v && typeof v === "object");
+  const emptyTemplate = listItemTemplate(path);
+  const isObjectList =
+    value.some((v) => v && typeof v === "object") ||
+    Boolean(emptyTemplate && typeof emptyTemplate === "object");
   const mediaList = isMediaArrayKey(keyName);
 
   function mutate(fn: (arr: Json[]) => Json[]) {
@@ -770,7 +826,7 @@ function renderArray(
 
   function addItem() {
     mutate((arr) => {
-      const template = arr.length > 0 ? clone(arr[arr.length - 1]) : isObjectList ? {} : "";
+      const template = arr.length > 0 ? clone(arr[arr.length - 1]) : clone(emptyTemplate ?? "");
       return [...arr, template];
     });
   }

@@ -20,6 +20,22 @@ describe("content publication validation", () => {
     expect(result.errors.join(" ")).toMatch(/bezpečný odkaz|contact\.heading/);
   });
 
+  it("does not publish unverified proof sections", () => {
+    for (const [section, flag] of [
+      ["stats", "visible"],
+      ["team", "visible"],
+      ["references", "visible"],
+    ]) {
+      const content = structuredClone(publishedContent);
+      content[section][flag] = true;
+      expect(validateContent(content).ok).toBe(false);
+    }
+
+    const content = structuredClone(publishedContent);
+    content.whyUs.quotesVisible = true;
+    expect(validateContent(content).ok).toBe(false);
+  });
+
   it("checks upload MIME, extension and magic bytes", () => {
     const png = Buffer.from("89504e470d0a1a0a00000000", "hex");
     const dataUrl = `data:image/png;base64,${png.toString("base64")}`;

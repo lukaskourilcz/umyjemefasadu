@@ -50,22 +50,22 @@ export const SECTIONS: { key: string; title: string; help?: string }[] = [
   {
     key: "whyUs",
     title: "Proč my + reference",
-    help: "Body proč my, záruka a rotující reference zákazníků.",
+    help: "Body proč my a zákaznické citace. Citace lze zapnout až po potvrzení jejich pravosti a souhlasu s publikací.",
   },
   {
     key: "stats",
     title: "Čísla / statistiky",
-    help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla.",
+    help: "Čísla v pruhu (m², zakázky…). Zapnout je lze až po doplnění a potvrzení reálných hodnot.",
   },
   {
     key: "team",
     title: "Náš tým",
-    help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text.",
+    help: "Fotka týmu a členové. Zapnout lze až po doplnění a potvrzení reálných profilů a souhlasů.",
   },
   {
     key: "references",
     title: "Vybrané zakázky",
-    help: "Zapněte až po doplnění skutečných názvů, lokalit, rozsahu a fotografií zakázek.",
+    help: "Zapnout lze až po doplnění a potvrzení skutečných lokalit, rozsahu, fotografií a souhlasu s publikací.",
   },
   { key: "pricing", title: "Ceník", help: "Orientační ceník a poznámky." },
   { key: "orderProcess", title: "Jak objednat", help: "Kroky od poptávky k nabídce." },
@@ -159,6 +159,7 @@ export const LABELS: Record<string, string> = {
   guaranteeUnit: "Záruka — jednotka",
   guaranteeTitle: "Záruka — nadpis",
   guaranteeDesc: "Záruka — popis",
+  guaranteeVerified: "Potvrzuji doložené záruční podmínky",
   // patička
   legalLine: "Právní řádek (IČO, adresa…)",
   privacyLabel: "Odkaz na ochranu údajů",
@@ -184,6 +185,8 @@ export const LABELS: Record<string, string> = {
 // nové sekce + přepínač viditelnosti
 LABELS.visible = "Zobrazit sekci na webu";
 LABELS.quotesVisible = "Zobrazit reference na webu";
+LABELS.verified = "Potvrzuji pravost údajů a souhlas s publikací";
+LABELS.quotesVerified = "Potvrzuji pravost citací a souhlas s publikací";
 // vzhled
 LABELS.primary = "Hlavní barva (tlačítka, výzvy)";
 LABELS.secondary = "Doplňková barva (ikony, akcenty)";
@@ -212,7 +215,14 @@ export function labelFor(key: string): string {
  * Klíče, jejichž hodnota je obrázek/video (nahrává se souborem, ne textem).
  * `src` je soubor uvnitř seznamu fotek, `videos` jsou soubory v poli řetězců.
  */
-export const MEDIA_KEYS = new Set(["image", "beforeImage", "afterImage", "src", "video"]);
+export const MEDIA_KEYS = new Set([
+  "image",
+  "beforeImage",
+  "afterImage",
+  "src",
+  "video",
+  "sideVideo",
+]);
 
 /** Je pole (string[]) seznam médií? (podle názvu klíče) */
 export function isMediaArrayKey(key: string): boolean {

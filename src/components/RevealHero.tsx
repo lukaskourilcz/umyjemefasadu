@@ -14,7 +14,9 @@ type Props = {
 export default function RevealHero({ before, after }: Props) {
   const { revealHero, hero, business, contact } = useContent();
   const [position, setPosition] = useState(50);
+  const [comparisonOpen, setComparisonOpen] = useState(false);
   const area = contact.areas[0] || business.address;
+  const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
 
   return (
     <section
@@ -77,38 +79,61 @@ export default function RevealHero({ before, after }: Props) {
               <circle cx="10" cy="8" r="2" fill="none" stroke="currentColor" strokeWidth="1.7" />
             </svg>
             <p className="text-sm leading-6 text-text-muted">
-              <strong className="text-text">Působíme z Hodonína.</strong> {area}
+              <strong className="text-text">Výchozím bodem je Hodonín.</strong> {area}
             </p>
           </div>
+
+          <button
+            type="button"
+            className="btn-ghost mt-8 w-full sm:hidden"
+            aria-expanded={comparisonOpen}
+            aria-controls="hero-comparison"
+            onClick={() => setComparisonOpen((open) => !open)}
+          >
+            {comparisonOpen ? "Skrýt porovnání" : "Zobrazit porovnání před a po"}
+          </button>
         </div>
 
-        <figure className="m-0 w-full">
+        <figure
+          id="hero-comparison"
+          className={`${comparisonOpen ? "mt-8 block" : "hidden"} m-0 w-full sm:mt-10 sm:block lg:mt-0`}
+        >
           <div
             className="relative aspect-[4/3] overflow-hidden rounded-[16px] border bg-surface"
             style={{ borderColor: "var(--color-border)" }}
           >
-            <img
-              src={before}
-              alt="Fasáda před čištěním"
-              width="1140"
-              height="906"
-              fetchPriority="high"
-              decoding="sync"
-              className="absolute inset-0 h-full w-full object-cover object-top"
-            />
+            <picture>
+              <source
+                media="(max-width: 639px)"
+                srcSet={comparisonOpen && before ? before : transparentPixel}
+              />
+              <img
+                src={before}
+                alt="Fasáda před čištěním"
+                width="1140"
+                height="906"
+                decoding="sync"
+                className="absolute inset-0 h-full w-full object-cover object-top"
+              />
+            </picture>
             <div
               className="absolute inset-0"
               style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
             >
-              <img
-                src={after}
-                alt="Fasáda po čištění"
-                width="1134"
-                height="860"
-                fetchPriority="high"
-                decoding="sync"
-                className="absolute inset-0 h-full w-full object-cover object-top"
-              />
+              <picture>
+                <source
+                  media="(max-width: 639px)"
+                  srcSet={comparisonOpen && after ? after : transparentPixel}
+                />
+                <img
+                  src={after}
+                  alt="Fasáda po čištění"
+                  width="1134"
+                  height="860"
+                  decoding="sync"
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                />
+              </picture>
             </div>
 
             <div

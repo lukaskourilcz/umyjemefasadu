@@ -175,7 +175,15 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form className="flex flex-col gap-4" onSubmit={onSubmit} noValidate>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={onSubmit}
+                noValidate
+                aria-busy={status === "sending"}
+              >
+                <p className="sr-only" role="status" aria-live="polite">
+                  {status === "sending" ? contact.formSending : ""}
+                </p>
                 <div hidden aria-hidden="true">
                   <label htmlFor="contact-website">Web</label>
                   <input

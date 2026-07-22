@@ -15,20 +15,10 @@ export default function OrderProcess() {
     >
       <div className="container-page">
         <SectionHeading title={heading} intro={intro} />
-        <p className="mt-6 text-sm font-semibold text-text-muted sm:hidden">
-          Posunutím do strany projdete všechny kroky.
-        </p>
 
-        <ol
-          tabIndex={0}
-          aria-label="Postup objednávky, posouvatelný vodorovně"
-          className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 fade-up sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:pb-0 lg:grid-cols-4"
-        >
+        <ol className="mt-10 grid grid-cols-1 gap-8 fade-up sm:mt-14 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
           {STEPS.map((s) => (
-            <li
-              key={s.no}
-              className="w-[78vw] max-w-[310px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink"
-            >
+            <li key={s.no}>
               <div className="flex items-center gap-3">
                 <span
                   className="font-fragment-mono"

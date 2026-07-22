@@ -36,9 +36,27 @@ export default function Nav() {
     document.body.style.overflow = "hidden";
     panelRef.current?.querySelector<HTMLAnchorElement>("a")?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      setOpen(false);
-      toggleRef.current?.focus();
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusable = Array.from(
+        navRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((element) => element.getClientRects().length > 0);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     const mq = window.matchMedia("(min-width: 1200px)");
     const onChange = () => mq.matches && setOpen(false);
@@ -68,7 +86,7 @@ export default function Nav() {
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="pointer-events-none absolute left-[5px] top-[6px] z-10 opacity-[0.95] md:left-[10px] md:top-[8px] min-[1200px]:left-[50px]"
+          className="pointer-events-none absolute left-[5px] top-[6px] z-10 md:left-[10px] md:top-[8px] min-[1200px]:left-[50px]"
         >
           <Logo
             source="nav"

@@ -20,12 +20,14 @@ function PhotoCard({
   alt,
   title,
   desc,
+  ready,
   className = "",
 }: {
   img: string;
   alt: string;
   title: string;
   desc: string;
+  ready: boolean;
   className?: string;
 }) {
   return (
@@ -37,7 +39,7 @@ function PhotoCard({
       }}
     >
       <img
-        src={img}
+        src={ready ? img : undefined}
         alt={alt}
         loading="lazy"
         width="825"
@@ -105,8 +107,25 @@ export default function Services() {
   const featuredVideo = featured.video;
   const featuredVideoAlt = featured.videoAlt;
   const featuredVideoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  const [mediaReady, setMediaReady] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setMediaReady(true);
+        observer.disconnect();
+      },
+      { rootMargin: "100px" },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const el = featuredVideoRef.current;
@@ -127,7 +146,7 @@ export default function Services() {
   }, [videoReady, reduced]);
 
   return (
-    <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
+    <section ref={sectionRef} id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
         <SectionHeading label="Naše služby" title={heading} intro={intro} />
         <p className="mt-6 text-sm font-semibold text-text-muted sm:hidden">
@@ -142,11 +161,11 @@ export default function Services() {
           className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3"
         >
           {/* Featured */}
-          <article className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0">
+          <article className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] bg-surface-strong sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0">
             <video
               ref={featuredVideoRef}
               src={videoReady && !reduced ? featuredVideo : undefined}
-              poster={featured.image}
+              poster={mediaReady ? featured.image : undefined}
               aria-label={featuredVideoAlt}
               muted
               playsInline
@@ -196,6 +215,7 @@ export default function Services() {
               alt={card.alt}
               title={card.title}
               desc={card.desc}
+              ready={mediaReady}
               className={i === photoCards.length - 1 ? "sm:col-span-2 lg:col-span-1" : ""}
             />
           ))}

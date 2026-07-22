@@ -17,6 +17,21 @@ const MEDIA_KEYS = new Set([
 const EMPTY_ARRAY_TEMPLATES = new Map([
   ["services.tintCards", { title: "", desc: "" }],
   ["process.methods", { title: "", desc: "" }],
+  ["whyUs.quotes", { text: "", name: "", meta: "" }],
+  ["stats.items", { value: "", label: "" }],
+  ["team.members", { name: "", role: "", exp: "", bio: "" }],
+  [
+    "references.studies",
+    {
+      type: "",
+      city: "",
+      facts: [{ label: "", value: "" }],
+      desc: "",
+      images: [],
+    },
+  ],
+  ["references.studies.facts", { label: "", value: "" }],
+  ["references.studies.images", { src: "", alt: "" }],
 ]);
 
 const MIME_EXTENSIONS = {
@@ -61,7 +76,7 @@ function validateString(value, path, errors) {
   if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
     errors.push("E-mail nemá platný formát.");
   }
-  if (MEDIA_KEYS.has(name)) {
+  if (MEDIA_KEYS.has(name) && value !== "") {
     if (!/^\/media\/[A-Za-z0-9._-]+\.(?:jpe?g|png|webp|webm|mp4)$/i.test(value)) {
       errors.push(`${pathName(path)} musí odkazovat na podporovaný soubor v /media/.`);
     }
@@ -126,7 +141,83 @@ function validateAgainstTemplate(value, template, path, errors, depth = 0) {
 export function validateContent(content) {
   const errors = [];
   validateAgainstTemplate(content, defaultContent, [], errors);
+  if (errors.length === 0) validatePublishableSections(content, errors);
   return { ok: errors.length === 0, errors: errors.slice(0, 12) };
+}
+
+function filled(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function validatePublishableSections(content, errors) {
+  const guaranteeFields = [
+    content.whyUs.guaranteeNumber,
+    content.whyUs.guaranteeUnit,
+    content.whyUs.guaranteeTitle,
+    content.whyUs.guaranteeDesc,
+  ];
+  if (
+    guaranteeFields.some(filled) &&
+    (!content.whyUs.guaranteeVerified || guaranteeFields.some((value) => !filled(value)))
+  ) {
+    errors.push("Záruku lze publikovat jen s úplnými a potvrzenými podmínkami.");
+  }
+
+  if (
+    content.whyUs.quotesVisible &&
+    (!content.whyUs.quotesVerified ||
+      !content.whyUs.quotes.length ||
+      content.whyUs.quotes.some(
+        (quote) => !filled(quote.text) || !filled(quote.name) || !filled(quote.meta),
+      ))
+  ) {
+    errors.push("Reference zákazníků lze zapnout až po doplnění všech údajů.");
+  }
+
+  if (
+    content.stats.visible &&
+    (!content.stats.verified ||
+      !content.stats.items.length ||
+      content.stats.items.some((item) => !filled(item.value) || !filled(item.label)))
+  ) {
+    errors.push("Statistiky lze zapnout až po doplnění všech ověřených hodnot.");
+  }
+
+  if (
+    content.team.visible &&
+    (!content.team.verified ||
+      !filled(content.team.heading) ||
+      !filled(content.team.intro) ||
+      !filled(content.team.image) ||
+      !content.team.members.length ||
+      content.team.members.some(
+        (member) =>
+          !filled(member.name) ||
+          !filled(member.role) ||
+          !filled(member.exp) ||
+          !filled(member.bio),
+      ))
+  ) {
+    errors.push("Sekci týmu lze zapnout až po doplnění fotografie a všech profilů.");
+  }
+
+  if (
+    content.references.visible &&
+    (!content.references.verified ||
+      !content.references.studies.length ||
+      content.references.studies.some(
+        (study) =>
+          !filled(study.type) ||
+          !filled(study.city) ||
+          !filled(study.desc) ||
+          !study.facts.length ||
+          study.facts.some((fact) => !filled(fact.label) || !filled(fact.value)) ||
+          !study.images.length ||
+          study.images.some((image) => !filled(image.src) || !filled(image.alt)),
+      ))
+  ) {
+    errors.push("Vybrané zakázky lze zapnout až po doplnění všech údajů a fotografií.");
+  }
 }
 
 function hasMagicBytes(buffer, mime) {

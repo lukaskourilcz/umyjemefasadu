@@ -27,6 +27,7 @@ export default function Logo({
 }) {
   return (
     <img
+      {...(source === "nav" ? { fetchpriority: "high" } : {})}
       src={SRC[source]}
       alt="Umyjeme Fasádu"
       height={height}

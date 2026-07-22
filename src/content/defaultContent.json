@@ -48,14 +48,14 @@
     "labelBeforeSuffix": "vyčištěním",
     "labelAfterPrefix": "Po",
     "labelAfterSuffix": "vyčištění",
-    "cta": "Domluvit prohlídku zdarma",
+    "cta": "Domluvit prohlídku",
     "scrollCue": "Skrolujte"
   },
   "hero": {
     "eyebrow": "Fasády · Střechy · Dlažba",
     "title": "Profesionální čištění fasád, střech a dlažby.",
     "body": "Povrch nejdřív posoudíme a potom zvolíme vhodný tlak, trysku i čisticí postup. Odstraníme běžné venkovní nečistoty a připravíme přesnou nabídku podle skutečného stavu objektu.",
-    "ctaPrimary": "Domluvit prohlídku zdarma",
+    "ctaPrimary": "Domluvit prohlídku",
     "ctaSecondary": "Jak to probíhá",
     "videos": [
       "/media/fasada1.webm",
@@ -66,7 +66,7 @@
   },
   "trustStrip": {
     "items": [
-      "Prohlídka a nabídka zdarma",
+      "Prohlídka objektu před naceněním",
       "Postup podle typu povrchu",
       "Fasády · střechy · dlažba",
       "Firma se sídlem v Hodoníně"
@@ -118,7 +118,7 @@
     ],
     "solutionTitle": "Řešením je pravidelná údržba",
     "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu.",
-    "solutionCta": "Domluvit prohlídku zdarma"
+    "solutionCta": "Domluvit prohlídku"
   },
   "services": {
     "heading": "Kompletní čištění fasád, střech i dlažby",
@@ -149,13 +149,13 @@
         "image": "/media/pic7.webp",
         "alt": "Odstraňování graffiti z podchodu",
         "title": "Odstranění graffiti",
-        "desc": "Citlivé odstranění graffiti a postřiků z fasád i veřejných ploch bez poškození podkladu, včetně ochranného nátěru proti dalšímu posprejování."
+        "desc": "Postup odstranění graffiti volíme podle typu barvy a stavu podkladu. Možnost následné ochrany povrchu posoudíme přímo na místě."
       },
       {
         "image": "/media/pic10.webp",
         "alt": "Ošetření fasády rodinného domu z plošiny",
         "title": "Nanoimpregnace",
-        "desc": "Pokud je to pro daný povrch vhodné, nabídneme po vyčištění také ochrannou impregnaci."
+        "desc": "Pokud je to pro daný povrch vhodné, nabídneme po vyčištění také ochrannou impregnaci. Vhodnost i očekávaný účinek vysvětlíme po posouzení objektu."
       }
     ]
   },
@@ -223,11 +223,12 @@
   "whyUs": {
     "heading": "Nejdřív posoudíme povrch. Potom zvolíme správný postup.",
     "intro": "Každý podklad i míra znečištění jsou jiné. Proto předem zkontrolujeme stav objektu, přístup a rozsah práce a teprve potom doporučíme řešení.",
-    "cta": "Domluvit prohlídku zdarma",
+    "cta": "Domluvit prohlídku",
     "guaranteeNumber": "",
     "guaranteeUnit": "",
     "guaranteeTitle": "",
     "guaranteeDesc": "",
+    "guaranteeVerified": false,
     "points": [
       {
         "title": "Posouzení před zahájením",
@@ -247,6 +248,7 @@
       }
     ],
     "quotesVisible": false,
+    "quotesVerified": false,
     "quotesLabel": "Řekli o nás",
     "quotes": [
       {
@@ -258,6 +260,7 @@
   },
   "stats": {
     "visible": false,
+    "verified": false,
     "items": [
       {
         "value": "12 500+",
@@ -279,6 +282,7 @@
   },
   "team": {
     "visible": false,
+    "verified": false,
     "heading": "Kdo za tím stojí",
     "intro": "Firma je nová, ruce nejsou. Lorem ipsum dolor sit amet, consectetur adipiscing elit - sed diam nonummy nibh euismod tincidunt.",
     "image": "/media/pic16.webp",
@@ -300,6 +304,7 @@
   },
   "references": {
     "visible": false,
+    "verified": false,
     "heading": "Vybrané zakázky",
     "intro": "Konkrétní objekty, rozsah a postup - takhle vypadá naše práce v číslech i na fotkách.",
     "studies": [
@@ -395,7 +400,7 @@
             "value": "odstranění graffiti"
           }
         ],
-        "desc": "Citlivé odstranění graffiti bez poškození podkladu včetně ochranného nátěru proti dalšímu posprejování.",
+        "desc": "Postup odstranění graffiti volíme podle typu barvy a stavu podkladu. Možnost následné ochrany povrchu posoudíme přímo na místě.",
         "images": [
           {
             "src": "/media/pic7.webp",
@@ -415,21 +420,21 @@
   },
   "pricing": {
     "heading": "Orientační ceník",
-    "intro": "Přesnou cenu stanovíme po prohlídce zdarma - záleží na typu povrchu, míře znečištění a přístupu k objektu.",
+    "intro": "Přesnou cenu stanovíme po prohlídce objektu — záleží na typu povrchu, míře znečištění a přístupu k objektu.",
     "rows": [
       {
         "service": "Mytí a čištění fasád",
-        "price": "od 95 Kč/m²",
+        "price": "od 85 Kč/m²",
         "note": "dle znečištění a výšky objektu"
       },
       {
         "service": "Čištění střech",
-        "price": "od 120 Kč/m²",
+        "price": "od 99 Kč/m²",
         "note": "dle typu krytiny"
       },
       {
         "service": "Čištění dlažby a chodníků",
-        "price": "od 60 Kč/m²",
+        "price": "od 50 Kč/m²",
         "note": "včetně spár"
       },
       {
@@ -439,16 +444,16 @@
       },
       {
         "service": "Nanoimpregnace",
-        "price": "od 85 Kč/m²",
+        "price": "od 75 Kč/m²",
         "note": "dle typu a stavu povrchu"
       }
     ],
-    "footnote": "Ceny jsou orientační, bez DPH. Přesnou nabídku připravíme po bezplatné prohlídce objektu.",
+    "footnote": "Ceny jsou orientační. Přesná nabídka určí rozsah práce, konečnou cenu i daňový režim.",
     "cta": "Chci přesnou nabídku"
   },
   "orderProcess": {
     "heading": "Od poptávky k čisté fasádě (střeše či dlažbě) ve čtyřech krocích",
-    "intro": "Cenu vždy stanovujeme individuálně podle konkrétního objektu. Žádné poplatky ani závazky předem.",
+    "intro": "Cenu stanovujeme individuálně podle konkrétního objektu a navrženého postupu.",
     "steps": [
       {
         "no": "01",
@@ -458,7 +463,7 @@
       {
         "no": "02",
         "title": "Prohlídka na místě",
-        "desc": "Domluvíme termín a přijedeme se na objekt podívat, zdarma a bez závazku."
+        "desc": "Domluvíme termín a přijedeme posoudit stav povrchu i přístup k objektu."
       },
       {
         "no": "03",
@@ -468,7 +473,7 @@
       {
         "no": "04",
         "title": "Nezávazná nabídka",
-        "desc": "Připravíme cenovou nabídku na míru. Rozhodnutí je na vás, bez poplatků."
+        "desc": "Připravíme cenovou nabídku podle skutečného rozsahu a navrženého postupu."
       }
     ]
   },
@@ -481,7 +486,7 @@
       },
       {
         "q": "Nepoškodí tlakové mytí omítku, střechu či dlažbu?",
-        "a": "Ne. Tlak i trysky volíme vždy podle typu a stavu daného povrchu."
+      "a": "Riziko poškození snižujeme tím, že předem posoudíme stav podkladu a podle něj zvolíme tlak, trysku i pracovní postup."
       },
       {
         "q": "Jsou použité přípravky bezpečné?",
@@ -489,7 +494,7 @@
       },
       {
         "q": "Kolik to bude stát?",
-        "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků."
+      "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Povrch a přístup nejdřív posoudíme a potom připravíme nabídku podle skutečného rozsahu."
       },
       {
         "q": "Co všechno umíte vyčistit?",
@@ -520,14 +525,14 @@
     ]
   },
   "contact": {
-    "heading": "Pošleme vám nezávaznou cenovou nabídku",
-    "body": "Napište nebo zavolejte. Domluvíme termín prohlídky zdarma a navrhneme řešení pro vaši fasádu.",
+    "heading": "Připravíme cenovou nabídku pro váš objekt",
+    "body": "Napište nebo zavolejte. Domluvíme termín prohlídky a navrhneme postup pro vaši fasádu, střechu či dlažbu.",
     "promises": [
-      "Prohlídka a nabídka zdarma"
+      "Nabídka podle skutečného stavu objektu"
     ],
-    "areasLabel": "Kde působíme",
+    "areasLabel": "Dostupnost",
     "areas": [
-      "Hodonín a Jihomoravský kraj"
+      "Dojezd potvrdíme podle adresy zakázky."
     ],
     "phoneLabel": "Telefon",
     "emailLabel": "E-mail",
@@ -538,7 +543,7 @@
     "formPhoneLabel": "Telefon",
     "formPhonePlaceholder": "+420 …",
     "formMessageLabel": "Co potřebujete vyčistit?",
-    "formMessagePlaceholder": "Rodinný dům, fasáda cca 200 m²…",
+    "formMessagePlaceholder": "Co chcete vyčistit, v jaké obci a přibližně jak velkou plochu?",
     "formSubmit": "Odeslat poptávku",
     "formSending": "Odesílám…",
     "formError": "Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám napište na e-mail.",

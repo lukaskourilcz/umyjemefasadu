@@ -80,6 +80,7 @@ export default function Footer() {
       {/* Privacy policy - placeholder text until the real policy exists. */}
       <dialog
         ref={dialogRef}
+        aria-labelledby="privacy-dialog-title"
         className="m-auto w-[min(92vw,640px)] rounded-[14px] p-0 backdrop:bg-black/50"
         style={{
           backgroundColor: "var(--color-cream-paper)",
@@ -87,7 +88,9 @@ export default function Footer() {
         }}
       >
         <div className="flex flex-col gap-4 p-7 md:p-9">
-          <h2 style={{ fontSize: "22px", fontWeight: 700 }}>{footer.privacyTitle}</h2>
+          <h2 id="privacy-dialog-title" style={{ fontSize: "22px", fontWeight: 700 }}>
+            {footer.privacyTitle}
+          </h2>
           {footer.privacyBody.map((para, i) => (
             <p
               key={i}
