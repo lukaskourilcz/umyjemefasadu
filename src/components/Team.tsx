@@ -2,8 +2,7 @@ import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 
 export default function Team() {
-  const { heading, intro, image, imageAlt, members: MEMBERS } =
-    useContent().team;
+  const { heading, intro, image, imageAlt, members: MEMBERS } = useContent().team;
   return (
     <section id="tym" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
@@ -33,10 +32,7 @@ export default function Team() {
               style={{ borderColor: "var(--color-eucalyptus)" }}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3
-                  className="text-botanical-ink"
-                  style={{ fontSize: "20px", fontWeight: 700 }}
-                >
+                <h3 className="text-botanical-ink" style={{ fontSize: "20px", fontWeight: 700 }}>
                   {m.name}
                 </h3>
                 <span

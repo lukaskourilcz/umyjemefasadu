@@ -16,7 +16,7 @@ export default function OrderProcess() {
       <div className="container-page">
         <SectionHeading title={heading} intro={intro} />
 
-        <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 fade-up sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 grid grid-cols-1 gap-8 fade-up sm:mt-14 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
           {STEPS.map((s) => (
             <li key={s.no}>
               <div className="flex items-center gap-3">
@@ -35,10 +35,7 @@ export default function OrderProcess() {
                   style={{ backgroundColor: "var(--color-eucalyptus)" }}
                 />
               </div>
-              <h3
-                className="mt-4 font-bold text-botanical-ink"
-                style={TEXT.cardTitle}
-              >
+              <h3 className="mt-4 font-bold text-botanical-ink" style={TEXT.cardTitle}>
                 {s.title}
               </h3>
               <p className="mt-2 text-botanical-ink/75" style={TEXT.bodyTight}>

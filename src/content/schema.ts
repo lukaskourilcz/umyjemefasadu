@@ -94,7 +94,14 @@ export type Content = {
   services: {
     heading: string;
     intro: string;
-    featured: { image: string; video: string; videoAlt: string; alt: string; title: string; desc: string };
+    featured: {
+      image: string;
+      video: string;
+      videoAlt: string;
+      alt: string;
+      title: string;
+      desc: string;
+    };
     tintCards: { title: string; desc: string }[];
     photoCards: { image: string; alt: string; title: string; desc: string }[];
   };
@@ -132,9 +139,13 @@ export type Content = {
     guaranteeUnit: string;
     guaranteeTitle: string;
     guaranteeDesc: string;
+    /** Majitel doložil přesné záruční podmínky. */
+    guaranteeVerified: boolean;
     points: { title: string; desc: string }[];
     /** Zobrazit rotující reference zákazníků? Zapněte, až budete mít skutečné. */
     quotesVisible: boolean;
+    /** Majitel výslovně potvrdil pravost citací a souhlas s publikací. */
+    quotesVerified: boolean;
     quotesLabel: string;
     quotes: { text: string; name: string; meta: string }[];
   };
@@ -142,12 +153,16 @@ export type Content = {
   stats: {
     /** Zobrazit sekci na webu? */
     visible: boolean;
+    /** Majitel výslovně potvrdil správnost hodnot a jejich období. */
+    verified: boolean;
     items: { value: string; label: string }[];
   };
 
   team: {
     /** Zobrazit sekci na webu? */
     visible: boolean;
+    /** Majitel potvrdil údaje, fotografie a souhlasy členů. */
+    verified: boolean;
     heading: string;
     intro: string;
     image: string;
@@ -156,6 +171,10 @@ export type Content = {
   };
 
   references: {
+    /** Zobrazit pouze s ověřenými názvy, lokalitami a údaji zakázek. */
+    visible: boolean;
+    /** Majitel potvrdil pravost realizací a souhlas s publikací. */
+    verified: boolean;
     heading: string;
     intro: string;
     studies: {

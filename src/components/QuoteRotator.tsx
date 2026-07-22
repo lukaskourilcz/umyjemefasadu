@@ -29,10 +29,7 @@ export default function QuoteRotator() {
   const q = QUOTES[safeIndex];
 
   return (
-    <div
-      className="mt-12 border-t pt-6"
-      style={{ borderColor: "var(--color-eucalyptus)" }}
-    >
+    <div className="mt-12 border-t pt-6" style={{ borderColor: "var(--color-eucalyptus)" }}>
       <span className="micro-label text-botanical-ink/50">{quotesLabel}</span>
 
       {/* key remount re-runs the entrance animation per quote */}
@@ -53,10 +50,7 @@ export default function QuoteRotator() {
 
         {/* Attribution - right-aligned, eased off the edge */}
         <figcaption className="mt-5 pr-6 text-right">
-          <div
-            className="text-botanical-ink"
-            style={{ fontSize: "14px", fontWeight: 700 }}
-          >
+          <div className="text-botanical-ink" style={{ fontSize: "14px", fontWeight: 700 }}>
             {q.name}
           </div>
           <div

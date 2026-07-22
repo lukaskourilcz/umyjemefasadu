@@ -26,20 +26,12 @@ export default function Advice() {
                 >
                   {a.no}
                 </span>
-                <span className="micro-label text-botanical-ink/45">
-                  {badge}
-                </span>
+                <span className="micro-label text-botanical-ink/45">{badge}</span>
               </div>
-              <h3
-                className="text-botanical-ink"
-                style={{ fontSize: "19px", fontWeight: 700 }}
-              >
+              <h3 className="text-botanical-ink" style={{ fontSize: "19px", fontWeight: 700 }}>
                 {a.title}
               </h3>
-              <p
-                className="text-botanical-ink/75"
-                style={{ fontSize: "15px", lineHeight: 1.6 }}
-              >
+              <p className="text-botanical-ink/75" style={{ fontSize: "15px", lineHeight: 1.6 }}>
                 {a.excerpt}
               </p>
             </article>

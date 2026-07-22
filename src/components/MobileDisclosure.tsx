@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
-export default function MobileDisclosure({ label, children }: { label: string; children: ReactNode }) {
+export default function MobileDisclosure({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
   const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
@@ -19,7 +25,14 @@ export default function MobileDisclosure({ label, children }: { label: string; c
       <summary>
         <span>{label}</span>
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-          <path d="M4 7 L9 12 L14 7" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M4 7 L9 12 L14 7"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </summary>
       <div className="mobile-disclosure-panel">{children}</div>

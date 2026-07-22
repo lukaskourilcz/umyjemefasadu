@@ -3,17 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (/^\/dev\/?$/i.test(location.pathname))
+        document.documentElement.classList.add("admin-route");
+    </script>
+    <style>
+      .admin-route #root {
+        visibility: hidden;
+      }
+    </style>
 
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#fbfdfe" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="preload" as="image" href="/media/logo-nav.webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/media/dirty-hero.webp"
+      fetchpriority="high"
+      media="(min-width: 640px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/media/clean-hero.webp"
+      fetchpriority="high"
+      media="(min-width: 640px)"
+    />
 
     <!-- Primary meta -->
     <meta
       name="description"
-      content="Profesionální tlakové mytí a čištění fasád, střech a dlažby. Bez drahé rekonstrukce, s nezávaznou nabídkou zdarma."
+      content="Profesionální tlakové mytí a čištění fasád, střech a dlažby. Postup a cenová nabídka podle skutečného stavu objektu."
     />
     <link rel="canonical" href="https://www.umyjemefasadu.cz/" />
 
@@ -27,7 +52,7 @@
     />
     <meta
       property="og:description"
-      content="Profesionální mytí a čištění fasád, střech a dlažby. Tlakové mytí, nanoimpregnace a férový přístup. Nezávazná nabídka zdarma."
+      content="Profesionální mytí a čištění fasád, střech a dlažby. Postup a cenová nabídka podle skutečného stavu objektu."
     />
     <meta property="og:url" content="https://www.umyjemefasadu.cz/" />
     <meta property="og:image" content="https://www.umyjemefasadu.cz/og-image.png" />
@@ -46,56 +71,13 @@
     />
     <meta
       name="twitter:description"
-      content="Profesionální mytí a čištění fasád, střech a dlažby. Nezávazná nabídka zdarma."
+      content="Profesionální mytí a čištění fasád, střech a dlažby. Nabídka podle stavu objektu."
     />
-    <meta
-      name="twitter:image"
-      content="https://www.umyjemefasadu.cz/og-image.png"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@400;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="twitter:image" content="https://www.umyjemefasadu.cz/og-image.png" />
     <title>Umyjeme Fasádu | profesionální mytí fasád, střech a dlažby</title>
 
-    <!-- LocalBusiness structured data (helps local SEO + rich results).
-         TODO: doplňte adresu (streetAddress, addressLocality, postalCode),
-         IČO a oblast působení (areaServed) podle skutečnosti. -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Umyjeme Fasádu s.r.o.",
-        "image": "https://www.umyjemefasadu.cz/og-image.png",
-        "logo": "https://www.umyjemefasadu.cz/logo.svg",
-        "url": "https://www.umyjemefasadu.cz/",
-        "telephone": "+420775222760",
-        "email": "info@umyjemefasadu.cz",
-        "identifier": "IČO 23770082",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Purkyňova 2869/4",
-          "postalCode": "695 01",
-          "addressLocality": "Hodonín",
-          "addressCountry": "CZ"
-        },
-        "priceRange": "$$",
-        "description": "Profesionální tlakové mytí a čištění fasád, střech a dlažby. Nezávazná nabídka zdarma.",
-        "areaServed": "Hodonín, Jihomoravský kraj a okolí do 100 km",
-        "knowsAbout": [
-          "mytí fasád",
-          "čištění střech",
-          "čištění dlažby",
-          "odstranění graffiti",
-          "nanoimpregnace"
-        ]
-      }
-    </script>
-
-    <!-- FAQPage strukturovaná data se generují za běhu z content.json
-         (src/main.tsx), takže zůstávají v synchronu s administrací. -->
+    <!-- LocalBusiness a FAQPage data se generují za běhu ze stejného obsahu
+         jako stránka (src/main.tsx), takže zůstávají v synchronu s /dev. -->
   </head>
   <body>
     <div id="root"></div>

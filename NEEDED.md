@@ -1,45 +1,92 @@
-# K dořešení / ke kontrole (od klienta)
+# K dořešení před ostrým provozem
 
-Seznam věcí, které je potřeba ještě ověřit nebo doplnit reálnými údaji.
-Většinu z toho jde upravit přímo v administraci na `/dev`.
+Tento soubor je jediný seznam skutečností, které nelze bezpečně rozhodnout jen
+z repozitáře. `[owner:me]` znamená rozhodnutí, údaj nebo externí nastavení od
+majitele. `[owner:ai]` znamená technický úkol v repozitáři. Důležitost je
+`[imp:1–5]`, kde 5 je blokující.
 
----
+Nevyřešený bod se nesmí na webu nahradit domněnkou. Neověřená sekce zůstane
+skrytá.
 
-## Úkoly
+## Nutné před produkčním publikováním
 
-Každý úkol má jednořádkové „proč" a skóre důležitosti `[imp:N]` (5 = nejvyšší).
-Podrobnosti jsou v sekcích níže.
+- [ ] **Nastavit a bezpečně uložit produkční secrets** — bez nich se nelze
+      přihlásit do `/dev`, publikovat ani odeslat formulář. Nastavit
+      `ADMIN_PASSWORD`, náhodný `ADMIN_SESSION_SECRET` (nejméně 32 znaků),
+      `GITHUB_TOKEN`, `GITHUB_REPO`, `RESEND_API_KEY`, `CONTACT_EMAIL` a
+      `CONTACT_FROM`; po nastavení spustit nový deployment. `[imp:5]` `[owner:me]`
+- [ ] **Ověřit celý produkční publish flow** — přihlášení do `/dev`, změna
+      testovacího textu, commit do správné `GITHUB_BRANCH`, Vercel deployment a
+      bezpečné vrácení testovací změny. `[imp:5]` `[owner:me]`
+- [ ] **Ověřit doručení kontaktního formuláře** — v Resendu ověřit odesílací
+      doménu, nastavit `CONTACT_FROM`, poslat reálnou testovací poptávku a potvrdit,
+      že dorazí na `CONTACT_EMAIL` i mimo spam. `[imp:5]` `[owner:me]`
+- [ ] **Ověřit produkční doménu a DNS** — `umyjemefasadu.cz` i
+      `www.umyjemefasadu.cz` musí směřovat na aktuální Vercel projekt, mít HTTPS a
+      jednu kanonickou variantu. Poté zkontrolovat canonical, Open Graph, sitemap a
+      formulář přímo na ostré doméně. `[imp:5]` `[owner:me]`
+- [ ] **Právně schválit ochranu osobních údajů** — potvrdit správce údajů,
+      účel, právní titul, příjemce Resend, dobu uchování a kontaktní údaje. Aktuální
+      text je věcný technický základ, ne právní stanovisko. `[imp:5]` `[owner:me]`
 
-- [ ] **Nahradit ukázkové fotky v „Vybrané zakázky" reálnými** — placeholder fotky u nové firmy působí nedůvěryhodně. `[imp:3]` `[owner:me]`
-- [ ] **Potvrdit, která část textu v sekci Služby se má odstranit** — klient chtěl smazat žlutě označený text, barvy jsme neměli. `[imp:2]` `[owner:me]`
-- [ ] **Zapnout vypnuté sekce, až budou reálná data** — smyšlená čísla a reference by nové firmě spíš uškodily. `[imp:2]` `[owner:me]`
-- [ ] **Sladit starší znění FAQ a kontaktů s aktuálními texty** — kvůli SEO; nemá vliv na to, co vidí návštěvník. `[imp:2]` `[owner:ai]`
+## Obchodní údaje k potvrzení
 
----
+- [ ] **Potvrdit ceny, jednotky a DPH** — projít každý řádek ceníku v `/dev`,
+      ověřit, zda jsou částky „od“, zda jsou s/bez DPH a co ovlivňuje výslednou cenu.
+      Do potvrzení jsou uvedené jako orientační. `[imp:5]` `[owner:me]`
+- [ ] **Potvrdit rozsah oblasti působení** — web používá Hodonín a aktuální
+      oblasti z kontaktní sekce. Neuvádět dojezd v kilometrech ani další kraje bez
+      provozního potvrzení. `[imp:4]` `[owner:me]`
+- [ ] **Rozhodnout, zda je prohlídka a nabídka bezplatná** — aktuální veřejný
+      web bezplatnost neslibuje. Pokud se má tvrzení vrátit do CTA nebo textu,
+      musí platit pro všechny relevantní poptávky. `[imp:4]` `[owner:me]`
+- [ ] **Potvrdit technické formulace** — schválit veřejné texty o regulovaném
+      tlaku, volbě trysek, přípravcích a impregnaci. Záruky, konkrétní životnost,
+      pojištění, rychlost odezvy a ekologické certifikace se nesmí přidat bez
+      ověřitelného podkladu. `[imp:4]` `[owner:me]`
+- [ ] **Potvrdit provozní kontakty** — název, sídlo a IČO dodal majitel; před
+      spuštěním ještě ověřit telefon, e-mail a provozní dobu. `[imp:4]`
+      `[owner:me]`
 
-## Podrobnosti
+## Obsah čekající na autentické podklady
 
-### Sekce Služby — text ke kontrole
+- [ ] **Doplnit ověřené reference a realizace** — dodat skutečné názvy/lokality,
+      rozsah, stejné páry fotografií před/po a souhlas s publikací. Sekce
+      `references` je do té doby vypnutá. `[imp:3]` `[owner:me]`
+- [ ] **Doplnit reálná čísla za sezónu** — statistiky nezapínat bez doložených
+      hodnot a období. Sekce `stats` je vypnutá. `[imp:2]` `[owner:me]`
+- [ ] **Doplnit tým** — skutečná fotografie, jména, role a souhlas členů. Sekce
+      `team` je vypnutá. `[imp:2]` `[owner:me]`
+- [ ] **Doplnit zákaznické citace** — použít pouze ověřené citace se souhlasem a
+      přiměřenou identifikací. `quotesVisible` zůstává vypnuté. `[imp:2]`
+      `[owner:me]`
+- [ ] **Potvrdit text služby čištění dlažby** — dřívější požadavek odkazoval na
+      „žlutě označený text“, ale barevný zdroj nebyl dostupný. Přesné znění lze
+      upravit v `/dev` → Služby. `[imp:2]` `[owner:me]`
 
-Klient chtěl smazat text, který byl v jeho dokumentu označen žlutě.
-Barvy jsme neměli k dispozici, takže text zůstal nezměněný:
-„Důkladné tlakové čištění dlažby, teras, chodníků a zámkové dlažby.
-Odstraníme zelený povlak, mech i zašlou špínu ze spár."
-→ Potřeba potvrdit, která část se má odstranit (sekce Služby v `/dev`).
+## Doporučené provozní posílení
 
-### Vybrané zakázky — reálná data
+- [ ] **Přidat trvalý distribuovaný rate limit** — současná ochrana přihlášení a
+      formuláře je best-effort limit v paměti jedné serverless instance. Pro vyšší
+      provoz nebo opakovaný abuse použít externí store/WAF. `[imp:3]` `[owner:me]`
+- [ ] **Nastavit monitoring formuláře a deploymentů** — upozornění na chyby
+      Resendu, neúspěšné Vercel buildy a opakované 4xx/5xx usnadní rychlou reakci.
+      `[imp:2]` `[owner:me]`
 
-Zakázky jsou zatím ukázkové (placeholder). Klient doplní telefonicky /
-v administraci reálné údaje — hlavně **fotky** nahradit reálnými.
-(Doba trvání byla dle přání odstraněna úplně.)
+## Dokončeno v repozitáři
 
-### Vypnuté sekce (lze zapnout v `/dev`)
-
-Reference (fotka, jméno/role, text) a čísla za sezónu jsou vypnuté, protože
-smyšlená čísla by u nové firmy uškodila. Zapnout, až budou reálná čísla za sezónu.
-
-### Doporučení — SEO
-
-Údaj se změnil (dřív bylo 24 měsíců) — změna je v sekci „Proč my".
-Starší znění FAQ a kontaktů je pro dokonalé SEO vhodné sladit s aktuálními
-texty (nemá vliv na to, co vidí návštěvník na stránce).
+- [x] Přestavět úvod na jeden konverzní hero s nabídkou, telefonem, lokalitou a
+      autentickým porovnáním před/po. `[owner:ai]`
+- [x] Odstranit scroll hijacking, duplicitní hero a nejrizikovější veřejné
+      placeholdery/tvrzení; ceny a zbývající obchodní formulace jsou výše výslovně
+      označené k potvrzení. `[owner:ai]`
+- [x] Zkrátit mobilní cestu bez skrytí zásadního obsahu a opravit navigaci,
+      focus, formulář a reduced-motion stavy. `[owner:ai]`
+- [x] Zabezpečit `/dev` serverovou session, same-origin kontrolou, validací
+      schématu, uploadů a souběžných publikací. `[owner:ai]`
+- [x] Optimalizovat média, odstranit externí fonty, vložit obsah do prvního HTML
+      a přidat robots, sitemap a strukturovaná data. `[owner:ai]`
+- [x] Přidat lint, unit/security/component testy, Playwright, axe, build gate a
+      CI. `[owner:ai]`
+- [x] Sladit README, administrátorský návod, design systém, validační záznam a
+      agentní instrukce se skutečnou implementací. `[owner:ai]`

@@ -1,30 +1,28 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  CSSProperties,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-} from "react";
+import type { CSSProperties, Dispatch, FormEvent, SetStateAction } from "react";
 import type { Content } from "../content";
-import {
-  defaultContent,
-  PREVIEW_DATA,
-  PREVIEW_FLAG,
-} from "../content";
-import {
-  SECTIONS,
-  labelFor,
-  MEDIA_KEYS,
-  isMediaArrayKey,
-  COLOR_KEYS,
-} from "./labels";
+import { defaultContent, PREVIEW_DATA, PREVIEW_FLAG } from "../content";
+import { SECTIONS, labelFor, MEDIA_KEYS, isMediaArrayKey, COLOR_KEYS } from "./labels";
 
-const ADMIN_PW = "fasada";
 const DRAFT_KEY = "uf_admin_draft";
-const UNLOCK_KEY = "uf_admin_unlocked";
 
 type Json = unknown;
 type Path = (string | number)[];
+
+const EMPTY_LIST_ITEM_TEMPLATES: Record<string, Json> = {
+  "services.tintCards": { title: "", desc: "" },
+  "process.methods": { title: "", desc: "" },
+  "whyUs.quotes": { text: "", name: "", meta: "" },
+  "stats.items": { value: "", label: "" },
+  "team.members": { name: "", role: "", exp: "", bio: "" },
+  "references.studies": {
+    type: "",
+    city: "",
+    facts: [{ label: "", value: "" }],
+    desc: "",
+    images: [],
+  },
+};
 
 /* ----------------------------- pomocné funkce ----------------------------- */
 
@@ -61,11 +59,8 @@ function extFromDataUrl(dataUrl: string): string {
     "image/png": "png",
     "image/jpeg": "jpg",
     "image/jpg": "jpg",
-    "image/gif": "gif",
-    "image/svg+xml": "svg",
     "video/webm": "webm",
     "video/mp4": "mp4",
-    "video/quicktime": "mov",
   };
   return map[mime] ?? "bin";
 }
@@ -163,13 +158,7 @@ function useNarrow(breakpoint = 860): boolean {
 }
 
 /** Výběr barvy: nativní color picker + hex hodnota vedle. */
-function ColorInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function ColorInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const valid = /^#[0-9a-fA-F]{6}$/.test(value);
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -194,16 +183,12 @@ function ColorInput({
         spellCheck={false}
         style={{ ...s.input, width: 110 }}
       />
-      {!valid && (
-        <span style={{ color: "#dc2626", fontSize: 12 }}>
-          Zadejte barvu jako #rrggbb
-        </span>
-      )}
+      {!valid && <span style={{ color: "#dc2626", fontSize: 12 }}>Zadejte barvu jako #rrggbb</span>}
     </div>
   );
 }
 
-function readFileAsDataUrl(file: File): Promise<string> {
+function readFileAsDataUrl(file: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const r = new FileReader();
     r.onload = () => resolve(r.result as string);
@@ -212,13 +197,27 @@ function readFileAsDataUrl(file: File): Promise<string> {
   });
 }
 
-function MediaInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+/** Photos are normalised in the browser so the admin stays within the
+ * serverless request limit without asking the client to use an image editor. */
+async function optimisePhoto(file: File): Promise<Blob> {
+  if (file.type === "image/webp") return file;
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, 1920 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+  canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Fotografii se nepodařilo zpracovat.");
+  context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  const blob = await new Promise<Blob | null>((resolve) =>
+    canvas.toBlob(resolve, "image/webp", 0.9),
+  );
+  if (!blob) throw new Error("Fotografii se nepodařilo zpracovat.");
+  return blob;
+}
+
+function MediaInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const ref = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -229,18 +228,29 @@ function MediaInput({
 
   async function pick(file?: File) {
     if (!file) return;
-    if (!file.type.startsWith("image/") && !file.type.startsWith("video/")) {
-      setError("Vyberte obrázek nebo video.");
+    const allowed = new Set(["image/jpeg", "image/png", "image/webp", "video/webm", "video/mp4"]);
+    if (!allowed.has(file.type)) {
+      setError("Vyberte JPG, PNG, WEBP, WEBM nebo MP4.");
       return;
     }
-    if (file.size > 4 * 1024 * 1024) {
-      setError("Soubor je větší než 4 MB. Před nahráním ho prosím zmenšete.");
+    if (file.size > 12 * 1024 * 1024) {
+      setError("Zdrojový soubor je větší než 12 MB.");
       return;
     }
     setError("");
     setBusy(true);
     try {
-      onChange(await readFileAsDataUrl(file));
+      const prepared = file.type.startsWith("image/") ? await optimisePhoto(file) : file;
+      if (prepared.size > 2_700_000) {
+        throw new Error(
+          file.type.startsWith("video/")
+            ? "Video je větší než 2,7 MB. Převeďte ho prosím na kratší WEBM."
+            : "Obrázek je i po optimalizaci větší než 2,7 MB.",
+        );
+      }
+      onChange(await readFileAsDataUrl(prepared));
+    } catch (caught) {
+      setError((caught as Error).message || "Soubor se nepodařilo zpracovat.");
     } finally {
       setBusy(false);
     }
@@ -249,9 +259,16 @@ function MediaInput({
   return (
     <div
       style={{ ...s.mediaWrap, ...(dragging ? s.mediaWrapDragging : null) }}
-      onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setDragging(true);
+      }}
       onDragLeave={() => setDragging(false)}
-      onDrop={(e) => { e.preventDefault(); setDragging(false); pick(e.dataTransfer.files?.[0]); }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setDragging(false);
+        pick(e.dataTransfer.files?.[0]);
+      }}
     >
       <div style={s.mediaPreview} onClick={() => ref.current?.click()}>
         {has ? (
@@ -281,8 +298,12 @@ function MediaInput({
         >
           {busy ? "Nahrávám…" : has ? "Nahradit soubor" : "Nahrát soubor"}
         </button>
-        <span style={s.mediaHint}>JPG, PNG, WEBP, WEBM nebo MP4 · maximálně 4 MB</span>
-        <span style={s.mediaMeta}>{isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}</span>
+        <span style={s.mediaHint}>
+          JPG a PNG automaticky převedeme do kvalitního WEBP · publikovaný soubor max. 2,7 MB
+        </span>
+        <span style={s.mediaMeta}>
+          {isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}
+        </span>
         {error && <span style={s.mediaError}>{error}</span>}
         <input
           ref={ref}
@@ -299,32 +320,49 @@ function MediaInput({
 /* ------------------------------- Admin app -------------------------------- */
 
 export default function Admin({ initialContent }: { initialContent: Content }) {
-  const [unlocked, setUnlocked] = useState(
-    () => sessionStorage.getItem(UNLOCK_KEY) === "1",
-  );
+  const [auth, setAuth] = useState<"loading" | "locked" | "unlocked">("loading");
+  const [baseCommitSha, setBaseCommitSha] = useState<string | null>(null);
   const [pw, setPw] = useState("");
-  const [pwError, setPwError] = useState(false);
+  const [pwError, setPwError] = useState("");
+  const [loginBusy, setLoginBusy] = useState(false);
   const narrow = useNarrow();
 
   const [content, setContent] = useState<Content>(() => {
     const draft = loadDraft(initialContent);
     return draft ?? clone(initialContent);
   });
+  const [publishedContent, setPublishedContent] = useState<Content>(() => clone(initialContent));
   const [status, setStatus] = useState<{ kind: "idle" | "ok" | "err" | "busy"; msg: string }>({
     kind: "idle",
     msg: "",
   });
+  const [draftWarning, setDraftWarning] = useState("");
   const [open, setOpen] = useState<string>(SECTIONS[0].key);
   const [sectionQuery, setSectionQuery] = useState("");
 
   const dirty = useMemo(
-    () => JSON.stringify(content) !== JSON.stringify(initialContent),
-    [content, initialContent],
+    () => JSON.stringify(content) !== JSON.stringify(publishedContent),
+    [content, publishedContent],
   );
   const visibleSections = useMemo(
-    () => SECTIONS.filter((sec) => `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase())),
+    () =>
+      SECTIONS.filter((sec) =>
+        `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase()),
+      ),
     [sectionQuery],
   );
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      const stored = saveDraft(content);
+      setDraftWarning(
+        stored
+          ? ""
+          : "Koncept se nevejde do úložiště prohlížeče. Změny zůstanou v tomto okně, ale po jeho zavření se mohou ztratit. Publikujte je nebo si stáhněte zálohu.",
+      );
+    }, 0);
+    return () => window.clearTimeout(timeout);
+  }, [content]);
 
   function apply(path: Path, value: Json) {
     setContent((c) => {
@@ -335,42 +373,93 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     setStatus({ kind: "idle", msg: "" });
   }
 
-  function unlock(e: FormEvent) {
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/admin/session", { credentials: "same-origin" })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (cancelled) return;
+        if (response.ok && data.authenticated) {
+          setBaseCommitSha(data.baseCommitSha || null);
+          setAuth("unlocked");
+        } else {
+          setAuth("locked");
+        }
+      })
+      .catch(() => !cancelled && setAuth("locked"));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function unlock(e: FormEvent) {
     e.preventDefault();
-    // Tolerujeme mezery/nové řádky navíc (časté při kopírování hesla).
-    if (pw.trim() === ADMIN_PW) {
-      sessionStorage.setItem(UNLOCK_KEY, "1");
-      setUnlocked(true);
-      setPwError(false);
-    } else {
-      setPwError(true);
+    setLoginBusy(true);
+    setPwError("");
+    try {
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw.trim() }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Přihlášení selhalo.");
+      setBaseCommitSha(data.baseCommitSha || null);
+      setPw("");
+      setAuth("unlocked");
+    } catch (error) {
+      setPwError((error as Error).message);
+    } finally {
+      setLoginBusy(false);
     }
   }
 
+  async function logout() {
+    await fetch("/api/admin/logout", {
+      method: "POST",
+      credentials: "same-origin",
+    }).catch(() => undefined);
+    setAuth("locked");
+    setBaseCommitSha(null);
+  }
+
   async function publish() {
+    if (!baseCommitSha) {
+      setStatus({
+        kind: "err",
+        msg: "Nelze ověřit publikovanou verzi. Obnovte stránku a přihlaste se znovu.",
+      });
+      return;
+    }
     setStatus({ kind: "busy", msg: "Ukládám a publikuji…" });
     const uploads: { path: string; dataUrl: string }[] = [];
     const out = externalizeMedia(clone(content), uploads) as Content;
     try {
       const res = await fetch("/api/save", {
         method: "POST",
+        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pw.trim() || ADMIN_PW, content: out, uploads }),
+        body: JSON.stringify({ baseCommitSha, content: out, uploads }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        throw new Error(data?.error || `Chyba serveru (${res.status})`);
+        const details = Array.isArray(data?.details) ? ` ${data.details.join(" ")}` : "";
+        throw new Error((data?.error || `Chyba serveru (${res.status})`) + details);
       }
       // Po publikaci pracujeme dál s cestami místo data URL a koncept se
       // váže k právě publikované verzi.
       draftBase = fingerprint(out);
       setContent(out);
+      setPublishedContent(clone(out));
+      setBaseCommitSha(data.commit);
       saveDraft(out);
       setStatus({
         kind: "ok",
         msg: "Uloženo. Web se během cca 1–2 minut sám aktualizuje.",
       });
     } catch (err) {
+      if ((err as Error).message.includes("Přihlášení vypršelo")) setAuth("locked");
       setStatus({
         kind: "err",
         msg:
@@ -395,29 +484,47 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
   function discard() {
     if (!confirm("Zahodit všechny neuložené změny a vrátit se k publikované verzi?")) return;
-    const base = clone(initialContent);
+    const base = clone(publishedContent);
     setContent(base);
     saveDraft(base);
     setStatus({ kind: "idle", msg: "" });
   }
 
   function resetOriginal() {
-    if (!confirm("Obnovit VŠECHNY texty i fotky na původní (tovární) obsah? Změny se projeví až po publikaci.")) return;
+    if (
+      !confirm(
+        "Obnovit VŠECHNY texty i fotky na původní (tovární) obsah? Změny se projeví až po publikaci.",
+      )
+    )
+      return;
     const base = clone(defaultContent);
     setContent(base);
     saveDraft(base);
     setStatus({ kind: "idle", msg: "" });
   }
 
-  if (!unlocked) {
+  if (auth === "loading") {
+    return (
+      <div style={s.gateWrap} role="status" aria-live="polite">
+        <div style={s.gateCard}>
+          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+          <h1 style={{ fontSize: 22, margin: 0 }}>Ověřuji přihlášení…</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (auth === "locked") {
     return (
       <div style={s.gateWrap}>
         <form onSubmit={unlock} style={s.gateCard}>
+          <span style={s.adminEyebrow}>UMYJEME FASÁDU</span>
           <h1 style={{ fontSize: 22, margin: 0 }}>Administrace webu</h1>
           <p style={{ color: "#64748b", fontSize: 14, margin: 0 }}>
             Zadejte heslo pro úpravu obsahu.
           </p>
           <input
+            aria-label="Heslo do administrace"
             type="password"
             value={pw}
             autoFocus
@@ -426,10 +533,12 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
             style={s.input}
           />
           {pwError && (
-            <span style={{ color: "#dc2626", fontSize: 13 }}>Nesprávné heslo.</span>
+            <span role="alert" style={{ color: "#b42318", fontSize: 13 }}>
+              {pwError}
+            </span>
           )}
-          <button type="submit" style={s.btnPrimary}>
-            Vstoupit
+          <button type="submit" style={s.btnPrimary} disabled={loginBusy}>
+            {loginBusy ? "Ověřuji…" : "Vstoupit"}
           </button>
         </form>
       </div>
@@ -442,16 +551,16 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         <div style={s.brandBlock}>
           <span style={s.brandMark}>UF</span>
           <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
-          <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
-            style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
-          >
-            Zobrazit web ↗
-          </a>
+            <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+            <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
+            <a
+              href="/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
+            >
+              Zobrazit web ↗
+            </a>
           </div>
         </div>
         <div style={s.actions}>
@@ -471,6 +580,9 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
           <button type="button" style={s.btnGhost} onClick={discard} disabled={!dirty}>
             Zahodit změny
           </button>
+          <button type="button" style={s.btnGhost} onClick={logout}>
+            Odhlásit
+          </button>
           <button
             type="button"
             style={s.btnPrimary}
@@ -484,15 +596,21 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
       {status.msg && (
         <div
+          role={status.kind === "err" ? "alert" : "status"}
           style={{
             ...s.banner,
             background:
               status.kind === "ok" ? "#052e16" : status.kind === "err" ? "#450a0a" : "#0c1a2e",
-            color:
-              status.kind === "ok" ? "#86efac" : status.kind === "err" ? "#fca5a5" : "#93c5fd",
+            color: status.kind === "ok" ? "#86efac" : status.kind === "err" ? "#fca5a5" : "#93c5fd",
           }}
         >
           {status.msg}
+        </div>
+      )}
+
+      {draftWarning && (
+        <div role="alert" style={{ ...s.banner, background: "#422006", color: "#fde68a" }}>
+          {draftWarning}
         </div>
       )}
 
@@ -542,9 +660,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
               <span style={s.sectionEyebrow}>UPRAVUJETE SEKCI</span>
               <h2 style={s.sectionTitle}>{sec.title}</h2>
               {sec.help && (
-                <p style={{ color: "#64748b", fontSize: 13, margin: "0 0 20px" }}>
-                  {sec.help}
-                </p>
+                <p style={{ color: "#64748b", fontSize: 13, margin: "0 0 20px" }}>{sec.help}</p>
               )}
               {renderObject(
                 (content as unknown as Record<string, Json>)[sec.key],
@@ -616,12 +732,7 @@ function renderNode(
       rows={Math.min(8, Math.max(2, Math.ceil(str.length / 60)))}
     />
   ) : (
-    <input
-      type="text"
-      value={str}
-      onChange={(e) => apply(path, e.target.value)}
-      style={s.input}
-    />
+    <input type="text" value={str} onChange={(e) => apply(path, e.target.value)} style={s.input} />
   );
 }
 
@@ -671,6 +782,25 @@ function getIn(root: Json, path: Path): Json {
   return path.reduce<Json>((acc, k) => (acc as Record<string, Json>)?.[k as string], root);
 }
 
+export function listItemTemplate(path: Path): Json | undefined {
+  const name = path.filter((part): part is string => typeof part === "string").join(".");
+  if (Object.prototype.hasOwnProperty.call(EMPTY_LIST_ITEM_TEMPLATES, name)) {
+    return clone(EMPTY_LIST_ITEM_TEMPLATES[name]);
+  }
+
+  let node: Json = defaultContent;
+  for (const part of path) {
+    if (Array.isArray(node) && typeof part === "number") {
+      node = node[0];
+    } else if (node && typeof node === "object") {
+      node = (node as Record<string, Json>)[part as string];
+    } else {
+      return undefined;
+    }
+  }
+  return Array.isArray(node) && node.length > 0 ? clone(node[0]) : undefined;
+}
+
 function renderArray(
   value: Json[],
   path: Path,
@@ -679,7 +809,10 @@ function renderArray(
   setContent: SetContent,
   saveDraft: SaveDraft,
 ): JSX.Element {
-  const isObjectList = value.some((v) => v && typeof v === "object");
+  const emptyTemplate = listItemTemplate(path);
+  const isObjectList =
+    value.some((v) => v && typeof v === "object") ||
+    Boolean(emptyTemplate && typeof emptyTemplate === "object");
   const mediaList = isMediaArrayKey(keyName);
 
   function mutate(fn: (arr: Json[]) => Json[]) {
@@ -693,8 +826,7 @@ function renderArray(
 
   function addItem() {
     mutate((arr) => {
-      const template =
-        arr.length > 0 ? clone(arr[arr.length - 1]) : isObjectList ? {} : "";
+      const template = arr.length > 0 ? clone(arr[arr.length - 1]) : clone(emptyTemplate ?? "");
       return [...arr, template];
     });
   }
@@ -704,9 +836,7 @@ function renderArray(
       {value.map((item, i) => (
         <div key={i} style={s.arrayItem}>
           <div style={s.arrayItemHead}>
-            <span style={s.arrayItemTitle}>
-              {isObjectList ? `Položka ${i + 1}` : ""}
-            </span>
+            <span style={s.arrayItemTitle}>{isObjectList ? `Položka ${i + 1}` : ""}</span>
             <div style={{ display: "flex", gap: 4 }}>
               <button
                 type="button"
@@ -743,7 +873,14 @@ function renderArray(
               onChange={(v) => apply([...path, i], v)}
             />
           ) : (
-            renderNode(item, [...path, i], keyName === "images" ? "" : keyName, apply, setContent, saveDraft)
+            renderNode(
+              item,
+              [...path, i],
+              keyName === "images" ? "" : keyName,
+              apply,
+              setContent,
+              saveDraft,
+            )
           )}
         </div>
       ))}
@@ -761,7 +898,8 @@ const s: Record<string, CSSProperties> = {
     minHeight: "100vh",
     display: "grid",
     placeItems: "center",
-    background: "radial-gradient(circle at 20% 10%, rgba(27,165,224,.18), transparent 35%), #101820",
+    background:
+      "radial-gradient(circle at 20% 10%, rgba(27,165,224,.18), transparent 35%), #101820",
     padding: 20,
     fontFamily: "Inter, system-ui, sans-serif",
   },
@@ -810,9 +948,21 @@ const s: Record<string, CSSProperties> = {
     fontWeight: 800,
     fontSize: 14,
   },
-  adminEyebrow: { color: "#1ba5e0", fontSize: 10, letterSpacing: ".14em", fontFamily: "Fragment Mono, monospace" },
+  adminEyebrow: {
+    color: "#1ba5e0",
+    fontSize: 10,
+    letterSpacing: ".14em",
+    fontFamily: "Fragment Mono, monospace",
+  },
   actions: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" },
-  dirtyBadge: { padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,.08)", color: "#94a3b8", fontSize: 11, fontWeight: 700 },
+  dirtyBadge: {
+    padding: "6px 10px",
+    borderRadius: 999,
+    background: "rgba(255,255,255,.08)",
+    color: "#94a3b8",
+    fontSize: 11,
+    fontWeight: 700,
+  },
   dirtyBadgeActive: { background: "rgba(230,0,126,.15)", color: "#ff7fc5" },
   banner: { padding: "10px 20px", fontSize: 14 },
   body: { display: "flex", alignItems: "flex-start", gap: 0 },
@@ -868,11 +1018,30 @@ const s: Record<string, CSSProperties> = {
     background: "#fff",
     marginTop: 0,
   },
-  navItemActive: { background: "#101820", color: "#fff", fontWeight: 700, boxShadow: "0 7px 18px rgba(16,24,32,.13)" },
-  navNumber: { fontFamily: "Fragment Mono, monospace", fontSize: 10, color: "#1ba5e0", minWidth: 18 },
+  navItemActive: {
+    background: "#101820",
+    color: "#fff",
+    fontWeight: 700,
+    boxShadow: "0 7px 18px rgba(16,24,32,.13)",
+  },
+  navNumber: {
+    fontFamily: "Fragment Mono, monospace",
+    fontSize: 10,
+    color: "#1ba5e0",
+    minWidth: 18,
+  },
   searchWrap: { position: "relative", marginBottom: 8 },
   searchIcon: { position: "absolute", left: 12, top: 8, color: "#80909d", fontSize: 18 },
-  searchInput: { width: "100%", boxSizing: "border-box", border: "1px solid #d6e0e6", borderRadius: 10, padding: "10px 12px 10px 34px", background: "#fff", fontSize: 13, outline: "none" },
+  searchInput: {
+    width: "100%",
+    boxSizing: "border-box",
+    border: "1px solid #d6e0e6",
+    borderRadius: 10,
+    padding: "10px 12px 10px 34px",
+    background: "#fff",
+    fontSize: 13,
+    outline: "none",
+  },
   navReset: {
     marginTop: 14,
     textAlign: "left",
@@ -891,8 +1060,19 @@ const s: Record<string, CSSProperties> = {
     maxWidth: 900,
   },
   mainNarrow: { padding: "20px 16px 80px", maxWidth: "none" },
-  sectionEyebrow: { color: "#1488c4", fontFamily: "Fragment Mono, monospace", fontSize: 11, letterSpacing: ".12em" },
-  sectionTitle: { fontFamily: "Space Grotesk, Inter, sans-serif", fontSize: 30, lineHeight: 1.1, margin: "8px 0 6px", letterSpacing: "-0.03em" },
+  sectionEyebrow: {
+    color: "#1488c4",
+    fontFamily: "Fragment Mono, monospace",
+    fontSize: 11,
+    letterSpacing: ".12em",
+  },
+  sectionTitle: {
+    fontFamily: "Space Grotesk, Inter, sans-serif",
+    fontSize: 30,
+    lineHeight: 1.1,
+    margin: "8px 0 6px",
+    letterSpacing: "-0.03em",
+  },
   fieldBlock: { display: "flex", flexDirection: "column", gap: 7, padding: "2px 0" },
   groupBlock: {
     display: "flex",
@@ -991,7 +1171,17 @@ const s: Record<string, CSSProperties> = {
     cursor: "pointer",
     whiteSpace: "nowrap",
   },
-  mediaWrap: { display: "grid", gridTemplateColumns: "minmax(180px, 260px) minmax(0,1fr)", gap: 16, alignItems: "center", padding: 12, borderRadius: 12, border: "1px dashed #c4d0d8", background: "#f8fbfc", transition: "border-color .2s, background .2s" },
+  mediaWrap: {
+    display: "grid",
+    gridTemplateColumns: "minmax(180px, 260px) minmax(0,1fr)",
+    gap: 16,
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 12,
+    border: "1px dashed #c4d0d8",
+    background: "#f8fbfc",
+    transition: "border-color .2s, background .2s",
+  },
   mediaWrapDragging: { borderColor: "#1ba5e0", background: "#eaf7fd" },
   mediaPreview: {
     width: "100%",

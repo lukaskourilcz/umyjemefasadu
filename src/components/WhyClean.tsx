@@ -83,58 +83,73 @@ export default function WhyClean() {
             })}
           </ul>
 
-          <figure className="relative m-0 mt-2 aspect-[21/9] overflow-hidden rounded-[14px] border fade-up lg:col-span-2" style={{ borderColor: "var(--color-eucalyptus)" }}>
-            <img src={image} alt={imageAlt} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
-            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }} />
-            <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">{imageLabel}</figcaption>
+          <figure
+            className="relative m-0 mt-2 aspect-[21/9] overflow-hidden rounded-[14px] border fade-up lg:col-span-2"
+            style={{ borderColor: "var(--color-eucalyptus)" }}
+          >
+            <img
+              src={image}
+              alt={imageAlt}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-20"
+              style={{ background: "linear-gradient(0deg,rgba(16,24,32,.62),rgba(16,24,32,0))" }}
+            />
+            <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">
+              {imageLabel}
+            </figcaption>
           </figure>
         </div>
 
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
             vpravo přínosy jako odškrtnutý seznam. */}
         <MobileDisclosure label="Jak chráníme fasádu proti vodě">
-        <div
-          className="mt-16 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
-          style={{
-            borderColor: "var(--color-eucalyptus)",
-            backgroundColor: "var(--color-sage-mist)",
-          }}
-        >
-          <div>
-            <h3
-              className="text-botanical-ink"
-              style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
-            >
-              {protectionTitle}
-            </h3>
-            <p className="mt-3 max-w-[52ch] text-botanical-ink/80" style={TEXT.body}>
-              {protectionIntro}
-            </p>
-            <p
-              className="mt-5 max-w-[52ch] text-botanical-ink/65"
-              style={{ fontSize: "14px", lineHeight: 1.6 }}
-            >
-              {protectionHow}
-            </p>
-          </div>
-          <ul className="flex flex-col justify-center gap-3.5 md:border-l md:pl-10"
-            style={{ borderColor: "var(--color-eucalyptus)" }}
+          <div
+            className="mt-16 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
+            style={{
+              borderColor: "var(--color-eucalyptus)",
+              backgroundColor: "var(--color-sage-mist)",
+            }}
           >
-            {protectionBullets.map((b, i) => (
-              <li key={i} className="flex items-start gap-2.5">
-                <span className="mt-1 shrink-0">
-                  <CheckIcon size={16} color="var(--color-forest-floor)" />
-                </span>
-                <span
-                  className="text-botanical-ink/85"
-                  style={{ fontSize: "15px", lineHeight: 1.55 }}
-                >
-                  {b}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <div>
+              <h3
+                className="text-botanical-ink"
+                style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
+              >
+                {protectionTitle}
+              </h3>
+              <p className="mt-3 max-w-[52ch] text-botanical-ink/80" style={TEXT.body}>
+                {protectionIntro}
+              </p>
+              <p
+                className="mt-5 max-w-[52ch] text-botanical-ink/65"
+                style={{ fontSize: "14px", lineHeight: 1.6 }}
+              >
+                {protectionHow}
+              </p>
+            </div>
+            <ul
+              className="flex flex-col justify-center gap-3.5 md:border-l md:pl-10"
+              style={{ borderColor: "var(--color-eucalyptus)" }}
+            >
+              {protectionBullets.map((b, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="mt-1 shrink-0">
+                    <CheckIcon size={16} color="var(--color-forest-floor)" />
+                  </span>
+                  <span
+                    className="text-botanical-ink/85"
+                    style={{ fontSize: "15px", lineHeight: 1.55 }}
+                  >
+                    {b}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </MobileDisclosure>
       </div>
     </section>

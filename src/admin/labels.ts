@@ -6,20 +6,67 @@
 
 /** Pořadí a názvy hlavních sekcí v administraci. */
 export const SECTIONS: { key: string; title: string; help?: string }[] = [
-  { key: "business", title: "Firma a kontaktní údaje", help: "Název firmy, sídlo, IČO, telefon, e-mail a otevírací doba. Používají se v celém webu." },
-  { key: "theme", title: "Vzhled — barvy webu", help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci." },
+  {
+    key: "business",
+    title: "Firma a kontaktní údaje",
+    help: "Název firmy, sídlo, IČO, telefon, e-mail a otevírací doba. Používají se v celém webu.",
+  },
+  {
+    key: "theme",
+    title: "Vzhled — barvy webu",
+    help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci.",
+  },
   { key: "nav", title: "Horní menu", help: "Odkazy v horní liště a text hlavního tlačítka." },
-  { key: "revealHero", title: "Úvod — fotka před / po", help: "Velká úvodní fotka s odhalením a nadpisem." },
-  { key: "hero", title: "Úvod — sekce s videi", help: "Nadpis, text, tlačítka a koláž videí/gifů." },
-  { key: "trustStrip", title: "Pruh důvěry", help: "Krátké body pod úvodem (pojištění, ekologie…)." },
-  { key: "whyClean", title: "Proč čistit fasádu", help: "Edukační sekce, ochrana proti vodě a široká fotografie výsledku." },
-  { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika a doporučené řešení s výzvou k bezplatné prohlídce." },
-  { key: "services", title: "Služby", help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty." },
-  { key: "process", title: "Postup čištění", help: "Kroky postupu a malé doprovodné video vedle časové osy." },
-  { key: "whyUs", title: "Proč my + reference", help: "Body proč my, záruka a rotující reference zákazníků." },
-  { key: "stats", title: "Čísla / statistiky", help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla." },
-  { key: "team", title: "Náš tým", help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text." },
-  { key: "references", title: "Vybrané zakázky", help: "Konkrétní zakázky s fotkami a údaji." },
+  {
+    key: "revealHero",
+    title: "Úvod — fotografie před / po",
+    help: "Dvě skutečné fotografie hlavního porovnání a text tlačítka.",
+  },
+  {
+    key: "hero",
+    title: "Úvod — nabídka",
+    help: "Hlavní nadpis, krátké vysvětlení služby a malý popisek nad nadpisem. Pole videí se v současném designu nepoužívá.",
+  },
+  {
+    key: "trustStrip",
+    title: "Pruh důvěry",
+    help: "Čtyři krátké, fakticky ověřené body pod úvodem.",
+  },
+  {
+    key: "services",
+    title: "Služby",
+    help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty.",
+  },
+  {
+    key: "process",
+    title: "Postup čištění",
+    help: "Kroky postupu a malé doprovodné video vedle časové osy.",
+  },
+  {
+    key: "fieldWork",
+    title: "Přímo z akce",
+    help: "Fotografie a krátká videa z reálné práce. Soubory lze nahradit, položky seřadit nebo smazat.",
+  },
+  {
+    key: "whyUs",
+    title: "Proč my + reference",
+    help: "Body proč my a zákaznické citace. Citace lze zapnout až po potvrzení jejich pravosti a souhlasu s publikací.",
+  },
+  {
+    key: "stats",
+    title: "Čísla / statistiky",
+    help: "Čísla v pruhu (m², zakázky…). Zapnout je lze až po doplnění a potvrzení reálných hodnot.",
+  },
+  {
+    key: "team",
+    title: "Náš tým",
+    help: "Fotka týmu a členové. Zapnout lze až po doplnění a potvrzení reálných profilů a souhlasů.",
+  },
+  {
+    key: "references",
+    title: "Vybrané zakázky",
+    help: "Zapnout lze až po doplnění a potvrzení skutečných lokalit, rozsahu, fotografií a souhlasu s publikací.",
+  },
   { key: "pricing", title: "Ceník", help: "Orientační ceník a poznámky." },
   { key: "orderProcess", title: "Jak objednat", help: "Kroky od poptávky k nabídce." },
   { key: "faq", title: "Časté dotazy", help: "Otázky a odpovědi." },
@@ -112,6 +159,7 @@ export const LABELS: Record<string, string> = {
   guaranteeUnit: "Záruka — jednotka",
   guaranteeTitle: "Záruka — nadpis",
   guaranteeDesc: "Záruka — popis",
+  guaranteeVerified: "Potvrzuji doložené záruční podmínky",
   // patička
   legalLine: "Právní řádek (IČO, adresa…)",
   privacyLabel: "Odkaz na ochranu údajů",
@@ -137,6 +185,8 @@ export const LABELS: Record<string, string> = {
 // nové sekce + přepínač viditelnosti
 LABELS.visible = "Zobrazit sekci na webu";
 LABELS.quotesVisible = "Zobrazit reference na webu";
+LABELS.verified = "Potvrzuji pravost údajů a souhlas s publikací";
+LABELS.quotesVerified = "Potvrzuji pravost citací a souhlas s publikací";
 // vzhled
 LABELS.primary = "Hlavní barva (tlačítka, výzvy)";
 LABELS.secondary = "Doplňková barva (ikony, akcenty)";
@@ -171,6 +221,7 @@ export const MEDIA_KEYS = new Set([
   "afterImage",
   "src",
   "video",
+  "sideVideo",
 ]);
 
 /** Je pole (string[]) seznam médií? (podle názvu klíče) */

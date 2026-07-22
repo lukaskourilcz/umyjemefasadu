@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
@@ -13,15 +13,33 @@ const isVideo = (src: string) => /\.(webm|mp4|m4v|mov)(\?|$)/i.test(src);
 const stripInset = "max(24px, calc((100vw - var(--page-max)) / 2))";
 
 function Tile({ item }: { item: Item }) {
+  const figureRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
   const video = isVideo(item.src);
+  const [mediaReady, setMediaReady] = useState(false);
+  const imageSrc =
+    reduced && item.src.endsWith("tlakove-myti-akce.webp") ? "/media/pic14.webp" : item.src;
 
-  // Klipy hrají jen na obrazovce (a nikdy pod reduced-motion) — stejný
-  // přístup jako dlaždice v Hero: metadata stačí na úvodní snímek.
+  useEffect(() => {
+    const element = figureRef.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setMediaReady(true);
+        observer.disconnect();
+      },
+      { rootMargin: "200px" },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  // Klipy hrají jen na obrazovce (a nikdy pod reduced-motion).
   useEffect(() => {
     const el = videoRef.current;
-    if (!el || reduced) return;
+    if (!el || reduced || !mediaReady) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) el.play().catch(() => {});
@@ -31,17 +49,18 @@ function Tile({ item }: { item: Item }) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [reduced]);
+  }, [mediaReady, reduced]);
 
   return (
     <figure
-      className="card-hover relative m-0 h-[340px] shrink-0 snap-start overflow-hidden rounded-[14px] border md:h-[430px]"
+      ref={figureRef}
+      className="card-hover relative m-0 h-[340px] w-[260px] shrink-0 snap-start overflow-hidden rounded-[14px] border md:h-[430px] md:w-[330px]"
       style={{
         borderColor: "var(--color-eucalyptus)",
         backgroundColor: "var(--color-sage-mist)",
       }}
     >
-      {video ? (
+      {mediaReady && video ? (
         <video
           ref={videoRef}
           src={item.src}
@@ -50,16 +69,20 @@ function Tile({ item }: { item: Item }) {
           muted
           playsInline
           preload="metadata"
-          className="h-full w-auto object-cover"
+          className="h-full w-full object-cover"
         />
-      ) : (
+      ) : mediaReady ? (
         <img
-          src={item.src}
+          src={imageSrc}
           alt={item.alt}
           loading="lazy"
           draggable={false}
-          className="h-full w-auto object-cover"
+          width="600"
+          height="800"
+          className="h-full w-full object-cover"
         />
+      ) : (
+        <div aria-hidden="true" className="h-full w-full bg-surface" />
       )}
 
       {/* Scrim + mono popisek, komponované do fotky jako u referencí. */}
@@ -67,8 +90,7 @@ function Tile({ item }: { item: Item }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
         style={{
-          background:
-            "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
+          background: "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
         }}
       />
       <figcaption
@@ -104,6 +126,8 @@ export default function FieldWork() {
       </div>
 
       <div
+        tabIndex={0}
+        aria-label="Fotografie a videa z realizací, posouvatelná vodorovně"
         className="fade-up mt-12 overflow-x-auto pb-3 md:mt-14"
         style={{
           scrollSnapType: "x proximity",

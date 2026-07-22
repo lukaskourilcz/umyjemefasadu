@@ -2,11 +2,26 @@
 
 /*
   Umyjeme Fasádu design tokens (Tailwind v4 theme).
-  Body: Inter. Display (headings): Space Grotesk. Mono: Fragment Mono.
+  Typography uses a fast, system-native sans stack and a system mono stack.
   Note: color token names (botanical-ink, moss-veil, ...) are legacy names
   from the original theme; the values are the current brand palette.
 */
 @theme {
+  /* Canonical semantic palette. New component code must use these names. */
+  --color-action: #d80076;
+  --color-action-hover: #b80064;
+  --color-accent: #087eaf;
+  --color-text: #101820;
+  --color-text-muted: #4b5a64;
+  --color-text-inverse: #fbfdfe;
+  --color-canvas: #fbfdfe;
+  --color-surface: #eef4f8;
+  --color-surface-strong: #101820;
+  --color-border: #cbd6dd;
+  --color-border-subtle: #e2e9ee;
+  --color-error: #b42318;
+  --color-success: #067647;
+
   /*
     Rebrand palette - Adaline structure (cream canvas, hairline borders,
     20px radii, near-zero elevation) recolored toward the brand logo's
@@ -18,19 +33,18 @@
   --color-warm-loam: #e6007e; /* PRIMARY ACTION - magenta, the brand CTA */
   --color-magenta-deep: #c10068; /* primary action hover */
   --color-forest-floor: #1ba5e0; /* secondary accent - cyan (water) */
-  --color-cyan-deep: #1488c4;
+  --color-cyan-deep: #0b668f;
   --color-sage-mist: #eef4f8; /* surface 1 - cool mist banding */
   --color-lichen: #e2e9ee; /* surface 2 */
   --color-moss-veil: #d7eefb; /* tag / highlight - soft cyan fill */
   --color-eucalyptus: #c4d0d8; /* surface 4 - decorative borders */
 
   /* Typography - families */
-  --font-akkurat: "Inter", ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui,
-    sans-serif;
-  --font-fragment-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
+  --font-akkurat:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", sans-serif;
+  --font-display:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", sans-serif;
+  --font-fragment-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Typography - fluid scale (only the steps the component layer uses) */
   --text-body-sm: 14px;
@@ -54,6 +68,9 @@
 @layer base {
   :root {
     --page-max: 1200px;
+    --content-max: 760px;
+    --section-space: clamp(64px, 8vw, 112px);
+    --focus-ring: 3px solid var(--color-accent);
   }
 
   html {
@@ -92,8 +109,8 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-forest-floor);
-    outline-offset: 2px;
+    outline: var(--focus-ring);
+    outline-offset: 3px;
     border-radius: 4px;
   }
 }
@@ -178,7 +195,9 @@
     line-height: 1;
     border: 1px solid transparent;
     cursor: pointer;
-    transition: background-color 0.25s ease, transform 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
   }
   .btn-primary:hover {
     background-color: var(--color-magenta-deep);
@@ -201,7 +220,9 @@
     font-weight: 700;
     line-height: 1;
     cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
   }
   .btn-ghost:hover {
     background-color: var(--color-botanical-ink);
@@ -211,7 +232,9 @@
   /* Quiet card hover - hairline warms to the water accent, the single
      permitted ring fades in. Applied to photo/reference cards. */
   .card-hover {
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
   .card-hover:hover {
     border-color: var(--color-forest-floor);
@@ -232,6 +255,29 @@
   .input-dark::placeholder {
     color: rgba(251, 253, 254, 0.4);
   }
+
+  .comparison-range {
+    min-height: 44px;
+    accent-color: var(--color-action);
+    cursor: ew-resize;
+  }
+
+  .comparison-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--color-border);
+  }
+
+  .comparison-range::-webkit-slider-thumb {
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+    border: 3px solid var(--color-canvas);
+    border-radius: 50%;
+    background: var(--color-action);
+    box-shadow: 0 0 0 1px var(--color-border);
+    -webkit-appearance: none;
+  }
 }
 
 @layer base {
@@ -243,7 +289,9 @@
   details::details-content {
     block-size: 0;
     overflow-y: clip;
-    transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+    transition:
+      block-size 0.35s ease,
+      content-visibility 0.35s allow-discrete;
   }
   details[open]::details-content {
     block-size: auto;
@@ -259,7 +307,9 @@
   .fade-up {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
   }
   .fade-up.in-view {
     opacity: 1;

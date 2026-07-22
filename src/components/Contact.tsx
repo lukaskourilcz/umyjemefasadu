@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { CheckIcon } from "./icons";
 import { useContent, phoneHref, emailHref } from "../content";
 
 type Status = "idle" | "sending" | "sent" | "error";
+type Errors = Partial<Record<"name" | "phone", string>>;
 
 function buildMailto(data: FormData, email: string, subject: string) {
   const body = [
@@ -25,18 +26,37 @@ export default function Contact() {
   const emailLink = emailHref(business.email);
   const phoneLink = phoneHref(business.phone);
   const [status, setStatus] = useState<Status>("idle");
+  const [errors, setErrors] = useState<Errors>({});
+  const sentRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (status === "sent") sentRef.current?.focus();
+  }, [status]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+    const nextErrors: Errors = {};
+    const name = String(data.get("name") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
+
+    if (name.length < 2) nextErrors.name = "Napište prosím své jméno.";
+    if (phone.replace(/\D/g, "").length < 9) {
+      nextErrors.phone = "Zadejte prosím platné telefonní číslo.";
+    }
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) {
+      window.requestAnimationFrame(() =>
+        (nextErrors.name ? nameRef.current : phoneRef.current)?.focus(),
+      );
+      return;
+    }
 
     if (!FORM_ENDPOINT) {
-      window.location.href = buildMailto(
-        data,
-        business.email,
-        contact.mailtoSubject,
-      );
+      window.location.href = buildMailto(data, business.email, contact.mailtoSubject);
       return;
     }
 
@@ -96,9 +116,7 @@ export default function Contact() {
               </ul>
 
               <div className="mt-7">
-                <span className="micro-label text-cream-paper/50">
-                  {contact.areasLabel}
-                </span>
+                <span className="micro-label text-cream-paper/50">{contact.areasLabel}</span>
                 <p
                   className="font-fragment-mono mt-2 text-cream-paper/80"
                   style={{ fontSize: "14px", letterSpacing: "0.02em" }}
@@ -109,9 +127,7 @@ export default function Contact() {
 
               <div className="mt-9 flex flex-col gap-4">
                 <a href={phoneLink} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">
-                    {contact.phoneLabel}
-                  </span>
+                  <span className="micro-label text-cream-paper/50">{contact.phoneLabel}</span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(20px, 3vw, 26px)" }}
@@ -126,9 +142,7 @@ export default function Contact() {
                   </span>
                 </a>
                 <a href={emailLink} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">
-                    {contact.emailLabel}
-                  </span>
+                  <span className="micro-label text-cream-paper/50">{contact.emailLabel}</span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(17px, 2.4vw, 22px)" }}
@@ -140,12 +154,14 @@ export default function Contact() {
             </div>
 
             {status === "sent" ? (
-              <div className="flex flex-col items-start justify-center gap-4">
+              <div
+                ref={sentRef}
+                role="status"
+                tabIndex={-1}
+                className="flex flex-col items-start justify-center gap-4 outline-none"
+              >
                 <CheckIcon size={32} color="var(--color-forest-floor)" />
-                <h3
-                  className="text-cream-paper"
-                  style={{ fontSize: "24px", fontWeight: 700 }}
-                >
+                <h3 className="text-cream-paper" style={{ fontSize: "24px", fontWeight: 700 }}>
                   {contact.sentTitle}
                 </h3>
                 <p
@@ -159,44 +175,80 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-                <label className="sr-only" aria-hidden="true">
-                  Web
-                  <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-                </label>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={onSubmit}
+                noValidate
+                aria-busy={status === "sending"}
+              >
+                <p className="sr-only" role="status" aria-live="polite">
+                  {status === "sending" ? contact.formSending : ""}
+                </p>
+                <div hidden aria-hidden="true">
+                  <label htmlFor="contact-website">Web</label>
+                  <input
+                    id="contact-website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <label className="flex flex-col gap-1.5">
-                    <span className="micro-label text-cream-paper/60">
-                      {contact.formNameLabel}
-                    </span>
+                  <label htmlFor="contact-name" className="flex flex-col gap-1.5">
+                    <span className="micro-label text-cream-paper/60">{contact.formNameLabel}</span>
                     <input
+                      ref={nameRef}
+                      id="contact-name"
                       type="text"
                       name="name"
-                      required
                       autoComplete="name"
                       placeholder={contact.formNamePlaceholder}
                       className="input-dark"
+                      aria-invalid={Boolean(errors.name)}
+                      aria-describedby={errors.name ? "contact-name-error" : undefined}
+                      onChange={() =>
+                        errors.name && setErrors((current) => ({ ...current, name: undefined }))
+                      }
                     />
+                    {errors.name && (
+                      <span id="contact-name-error" className="text-sm text-white" role="alert">
+                        {errors.name}
+                      </span>
+                    )}
                   </label>
-                  <label className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-phone" className="flex flex-col gap-1.5">
                     <span className="micro-label text-cream-paper/60">
                       {contact.formPhoneLabel}
                     </span>
                     <input
+                      ref={phoneRef}
+                      id="contact-phone"
                       type="tel"
                       name="phone"
-                      required
                       autoComplete="tel"
+                      inputMode="tel"
                       placeholder={contact.formPhonePlaceholder}
                       className="input-dark"
+                      aria-invalid={Boolean(errors.phone)}
+                      aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+                      onChange={() =>
+                        errors.phone && setErrors((current) => ({ ...current, phone: undefined }))
+                      }
                     />
+                    {errors.phone && (
+                      <span id="contact-phone-error" className="text-sm text-white" role="alert">
+                        {errors.phone}
+                      </span>
+                    )}
                   </label>
                 </div>
-                <label className="flex flex-col gap-1.5">
+                <label htmlFor="contact-message" className="flex flex-col gap-1.5">
                   <span className="micro-label text-cream-paper/60">
                     {contact.formMessageLabel}
                   </span>
                   <textarea
+                    id="contact-message"
                     name="message"
                     rows={5}
                     placeholder={contact.formMessagePlaceholder}
@@ -211,7 +263,7 @@ export default function Contact() {
                   {status === "sending" ? contact.formSending : contact.formSubmit}
                 </button>
                 {status === "error" && (
-                  <p className="text-cream-paper" style={{ fontSize: "14px" }}>
+                  <p role="alert" className="text-cream-paper" style={{ fontSize: "14px" }}>
                     {contact.formError}{" "}
                     <a href={emailLink} className="underline">
                       {business.email}
