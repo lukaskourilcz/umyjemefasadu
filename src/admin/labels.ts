@@ -6,19 +6,67 @@
 
 /** Pořadí a názvy hlavních sekcí v administraci. */
 export const SECTIONS: { key: string; title: string; help?: string }[] = [
-  { key: "business", title: "Firma a kontaktní údaje", help: "Název firmy, sídlo, IČO, telefon, e-mail a otevírací doba. Používají se v celém webu." },
-  { key: "theme", title: "Vzhled — barvy webu", help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci." },
+  {
+    key: "business",
+    title: "Firma a kontaktní údaje",
+    help: "Název firmy, sídlo, IČO, telefon, e-mail a otevírací doba. Používají se v celém webu.",
+  },
+  {
+    key: "theme",
+    title: "Vzhled — barvy webu",
+    help: "Hlavní barva se používá pro tlačítka a výzvy, doplňková pro ikony a akcenty. Změna se hned promítne do náhledu; na web se dostane po publikaci.",
+  },
   { key: "nav", title: "Horní menu", help: "Odkazy v horní liště a text hlavního tlačítka." },
-  { key: "revealHero", title: "Úvod — fotografie před / po", help: "Dvě skutečné fotografie hlavního porovnání a text tlačítka." },
-  { key: "hero", title: "Úvod — nabídka", help: "Hlavní nadpis, krátké vysvětlení služby a malý popisek nad nadpisem. Pole videí se v současném designu nepoužívá." },
-  { key: "trustStrip", title: "Pruh důvěry", help: "Čtyři krátké, fakticky ověřené body pod úvodem." },
-  { key: "services", title: "Služby", help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty." },
-  { key: "process", title: "Postup čištění", help: "Kroky postupu a malé doprovodné video vedle časové osy." },
-  { key: "fieldWork", title: "Přímo z akce", help: "Fotografie a krátká videa z reálné práce. Soubory lze nahradit, položky seřadit nebo smazat." },
-  { key: "whyUs", title: "Proč my + reference", help: "Body proč my, záruka a rotující reference zákazníků." },
-  { key: "stats", title: "Čísla / statistiky", help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla." },
-  { key: "team", title: "Náš tým", help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text." },
-  { key: "references", title: "Vybrané zakázky", help: "Zapněte až po doplnění skutečných názvů, lokalit, rozsahu a fotografií zakázek." },
+  {
+    key: "revealHero",
+    title: "Úvod — fotografie před / po",
+    help: "Dvě skutečné fotografie hlavního porovnání a text tlačítka.",
+  },
+  {
+    key: "hero",
+    title: "Úvod — nabídka",
+    help: "Hlavní nadpis, krátké vysvětlení služby a malý popisek nad nadpisem. Pole videí se v současném designu nepoužívá.",
+  },
+  {
+    key: "trustStrip",
+    title: "Pruh důvěry",
+    help: "Čtyři krátké, fakticky ověřené body pod úvodem.",
+  },
+  {
+    key: "services",
+    title: "Služby",
+    help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty.",
+  },
+  {
+    key: "process",
+    title: "Postup čištění",
+    help: "Kroky postupu a malé doprovodné video vedle časové osy.",
+  },
+  {
+    key: "fieldWork",
+    title: "Přímo z akce",
+    help: "Fotografie a krátká videa z reálné práce. Soubory lze nahradit, položky seřadit nebo smazat.",
+  },
+  {
+    key: "whyUs",
+    title: "Proč my + reference",
+    help: "Body proč my, záruka a rotující reference zákazníků.",
+  },
+  {
+    key: "stats",
+    title: "Čísla / statistiky",
+    help: "Čísla v pruhu (m², zakázky…). Vypnuto — zapněte přepínačem, až budete mít reálná čísla.",
+  },
+  {
+    key: "team",
+    title: "Náš tým",
+    help: "Fotka týmu a členové. Vypnuto — zapněte přepínačem a doplňte reálné foto a text.",
+  },
+  {
+    key: "references",
+    title: "Vybrané zakázky",
+    help: "Zapněte až po doplnění skutečných názvů, lokalit, rozsahu a fotografií zakázek.",
+  },
   { key: "pricing", title: "Ceník", help: "Orientační ceník a poznámky." },
   { key: "orderProcess", title: "Jak objednat", help: "Kroky od poptávky k nabídce." },
   { key: "faq", title: "Časté dotazy", help: "Otázky a odpovědi." },
@@ -164,13 +212,7 @@ export function labelFor(key: string): string {
  * Klíče, jejichž hodnota je obrázek/video (nahrává se souborem, ne textem).
  * `src` je soubor uvnitř seznamu fotek, `videos` jsou soubory v poli řetězců.
  */
-export const MEDIA_KEYS = new Set([
-  "image",
-  "beforeImage",
-  "afterImage",
-  "src",
-  "video",
-]);
+export const MEDIA_KEYS = new Set(["image", "beforeImage", "afterImage", "src", "video"]);
 
 /** Je pole (string[]) seznam médií? (podle názvu klíče) */
 export function isMediaArrayKey(key: string): boolean {

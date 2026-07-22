@@ -11,15 +11,12 @@ export default function SectionHeading({
   align?: "center" | "left";
   tone?: "light" | "dark";
 }) {
-  const alignment =
-    align === "center" ? "items-center text-center" : "items-start text-left";
+  const alignment = align === "center" ? "items-center text-center" : "items-start text-left";
   const dark = tone === "dark";
   return (
     <div className={`flex flex-col ${alignment} fade-up`}>
       {label && (
-        <span
-          className={`micro-label section-eyebrow mb-4 ${dark ? "section-eyebrow-dark" : ""}`}
-        >
+        <span className={`micro-label section-eyebrow mb-4 ${dark ? "section-eyebrow-dark" : ""}`}>
           {label}
         </span>
       )}

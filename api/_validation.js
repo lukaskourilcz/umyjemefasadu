@@ -47,7 +47,7 @@ function leafName(path) {
 function validateString(value, path, errors) {
   const name = leafName(path);
   if (value.length > 8_000) errors.push(`${pathName(path)} je příliš dlouhé.`);
-  if (/\u0000/.test(value)) errors.push(`${pathName(path)} obsahuje nepovolené znaky.`);
+  if (value.includes("\0")) errors.push(`${pathName(path)} obsahuje nepovolené znaky.`);
 
   if (name === "href" && !/^#[a-z][a-z0-9-]{0,79}$/.test(value)) {
     errors.push(`${pathName(path)} musí být bezpečný odkaz na sekci.`);
@@ -105,7 +105,8 @@ function validateAgainstTemplate(value, template, path, errors, depth = 0) {
       if (!Object.hasOwn(value, key)) errors.push(`${pathName([...path, key])} chybí.`);
     }
     for (const key of actualKeys) {
-      if (!Object.hasOwn(template, key)) errors.push(`${pathName([...path, key])} není povolené pole.`);
+      if (!Object.hasOwn(template, key))
+        errors.push(`${pathName([...path, key])} není povolené pole.`);
     }
     for (const key of expectedKeys) {
       if (Object.hasOwn(value, key)) {
@@ -129,16 +130,31 @@ export function validateContent(content) {
 }
 
 function hasMagicBytes(buffer, mime) {
-  if (mime === "image/jpeg") return buffer.length > 3 && buffer.subarray(0, 3).equals(Buffer.from([0xff, 0xd8, 0xff]));
-  if (mime === "image/png") return buffer.length > 8 && buffer.subarray(0, 8).equals(Buffer.from("89504e470d0a1a0a", "hex"));
-  if (mime === "image/webp") return buffer.length > 12 && buffer.subarray(0, 4).toString() === "RIFF" && buffer.subarray(8, 12).toString() === "WEBP";
-  if (mime === "video/webm") return buffer.length > 4 && buffer.subarray(0, 4).equals(Buffer.from("1a45dfa3", "hex"));
-  if (mime === "video/mp4") return buffer.length > 12 && buffer.subarray(4, 8).toString() === "ftyp";
+  if (mime === "image/jpeg")
+    return buffer.length > 3 && buffer.subarray(0, 3).equals(Buffer.from([0xff, 0xd8, 0xff]));
+  if (mime === "image/png")
+    return (
+      buffer.length > 8 && buffer.subarray(0, 8).equals(Buffer.from("89504e470d0a1a0a", "hex"))
+    );
+  if (mime === "image/webp")
+    return (
+      buffer.length > 12 &&
+      buffer.subarray(0, 4).toString() === "RIFF" &&
+      buffer.subarray(8, 12).toString() === "WEBP"
+    );
+  if (mime === "video/webm")
+    return buffer.length > 4 && buffer.subarray(0, 4).equals(Buffer.from("1a45dfa3", "hex"));
+  if (mime === "video/mp4")
+    return buffer.length > 12 && buffer.subarray(4, 8).toString() === "ftyp";
   return false;
 }
 
 export function validateUpload(upload, maxBytes = 2_700_000) {
-  if (!isPlainObject(upload) || typeof upload.path !== "string" || typeof upload.dataUrl !== "string") {
+  if (
+    !isPlainObject(upload) ||
+    typeof upload.path !== "string" ||
+    typeof upload.dataUrl !== "string"
+  ) {
     return { ok: false, error: "Neplatný nahraný soubor." };
   }
   const pathMatch = upload.path.match(/^\/media\/([A-Za-z0-9._-]+)\.([A-Za-z0-9]+)$/);

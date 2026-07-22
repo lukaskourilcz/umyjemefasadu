@@ -70,12 +70,12 @@ Vercel na to zareaguje automatickým nasazením. Nepotřebujete žádnou databá
 Aby to fungovalo, nastavte na Vercelu **Environment Variables**
 (Project → Settings → Environment Variables):
 
-| Proměnná | Hodnota | Povinné |
-|---|---|---|
-| `GITHUB_TOKEN` | GitHub token s právem zápisu do repozitáře (viz níže) | ano |
-| `GITHUB_REPO` | `lukaskourilcz/umyjemefasadu` | ano |
-| `GITHUB_BRANCH` | větev, ze které se nasazuje produkce (obvykle `main`) | ne (výchozí `main`) |
-| `ADMIN_PASSWORD` | heslo do administrace (výchozí `fasada`) | doporučeno změnit |
+| Proměnná         | Hodnota                                               | Povinné             |
+| ---------------- | ----------------------------------------------------- | ------------------- |
+| `GITHUB_TOKEN`   | GitHub token s právem zápisu do repozitáře (viz níže) | ano                 |
+| `GITHUB_REPO`    | `lukaskourilcz/umyjemefasadu`                         | ano                 |
+| `GITHUB_BRANCH`  | větev, ze které se nasazuje produkce (obvykle `main`) | ne (výchozí `main`) |
+| `ADMIN_PASSWORD` | heslo do administrace (výchozí `fasada`)              | doporučeno změnit   |
 
 Po přidání proměnných spusťte nové nasazení (Redeploy), aby se načetly.
 
@@ -84,7 +84,7 @@ Po přidání proměnných spusťte nové nasazení (Redeploy), aby se načetly.
 Nejjednodušší je **Fine-grained personal access token**:
 
 1. GitHub → Settings → Developer settings → **Fine-grained tokens** →
-   *Generate new token*.
+   _Generate new token_.
 2. **Repository access**: Only select repositories → `umyjemefasadu`.
 3. **Permissions** → Repository permissions → **Contents: Read and write**.
 4. Vygenerovaný token vložte na Vercelu jako `GITHUB_TOKEN`.
@@ -113,6 +113,7 @@ Nejjednodušší je **Fine-grained personal access token**:
 - **Ukládání**: `api/save.js` (Vercel serverless) → commit do GitHubu →
   automatické nasazení.
 - Routování `/dev` zajišťuje `vercel.json` (rewrite na `index.html`).
+
 ## Přímé odesílání poptávek
 
 Kontaktní formulář odesílá poptávky přes serverovou funkci `/api/contact` a službu Resend. Ve Vercelu nastavte proměnnou `RESEND_API_KEY`. Volitelně lze nastavit `CONTACT_EMAIL` (výchozí je `info@umyjemefasadu.cz`) a `CONTACT_FROM` po ověření vlastní domény v Resendu.

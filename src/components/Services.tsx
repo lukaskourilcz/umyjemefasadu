@@ -101,8 +101,7 @@ const TINT_ICONS: JSX.Element[] = [
 const TINT_BG = ["var(--color-moss-veil)", "var(--color-lichen)"];
 
 export default function Services() {
-  const { heading, intro, featured, tintCards, photoCards } =
-    useContent().services;
+  const { heading, intro, featured, tintCards, photoCards } = useContent().services;
   const featuredVideo = featured.video;
   const featuredVideoAlt = featured.videoAlt;
   const featuredVideoRef = useRef<HTMLVideoElement>(null);
@@ -143,9 +142,7 @@ export default function Services() {
           className="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 fade-up sm:mt-12 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:pb-0 md:gap-5 lg:grid-cols-3"
         >
           {/* Featured */}
-          <article
-            className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0"
-          >
+          <article className="relative min-h-[370px] w-[86vw] max-w-[344px] shrink-0 snap-start overflow-hidden rounded-[14px] sm:col-span-2 sm:min-h-[460px] sm:w-auto sm:max-w-none sm:shrink lg:min-h-0">
             <video
               ref={featuredVideoRef}
               src={videoReady && !reduced ? featuredVideo : undefined}

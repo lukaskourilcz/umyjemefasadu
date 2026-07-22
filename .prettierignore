@@ -1,0 +1,10 @@
+dist
+coverage
+node_modules
+playwright-report
+test-results
+public/content.json
+src/content/defaultContent.json
+src/assets
+public/media
+telegram-claude-bridge

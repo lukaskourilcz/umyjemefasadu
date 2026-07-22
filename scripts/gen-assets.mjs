@@ -22,9 +22,7 @@ const CREAM = "#fbfdfe";
 // --- Pull the real logo artwork + its viewBox from public/logo.svg ----------
 const logoRaw = readFileSync(out("logo.svg"), "utf8");
 const LOGO_VIEWBOX = (logoRaw.match(/viewBox="([^"]*)"/) || [])[1] || "0 0 100 100";
-const LOGO_INNER = logoRaw
-  .replace(/^[\s\S]*?<svg[^>]*>/, "")
-  .replace(/<\/svg>\s*$/, "");
+const LOGO_INNER = logoRaw.replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 
 // Embed the logo as a nested <svg> positioned in the given box.
 const logoMark = (x, y, w, h) => `
@@ -35,9 +33,7 @@ const logoMark = (x, y, w, h) => `
 // Favicon/ikonka = růžová kapka (public/favicon.svg): celé logo je v 16-32px
 // nečitelné. OG obrázek níže dál nese kompletní logo.
 const dropRaw = readFileSync(out("favicon.svg"), "utf8");
-const DROP_INNER = dropRaw
-  .replace(/^[\s\S]*?<svg[^>]*>/, "")
-  .replace(/<\/svg>\s*$/, "");
+const DROP_INNER = dropRaw.replace(/^[\s\S]*?<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "");
 
 const iconSvg = (size) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
@@ -74,8 +70,12 @@ const ogSvg = `
 
 async function run() {
   await sharp(Buffer.from(ogSvg)).png().toFile(out("og-image.png"));
-  await sharp(Buffer.from(iconSvg(180))).png().toFile(out("apple-touch-icon.png"));
-  await sharp(Buffer.from(iconSvg(32))).png().toFile(out("favicon-32.png"));
+  await sharp(Buffer.from(iconSvg(180)))
+    .png()
+    .toFile(out("apple-touch-icon.png"));
+  await sharp(Buffer.from(iconSvg(32)))
+    .png()
+    .toFile(out("favicon-32.png"));
   console.log("Generated og-image.png, apple-touch-icon.png, favicon-32.png");
 }
 

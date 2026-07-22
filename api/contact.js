@@ -1,15 +1,15 @@
-import {
-  clientIp,
-  consumeRateLimit,
-  HttpError,
-  readJsonBody,
-} from "./_security.js";
+import { clientIp, consumeRateLimit, HttpError, readJsonBody } from "./_security.js";
 
 const RESEND_URL = "https://api.resend.com/emails";
 
 function clean(value, max) {
-  return String(value ?? "")
-    .replace(/[<>\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")
+  const withoutMarkup = String(value ?? "").replace(/[<>]/g, "");
+  return Array.from(withoutMarkup)
+    .filter((character) => {
+      const code = character.charCodeAt(0);
+      return code >= 32 || character === "\n" || character === "\r" || character === "\t";
+    })
+    .join("")
     .trim()
     .slice(0, max);
 }

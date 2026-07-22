@@ -1,8 +1,4 @@
-import {
-  clearSessionCookie,
-  isSameOrigin,
-  setPrivateResponse,
-} from "../_security.js";
+import { clearSessionCookie, isSameOrigin, setPrivateResponse } from "../_security.js";
 
 export default function handler(req, res) {
   setPrivateResponse(res);

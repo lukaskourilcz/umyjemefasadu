@@ -1,8 +1,4 @@
-import {
-  createContext,
-  useContext,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import type { Content } from "./schema";
 import { defaultContent } from "./defaultContent";
 
@@ -96,16 +92,8 @@ export async function loadContent(): Promise<Content> {
 
 const ContentContext = createContext<Content>(defaultContent);
 
-export function ContentProvider({
-  value,
-  children,
-}: {
-  value: Content;
-  children: ReactNode;
-}) {
-  return (
-    <ContentContext.Provider value={value}>{children}</ContentContext.Provider>
-  );
+export function ContentProvider({ value, children }: { value: Content; children: ReactNode }) {
+  return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
 }
 
 /** Přístup k obsahu webu kdekoli v komponentách. */

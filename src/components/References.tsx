@@ -18,7 +18,10 @@ const pinStroke = { ...iconStroke, stroke: "rgba(251,253,254,0.85)" };
 
 const PinIcon = (
   <svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true">
-    <path d="M10 18 C 6 13.5, 3.5 10.5, 3.5 7.8 a6.5 6.5 0 0 1 13 0 C 16.5 10.5, 14 13.5, 10 18 Z" {...pinStroke} />
+    <path
+      d="M10 18 C 6 13.5, 3.5 10.5, 3.5 7.8 a6.5 6.5 0 0 1 13 0 C 16.5 10.5, 14 13.5, 10 18 Z"
+      {...pinStroke}
+    />
     <circle cx="10" cy="7.8" r="2.2" {...pinStroke} />
   </svg>
 );
@@ -39,7 +42,10 @@ const ClockIcon = (
 
 const MethodIcon = (
   <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
-    <path d="M10 3 C 6.8 7, 5.5 9.3, 5.5 11.2 a4.5 4.5 0 0 0 9 0 C 14.5 9.3, 13.2 7, 10 3 Z" {...iconStroke} />
+    <path
+      d="M10 3 C 6.8 7, 5.5 9.3, 5.5 11.2 a4.5 4.5 0 0 0 9 0 C 14.5 9.3, 13.2 7, 10 3 Z"
+      {...iconStroke}
+    />
     <path d="M8.3 11.5 a1.8 1.8 0 0 0 1.8 1.8" {...iconStroke} />
   </svg>
 );
@@ -75,10 +81,7 @@ function StudyCarousel({
   // One timeout per slide (also resets cleanly after a manual jump).
   useEffect(() => {
     if (reduced) return;
-    const id = setTimeout(
-      () => setIndex((i) => (i + 1) % images.length),
-      SLIDE_MS,
-    );
+    const id = setTimeout(() => setIndex((i) => (i + 1) % images.length), SLIDE_MS);
     return () => clearTimeout(id);
   }, [index, reduced, images.length]);
 
@@ -112,16 +115,14 @@ function StudyCarousel({
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-14"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(16,24,32,0.35) 0%, rgba(16,24,32,0) 100%)",
+          background: "linear-gradient(180deg, rgba(16,24,32,0.35) 0%, rgba(16,24,32,0) 100%)",
         }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-28"
         style={{
-          background:
-            "linear-gradient(0deg, rgba(16,24,32,0.72) 0%, rgba(16,24,32,0) 100%)",
+          background: "linear-gradient(0deg, rgba(16,24,32,0.72) 0%, rgba(16,24,32,0) 100%)",
         }}
       />
 
@@ -198,68 +199,64 @@ export default function References() {
         <SectionHeading label="Reference" title={heading} intro={intro} />
 
         <MobileDisclosure label="Prohlédnout realizované zakázky">
-        <div className="mx-auto mt-8 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:mt-14 sm:grid-cols-2 md:gap-6">
-          {STUDIES.map((s, si) => (
-            <article
-              key={`${s.type}-${s.city}-${si}`}
-              className="card-hover flex flex-col overflow-hidden rounded-[14px] border"
-              style={{
-                borderColor: "var(--color-eucalyptus)",
-                backgroundColor: "var(--color-cream-paper)",
-              }}
-            >
-              <StudyCarousel images={s.images} city={s.city} type={s.type} />
-
-              {/* Spec strip - one compact line of job facts */}
-              <dl
-                className="flex items-center border-b"
-                style={{ borderColor: "var(--color-lichen)", margin: 0 }}
+          <div className="mx-auto mt-8 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:mt-14 sm:grid-cols-2 md:gap-6">
+            {STUDIES.map((s, si) => (
+              <article
+                key={`${s.type}-${s.city}-${si}`}
+                className="card-hover flex flex-col overflow-hidden rounded-[14px] border"
+                style={{
+                  borderColor: "var(--color-eucalyptus)",
+                  backgroundColor: "var(--color-cream-paper)",
+                }}
               >
-                {s.facts.map((f, i) => (
-                  <div
-                    key={`${f.label}-${i}`}
-                    className={`flex items-center gap-2 py-3 ${
-                      i === 0
-                        ? "shrink-0 pl-6 md:pl-7"
-                        : "min-w-0 flex-1 border-l pl-4"
-                    } pr-4`}
-                    style={
-                      i > 0 ? { borderColor: "var(--color-lichen)" } : undefined
-                    }
-                  >
-                    <dt className="sr-only">{f.label}</dt>
-                    <span aria-hidden="true" className="shrink-0">
-                      {factIcon(f.label)}
-                    </span>
-                    {/* Delší údaje se zalomí na dva řádky místo „…" */}
-                    <dd
-                      className="text-botanical-ink/85"
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: 500,
-                        margin: 0,
-                        lineHeight: 1.35,
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
+                <StudyCarousel images={s.images} city={s.city} type={s.type} />
+
+                {/* Spec strip - one compact line of job facts */}
+                <dl
+                  className="flex items-center border-b"
+                  style={{ borderColor: "var(--color-lichen)", margin: 0 }}
+                >
+                  {s.facts.map((f, i) => (
+                    <div
+                      key={`${f.label}-${i}`}
+                      className={`flex items-center gap-2 py-3 ${
+                        i === 0 ? "shrink-0 pl-6 md:pl-7" : "min-w-0 flex-1 border-l pl-4"
+                      } pr-4`}
+                      style={i > 0 ? { borderColor: "var(--color-lichen)" } : undefined}
                     >
-                      {f.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+                      <dt className="sr-only">{f.label}</dt>
+                      <span aria-hidden="true" className="shrink-0">
+                        {factIcon(f.label)}
+                      </span>
+                      {/* Delší údaje se zalomí na dva řádky místo „…" */}
+                      <dd
+                        className="text-botanical-ink/85"
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          margin: 0,
+                          lineHeight: 1.35,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {f.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
 
-              <p
-                className="px-6 pb-6 pt-4 text-botanical-ink/70 md:px-7"
-                style={{ fontSize: "15px", lineHeight: 1.65, margin: 0 }}
-              >
-                {s.desc}
-              </p>
-            </article>
-          ))}
-        </div>
+                <p
+                  className="px-6 pb-6 pt-4 text-botanical-ink/70 md:px-7"
+                  style={{ fontSize: "15px", lineHeight: 1.65, margin: 0 }}
+                >
+                  {s.desc}
+                </p>
+              </article>
+            ))}
+          </div>
         </MobileDisclosure>
       </div>
     </section>

@@ -57,13 +57,9 @@ export default function Nav() {
       ref={navRef}
       className="sticky top-0 z-50 w-full transition-colors duration-300"
       style={{
-        backgroundColor:
-          scrolled || open ? "rgba(251,251,252,0.82)" : "transparent",
+        backgroundColor: scrolled || open ? "rgba(251,251,252,0.82)" : "transparent",
         backdropFilter: scrolled || open ? "blur(10px)" : "none",
-        borderBottom:
-          scrolled || open
-            ? "1px solid var(--color-lichen)"
-            : "1px solid transparent",
+        borderBottom: scrolled || open ? "1px solid var(--color-lichen)" : "1px solid transparent",
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">

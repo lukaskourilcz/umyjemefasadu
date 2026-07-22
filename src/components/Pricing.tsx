@@ -19,16 +19,10 @@ export default function Pricing() {
               style={{ borderColor: "var(--color-eucalyptus)" }}
             >
               <div>
-                <span
-                  className="text-botanical-ink"
-                  style={{ fontSize: "17px", fontWeight: 700 }}
-                >
+                <span className="text-botanical-ink" style={{ fontSize: "17px", fontWeight: 700 }}>
                   {r.service}
                 </span>
-                <span
-                  className="ml-3 text-botanical-ink/55"
-                  style={{ fontSize: "14px" }}
-                >
+                <span className="ml-3 text-botanical-ink/55" style={{ fontSize: "14px" }}>
                   {r.note}
                 </span>
               </div>

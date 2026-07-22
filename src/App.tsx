@@ -34,10 +34,7 @@ export default function App() {
       <PreviewBanner />
       <Nav />
       <main id="hlavni-obsah" tabIndex={-1}>
-        <RevealHero
-          before={revealHero.beforeImage}
-          after={revealHero.afterImage}
-        />
+        <RevealHero before={revealHero.beforeImage} after={revealHero.afterImage} />
         <TrustStrip />
         <Services />
         <Process />

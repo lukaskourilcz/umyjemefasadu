@@ -40,12 +40,13 @@
   --color-eucalyptus: #c4d0d8; /* surface 4 - decorative borders */
 
   /* Typography - families */
-  --font-akkurat: "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI",
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI",
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-fragment-mono: ui-monospace, SFMono-Regular, Menlo,
-    Monaco, Consolas, monospace;
+  --font-akkurat:
+    "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  --font-display:
+    "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  --font-fragment-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Typography - fluid scale (only the steps the component layer uses) */
   --text-body-sm: 14px;
@@ -196,7 +197,9 @@
     line-height: 1;
     border: 1px solid transparent;
     cursor: pointer;
-    transition: background-color 0.25s ease, transform 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
   }
   .btn-primary:hover {
     background-color: var(--color-magenta-deep);
@@ -219,7 +222,9 @@
     font-weight: 700;
     line-height: 1;
     cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
   }
   .btn-ghost:hover {
     background-color: var(--color-botanical-ink);
@@ -229,7 +234,9 @@
   /* Quiet card hover - hairline warms to the water accent, the single
      permitted ring fades in. Applied to photo/reference cards. */
   .card-hover {
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
   .card-hover:hover {
     border-color: var(--color-forest-floor);
@@ -284,7 +291,9 @@
   details::details-content {
     block-size: 0;
     overflow-y: clip;
-    transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+    transition:
+      block-size 0.35s ease,
+      content-visibility 0.35s allow-discrete;
   }
   details[open]::details-content {
     block-size: auto;
@@ -300,7 +309,9 @@
   .fade-up {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
   }
   .fade-up.in-view {
     opacity: 1;

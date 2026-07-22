@@ -25,7 +25,10 @@ export default function OrderProcess() {
           className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-3 fade-up sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:pb-0 lg:grid-cols-4"
         >
           {STEPS.map((s) => (
-            <li key={s.no} className="w-[78vw] max-w-[310px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink">
+            <li
+              key={s.no}
+              className="w-[78vw] max-w-[310px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink"
+            >
               <div className="flex items-center gap-3">
                 <span
                   className="font-fragment-mono"
@@ -42,10 +45,7 @@ export default function OrderProcess() {
                   style={{ backgroundColor: "var(--color-eucalyptus)" }}
                 />
               </div>
-              <h3
-                className="mt-4 font-bold text-botanical-ink"
-                style={TEXT.cardTitle}
-              >
+              <h3 className="mt-4 font-bold text-botanical-ink" style={TEXT.cardTitle}>
                 {s.title}
               </h3>
               <p className="mt-2 text-botanical-ink/75" style={TEXT.bodyTight}>

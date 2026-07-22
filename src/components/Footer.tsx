@@ -18,21 +18,11 @@ export default function Footer() {
       {/* Extra bottom padding below lg keeps the fixed CallBar clear of content. */}
       <div className="container-page pt-14 pb-28 lg:py-14">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <a
-            href="#top"
-            aria-label="Umyjeme Fasádu, domů"
-            className="shrink-0 self-start"
-          >
-            <Logo
-              height={192}
-              className="h-[clamp(88px,26vw,116px)] w-auto md:h-[160px]"
-            />
+          <a href="#top" aria-label="Umyjeme Fasádu, domů" className="shrink-0 self-start">
+            <Logo height={192} className="h-[clamp(88px,26vw,116px)] w-auto md:h-[160px]" />
           </a>
 
-          <nav
-            aria-label="Patička"
-            className="flex flex-wrap gap-x-8 gap-y-2 md:pt-2"
-          >
+          <nav aria-label="Patička" className="flex flex-wrap gap-x-8 gap-y-2 md:pt-2">
             {LINKS.map((l) => (
               <a
                 key={l.href}
@@ -60,9 +50,7 @@ export default function Footer() {
             >
               {business.email}
             </a>
-            <span className="micro-label text-botanical-ink/75">
-              {business.hours}
-            </span>
+            <span className="micro-label text-botanical-ink/75">{business.hours}</span>
           </div>
         </div>
 
@@ -99,9 +87,7 @@ export default function Footer() {
         }}
       >
         <div className="flex flex-col gap-4 p-7 md:p-9">
-          <h2 style={{ fontSize: "22px", fontWeight: 700 }}>
-            {footer.privacyTitle}
-          </h2>
+          <h2 style={{ fontSize: "22px", fontWeight: 700 }}>{footer.privacyTitle}</h2>
           {footer.privacyBody.map((para, i) => (
             <p
               key={i}

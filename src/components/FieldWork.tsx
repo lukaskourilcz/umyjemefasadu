@@ -19,9 +19,7 @@ function Tile({ item }: { item: Item }) {
   const video = isVideo(item.src);
   const [mediaReady, setMediaReady] = useState(false);
   const imageSrc =
-    reduced && item.src.endsWith("tlakove-myti-akce.webp")
-      ? "/media/pic14.webp"
-      : item.src;
+    reduced && item.src.endsWith("tlakove-myti-akce.webp") ? "/media/pic14.webp" : item.src;
 
   useEffect(() => {
     const element = figureRef.current;
@@ -92,8 +90,7 @@ function Tile({ item }: { item: Item }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
         style={{
-          background:
-            "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
+          background: "linear-gradient(0deg, rgba(16,24,32,0.62) 0%, rgba(16,24,32,0) 100%)",
         }}
       />
       <figcaption

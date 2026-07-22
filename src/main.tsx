@@ -8,8 +8,7 @@ const root = createRoot(document.getElementById("root")!);
 
 // Administrace žije na /dev — načítá se jen tam, na běžný web nepřidává váhu.
 // Toleruje koncové lomítko i velikost písmen (/dev, /dev/, /DEV).
-const isAdmin =
-  window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/dev";
+const isAdmin = window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/dev";
 
 /**
  * Barvy z administrace → CSS proměnné. Inline styl na <html> přebije hodnoty
@@ -21,22 +20,13 @@ function applyTheme(theme: Content["theme"]) {
   if (/^#[0-9a-f]{6}$/i.test(theme.primary)) {
     el.setProperty("--color-action", theme.primary);
     el.setProperty("--color-warm-loam", theme.primary);
-    el.setProperty(
-      "--color-action-hover",
-      `color-mix(in srgb, ${theme.primary}, #000 18%)`,
-    );
-    el.setProperty(
-      "--color-magenta-deep",
-      `color-mix(in srgb, ${theme.primary}, #000 18%)`,
-    );
+    el.setProperty("--color-action-hover", `color-mix(in srgb, ${theme.primary}, #000 18%)`);
+    el.setProperty("--color-magenta-deep", `color-mix(in srgb, ${theme.primary}, #000 18%)`);
   }
   if (/^#[0-9a-f]{6}$/i.test(theme.secondary)) {
     el.setProperty("--color-accent", theme.secondary);
     el.setProperty("--color-forest-floor", theme.secondary);
-    el.setProperty(
-      "--color-cyan-deep",
-      `color-mix(in srgb, ${theme.secondary}, #000 38%)`,
-    );
+    el.setProperty("--color-cyan-deep", `color-mix(in srgb, ${theme.secondary}, #000 38%)`);
   }
 }
 

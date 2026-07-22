@@ -7,7 +7,15 @@ const isVideo = (src: string) => /\.(webm|mp4|m4v|mov)(\?|$)/i.test(src);
 
 /** The page's dark mid-section - grounds the pastel surfaces around it. */
 export default function Process() {
-  const { heading, intro, steps: STEPS, methods: METHODS, sideVideo, sideVideoAlt, sideVideoLabel } = useContent().process;
+  const {
+    heading,
+    intro,
+    steps: STEPS,
+    methods: METHODS,
+    sideVideo,
+    sideVideoAlt,
+    sideVideoLabel,
+  } = useContent().process;
   const figureRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduced = usePrefersReducedMotion();
@@ -59,21 +67,48 @@ export default function Process() {
             {STEPS.map((s, i) => (
               <li key={s.no} className="relative flex gap-6 md:gap-8">
                 <div className="flex flex-col items-center">
-                  <span className="font-fragment-mono pt-1 text-[15px] tracking-[.02em] text-forest-floor">{s.no}</span>
-                  {i < STEPS.length - 1 && <span aria-hidden="true" className="mt-3 w-px flex-1 bg-cream-paper/15" />}
+                  <span className="font-fragment-mono pt-1 text-[15px] tracking-[.02em] text-forest-floor">
+                    {s.no}
+                  </span>
+                  {i < STEPS.length - 1 && (
+                    <span aria-hidden="true" className="mt-3 w-px flex-1 bg-cream-paper/15" />
+                  )}
                 </div>
                 <div className={i < STEPS.length - 1 ? "pb-10" : ""}>
-                  <h3 className="text-cream-paper" style={{ fontSize: "clamp(18px, 1vw + 14px, 20px)", fontWeight: 700 }}>{s.title}</h3>
-                  <p className="mt-2 text-cream-paper/70" style={{ fontSize: "16px", lineHeight: 1.6 }}>{s.desc}</p>
+                  <h3
+                    className="text-cream-paper"
+                    style={{ fontSize: "clamp(18px, 1vw + 14px, 20px)", fontWeight: 700 }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p
+                    className="mt-2 text-cream-paper/70"
+                    style={{ fontSize: "16px", lineHeight: 1.6 }}
+                  >
+                    {s.desc}
+                  </p>
                 </div>
               </li>
             ))}
           </ol>
 
           {sideVideo && (
-            <figure ref={figureRef} className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black" style={{ borderColor: "rgba(251,253,254,0.14)" }}>
+            <figure
+              ref={figureRef}
+              className="relative m-0 mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[14px] border bg-black"
+              style={{ borderColor: "rgba(251,253,254,0.14)" }}
+            >
               {mediaReady && isVideo(sideVideo) ? (
-                <video ref={videoRef} src={sideVideo} aria-label={sideVideoAlt} loop muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover object-center" />
+                <video
+                  ref={videoRef}
+                  src={sideVideo}
+                  aria-label={sideVideoAlt}
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
               ) : mediaReady ? (
                 <img
                   src={
@@ -90,8 +125,14 @@ export default function Process() {
               ) : (
                 <div aria-hidden="true" className="absolute inset-0 bg-text" />
               )}
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(0deg,rgba(16,24,32,.74),rgba(16,24,32,0))" }} />
-              <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">{sideVideoLabel}</figcaption>
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-24"
+                style={{ background: "linear-gradient(0deg,rgba(16,24,32,.74),rgba(16,24,32,0))" }}
+              />
+              <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 text-[10px] uppercase tracking-[.1em] text-cream-paper/85">
+                {sideVideoLabel}
+              </figcaption>
             </figure>
           )}
         </div>
@@ -118,10 +159,7 @@ export default function Process() {
                 >
                   {m.title}
                 </h3>
-                <p
-                  className="text-cream-paper/70"
-                  style={{ fontSize: "16px", lineHeight: 1.6 }}
-                >
+                <p className="text-cream-paper/70" style={{ fontSize: "16px", lineHeight: 1.6 }}>
                   {m.desc}
                 </p>
               </div>

@@ -1,23 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type {
-  CSSProperties,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-} from "react";
+import type { CSSProperties, Dispatch, FormEvent, SetStateAction } from "react";
 import type { Content } from "../content";
-import {
-  defaultContent,
-  PREVIEW_DATA,
-  PREVIEW_FLAG,
-} from "../content";
-import {
-  SECTIONS,
-  labelFor,
-  MEDIA_KEYS,
-  isMediaArrayKey,
-  COLOR_KEYS,
-} from "./labels";
+import { defaultContent, PREVIEW_DATA, PREVIEW_FLAG } from "../content";
+import { SECTIONS, labelFor, MEDIA_KEYS, isMediaArrayKey, COLOR_KEYS } from "./labels";
 
 const DRAFT_KEY = "uf_admin_draft";
 
@@ -158,13 +143,7 @@ function useNarrow(breakpoint = 860): boolean {
 }
 
 /** Výběr barvy: nativní color picker + hex hodnota vedle. */
-function ColorInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function ColorInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const valid = /^#[0-9a-fA-F]{6}$/.test(value);
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -189,11 +168,7 @@ function ColorInput({
         spellCheck={false}
         style={{ ...s.input, width: 110 }}
       />
-      {!valid && (
-        <span style={{ color: "#dc2626", fontSize: 12 }}>
-          Zadejte barvu jako #rrggbb
-        </span>
-      )}
+      {!valid && <span style={{ color: "#dc2626", fontSize: 12 }}>Zadejte barvu jako #rrggbb</span>}
     </div>
   );
 }
@@ -227,13 +202,7 @@ async function optimisePhoto(file: File): Promise<Blob> {
   return blob;
 }
 
-function MediaInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function MediaInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const ref = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -244,13 +213,7 @@ function MediaInput({
 
   async function pick(file?: File) {
     if (!file) return;
-    const allowed = new Set([
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "video/webm",
-      "video/mp4",
-    ]);
+    const allowed = new Set(["image/jpeg", "image/png", "image/webp", "video/webm", "video/mp4"]);
     if (!allowed.has(file.type)) {
       setError("Vyberte JPG, PNG, WEBP, WEBM nebo MP4.");
       return;
@@ -281,9 +244,16 @@ function MediaInput({
   return (
     <div
       style={{ ...s.mediaWrap, ...(dragging ? s.mediaWrapDragging : null) }}
-      onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setDragging(true);
+      }}
       onDragLeave={() => setDragging(false)}
-      onDrop={(e) => { e.preventDefault(); setDragging(false); pick(e.dataTransfer.files?.[0]); }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setDragging(false);
+        pick(e.dataTransfer.files?.[0]);
+      }}
     >
       <div style={s.mediaPreview} onClick={() => ref.current?.click()}>
         {has ? (
@@ -313,8 +283,12 @@ function MediaInput({
         >
           {busy ? "Nahrávám…" : has ? "Nahradit soubor" : "Nahrát soubor"}
         </button>
-        <span style={s.mediaHint}>JPG a PNG automaticky převedeme do kvalitního WEBP · publikovaný soubor max. 2,7 MB</span>
-        <span style={s.mediaMeta}>{isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}</span>
+        <span style={s.mediaHint}>
+          JPG a PNG automaticky převedeme do kvalitního WEBP · publikovaný soubor max. 2,7 MB
+        </span>
+        <span style={s.mediaMeta}>
+          {isNew ? "Nový soubor — uloží se při publikaci" : value || "—"}
+        </span>
         {error && <span style={s.mediaError}>{error}</span>}
         <input
           ref={ref}
@@ -342,9 +316,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     const draft = loadDraft(initialContent);
     return draft ?? clone(initialContent);
   });
-  const [publishedContent, setPublishedContent] = useState<Content>(() =>
-    clone(initialContent),
-  );
+  const [publishedContent, setPublishedContent] = useState<Content>(() => clone(initialContent));
   const [status, setStatus] = useState<{ kind: "idle" | "ok" | "err" | "busy"; msg: string }>({
     kind: "idle",
     msg: "",
@@ -357,7 +329,10 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
     [content, publishedContent],
   );
   const visibleSections = useMemo(
-    () => SECTIONS.filter((sec) => `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase())),
+    () =>
+      SECTIONS.filter((sec) =>
+        `${sec.title} ${sec.help ?? ""}`.toLowerCase().includes(sectionQuery.toLowerCase()),
+      ),
     [sectionQuery],
   );
 
@@ -488,7 +463,12 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
   }
 
   function resetOriginal() {
-    if (!confirm("Obnovit VŠECHNY texty i fotky na původní (tovární) obsah? Změny se projeví až po publikaci.")) return;
+    if (
+      !confirm(
+        "Obnovit VŠECHNY texty i fotky na původní (tovární) obsah? Změny se projeví až po publikaci.",
+      )
+    )
+      return;
     const base = clone(defaultContent);
     setContent(base);
     saveDraft(base);
@@ -525,7 +505,9 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
             style={s.input}
           />
           {pwError && (
-            <span role="alert" style={{ color: "#b42318", fontSize: 13 }}>{pwError}</span>
+            <span role="alert" style={{ color: "#b42318", fontSize: 13 }}>
+              {pwError}
+            </span>
           )}
           <button type="submit" style={s.btnPrimary} disabled={loginBusy}>
             {loginBusy ? "Ověřuji…" : "Vstoupit"}
@@ -541,16 +523,16 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         <div style={s.brandBlock}>
           <span style={s.brandMark}>UF</span>
           <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
-          <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
-          <a
-            href="/"
-            target="_blank"
-            rel="noreferrer"
-            style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
-          >
-            Zobrazit web ↗
-          </a>
+            <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+            <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
+            <a
+              href="/"
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
+            >
+              Zobrazit web ↗
+            </a>
           </div>
         </div>
         <div style={s.actions}>
@@ -591,8 +573,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
             ...s.banner,
             background:
               status.kind === "ok" ? "#052e16" : status.kind === "err" ? "#450a0a" : "#0c1a2e",
-            color:
-              status.kind === "ok" ? "#86efac" : status.kind === "err" ? "#fca5a5" : "#93c5fd",
+            color: status.kind === "ok" ? "#86efac" : status.kind === "err" ? "#fca5a5" : "#93c5fd",
           }}
         >
           {status.msg}
@@ -645,9 +626,7 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
               <span style={s.sectionEyebrow}>UPRAVUJETE SEKCI</span>
               <h2 style={s.sectionTitle}>{sec.title}</h2>
               {sec.help && (
-                <p style={{ color: "#64748b", fontSize: 13, margin: "0 0 20px" }}>
-                  {sec.help}
-                </p>
+                <p style={{ color: "#64748b", fontSize: 13, margin: "0 0 20px" }}>{sec.help}</p>
               )}
               {renderObject(
                 (content as unknown as Record<string, Json>)[sec.key],
@@ -719,12 +698,7 @@ function renderNode(
       rows={Math.min(8, Math.max(2, Math.ceil(str.length / 60)))}
     />
   ) : (
-    <input
-      type="text"
-      value={str}
-      onChange={(e) => apply(path, e.target.value)}
-      style={s.input}
-    />
+    <input type="text" value={str} onChange={(e) => apply(path, e.target.value)} style={s.input} />
   );
 }
 
@@ -796,8 +770,7 @@ function renderArray(
 
   function addItem() {
     mutate((arr) => {
-      const template =
-        arr.length > 0 ? clone(arr[arr.length - 1]) : isObjectList ? {} : "";
+      const template = arr.length > 0 ? clone(arr[arr.length - 1]) : isObjectList ? {} : "";
       return [...arr, template];
     });
   }
@@ -807,9 +780,7 @@ function renderArray(
       {value.map((item, i) => (
         <div key={i} style={s.arrayItem}>
           <div style={s.arrayItemHead}>
-            <span style={s.arrayItemTitle}>
-              {isObjectList ? `Položka ${i + 1}` : ""}
-            </span>
+            <span style={s.arrayItemTitle}>{isObjectList ? `Položka ${i + 1}` : ""}</span>
             <div style={{ display: "flex", gap: 4 }}>
               <button
                 type="button"
@@ -846,7 +817,14 @@ function renderArray(
               onChange={(v) => apply([...path, i], v)}
             />
           ) : (
-            renderNode(item, [...path, i], keyName === "images" ? "" : keyName, apply, setContent, saveDraft)
+            renderNode(
+              item,
+              [...path, i],
+              keyName === "images" ? "" : keyName,
+              apply,
+              setContent,
+              saveDraft,
+            )
           )}
         </div>
       ))}
@@ -864,7 +842,8 @@ const s: Record<string, CSSProperties> = {
     minHeight: "100vh",
     display: "grid",
     placeItems: "center",
-    background: "radial-gradient(circle at 20% 10%, rgba(27,165,224,.18), transparent 35%), #101820",
+    background:
+      "radial-gradient(circle at 20% 10%, rgba(27,165,224,.18), transparent 35%), #101820",
     padding: 20,
     fontFamily: "Inter, system-ui, sans-serif",
   },
@@ -913,9 +892,21 @@ const s: Record<string, CSSProperties> = {
     fontWeight: 800,
     fontSize: 14,
   },
-  adminEyebrow: { color: "#1ba5e0", fontSize: 10, letterSpacing: ".14em", fontFamily: "Fragment Mono, monospace" },
+  adminEyebrow: {
+    color: "#1ba5e0",
+    fontSize: 10,
+    letterSpacing: ".14em",
+    fontFamily: "Fragment Mono, monospace",
+  },
   actions: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" },
-  dirtyBadge: { padding: "6px 10px", borderRadius: 999, background: "rgba(255,255,255,.08)", color: "#94a3b8", fontSize: 11, fontWeight: 700 },
+  dirtyBadge: {
+    padding: "6px 10px",
+    borderRadius: 999,
+    background: "rgba(255,255,255,.08)",
+    color: "#94a3b8",
+    fontSize: 11,
+    fontWeight: 700,
+  },
   dirtyBadgeActive: { background: "rgba(230,0,126,.15)", color: "#ff7fc5" },
   banner: { padding: "10px 20px", fontSize: 14 },
   body: { display: "flex", alignItems: "flex-start", gap: 0 },
@@ -971,11 +962,30 @@ const s: Record<string, CSSProperties> = {
     background: "#fff",
     marginTop: 0,
   },
-  navItemActive: { background: "#101820", color: "#fff", fontWeight: 700, boxShadow: "0 7px 18px rgba(16,24,32,.13)" },
-  navNumber: { fontFamily: "Fragment Mono, monospace", fontSize: 10, color: "#1ba5e0", minWidth: 18 },
+  navItemActive: {
+    background: "#101820",
+    color: "#fff",
+    fontWeight: 700,
+    boxShadow: "0 7px 18px rgba(16,24,32,.13)",
+  },
+  navNumber: {
+    fontFamily: "Fragment Mono, monospace",
+    fontSize: 10,
+    color: "#1ba5e0",
+    minWidth: 18,
+  },
   searchWrap: { position: "relative", marginBottom: 8 },
   searchIcon: { position: "absolute", left: 12, top: 8, color: "#80909d", fontSize: 18 },
-  searchInput: { width: "100%", boxSizing: "border-box", border: "1px solid #d6e0e6", borderRadius: 10, padding: "10px 12px 10px 34px", background: "#fff", fontSize: 13, outline: "none" },
+  searchInput: {
+    width: "100%",
+    boxSizing: "border-box",
+    border: "1px solid #d6e0e6",
+    borderRadius: 10,
+    padding: "10px 12px 10px 34px",
+    background: "#fff",
+    fontSize: 13,
+    outline: "none",
+  },
   navReset: {
     marginTop: 14,
     textAlign: "left",
@@ -994,8 +1004,19 @@ const s: Record<string, CSSProperties> = {
     maxWidth: 900,
   },
   mainNarrow: { padding: "20px 16px 80px", maxWidth: "none" },
-  sectionEyebrow: { color: "#1488c4", fontFamily: "Fragment Mono, monospace", fontSize: 11, letterSpacing: ".12em" },
-  sectionTitle: { fontFamily: "Space Grotesk, Inter, sans-serif", fontSize: 30, lineHeight: 1.1, margin: "8px 0 6px", letterSpacing: "-0.03em" },
+  sectionEyebrow: {
+    color: "#1488c4",
+    fontFamily: "Fragment Mono, monospace",
+    fontSize: 11,
+    letterSpacing: ".12em",
+  },
+  sectionTitle: {
+    fontFamily: "Space Grotesk, Inter, sans-serif",
+    fontSize: 30,
+    lineHeight: 1.1,
+    margin: "8px 0 6px",
+    letterSpacing: "-0.03em",
+  },
   fieldBlock: { display: "flex", flexDirection: "column", gap: 7, padding: "2px 0" },
   groupBlock: {
     display: "flex",
@@ -1094,7 +1115,17 @@ const s: Record<string, CSSProperties> = {
     cursor: "pointer",
     whiteSpace: "nowrap",
   },
-  mediaWrap: { display: "grid", gridTemplateColumns: "minmax(180px, 260px) minmax(0,1fr)", gap: 16, alignItems: "center", padding: 12, borderRadius: 12, border: "1px dashed #c4d0d8", background: "#f8fbfc", transition: "border-color .2s, background .2s" },
+  mediaWrap: {
+    display: "grid",
+    gridTemplateColumns: "minmax(180px, 260px) minmax(0,1fr)",
+    gap: 16,
+    alignItems: "center",
+    padding: 12,
+    borderRadius: 12,
+    border: "1px dashed #c4d0d8",
+    background: "#f8fbfc",
+    transition: "border-color .2s, background .2s",
+  },
   mediaWrapDragging: { borderColor: "#1ba5e0", background: "#eaf7fd" },
   mediaPreview: {
     width: "100%",

@@ -68,9 +68,7 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
         {/* Copy first on phones (the collage would otherwise push the value
             proposition below the fold); collage left / copy right from md up. */}
         <div className="order-1 flex flex-col items-start text-left md:order-2">
-          <span className="micro-label mb-8 text-botanical-ink/60 fade-up">
-            {hero.eyebrow}
-          </span>
+          <span className="micro-label mb-8 text-botanical-ink/60 fade-up">{hero.eyebrow}</span>
 
           <h2
             className="max-w-[18ch] text-balance break-words text-botanical-ink mt-2 fade-up"

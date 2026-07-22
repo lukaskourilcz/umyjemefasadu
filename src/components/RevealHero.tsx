@@ -24,9 +24,7 @@ export default function RevealHero({ before, after }: Props) {
     >
       <div className="container-page grid min-h-[calc(100svh-var(--nav-h,76px))] items-center gap-10 pb-16 pt-24 md:pb-20 md:pt-36 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:pt-32">
         <div className="relative z-10 max-w-[650px]">
-          <p className="section-eyebrow font-fragment-mono uppercase">
-            {hero.eyebrow}
-          </p>
+          <p className="section-eyebrow font-fragment-mono uppercase">{hero.eyebrow}</p>
           <h1
             id="hero-title"
             className="mt-5 max-w-[14ch] text-text"
@@ -59,14 +57,27 @@ export default function RevealHero({ before, after }: Props) {
             </a>
           </div>
 
-          <div className="mt-7 flex items-start gap-3 border-l-2 pl-4" style={{ borderColor: "var(--color-accent)" }}>
-            <svg className="mt-0.5 shrink-0 text-accent" width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
-              <path d="M10 18c4-4.6 6-7.5 6-10a6 6 0 1 0-12 0c0 2.5 2 5.4 6 10Z" fill="none" stroke="currentColor" strokeWidth="1.7" />
+          <div
+            className="mt-7 flex items-start gap-3 border-l-2 pl-4"
+            style={{ borderColor: "var(--color-accent)" }}
+          >
+            <svg
+              className="mt-0.5 shrink-0 text-accent"
+              width="18"
+              height="18"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path
+                d="M10 18c4-4.6 6-7.5 6-10a6 6 0 1 0-12 0c0 2.5 2 5.4 6 10Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+              />
               <circle cx="10" cy="8" r="2" fill="none" stroke="currentColor" strokeWidth="1.7" />
             </svg>
             <p className="text-sm leading-6 text-text-muted">
-              <strong className="text-text">Působíme z Hodonína.</strong>{" "}
-              {area}
+              <strong className="text-text">Působíme z Hodonína.</strong> {area}
             </p>
           </div>
         </div>
@@ -107,7 +118,14 @@ export default function RevealHero({ before, after }: Props) {
             >
               <span className="absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/80 bg-white text-text shadow-md">
                 <svg width="22" height="14" viewBox="0 0 22 14">
-                  <path d="m7 2-5 5 5 5M15 2l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  <path
+                    d="m7 2-5 5 5 5M15 2l5 5-5 5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </span>
             </div>

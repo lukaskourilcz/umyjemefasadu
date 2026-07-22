@@ -94,7 +94,14 @@ export type Content = {
   services: {
     heading: string;
     intro: string;
-    featured: { image: string; video: string; videoAlt: string; alt: string; title: string; desc: string };
+    featured: {
+      image: string;
+      video: string;
+      videoAlt: string;
+      alt: string;
+      title: string;
+      desc: string;
+    };
     tintCards: { title: string; desc: string }[];
     photoCards: { image: string; alt: string; title: string; desc: string }[];
   };

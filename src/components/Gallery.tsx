@@ -26,8 +26,7 @@ export default function Gallery() {
       id="galerie"
       className="scroll-mt-24 py-20 md:py-28"
       style={{
-        background:
-          "linear-gradient(180deg, var(--color-lichen) 0%, var(--color-cream-paper) 42%)",
+        background: "linear-gradient(180deg, var(--color-lichen) 0%, var(--color-cream-paper) 42%)",
       }}
     >
       <div className="container-page">
@@ -71,10 +70,7 @@ function BeforeAfter({ item }: { item: Item }) {
       {/* AFTER (full) */}
       <Layer src={item.after} kind="after" show={hasPhotos} />
       {/* BEFORE - full-size, revealed from the left via clip-path (no distortion) */}
-      <div
-        className="absolute inset-0"
-        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
-      >
+      <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <Layer src={item.before} kind="before" show={hasPhotos} />
       </div>
 
@@ -115,15 +111,7 @@ function BeforeAfter({ item }: { item: Item }) {
   );
 }
 
-function Layer({
-  src,
-  kind,
-  show,
-}: {
-  src?: string;
-  kind: "before" | "after";
-  show: boolean;
-}) {
+function Layer({ src, kind, show }: { src?: string; kind: "before" | "after"; show: boolean }) {
   if (show && src) {
     return (
       <img
@@ -143,10 +131,7 @@ function Layer({
         backgroundColor: isBefore ? "var(--color-eucalyptus)" : "var(--color-moss-veil)",
       }}
     >
-      <span
-        className="micro-label"
-        style={{ color: "var(--color-botanical-ink)", opacity: 0.55 }}
-      >
+      <span className="micro-label" style={{ color: "var(--color-botanical-ink)", opacity: 0.55 }}>
         {isBefore ? "Před" : "Po"}
       </span>
     </div>

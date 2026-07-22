@@ -16,10 +16,7 @@ export default function TrustStrip() {
         {ITEMS.map((item) => (
           <div key={item} className="flex items-center gap-2.5">
             <CheckIcon size={16} color="var(--color-forest-floor)" />
-            <span
-              className="text-botanical-ink/80"
-              style={{ fontSize: "15px" }}
-            >
+            <span className="text-botanical-ink/80" style={{ fontSize: "15px" }}>
               {item}
             </span>
           </div>

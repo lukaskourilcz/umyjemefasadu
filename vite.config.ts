@@ -7,10 +7,7 @@ function inlinePublishedContent() {
   return {
     name: "inline-published-content",
     transformIndexHtml() {
-      const content = readFileSync(
-        new URL("./public/content.json", import.meta.url),
-        "utf8",
-      )
+      const content = readFileSync(new URL("./public/content.json", import.meta.url), "utf8")
         .replace(/</g, "\\u003c")
         .replace(/\u2028/g, "\\u2028")
         .replace(/\u2029/g, "\\u2029");

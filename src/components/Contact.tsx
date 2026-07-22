@@ -56,11 +56,7 @@ export default function Contact() {
     }
 
     if (!FORM_ENDPOINT) {
-      window.location.href = buildMailto(
-        data,
-        business.email,
-        contact.mailtoSubject,
-      );
+      window.location.href = buildMailto(data, business.email, contact.mailtoSubject);
       return;
     }
 
@@ -120,9 +116,7 @@ export default function Contact() {
               </ul>
 
               <div className="mt-7">
-                <span className="micro-label text-cream-paper/50">
-                  {contact.areasLabel}
-                </span>
+                <span className="micro-label text-cream-paper/50">{contact.areasLabel}</span>
                 <p
                   className="font-fragment-mono mt-2 text-cream-paper/80"
                   style={{ fontSize: "14px", letterSpacing: "0.02em" }}
@@ -133,9 +127,7 @@ export default function Contact() {
 
               <div className="mt-9 flex flex-col gap-4">
                 <a href={phoneLink} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">
-                    {contact.phoneLabel}
-                  </span>
+                  <span className="micro-label text-cream-paper/50">{contact.phoneLabel}</span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(20px, 3vw, 26px)" }}
@@ -150,9 +142,7 @@ export default function Contact() {
                   </span>
                 </a>
                 <a href={emailLink} className="group flex flex-col">
-                  <span className="micro-label text-cream-paper/50">
-                    {contact.emailLabel}
-                  </span>
+                  <span className="micro-label text-cream-paper/50">{contact.emailLabel}</span>
                   <span
                     className="font-bold text-cream-paper transition-colors group-hover:text-forest-floor"
                     style={{ fontSize: "clamp(17px, 2.4vw, 22px)" }}
@@ -171,10 +161,7 @@ export default function Contact() {
                 className="flex flex-col items-start justify-center gap-4 outline-none"
               >
                 <CheckIcon size={32} color="var(--color-forest-floor)" />
-                <h3
-                  className="text-cream-paper"
-                  style={{ fontSize: "24px", fontWeight: 700 }}
-                >
+                <h3 className="text-cream-paper" style={{ fontSize: "24px", fontWeight: 700 }}>
                   {contact.sentTitle}
                 </h3>
                 <p
@@ -191,13 +178,17 @@ export default function Contact() {
               <form className="flex flex-col gap-4" onSubmit={onSubmit} noValidate>
                 <div hidden aria-hidden="true">
                   <label htmlFor="contact-website">Web</label>
-                  <input id="contact-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
+                  <input
+                    id="contact-website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label htmlFor="contact-name" className="flex flex-col gap-1.5">
-                    <span className="micro-label text-cream-paper/60">
-                      {contact.formNameLabel}
-                    </span>
+                    <span className="micro-label text-cream-paper/60">{contact.formNameLabel}</span>
                     <input
                       ref={nameRef}
                       id="contact-name"
@@ -208,7 +199,9 @@ export default function Contact() {
                       className="input-dark"
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? "contact-name-error" : undefined}
-                      onChange={() => errors.name && setErrors((current) => ({ ...current, name: undefined }))}
+                      onChange={() =>
+                        errors.name && setErrors((current) => ({ ...current, name: undefined }))
+                      }
                     />
                     {errors.name && (
                       <span id="contact-name-error" className="text-sm text-white" role="alert">
@@ -231,7 +224,9 @@ export default function Contact() {
                       className="input-dark"
                       aria-invalid={Boolean(errors.phone)}
                       aria-describedby={errors.phone ? "contact-phone-error" : undefined}
-                      onChange={() => errors.phone && setErrors((current) => ({ ...current, phone: undefined }))}
+                      onChange={() =>
+                        errors.phone && setErrors((current) => ({ ...current, phone: undefined }))
+                      }
                     />
                     {errors.phone && (
                       <span id="contact-phone-error" className="text-sm text-white" role="alert">

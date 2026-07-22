@@ -30,21 +30,21 @@ poptávek a telefonátů bez oslabení důvěryhodnosti značky**.
 
 Canonical tokeny jsou v `src/index.css`:
 
-| Role | Token | Výchozí hodnota |
-|---|---|---|
-| Akce | `--color-action` | `#d80076` |
-| Akce hover | `--color-action-hover` | `#b80064` |
-| Technický akcent | `--color-accent` | `#087eaf` |
-| Hlavní text | `--color-text` | `#101820` |
-| Tlumený text | `--color-text-muted` | `#4b5a64` |
-| Inverzní text | `--color-text-inverse` | `#fbfdfe` |
-| Pozadí | `--color-canvas` | `#fbfdfe` |
-| Jemná plocha | `--color-surface` | `#eef4f8` |
-| Tmavá plocha | `--color-surface-strong` | `#101820` |
-| Ohraničení | `--color-border` | `#cbd6dd` |
-| Jemné ohraničení | `--color-border-subtle` | `#e2e9ee` |
-| Chyba | `--color-error` | `#b42318` |
-| Úspěch | `--color-success` | `#067647` |
+| Role             | Token                    | Výchozí hodnota |
+| ---------------- | ------------------------ | --------------- |
+| Akce             | `--color-action`         | `#d80076`       |
+| Akce hover       | `--color-action-hover`   | `#b80064`       |
+| Technický akcent | `--color-accent`         | `#087eaf`       |
+| Hlavní text      | `--color-text`           | `#101820`       |
+| Tlumený text     | `--color-text-muted`     | `#4b5a64`       |
+| Inverzní text    | `--color-text-inverse`   | `#fbfdfe`       |
+| Pozadí           | `--color-canvas`         | `#fbfdfe`       |
+| Jemná plocha     | `--color-surface`        | `#eef4f8`       |
+| Tmavá plocha     | `--color-surface-strong` | `#101820`       |
+| Ohraničení       | `--color-border`         | `#cbd6dd`       |
+| Jemné ohraničení | `--color-border-subtle`  | `#e2e9ee`       |
+| Chyba            | `--color-error`          | `#b42318`       |
+| Úspěch           | `--color-success`        | `#067647`       |
 
 Starší názvy `warm-loam`, `forest-floor`, `botanical-ink`, `sage-mist`,
 `lichen`, `moss-veil` a `eucalyptus` jsou dočasná kompatibilní vrstva. Nový
@@ -193,7 +193,7 @@ odkazy a obsahuje maximálně dvě konkrétní akce.
 - Konzistentní vykání s malým `v` uprostřed věty. Krátké věty, aktivní slovesa,
   konkrétní povrch a další krok.
 - Nepoužívat neověřené absolutní výrazy (`vždy`, `bez poškození`, `na dlouhé
-  roky`, `zaručeně`) ani zdravotní diagnózy bez zdroje.
+roky`, `zaručeně`) ani zdravotní diagnózy bez zdroje.
 - Rozsahy zapisovat `5–10 let`, cenu `95 Kč/m²`, čas `8.00–17.00` nebo jednotně
   podle zvolené redakční normy. Pomlčka `–`, ne spojovník.
 - CTA: `Domluvit prohlídku zdarma`, `Získat přesnou nabídku`, `Zavolat`.
