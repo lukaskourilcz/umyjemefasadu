@@ -101,8 +101,9 @@ export default function Hero({ backdrop }: { backdrop: ReactNode }) {
         </div>
 
         {/* Decorative video collage. Purely visual: not clickable and not
-            zoomable; tiles crop via object-cover so they sit neatly side by side. */}
-        <div className="order-2 hidden fade-up md:order-1 md:block" aria-hidden="true">
+            zoomable; tiles crop via object-cover so they sit neatly side by side.
+            Shown on phones too (below the copy), then collage-left from md up. */}
+        <div className="order-2 fade-up md:order-1" aria-hidden="true">
           <div className="flex gap-3 sm:gap-4">
             <div className="flex flex-1 flex-col gap-3 sm:gap-4">
               <VideoTile video={VIDEOS[0]} />
