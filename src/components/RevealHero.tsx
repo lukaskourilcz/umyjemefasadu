@@ -55,7 +55,6 @@ export default function RevealHero({ before, after, label }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [mobile, setMobile] = useState(false);
-  const [dragProgress, setDragProgress] = useState(50);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 1199px)");
@@ -65,19 +64,9 @@ export default function RevealHero({ before, after, label }: Props) {
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  useEffect(() => {
-    if (mobile) {
-      panelRef.current?.style.setProperty("--p", (dragProgress / 100).toFixed(2));
-    }
-  }, [mobile, dragProgress]);
-
   useRafScroll(() => {
     const panel = panelRef.current;
     if (!panel) return;
-    if (mobile) {
-      panel.style.setProperty("--p", (dragProgress / 100).toFixed(2));
-      return;
-    }
     if (reduced) {
       // Static, balanced split so the before/after still reads without motion.
       panel.style.setProperty("--p", "0.5");
@@ -108,8 +97,8 @@ export default function RevealHero({ before, after, label }: Props) {
       // Short scroll track: the reveal completes in well under one extra
       // viewport so the value proposition below arrives quickly (shorter
       // still on phones, where scroll distance is expensive).
-      className={`relative ${mobile ? "h-[520px]" : reduced ? "" : "h-[160vh]"}`}
-      style={!mobile && reduced ? { height: "auto" } : undefined}
+      className={`relative ${reduced ? "" : mobile ? "h-[150vh]" : "h-[160vh]"}`}
+      style={reduced ? { height: "auto" } : undefined}
     >
       <div
         ref={panelRef}
@@ -117,25 +106,13 @@ export default function RevealHero({ before, after, label }: Props) {
         style={{
           // `--p` is updated on scroll; everything below reads it.
           ["--p" as string]: "0",
-          position: mobile || reduced ? "relative" : "sticky",
-          top: mobile ? 0 : "var(--nav-h, 76px)",
-          height: mobile ? "520px" : reduced
+          position: reduced ? "relative" : "sticky",
+          top: "var(--nav-h, 76px)",
+          height: reduced
             ? "min(78vh, 620px)"
             : "calc(100svh - var(--nav-h, 76px))",
         }}
       >
-        {mobile && (
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={dragProgress}
-            onChange={(event) => setDragProgress(Number(event.target.value))}
-            aria-label="Porovnání fasády před a po"
-            className="absolute inset-0 z-20 m-0 h-full w-full cursor-ns-resize opacity-0"
-            style={{ touchAction: "pan-y" }}
-          />
-        )}
         {/* AFTER - clean, full-frame. Revealed from the top down as --p grows. */}
         <div
           className="absolute inset-0"
