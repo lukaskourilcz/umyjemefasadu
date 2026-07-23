@@ -53,8 +53,9 @@
     "afterImage": "/media/clean-hero.webp",
     "headlineLines": [
       "Poskytneme",
-      "lesk a zdraví pro",
-      "vaši fasádu, střechu či dlažbu"
+      "lesk a zdraví",
+      " pro vaši fasádu,",
+      "střechu či dlažbu"
     ],
     "labelBeforePrefix": "Před",
     "labelBeforeSuffix": "vyčištěním",
@@ -349,12 +350,12 @@
         ]
       },
       {
-        "type": "Rodinný dům",
-        "city": "Vyškov",
+        "type": "Bytový dům",
+        "city": "Hodonín",
         "facts": [
           {
             "label": "Rozsah",
-            "value": "320 m²"
+            "value": "115 m²"
           },
           {
             "label": "Postup",
