@@ -78,17 +78,23 @@ skrytá.
 
 ## Dokončeno v repozitáři
 
-- [x] Přestavět úvod na jeden konverzní hero s nabídkou, telefonem, lokalitou a
-      autentickým porovnáním před/po. `[owner:ai]`
-- [x] Odstranit scroll hijacking, duplicitní hero a nejrizikovější veřejné
-      placeholdery/tvrzení; ceny a zbývající obchodní formulace jsou výše výslovně
-      označené k potvrzení. `[owner:ai]`
-- [x] Zkrátit mobilní cestu bez skrytí zásadního obsahu a opravit navigaci,
-      focus, formulář a reduced-motion stavy. `[owner:ai]`
+- [x] Na výslovný pokyn majitele vrátit veřejný vizuál k baseline `977343c`:
+      scrollové porovnání, ilustrovaný druhý hero, edukační sekce, původní
+      typografii a bento služeb. Funkční modernizace zůstala zachovaná.
+      `[owner:ai]`
+- [x] Při návratu vizuálu neobnovit neověřené zdravotní, životnostní, časové
+      ani bezplatné přísliby. Reference, statistiky, tým a citace zůstávají
+      vypnuté do doložení. `[owner:ai]`
+- [x] Zachovat mobilní zkrácení pomocí pojmenovaných disclosure, klávesnicové
+      ovládání porovnání, focus management navigace, validaci formuláře a
+      reduced-motion stavy; opravit neviditelný obsah disclosure po hydrataci.
+      `[owner:ai]`
 - [x] Zabezpečit `/dev` serverovou session, same-origin kontrolou, validací
       schématu, uploadů a souběžných publikací. `[owner:ai]`
-- [x] Optimalizovat média, odstranit externí fonty, vložit obsah do prvního HTML
-      a přidat robots, sitemap a strukturovaná data. `[owner:ai]`
+- [x] Zachovat optimalizaci a lazy aktivaci médií, vložení obsahu do prvního
+      HTML, robots, sitemap a strukturovaná data. Původní Inter, Space Grotesk a
+      Fragment Mono jsou kvůli požadovanému vizuálu znovu externě načítané.
+      `[owner:ai]`
 - [x] Přidat lint, unit/security/component testy, Playwright, axe, build gate a
       CI. `[owner:ai]`
 - [x] Sladit README, administrátorský návod, design systém, validační záznam a

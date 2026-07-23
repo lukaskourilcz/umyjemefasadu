@@ -18,10 +18,8 @@ export default function MobileDisclosure({
     return () => media.removeEventListener("change", update);
   }, []);
 
-  if (!mobile) return <>{children}</>;
-
   return (
-    <details className="mobile-disclosure fade-up">
+    <details className="mobile-disclosure" open={!mobile}>
       <summary>
         <span>{label}</span>
         <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">

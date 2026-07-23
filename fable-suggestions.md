@@ -1,8 +1,10 @@
 # Historický UX audit před redesignem
 
 > **Archivováno 22. 7. 2026.** Tento soubor popisoval starou verzi webu a není
-> návodem pro aktuální implementaci. Původní komponenty, line numbers, fonty,
-> scrollovací hero a placeholdery už neodpovídají repozitáři.
+> návodem pro aktuální implementaci. Na pozdější výslovný pokyn majitele byl
+> vzhled vrácený k baseline `977343c`, takže scrollové hero, fonty a část
+> kompozice jsou znovu aktuální. Bezpečnostní a obsahové závěry auditu však
+> zůstaly implementované; přesný stav popisuje `HANDOFF.md`.
 
 Aktuální zdroje pravdy:
 
@@ -29,20 +31,19 @@ Starší web měl několik opakujících se problémů:
 6. typografie, logo, favicon, právní údaje a admin neodpovídaly profesionální
    službě ani bezpečnému provozu.
 
-## Stav po modernizaci
+## Stav po modernizaci a vizuálním rollbacku
 
-- Jeden conversion-first hero nyní obsahuje H1, stručnou nabídku, telefon,
-  lokalitu a autentický, klávesnicí ovladatelný slider před/po; na úzkém mobilu
-  je porovnání dostupné přes jasně pojmenované tlačítko.
-- Služby, postup, terénní důkaz, ceník, objednání, FAQ a kontakt mají odlišnou,
-  ale jednotnou informační hierarchii.
-- Mobilní stránka je kratší; sekvenční postup objednání je znovu vertikální a
-  zásadní obchodní informace nejsou schované v disclosure.
+- Scrollové hero, ilustrovaný druhý hero a původní bento služeb jsou záměrně
+  zpět. Porovnání používá na mobilu nativní klávesnicově ovladatelný range a
+  běžný scroll stránky se nezachytává.
+- Mobilní stránku zkracují pojmenované disclosure pro podpůrný obsah a služby;
+  poptávka a telefon zůstávají ve spodní liště stále dostupné.
 - Neověřené reference, statistiky, tým a citace jsou vypnuté a server je bez
   výslovného potvrzení pravosti nepublikuje.
 - Formulář je přímý, validovaný a má telefonní i e-mailový fallback.
-- Externí fonty a zbytečné prvotní media requesty byly odstraněné; animovaná
-  média pod foldem se aktivují až poblíž viewportu a respektují reduced motion.
+- Inter, Space Grotesk a Fragment Mono jsou kvůli požadovanému původnímu
+  vzhledu znovu externě načítané. Animovaná média pod foldem se dál aktivují
+  pouze v relevantním viewportu a respektují reduced motion.
 - `/dev` používá serverovou session, přesné schema, upload validaci a ochranu
   proti přepsání novější publikace.
 

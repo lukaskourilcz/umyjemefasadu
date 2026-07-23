@@ -1,11 +1,12 @@
-# Předání modernizace webu
+# Předání po návratu původního vizuálu
 
 Aktualizováno: **22. 7. 2026**
 
-Výchozí větev: `main`
+Pracovní větev: `codex/revert-visual-design`
 
-Modernizace byla sloučená přes [PR #26](https://github.com/lukaskourilcz/umyjemefasadu/pull/26)
-do `main` merge commitem `a88f8a9` dne 22. 7. 2026.
+Větev vychází z `main` na commitu `56f3dca`. Uživatel následně požádal
+vrátit design k poslední verzi před změnami z 22. 7. 2026, tedy k vizuálnímu
+baseline `977343c`, ale zachovat nové funkce a zabezpečení.
 
 Tento soubor je výchozí bod pro dalšího agenta. Než začne měnit kód, musí si
 přečíst také [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md),
@@ -13,15 +14,22 @@ přečíst také [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md),
 
 ## Stav implementace
 
-Kompletní audit a redesign veřejného webu i `/dev` je implementovaný na pracovní
-větvi. Mezi hlavní dokončené části patří:
+Veřejná vizuální vrstva byla vrácená, zatímco modernizované funkční vrstvy
+zůstaly zachované. Aktuálně platí:
 
-- jeden conversion-first hero bez scroll hijackingu, s telefonem, lokalitou a
-  autentickým porovnáním před/po;
-- mobilní porovnání dostupné přes pojmenované disclosure, které fotografie
-  načte až po otevření;
-- přepracované služby, postup, terénní média, ceník, objednávková cesta, FAQ,
-  kontakt, patička a mobilní CTA;
+- původní scrollové hero s autentickým porovnáním, výrazným titulkem a
+  štítky před/po je zpět; na mobilu porovnání ovládá klávesnicově dostupný
+  nativní range;
+- za hero znovu následuje ilustrovaná nabídka, trust strip, „Proč čistit“,
+  „Rizika“, původní bento služeb a původní pořadí dalších sekcí;
+- plovoucí logo se při scrollu nezmenšuje, pouze se vrací jeho původní poloha a
+  mírná průsvitnost;
+- mobilní podpůrné bloky používají původní disclosure. Je opravená hydratační
+  chyba, kvůli které se rozbalený obsah mohl stát neviditelný; video služby se
+  po otevření znovu lazy aktivuje;
+- neověřené zdravotní, časové a životnostní sliby z historického copy se
+  nevrátily. Sekce používají věcný text a reference/statistiky/tým zůstávají
+  vypnuté;
 - zabezpečená administrace bez klientského nebo výchozího hesla, s podepsanou
   session, validací uploadů, konceptem, zálohou a ochranou proti přepsání
   novější GitHub publikace;
@@ -34,7 +42,10 @@ větvi. Mezi hlavní dokončené části patří:
 - lint, unit/component/security testy, Playwright, axe, CI a dokumentovaný
   design systém.
 
-Dosavadní logické commity této větve:
+Samostatný pás `FieldWork` zůstává v kódu a administraci, ale není součástí
+vrácené veřejné kompozice, stejně jako nebyl v baseline `977343c`.
+
+Historické logické commity modernizace:
 
 - `15bd5fe` — design systém a agentní instrukce;
 - `9b50f98` — veřejná konverzní cesta;
@@ -46,34 +57,38 @@ Dosavadní logické commity této větve:
 - `9fd464f` — ověřený dokumentační handoff;
 - `29d92f8` — GitHub Actions v7 bez deprecated runtime warningu.
 
+## Historie modernizace
+
+Výše uvedené commity `15bd5fe` až `29d92f8` a merge PR #26 zůstávají v
+historii. Bezpečnostní, admin, SSR, API, testovací a validační části z nich jsou
+nadále aktivní. Veřejná komponentová kompozice a typografie jsou nyní vědomě
+vrácené k `977343c`.
+
 ## Poslední ověřené výsledky
 
-Podrobný a reprodukovatelný záznam je v
-[`docs/VALIDATION.md`](docs/VALIDATION.md). Poslední lokální produkční preview
-mělo:
+Podrobný záznam je v [`docs/VALIDATION.md`](docs/VALIDATION.md). Na aktuální
+větvi po rollbacku prošlo:
 
-- mobilní Lighthouse medián: Performance 97, Accessibility 100, Best Practices
-  100, SEO 100, LCP 1,74 s, CLS 0, 6 requestů a přibližně 115 KiB;
-- desktop Lighthouse: 100/100/100/100, LCP 0,59 s;
-- čistou hydrataci bez console warning/error;
-- LocalBusiness a FAQPage JSON-LD odvozené ze stejného obsahu jako stránka;
-- mobilní šířku bez overflow a výšku přibližně 9 531 px při 390 × 844.
+- `npm run validate`: lint bez warnings, 11/11 Vitest testů a klientský +
+  SSR build s předrenderováním;
+- `npm run test:e2e`: 10 scénářů zelených a dva záměrné desktop skipy
+  mobilních scénářů;
+- axe: žádný serious ani critical nález;
+- lokální vizuální kontrola 1440 × 1000 a 390 × 844 bez horizontálního
+  overflow; mobilní disclosure i lazy video byly ověřené po otevření.
 
-Před předáním byly spuštěné `npm run format:check`, `npm run validate`,
-`npm run test:e2e` a `npm audit --omit=dev`. Pokud následný commit změní kód,
-musí agent spustit stejnou sadu znovu a skutečný výsledek zapsat do
-`docs/VALIDATION.md`.
+Staré Lighthouse výsledky redesignu (97 mobil / 100 desktop) už po návratu
+scrollového hero nelze vydávat za aktuální. Před produkčním deploymentem je
+potřeba měření zopakovat.
 
 ## Stav integrace a hostingu
 
-- PR #26 je sloučený a GitHub workflow `Quality` pro merge commit prošlo.
-- Vercel vytvořil úspěšný deployment, GitHub ho však označuje jako prostředí
-  **Preview**, nikoli Production.
-- Ověřený preview build je dostupný na adrese
-  `https://umyjemefasadu-jzr804mc2-lukas-kourils-projects.vercel.app`.
-- K 22. 7. 2026 doména `www.umyjemefasadu.cz` stále odpovídá ze serveru
-  **Webnode** a `/dev` na ní vrací 404. Modernizace tedy ještě není na vlastní
-  doméně veřejně aktivní.
+- `main` na `56f3dca` obsahuje sloučenou modernizaci a její dokumentační
+  doplnění.
+- Vizuální rollback je zatím pouze na pracovní větvi a nebyl v tomto handoffu
+  vydáván za nasazený.
+- Poslední ověřený Vercel build modernizace byl Preview. K 22. 7. 2026 doména
+  `www.umyjemefasadu.cz` stále odpovídala z Webnode a `/dev` vracelo 404.
 
 ## Co ještě zbývá
 
@@ -85,11 +100,13 @@ přístupy:
    oblast působení, kontakty, technická tvrzení a právní text;
 2. nastavit Vercel secrets, ověřit Resend doménu a odeslat reálnou testovací
    poptávku;
-3. provést autentizovaný desktopový i mobilní smoke test celého `/dev`, včetně
+3. po schválení otevřít PR a sloučit rollback větev do `main`; teprve potom
+   ověřit nový Vercel deployment;
+4. provést autentizovaný desktopový i mobilní smoke test celého `/dev`, včetně
    uploadu, zálohy, preview a bezpečného publish flow;
-4. ve Vercelu nastavit produkční větev na `main`, přiřadit vlastní doménu,
+5. ve Vercelu nastavit produkční větev na `main`, přiřadit vlastní doménu,
    upravit DNS mimo Webnode a znovu ověřit canonical, `/dev` i formulář;
-5. potvrdit, že `GITHUB_BRANCH=main`, aby publikace z administrace vytvářela
+6. potvrdit, že `GITHUB_BRANCH=main`, aby publikace z administrace vytvářela
    commity ve stejné větvi, ze které Vercel nasazuje produkci.
 
 Neověřené reference, statistiky, tým a citace musí zůstat vypnuté. Dočasná

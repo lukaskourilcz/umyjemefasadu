@@ -7,13 +7,14 @@ a přitom působit věcně, důvěryhodně a lokálně.
 
 ## Aktuální řešení
 
-- Úvod okamžitě vysvětluje nabídku, ukazuje autentické porovnání před/po a
-  nabízí poptávku i telefon bez vynuceného skrolování.
+- Veřejný vizuál je záměrně vrácený k podobě před modernizací z 22. 7. 2026:
+  plovoucí logo, scrollové porovnání před/po, výrazný typografický titulek,
+  ilustrovaný druhý hero a původní editorial/bento kompozice.
 - Veřejná stránka používá pouze skutečná lokální média. Neověřené reference,
   statistiky a tým jsou připravené v obsahu, ale zůstávají vypnuté.
-- Mobilní verze zachovává všechny důležité informace, zkracuje dlouhé seznamy
-  pomocí zřetelných horizontálních kolekcí a velké hero porovnání zpřístupní na
-  jedno klepnutí bez počátečního stahování obou fotografií.
+- Mobilní verze ovládá hero porovnání nativním range prvkem. Delší podpůrné
+  bloky a přehled služeb jsou v jasně pojmenovaných rozbalovacích sekcích;
+  spodní lišta drží poptávku a telefon stále dostupné.
 - Kontaktní formulář odesílá poptávku přes serverovou funkci a Resend.
 - Správa textů a médií je dostupná na `/dev`; publikace vytvoří bezpečný commit
   do GitHubu a následný Vercel deployment.
@@ -30,7 +31,7 @@ větve a přesné pokračování pro dalšího agenta shrnuje
 
 - Vite 6, React 18 a strict TypeScript
 - Tailwind CSS v4 a sémantické tokeny v `src/index.css`
-- systémové sans-serif a monospace fonty bez externího font requestu
+- Inter, Space Grotesk a Fragment Mono z Google Fonts se systémovými fallbacky
 - Vercel serverless funkce v `api/`
 - Vitest, Testing Library, Playwright a axe
 - ESLint, Prettier a GitHub Actions
@@ -67,10 +68,12 @@ veřejný bundle.
 
 ### Veřejná cesta
 
-Pořadí hlavních částí je: navigace → nabídka a porovnání před/po → ověřené body
-důvěry → služby → postup → práce v terénu → proč my → ceník → objednání → FAQ →
-kontakt → patička. Volitelné sekce `stats`, `team` a `references` se vykreslí jen
-při `visible: true` a po doplnění skutečných údajů.
+Pořadí hlavních částí je: navigace → scrollové porovnání před/po → ilustrovaná
+nabídka → ověřené body důvěry → proč čistit → rizika → služby → postup → proč
+my → ceník → objednání → FAQ → kontakt → patička. Volitelné sekce `stats`,
+`team` a `references` se vykreslí jen při `visible: true` a po doplnění
+skutečných údajů. Komponenta terénních médií zůstává editovatelná, ale ve
+vrácené veřejné kompozici se samostatně nevykresluje.
 
 ## Lokální vývoj
 
@@ -136,7 +139,8 @@ souboru. Nikdy je nevkládejte do klientského kódu ani dokumentace.
   jako značka v patičce.
 - Navigace používá optimalizovaný průhledný WebP; logo se při skrolování
   nezmenšuje.
-- Hero fotografie jsou optimalizované WebP, přednačtené z HTML a nejsou lazy.
+- Obě hero fotografie jsou optimalizované WebP, přednačtené z HTML a nejsou
+  lazy; na desktopu je odkrývá scroll, na mobilu nativní range.
 - Větší animovaná média pod prvním viewportem se aktivují až poblíž viewportu a
   při `prefers-reduced-motion` se zobrazí statický snímek.
 - Nové JPG/PNG fotografie admin před uploadem převede na WebP a omezí delší

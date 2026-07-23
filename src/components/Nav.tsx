@@ -81,12 +81,16 @@ export default function Nav() {
       }}
     >
       <nav className="container-page relative flex items-center justify-between gap-4 py-4">
-        {/* The complete mark deliberately floats above the bar at one stable
-            size. It never shrinks on scroll. */}
+        {/* Původní levitující značka: před scrollováním vystupuje víc mimo
+            navigaci, po scrollu se jen posune - samotné logo se nezmenšuje. */}
         <a
           href="#top"
           aria-label="Umyjeme Fasádu, domů"
-          className="pointer-events-none absolute left-[5px] top-[6px] z-10 md:left-[10px] md:top-[8px] min-[1200px]:left-[50px]"
+          className={`pointer-events-none absolute z-10 opacity-[0.95] transition-all duration-300 ${
+            scrolled
+              ? "left-[8px] top-[6px] md:left-[12px] min-[1200px]:left-[24px]"
+              : "left-[5px] top-[-5px] md:left-[10px] md:top-[1px] min-[1200px]:left-[50px]"
+          }`}
         >
           <Logo
             source="nav"

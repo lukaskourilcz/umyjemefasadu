@@ -14,6 +14,14 @@
   "nav": {
     "links": [
       {
+        "href": "#proc-cistit",
+        "label": "Proč čistit"
+      },
+      {
+        "href": "#rizika",
+        "label": "Rizika"
+      },
+      {
         "href": "#sluzby",
         "label": "Služby"
       },
@@ -75,49 +83,48 @@
   "whyClean": {
     "heading": "Proč si nechat vyčistit fasádu?",
     "paragraphs": [
-      "Vaše fasáda je jako Vaše vizitka – první, čeho si každý všimne. Časem se na ní ale usadí prach, smog, řasy a plísně, které ji zbarví do šeda nebo zelena. My vám ji vrátíme do původní krásy a zdravého stavu!",
-      "Používáme vysokotlaké čištění v kombinaci se speciálními chemickými prostředky, které odstraní i hluboko usazené nečistoty a zároveň ochrání povrch na dlouhou dobu. Výsledek? Fasáda, která vypadá jako nová, objekt září čistotou a Vy ušetříte peníze za nový nátěr či drahou rekonstrukci."
+      "Na venkovních površích se postupně usazuje prach, saze a organické nečistoty. Odborné čištění může obnovit čitelnější barvu a upravený vzhled bez automatického překrytí novým nátěrem.",
+      "Před zahájením posoudíme typ omítky, její stav a míru znečištění. Podle výsledku zvolíme tlak, trysku a přípravek a upozorníme také na místa, která je vhodné nejdřív opravit."
     ],
     "bullets": [
-      "Čistíme šetrně, účinně a dlouhodobě.",
-      "Používáme profesionální a velmi kvalitní chemii.",
-      "Obnovíme vzhled a zdravý stav Vašeho objektu mnohdy během jediného dne."
+      "Postup volíme podle typu a stavu podkladu.",
+      "Okolní plochy a citlivá místa před prací připravíme.",
+      "Rozsah práce a očekávaný výsledek vysvětlíme předem."
     ],
     "protectionTitle": "Ochrana proti vodě",
-    "protectionIntro": "Ochranu fasády proti vodě řešíme impregnací (hydrofobizací) – nátěrem či nástřikem, který odpuzuje vodu, ale nechá zeď dýchat.",
+    "protectionIntro": "Pokud je podklad po vyčištění vhodný, můžeme navrhnout hydrofobní impregnaci, která omezuje vsakování srážkové vody do povrchu.",
     "protectionBullets": [
-      "Voda se vsakuje minimálně, stéká po povrchu",
-      "Snižuje růst řas a plísní",
-      "Chrání před mrazem – voda neproniká, nepraská omítka",
-      "Prodlužuje životnost fasády klidně o 5 až 10 let"
+      "Vhodnost ověřujeme podle materiálu a stavu fasády",
+      "Aplikace následuje až na připravený a dostatečně suchý povrch",
+      "Očekávaný účinek závisí na expozici a údržbě objektu"
     ],
-    "protectionHow": "Impregnace vytvoří neviditelnou vrstvu: kapky vody stečou dolů (tzv. lotus efekt) a vodní pára může ven, takže fasáda nezatuchne.",
+    "protectionHow": "Použitý přípravek, spotřebu i podmínky aplikace upřesníme po prohlídce a vysvětlíme před zahájením práce.",
     "image": "/media/clean-hero.webp",
     "imageAlt": "Čistá fasáda po dokončení práce",
     "imageLabel": "Výsledek po vyčištění"
   },
   "risks": {
-    "heading": "Rizika znečištěné fasády",
-    "intro": "Znečištěná fasáda není jen kosmetický problém. Hlavním rizikem jsou plísně, které mohou ohrozit budovu i zdraví obyvatel. Tady je přehled, proč to řešit.",
+    "heading": "Kdy má smysl fasádu řešit",
+    "intro": "Povlaky a usazené nečistoty mění vzhled fasády a mohou zadržovat vlhkost na povrchu. Včasná kontrola pomůže odlišit běžné znečištění od míst, která potřebují opravu.",
     "items": [
       {
         "no": "01",
-        "title": "Plísně mohou pronikat dovnitř zdiva",
-        "desc": "Pokud se plíseň rozšíří hlouběji do omítky nebo zateplovací vrstvy, může postupně pronikat až k vnitřní straně stěny. Tím se zvyšuje vlhkost zdiva a vznikají ideální podmínky pro růst plísní i uvnitř domu, kde už ohrožují zdraví obyvatel."
+        "title": "Organické povlaky se mohou dál šířit",
+        "desc": "Na zastíněných a vlhčích místech se povlaky obvykle rozvíjejí rychleji. Prohlídka ukáže jejich rozsah a pomůže zvolit vhodný způsob čištění."
       },
       {
         "no": "02",
-        "title": "Riziko pro zdraví obyvatel",
-        "desc": "Spóry plísní uvolňované do vzduchu mohou vyvolávat alergie, podráždění dýchacích cest a očí, zhoršovat astma i chronické záněty průdušek a při dlouhodobém působení oslabovat imunitu. I když je plíseň zvenku, vítr a ventilace mohou spóry zanášet dovnitř oken nebo větracího systému."
+        "title": "Nečistoty mohou zakrývat stav podkladu",
+        "desc": "Usazeniny mohou překrýt drobné trhliny, nesoudržná místa nebo jiné vady. Jejich stav posoudíme před čištěním a upozorníme, kde je vhodná oprava."
       },
       {
         "no": "03",
-        "title": "Poškozuje fasádu a izolaci",
-        "desc": "Plísně a řasy zadržují vlhkost, ta časem rozrušuje nátěry, omítku i tepelnou izolaci. To může vést ke snížení účinnosti zateplení, zvýšení vlhkosti v interiéru a vyšším nákladům na vytápění."
+        "title": "Odkládání komplikuje budoucí údržbu",
+        "desc": "Rozsah práce a vhodný postup se odvíjejí od materiálu, expozice a stavu povrchu. Včasné posouzení usnadní plánování údržby i rozpočtu."
       }
     ],
-    "solutionTitle": "Řešením je pravidelná údržba",
-    "solutionDesc": "Pravidelné čištění fasády vysokotlakým čističem a účinnými prostředky proti řasám a plísním zabrání jejich šíření. Fasáda zůstane suchá, čistá a bezpečná, což pomáhá chránit i zdraví obyvatel domu.",
+    "solutionTitle": "Začněte posouzením povrchu",
+    "solutionDesc": "Při prohlídce rozlišíme běžné znečištění od poškození, navrhneme vhodný postup a upozorníme na místa, která je potřeba před čištěním opravit.",
     "solutionCta": "Domluvit prohlídku"
   },
   "services": {

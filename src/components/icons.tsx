@@ -34,7 +34,7 @@ export function LeafIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-/** Dům - obnovený vzhled během jediného dne. */
+/** Dům - upravený vzhled objektu. */
 export function HouseIcon({ size = 22 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">

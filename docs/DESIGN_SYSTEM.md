@@ -4,6 +4,11 @@ Tento dokument je jediný zdroj pravdy pro veřejný web i administraci. Změny
 rozhraní se posuzují podle obchodního cíle: **zvýšit počet kvalifikovaných
 poptávek a telefonátů bez oslabení důvěryhodnosti značky**.
 
+Veřejná kompozice je na výslovný pokyn majitele založená na vizuálním baseline
+`977343c`: plovoucí logo, scrollové hero před/po, ilustrovaný druhý hero a
+editorial/bento sekce. Bezpečnostní, obsahová, přístupnostní a administrační
+pravidla z modernizace zůstávají závazná.
+
 ## 1. Značka, publikum a záměr
 
 - Značka má působit profesionálně, technicky kompetentně, bezpečně, poctivě,
@@ -17,14 +22,17 @@ poptávek a telefonátů bez oslabení důvěryhodnosti značky**.
 
 ## 2. Principy
 
-1. Nabídka, lokalita a kontakt musí být zřejmé v prvním viewportu.
+1. Hlavní služba a kontakt musí být zřejmé v prvním viewportu; na mobilu je
+   kontakt trvale dostupný ve spodní liště.
 2. Jeden hlavní krok: **Domluvit prohlídku**. Sekundární krok: zavolat.
 3. Důkaz před tvrzením: výsledek práce, postup a technika jsou přesvědčivější
    než čísla, certifikáty nebo recenze bez ověřeného zdroje.
-4. Klidná hierarchie: méně sekcí, kratší text, jasné nadpisy, konzistentní rytmus.
+4. Výrazný úvod, klidné obsahové sekce: jasné nadpisy, čitelné texty a
+   konzistentní rytmus.
 5. Magenta označuje akci, cyan technický nebo informační akcent.
 6. Pohyb nesmí zdržovat obsah ani ovládání.
-7. Mobil není zmenšený desktop; zásadní informace se na mobilu neskrývají.
+7. Mobil není zmenšený desktop. Kontakt zůstává vždy dostupný; delší podpůrné
+   vysvětlení a přehled služeb lze zkrátit pojmenovaným disclosure.
 
 ## 3. Barvy a sémantické tokeny
 
@@ -53,13 +61,13 @@ akcentovou roli. Bílé písmo na akční barvě musí mít kontrast alespoň 4,
 
 ## 4. Typografie
 
-- Základ i nadpisy: rychlý systémový stack `system-ui`, platformní UI font,
-  `Segoe UI Variable`, Segoe UI a sans-serif fallback. Web nestahuje externí
-  fonty.
-- Nadpisy odlišuje váha, měřítko, řádkování a střídmý tracking; nepoužívat
-  condensed nebo efektní display fonty.
-- Technické mikro-popisky: systémový monospace stack (`ui-monospace`, SFMono,
-  Menlo, Monaco, Consolas), pouze pro čísla kroku, štítky a drobná metadata.
+- Běžný text používá Inter, nadpisy Space Grotesk a technické mikro-popisky
+  Fragment Mono. Fonty se načítají přes Google Fonts a vždy mají systémové
+  fallbacky deklarované v `src/index.css`.
+- Nadpisy odlišuje váha, měřítko, řádkování a střídmý tracking. Velký hero
+  titulek je jediná povolená výrazně display/uppercase výjimka.
+- Technické mikro-popisky používají Fragment Mono pouze pro čísla kroku,
+  štítky a drobná metadata.
   Nikdy pro odstavce.
 - Fluidní role: display `clamp(2.25rem, 6vw, 5.25rem)`, H1
   `clamp(2rem, 4.5vw, 4rem)`, H2 `clamp(1.75rem, 3vw, 3rem)`, H3
@@ -111,10 +119,11 @@ akcentovou roli. Bílé písmo na akční barvě musí mít kontrast alespoň 4,
 ## 8. Pohyb
 
 - Standardní trvání 150–250 ms, komplexní přechod nejvýše 400 ms.
-- Easing `cubic-bezier(.2,.8,.2,1)`; bez scroll hijackingu, dlouhého parallaxu
-  a povinného skrolování k odhalení nabídky.
+- Easing `cubic-bezier(.2,.8,.2,1)`. Hero smí používat sticky scrollový reveal
+  v rámci 160vh a ilustrované pozadí smí mít jemný parallax. Kód nesmí
+  zachytávat kolečko, blokovat běžný scroll ani vyžadovat drag k pokračování.
 - `prefers-reduced-motion: reduce` vypíná transformace, automatické rotace a
-  autoplay. Obsah zůstává okamžitě viditelný.
+  autoplay; hero se změní na statické vyvážené porovnání.
 
 ## 9. Stavy a přístupnost
 
@@ -159,10 +168,11 @@ jednoduché řádky/karty. Karta nesmí předstírat případovou studii bez ov�
 
 ### Porovnání před/po
 
-Ovládání je nativní range se jménem, klávesnicí a viditelnou hodnotou. Oba
-obrazy mají shodný poměr. Na desktopu se načte okamžitě; na úzkém mobilu může
-být za jasně pojmenovaným disclosure a načíst se až po otevření. Nikdy nesmí
-blokovat první CTA.
+Oba autentické obrazy se přednačítají z HTML. Na desktopu jejich odhalení
+ovládá běžný postup stránky přes sticky scrollový track; na mobilu nativní
+range se jménem, hodnotou a klávesnicovým ovládáním. Pohybový reduced-motion
+stav používá statický dělicí poměr. Porovnání nesmí vytvořit horizontální
+overflow ani zakrýt spodní mobilní CTA.
 
 ### Postup, ceník, FAQ
 
@@ -189,10 +199,10 @@ právní odkazy a obsahuje maximálně dvě konkrétní akce.
 - Kontrolní šířky: 320, 360, 390, 768, 1024, 1280, 1440 a 1920 px; navíc
   844 × 390 landscape a zoom 200 %.
 - Na 320 px nesmí vzniknout horizontální scroll, oříznutý nadpis ani tlačítko.
-- Essential content (nabídka, služby, bezpečnost, cena a kontakt) nesmí být na
-  mobilu skrytý v disclosure. Velké podpůrné médium může být za jedním jasně
-  pojmenovaným disclosure, pokud se tím významně zkrátí cesta a nenačte se před
-  otevřením.
+- Nabídka, cena a kontakt nesmí být na mobilu skryté. Delší vysvětlení ochrany,
+  rizik a přehled jednotlivých služeb mohou být v samostatných jasně
+  pojmenovaných disclosure; po otevření musí být obsah okamžitě viditelný a
+  média se smějí aktivovat až v relevantním viewportu.
 - Sticky prvky nesmí překrýt ovládání; spodní padding stránky respektuje jejich
   skutečnou výšku a `env(safe-area-inset-bottom)`.
 
@@ -213,10 +223,11 @@ roky`, `zaručeně`) ani zdravotní diagnózy bez zdroje.
 Povolené: autentické velké fotografie, klidné plochy, vlasové linky, jednoduché
 seznamy, jeden dominantní CTA, nativní ovládání, jemný technický detail.
 
-Zakázané: glassmorphism, nadbytečné gradienty, card-grid pro každý odstavec,
-SaaS dashboard estetika na veřejném webu, odpočty, umělá urgence, autoplay
-karusely, scroll hijacking, falešná čísla/recenze/zakázky, AI důkazní média,
-nečitelný cyan text, plošné pill tvary a animace bez informačního účelu.
+Zakázané: glassmorphism mimo hero štítky a podklad titulku, nadbytečné
+gradienty, card-grid pro každý odstavec, SaaS dashboard estetika na veřejném
+webu, odpočty, umělá urgence, autoplay karusely, zachytávání nebo blokování
+scrollu, falešná čísla/recenze/zakázky, AI důkazní média, nečitelný cyan text,
+plošné pill tvary a animace bez informačního účelu.
 
 ## 14. Definice souladu
 

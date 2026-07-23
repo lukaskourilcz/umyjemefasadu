@@ -2,11 +2,30 @@
 
 Datum: **22. 7. 2026**
 
-Větev: `codex/full-site-modernization`
+Větev: `codex/revert-visual-design`
 
 Tento dokument eviduje, co bylo skutečně zkontrolováno při kompletním auditu a
 modernizaci. Neověřené obchodní skutečnosti nejsou vydávané za výsledek testu;
 jejich owner checklist je v [`../NEEDED.md`](../NEEDED.md).
+
+## Aktuální vizuální rollback
+
+Dne 22. 7. 2026 byl na pokyn majitele veřejný vzhled vrácený k baseline
+`977343c`. Nejde o `git revert` celé modernizace: podepsaná admin session,
+serverová validace, kontaktní API, SSR/předrender, obsahové brány, lazy média,
+focus management a testovací infrastruktura zůstaly zachované.
+
+Vrácené vizuální prvky:
+
+- plovoucí logo v původní poloze a s původní mírnou průsvitností;
+- sticky scrollové hero před/po s původním titulkem a štítky;
+- ilustrovaný druhý hero, „Proč čistit“, „Rizika“ a původní bento služeb;
+- Inter, Space Grotesk a Fragment Mono;
+- původní pořadí sekcí bez samostatného pásu `FieldWork`.
+
+Historické neověřené zdravotní a obchodní sliby se nevrátily. Mobilní disclosure
+byly stabilizované tak, aby se jejich obsah po hydrataci skutečně zobrazil a
+lazy video se po otevření znovu aktivovalo.
 
 ## Rozsah
 
@@ -28,7 +47,7 @@ nebyl dostupný, takže finální renderový verdikt výslovně vycházel z mě�
 render poznámek předaných lead agentem; code, content, admin a a11y kontrola
 byly nezávislé.
 
-## Hlavní změny oproti baseline
+## Modernizace na `main` před rollbackem (historie)
 
 - Dvojitý 200vh scroll-hijacking hero byl nahrazen jedním hero s okamžitým H1,
   CTA, telefonem, lokalitou a autentickým sliderem před/po.
@@ -62,7 +81,7 @@ npm run test:e2e
 npm audit --omit=dev
 ```
 
-Poslední úplný běh před finálním commitem musí mít:
+Poslední běh aktuální rollback větve měl:
 
 - ESLint: 0 warnings;
 - Vitest: 11/11 unit, component a security testů zelených;
@@ -77,9 +96,9 @@ záměrně běží na Node.js 20.19 podle produkční konfigurace.
 
 Testované scénáře zahrnují:
 
-- H1, hlavní CTA, telefon a absenci horizontálního overflow;
+- H1, hlavní CTA a absenci horizontálního overflow;
 - mobilní menu, přesun focusu, Escape a návrat focusu;
-- mobilní otevření porovnání před/po a dostupnost range ovládání;
+- mobilní dostupnost a klávesnicové ovládání range porovnání před/po;
 - formulářovou validaci a focus na chybné pole;
 - přítomnost `noindex` na `/dev`;
 - přesné obsahové schema a zákaz nebezpečných odkazů;
@@ -88,16 +107,17 @@ Testované scénáře zahrnují:
 - zákaz publikace neověřených důkazních sekcí;
 - zachování typu položky po vyprázdnění seznamu v adminu.
 
-## Render a responzivita
+## Render a responzivita po rollbacku
 
 Automatický E2E běh používá desktopový a mobilní projekt. Ručně byly při
 implementaci posouzené zejména tyto reprezentativní stavy:
 
-- **390 × 844:** nabídka, CTA, telefon, lokalita a tlačítko porovnání jsou v
-  prvním viewportu; logo má horní mezeru a nemění velikost při skrolování;
-- **768 × 1024:** bez vodorovného overflow a bez kolizí hero/navigace;
-- **1440 × 900:** textový blok přibližně x 144–623 a porovnání x 686–1296;
-  kompozice je vyvážená;
+- **390 × 844:** plovoucí logo, hero fotografie, H1 a nativní range porovnání
+  jsou bez horizontálního overflow; spodní CTA zůstává dostupné;
+- **390 × 844, služby:** disclosure je po načtení zavřené, po otevření zobrazí
+  původní bento a aktivuje poster i WebM až v relevantním viewportu;
+- **1440 × 1000:** H1 i nejdelší řádek zůstávají v hranicích 1440px viewportu,
+  dokument má `scrollWidth === innerWidth`;
 - **`/dev`:** login obrazovka je konzistentní s redesignem. Plný autentizovaný
   dashboard potřebuje po nastavení produkčních secrets ještě reálný mobilní
   smoke test.
@@ -105,7 +125,7 @@ implementaci posouzené zejména tyto reprezentativní stavy:
 Design systém vyžaduje kontrolu i na 320, 360, 1024, 1280 a 1920 px, v
 844 × 390 landscape a při 200% zoomu pro každou budoucí zásadní UI změnu.
 
-## Lighthouse a výkon
+## Lighthouse a výkon — historické měření před rollbackem
 
 Baseline před modernizací:
 
@@ -114,7 +134,7 @@ Baseline před modernizací:
 | Mobile  |          49 |            96 |            100 |   0 | 5,8 s | 0,879 | 220 ms |
 | Desktop |          97 |            96 |            100 |   0 | 1,3 s | 0,001 |      — |
 
-Finální produkční preview měření:
+Finální produkční preview měření modernizovaného hero před vizuálním rollbackem:
 
 | Profil         | Performance | Accessibility | Best Practices | SEO |    LCP |      CLS |    TBT |  Přenos | Requesty |
 | -------------- | ----------: | ------------: | -------------: | --: | -----: | -------: | -----: | ------: | -------: |
@@ -124,9 +144,9 @@ Finální produkční preview měření:
 Mobilní hodnoty jsou medián tří samostatných Lighthouse běhů stejného
 produkčního buildu. Jednotlivé výsledky byly Performance 94/99/97, LCP
 1,81/1,74/1,71 s a TBT 243/14/178 ms. Interní cíl LCP ≤ 2,5 s je splněný.
-Desktopové porovnání před/po se načítá ihned; na úzkém mobilu je dostupné přes
-pojmenované disclosure a oba obrazy se stáhnou až po jeho otevření. Proto se
-liší přenesená data mezi profily.
+Tyto hodnoty se po návratu scrollového hero nesmějí prezentovat jako aktuální
+výkon. Současná verze přednačítá oba obrazy před/po i na mobilu a znovu používá
+externí font request. Před produkčním nasazením je nutné Lighthouse zopakovat.
 
 Největší animovaná média po optimalizaci:
 
