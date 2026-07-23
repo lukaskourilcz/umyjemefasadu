@@ -130,7 +130,10 @@ export default function RevealHero({ before, after, label }: Props) {
           <Layer src={before} kind="before" show={hasPhotos} />
         </div>
 
-        <div className={`pointer-events-none absolute left-0 right-0 z-10 flex px-5 lg:px-10 ${mobile ? "bottom-7 items-end" : "inset-y-0 items-center"}`}>
+        <div
+          className={`pointer-events-none absolute left-0 right-0 z-10 flex px-5 lg:px-10 ${mobile ? "bottom-7 items-end" : "inset-y-0 items-center"}`}
+          style={mobile ? undefined : { transform: "translateY(80px)" }}
+        >
           <h1
             className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
             style={{
