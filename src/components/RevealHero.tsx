@@ -138,8 +138,8 @@ export default function RevealHero({ before, after, label }: Props) {
             className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
             style={{
               fontSize: mobile
-                ? "clamp(34px, 9.2vw, 60px)"
-                : "clamp(46px, 11.5vw, 80px)",
+                ? "clamp(29px, 7.8vw, 51px)"
+                : "clamp(39px, 9.8vw, 68px)",
               lineHeight: mobile ? 0.98 : 0.78,
               letterSpacing: "-0.03em",
               textShadow: "0 2px 20px rgba(16,24,32,0.55)",
