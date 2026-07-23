@@ -101,3 +101,12 @@ skrytá.
       agentní instrukce se skutečnou implementací. `[owner:ai]`
 - [x] Pushnout auditní větev, nechat projít GitHub CI a Vercel preview a sloučit
       PR #26 do `main` merge commitem `a88f8a9`. `[owner:ai]`
+
+## Vývojářské nástroje
+
+- [ ] **Nainstalovat a inicializovat RTK (`rtk-ai/rtk`)** — RTK nešlo nastavit z webové relace Claude Code, protože jeho GitHub host pro stahování je mimo síťový allowlist relace (`github.com/rtk-ai/rtk` i jeho release binárky vrací HTTP 403). Nastavte ho lokálně doma příkazy níže a poté ho povolte pro tento repozitář podle `rtk --help` / dokumentace RTK (přesný příkaz pro jednotlivý repozitář zde není uveden, protože se nástroj v sandboxu nenainstaloval). `[imp:2]` `[owner:me]`
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+rtk init --global
+```
