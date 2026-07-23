@@ -71,6 +71,8 @@ export type Content = {
     heading: string;
     paragraphs: string[];
     bullets: string[];
+    /** Proč čistit fasádu, střechu i dlažbu — tři edukační podsekce. */
+    reasons: { title: string; desc: string }[];
     protectionTitle: string;
     protectionIntro: string;
     protectionBullets: string[];
@@ -183,7 +185,8 @@ export type Content = {
 
   faq: {
     heading: string;
-    items: { q: string; a: string }[];
+    /** `cta` je nepovinné tlačítko pod odpovědí (např. odkaz na ceník). */
+    items: { q: string; a: string; cta?: { label: string; href: string } }[];
   };
 
   advice: {

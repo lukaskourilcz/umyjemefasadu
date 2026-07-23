@@ -1,5 +1,12 @@
 import SectionHeading from "./SectionHeading";
-import { CheckIcon, DropletIcon, LeafIcon, HouseIcon } from "./icons";
+import {
+  CheckIcon,
+  DropletIcon,
+  LeafIcon,
+  HouseIcon,
+  RoofIcon,
+  TilesIcon,
+} from "./icons";
 import { useContent } from "../content";
 import { TEXT } from "../lib/text";
 import MobileDisclosure from "./MobileDisclosure";
@@ -14,11 +21,15 @@ import MobileDisclosure from "./MobileDisclosure";
 // editovatelné v administraci.
 const BULLET_ICONS = [DropletIcon, LeafIcon, HouseIcon];
 
+// Ikony tří podsekcí „proč čistit" – fasáda, střecha, dlažba (podle pořadí).
+const REASON_ICONS = [HouseIcon, RoofIcon, TilesIcon];
+
 export default function WhyClean() {
   const {
     heading,
     paragraphs,
     bullets,
+    reasons,
     protectionTitle,
     protectionIntro,
     protectionBullets,
@@ -89,6 +100,54 @@ export default function WhyClean() {
             <figcaption className="font-fragment-mono absolute inset-x-0 bottom-0 p-4 px-5 text-[11px] uppercase tracking-[.1em] text-cream-paper/90">{imageLabel}</figcaption>
           </figure>
         </div>
+
+        {/* Proč čistit fasádu, střechu i dlažbu – tři edukační podsekce.
+            Ikony jsou v kódu, texty se editují v administraci. */}
+        {reasons.length > 0 && (
+          <div className="mt-16 fade-up">
+            <h3
+              className="text-botanical-ink"
+              style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
+            >
+              Proč čistit fasádu, střechu i dlažbu
+            </h3>
+            <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+              {reasons.map((r, i) => {
+                const Icon = REASON_ICONS[i % REASON_ICONS.length];
+                return (
+                  <article
+                    key={i}
+                    className="flex flex-col gap-2 rounded-[14px] border p-6 md:p-7"
+                    style={{
+                      borderColor: "var(--color-eucalyptus)",
+                      backgroundColor: "var(--color-cream-paper)",
+                    }}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0"
+                      style={{ color: "var(--color-forest-floor)" }}
+                    >
+                      <Icon size={28} />
+                    </span>
+                    <h4
+                      className="mt-1 text-botanical-ink"
+                      style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.3 }}
+                    >
+                      {r.title}
+                    </h4>
+                    <p
+                      className="text-botanical-ink/75"
+                      style={{ fontSize: "15px", lineHeight: 1.6 }}
+                    >
+                      {r.desc}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
             vpravo přínosy jako odškrtnutý seznam. */}

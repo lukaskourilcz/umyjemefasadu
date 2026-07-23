@@ -42,9 +42,16 @@ export default function Faq() {
                   />
                 </svg>
               </summary>
-              <p className="pb-6 pr-8 text-botanical-ink/75" style={TEXT.body}>
-                {item.a}
-              </p>
+              <div className="pb-6 pr-8">
+                <p className="text-botanical-ink/75" style={TEXT.body}>
+                  {item.a}
+                </p>
+                {item.cta && (
+                  <a href={item.cta.href} className="btn-primary mt-5">
+                    {item.cta.label}
+                  </a>
+                )}
+              </div>
             </details>
           ))}
         </div>

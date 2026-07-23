@@ -39,6 +39,27 @@ export function HouseIcon({ size = 22 }: { size?: number }) {
   );
 }
 
+/** Střecha - sedlová střecha s hřebenem. */
+export function RoofIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 12 L12 5 L21 12" {...stroke} />
+      <path d="M5.5 10 V19 H18.5 V10" {...stroke} />
+      <path d="M8.5 19 L9.7 12.5 M15.5 19 L14.3 12.5 M7.4 15.5 H16.6" {...stroke} />
+    </svg>
+  );
+}
+
+/** Dlažba - zámková dlažba / spáry. */
+export function TilesIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="1.5" {...stroke} />
+      <path d="M3.5 12 H20.5 M12 3.5 V12 M8 12 V20.5 M16 12 V20.5" {...stroke} />
+    </svg>
+  );
+}
+
 /** Rounded check mark - used in the trust strip and the "why us" list. */
 export function CheckIcon({
   size = 16,

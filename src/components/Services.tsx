@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 import MobileDisclosure from "./MobileDisclosure";
@@ -14,89 +14,7 @@ const stroke = {
 const TITLE_STYLE = { fontSize: "19px", fontWeight: 700 } as const;
 const DESC_STYLE = { fontSize: "15px", lineHeight: 1.55 } as const;
 
-/**
- * Draggable before/after reveal. Until real paired photos exist, the same
- * photo stands in for both states - the "before" side is dimmed (0.65 opacity
- * over ink) so the wipe is visible. Swap `before` for a real photo later.
- */
-function BeforeAfterImage({ img, alt }: { img: string; alt: string }) {
-  const [pos, setPos] = useState(50);
-  return (
-    <div className="relative aspect-[16/10] w-full select-none overflow-hidden">
-      {/* AFTER - clean, full frame */}
-      <img
-        src={img}
-        alt={alt}
-        loading="lazy"
-        draggable={false}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      {/* BEFORE - dimmed copy, revealed from the left via clip-path */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          clipPath: `inset(0 ${100 - pos}% 0 0)`,
-          backgroundColor: "var(--color-botanical-ink)",
-        }}
-      >
-        <img
-          src={img}
-          alt=""
-          loading="lazy"
-          draggable={false}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ opacity: 0.65 }}
-        />
-      </div>
-
-      {/* Slider input - drives the reveal; pan-y keeps vertical page scroll
-          working when the touch starts on the image. */}
-      <input
-        type="range"
-        min={0}
-        max={100}
-        value={pos}
-        onChange={(e) => setPos(Number(e.target.value))}
-        aria-label="Porovnání před a po"
-        className="peer absolute inset-0 z-10 h-full w-full cursor-ew-resize opacity-0"
-        style={{ touchAction: "pan-y" }}
-      />
-
-      {/* Divider + handle */}
-      <div
-        className="pointer-events-none absolute inset-y-0"
-        style={{ left: `${pos}%`, transform: "translateX(-50%)" }}
-      >
-        <div
-          className="h-full w-0.5"
-          style={{ backgroundColor: "var(--color-cream-paper)" }}
-        />
-      </div>
-      <div
-        className="pointer-events-none absolute top-1/2 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full peer-focus-visible:ring-2 peer-focus-visible:ring-forest-floor"
-        style={{
-          left: `${pos}%`,
-          backgroundColor: "var(--color-cream-paper)",
-          boxShadow: "var(--shadow-subtle)",
-        }}
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-          <path
-            d="M7 4 L3 9 L7 14 M11 4 L15 9 L11 14"
-            fill="none"
-            stroke="var(--color-forest-floor)"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-/** Photo-led service card with the before/after reveal on top. */
+/** Photo-led service card with a single illustrative photo (no slider). */
 function PhotoCard({
   img,
   alt,
@@ -118,7 +36,14 @@ function PhotoCard({
         backgroundColor: "var(--color-cream-paper)",
       }}
     >
-      <BeforeAfterImage img={img} alt={alt} />
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <img
+          src={img}
+          alt={alt}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
       <div className="flex flex-col gap-1.5 p-5 md:p-6">
         <h3 className="text-botanical-ink" style={TITLE_STYLE}>
           {title}

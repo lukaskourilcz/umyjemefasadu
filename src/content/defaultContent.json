@@ -95,6 +95,20 @@
       "Používáme profesionální a velmi kvalitní chemii.",
       "Obnovíme vzhled vašeho domu během jediného dne."
     ],
+    "reasons": [
+      {
+        "title": "Fasáda",
+        "desc": "Fasáda je vizitka celého domu. Prach, smog, řasy a plísně ji časem zbarví došeda nebo dozelena, prorůstají do omítky i zateplení a zhoršují tepelné vlastnosti. Vyčištěním vrátíme fasádě původní vzhled a zdravý stav – bez drahé rekonstrukce."
+      },
+      {
+        "title": "Střecha",
+        "desc": "Na střeše se usazují mech, lišejník a řasy. Drží vlhkost, poškozují krytinu a ucpávají odvod vody, takže hrozí zatékání a kratší životnost střechy. Šetrné čištění podle typu krytiny vrátí střeše vzhled a ochrání ji na další roky."
+      },
+      {
+        "title": "Dlažba a chodníky",
+        "desc": "Dlažba, terasy a chodníky rychle zezelenají, ve spárách se drží mech i plevel a mokrý povrch se stává kluzkým a nebezpečným. Tlakové čištění odstraní zelený povlak i nečistoty ze spár a vrátí ploše čistý a bezpečný vzhled."
+      }
+    ],
     "protectionTitle": "Ochrana proti vodě",
     "protectionIntro": "Ochranu fasády proti vodě řešíme impregnací (hydrofobizací) – nátěrem či nástřikem, který odpuzuje vodu, ale nechá zeď dýchat.",
     "protectionBullets": [
@@ -505,7 +519,8 @@
       },
       {
         "q": "Kolik to bude stát?",
-        "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků."
+        "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků.",
+        "cta": { "label": "Zobrazit ceník", "href": "#cenik" }
       },
       {
         "q": "Co všechno umíte vyčistit?",

@@ -149,6 +149,7 @@ LABELS.mailtoSubject = "Předmět e-mailu s poptávkou";
 LABELS.mailtoNote = "Vysvětlivka pod formulářem (e-mail)";
 LABELS.paragraphs = "Odstavce textu";
 LABELS.bullets = "Odrážky";
+LABELS.reasons = "Proč čistit (fasáda / střecha / dlažba)";
 LABELS.protectionTitle = "Ochrana proti vodě — nadpis";
 LABELS.protectionIntro = "Ochrana proti vodě — úvod";
 LABELS.protectionBullets = "Ochrana proti vodě — odrážky";

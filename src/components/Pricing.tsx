@@ -6,7 +6,7 @@ export default function Pricing() {
   return (
     <section id="cenik" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading label="Ceník" title={heading} intro={intro} />
+        <SectionHeading title={heading} intro={intro} />
 
         <div
           className="mx-auto mt-12 max-w-[860px] border-t fade-up"
