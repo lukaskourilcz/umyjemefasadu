@@ -134,8 +134,10 @@ export default function RevealHero({ before, after, label }: Props) {
           <h1
             className="rise-in flex flex-col items-start gap-0 font-bold uppercase"
             style={{
-              fontSize: mobile ? "38px" : "clamp(42px, 11vw, 72px)",
-              lineHeight: mobile ? 0.92 : 0.78,
+              fontSize: mobile
+                ? "clamp(34px, 9.2vw, 60px)"
+                : "clamp(46px, 11.5vw, 80px)",
+              lineHeight: mobile ? 0.98 : 0.78,
               letterSpacing: "-0.03em",
               textShadow: "0 2px 20px rgba(16,24,32,0.55)",
               color: mobile
@@ -143,7 +145,7 @@ export default function RevealHero({ before, after, label }: Props) {
                 : "color-mix(in srgb, #e2e4e5, #fbfdfe calc(var(--p, 0) * 100%))",
             }}
           >
-            {(mobile ? [rh.headlineLines.join(" ")] : rh.headlineLines).map((line, i) => (
+            {rh.headlineLines.map((line, i) => (
               <span
                 key={i}
                 className={mobile ? "" : "px-[0.32em] py-[0.22em]"}

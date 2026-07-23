@@ -21,8 +21,8 @@ import MobileDisclosure from "./MobileDisclosure";
 // editovatelné v administraci.
 const BULLET_ICONS = [DropletIcon, LeafIcon, HouseIcon];
 
-// Ikony tří podsekcí „proč čistit" – fasáda, střecha, dlažba (podle pořadí).
-const REASON_ICONS = [HouseIcon, RoofIcon, TilesIcon];
+// Ikony podsekcí – střecha, dlažba a chodníky (podle pořadí v obsahu).
+const REASON_ICONS = [RoofIcon, TilesIcon];
 
 export default function WhyClean() {
   const {
@@ -107,41 +107,55 @@ export default function WhyClean() {
           <div className="mt-16 fade-up">
             <h3
               className="text-botanical-ink"
-              style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
+              style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 700 }}
             >
-              Proč čistit fasádu, střechu i dlažbu
+              Čištění střechy a dlažby
             </h3>
-            <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6">
               {reasons.map((r, i) => {
                 const Icon = REASON_ICONS[i % REASON_ICONS.length];
                 return (
                   <article
                     key={i}
-                    className="flex flex-col gap-2 rounded-[14px] border p-6 md:p-7"
+                    className="card-hover relative flex flex-col gap-5 overflow-hidden rounded-[18px] border p-7 md:p-9"
                     style={{
                       borderColor: "var(--color-eucalyptus)",
                       backgroundColor: "var(--color-cream-paper)",
                     }}
                   >
+                    {/* Jemný barevný akcent nahoře karty. */}
                     <span
                       aria-hidden="true"
-                      className="shrink-0"
-                      style={{ color: "var(--color-forest-floor)" }}
+                      className="absolute inset-x-0 top-0 h-1"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, var(--color-forest-floor), var(--color-moss-veil))",
+                      }}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl"
+                      style={{
+                        backgroundColor: "var(--color-moss-veil)",
+                        color: "var(--color-forest-floor)",
+                      }}
                     >
-                      <Icon size={28} />
+                      <Icon size={30} />
                     </span>
-                    <h4
-                      className="mt-1 text-botanical-ink"
-                      style={{ fontSize: "18px", fontWeight: 700, lineHeight: 1.3 }}
-                    >
-                      {r.title}
-                    </h4>
-                    <p
-                      className="text-botanical-ink/75"
-                      style={{ fontSize: "15px", lineHeight: 1.6 }}
-                    >
-                      {r.desc}
-                    </p>
+                    <div className="flex flex-col gap-2.5">
+                      <h4
+                        className="text-botanical-ink"
+                        style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.2 }}
+                      >
+                        {r.title}
+                      </h4>
+                      <p
+                        className="text-botanical-ink/75"
+                        style={{ fontSize: "15.5px", lineHeight: 1.65 }}
+                      >
+                        {r.desc}
+                      </p>
+                    </div>
                   </article>
                 );
               })}

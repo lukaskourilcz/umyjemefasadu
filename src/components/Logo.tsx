@@ -4,11 +4,12 @@
  * and cyan water splash).
  *
  * Two artworks: the standalone vector (`logo.svg`, used in the footer) and a
- * delivery-optimised WebP nav emblem (`/media/logo-nav.webp`, ~25 kB) that
- * replaces the heavy 860 kB raster-backed SVG. Both render as <img> so the nav
- * artwork loads as a separate cacheable asset instead of being inlined into the
- * JS bundle. Size is driven by the caller via `height` (and/or responsive
- * height classes in `className`).
+ * high-quality WebP nav emblem (`/media/logo-nav.webp`, 1440×810, ~52 kB) —
+ * a crisp render of the original nav artwork that replaces the heavy 860 kB
+ * raster-backed SVG (stays sharp on high-DPI phones). Both render as <img> so
+ * the nav artwork loads as a separate cacheable asset instead of being inlined
+ * into the JS bundle. Size is driven by the caller via `height` (and/or
+ * responsive height classes in `className`).
  */
 import logoUrl from "../assets/logo.svg";
 
