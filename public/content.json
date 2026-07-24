@@ -360,7 +360,7 @@
         ]
       },
       {
-        "type": "Bytový dům",
+        "type": "SVJ - Bytový dům",
         "city": "Hodonín",
         "facts": [
           {
@@ -372,19 +372,19 @@
             "value": "kompletní čištění vč. nanoimpregnace"
           }
         ],
-        "desc": "Šetrné tlakové mytí fasády rodinného domu a ochranná nanoimpregnace proti opětovnému znečištění.",
+        "desc": "Čištění + ochranná impregnace štítu objektu, který už nebyl ve své kondici",
         "images": [
           {
             "src": "/media/pic6.webp",
-            "alt": "Čištění štítu rodinného domu z montážní plošiny"
+            "alt": "Čištění štítu bytového domu z montážní plošiny"
           },
           {
             "src": "/media/upload-mrxwdm01-0.webp",
-            "alt": "Ošetření fasády rodinného domu z plošiny"
+            "alt": "Ošetření fasády bytového domu z plošiny"
           },
           {
             "src": "/media/upload-mrxwfadb-0.webp",
-            "alt": "Ošetření fasády rodinného domu z plošiny"
+            "alt": "Ošetření fasády bytového domu z plošiny"
           }
         ]
       },
