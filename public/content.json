@@ -331,19 +331,19 @@
     "intro": "Konkrétní objekty, rozsah a postup - takhle vypadá naše práce v číslech i na fotkách.",
     "studies": [
       {
-        "type": "Bytový dům",
-        "city": "Brno",
+        "type": "SVJ - Bytový dům + kanceláře",
+        "city": "Hodonín",
         "facts": [
           {
             "label": "Rozsah",
-            "value": "1 250 m²"
+            "value": "144 m²"
           },
           {
             "label": "Postup",
             "value": "kompletní čištění vč. nanoimpregnace"
           }
         ],
-        "desc": "Kompletní vyčištění fasády od řas, plísní a usazených nečistot, zakončené nanoimpregnací pro dlouhodobou ochranu povrchu.",
+        "desc": "Kompletní vyčištění fasády objektu bytového domu a kanceláří od řas, plísní a usazených nečistot, zakončené nanoimpregnací pro dlouhodobou ochranu povrchu. \nPráce probíhala z 20m vysokozdvižné plošiny v městské řadové zástavbě.",
         "images": [
           {
             "src": "/media/pic1.webp",
@@ -517,7 +517,10 @@
       {
         "q": "Kolik to bude stát?",
         "a": "Cenu stanovujeme individuálně podle konkrétního objektu. Přijedeme na nezávaznou prohlídku zdarma, objekt zaměříme a připravíme cenovou nabídku na míru, bez poplatků a závazků.",
-        "cta": { "label": "Zobrazit ceník", "href": "#cenik" }
+        "cta": {
+          "label": "Zobrazit ceník",
+          "href": "#cenik"
+        }
       },
       {
         "q": "Co všechno umíte vyčistit?",
