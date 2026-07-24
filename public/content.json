@@ -414,23 +414,23 @@
         ]
       },
       {
-        "type": "Komerční objekt",
+        "type": "Komerční objekt - sídlo společnosti",
         "city": "Hodonín",
         "facts": [
           {
             "label": "Rozsah",
-            "value": "780 m²"
+            "value": "356 m²"
           },
           {
             "label": "Postup",
-            "value": "odstranění graffiti"
+            "value": "čištění fasády"
           }
         ],
-        "desc": "Citlivé odstranění graffiti bez poškození podkladu včetně ochranného nátěru proti dalšímu posprejování.",
+        "desc": "Hloubkové čištění firemních prostor před novým nátěrem",
         "images": [
           {
             "src": "/media/upload-mrxxbg65-0.webp",
-            "alt": "Odstraňování graffiti z podchodu"
+            "alt": "čištění fasády z plošiny"
           },
           {
             "src": "/media/upload-mrxxbg65-1.webp",
