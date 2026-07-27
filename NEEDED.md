@@ -10,10 +10,6 @@ Většinu z toho jde upravit přímo v administraci na `/dev`.
 Každý úkol má jednořádkové „proč" a skóre důležitosti `[imp:N]` (5 = nejvyšší).
 Podrobnosti jsou v sekcích níže.
 
-- [ ] **Nahradit ukázkové fotky v „Vybrané zakázky" reálnými** — placeholder fotky u nové firmy působí nedůvěryhodně. `[imp:3]`
-- [ ] **Potvrdit, která část textu v sekci Služby se má odstranit** — klient chtěl smazat žlutě označený text, barvy jsme neměli. `[imp:2]`
-- [ ] **Zapnout vypnuté sekce, až budou reálná data** — smyšlená čísla a reference by nové firmě spíš uškodily. `[imp:2]`
-- [ ] **Sladit starší znění FAQ a kontaktů s aktuálními texty** — kvůli SEO; nemá vliv na to, co vidí návštěvník. `[imp:2]`
 
 ---
 
