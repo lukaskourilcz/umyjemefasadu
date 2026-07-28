@@ -12,7 +12,7 @@ export const SECTIONS: { key: string; title: string; help?: string }[] = [
   { key: "revealHero", title: "Úvod — fotka před / po", help: "Velká úvodní fotka s odhalením a nadpisem." },
   { key: "hero", title: "Úvod — sekce s videi", help: "Nadpis, text, tlačítka a koláž videí/gifů." },
   { key: "trustStrip", title: "Pruh důvěry", help: "Krátké body pod úvodem (pojištění, ekologie…)." },
-  { key: "whyClean", title: "Proč čistit fasádu", help: "Edukační sekce, ochrana proti vodě a široká fotografie výsledku." },
+  { key: "whyClean", title: "Proč čistit fasádu, střechu a dlažbu", help: "Edukační sekce o fasádě, bloky o střeše a dlažbě, ochrana proti vodě s nanoimpregnací a široká fotografie výsledku." },
   { key: "risks", title: "Rizika znečištěné fasády", help: "Tři rizika a doporučené řešení s výzvou k bezplatné prohlídce." },
   { key: "services", title: "Služby", help: "Hlavní video služby s náhradní fotografií a jednotlivé foto karty." },
   { key: "process", title: "Postup čištění", help: "Kroky postupu a malé doprovodné video vedle časové osy." },
@@ -149,11 +149,18 @@ LABELS.mailtoSubject = "Předmět e-mailu s poptávkou";
 LABELS.mailtoNote = "Vysvětlivka pod formulářem (e-mail)";
 LABELS.paragraphs = "Odstavce textu";
 LABELS.bullets = "Odrážky";
-LABELS.reasons = "Proč čistit (fasáda / střecha / dlažba)";
+LABELS.reasonsHeading = "Čištění střechy a dlažby — nadpis";
+LABELS.reasons = "Bloky — střecha a dlažba";
+LABELS.risksTitle = "Rizika — nadpis";
+LABELS.risksIntro = "Rizika — úvodní text (lze nechat prázdné)";
+LABELS.risks = "Rizika a problémy (popis lze nechat prázdný)";
 LABELS.protectionTitle = "Ochrana proti vodě — nadpis";
 LABELS.protectionIntro = "Ochrana proti vodě — úvod";
 LABELS.protectionBullets = "Ochrana proti vodě — odrážky";
 LABELS.protectionHow = "Ochrana proti vodě — jak to funguje";
+LABELS.protectionNanoIntro = "Nanoimpregnace — úvodní text";
+LABELS.protectionNanoLead = "Nanoimpregnace — věta uvádějící výhody";
+LABELS.protectionNanoBullets = "Nanoimpregnace — hlavní výhody";
 LABELS.solutionTitle = "Řešení — nadpis";
 LABELS.solutionDesc = "Řešení — text";
 LABELS.solutionCta = "Řešení — text tlačítka";

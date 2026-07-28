@@ -71,12 +71,30 @@ export type Content = {
     heading: string;
     paragraphs: string[];
     bullets: string[];
-    /** Proč čistit fasádu, střechu i dlažbu — tři edukační podsekce. */
-    reasons: { title: string; desc: string }[];
+    /** Nadpis bloku s čištěním střechy a dlažby. */
+    reasonsHeading: string;
+    /**
+     * Čištění střechy a dlažby — edukační bloky se stejnou stavbou jako sekce
+     * o fasádě: krátký štítek, otázka v nadpisu, výklad a seznam rizik.
+     * `risks[].desc` může být prázdný — položka se pak vykreslí jen jako
+     * jednořádková odrážka.
+     */
+    reasons: {
+      title: string;
+      heading: string;
+      paragraphs: string[];
+      risksTitle: string;
+      risksIntro: string;
+      risks: { title: string; desc: string }[];
+    }[];
     protectionTitle: string;
     protectionIntro: string;
     protectionBullets: string[];
     protectionHow: string;
+    /** Nanoimpregnace — doplňující blok pod ochranou proti vodě. */
+    protectionNanoIntro: string;
+    protectionNanoLead: string;
+    protectionNanoBullets: { title: string; desc: string }[];
     image: string;
     imageAlt: string;
     imageLabel: string;

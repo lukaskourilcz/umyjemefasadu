@@ -29,11 +29,15 @@ export default function WhyClean() {
     heading,
     paragraphs,
     bullets,
+    reasonsHeading,
     reasons,
     protectionTitle,
     protectionIntro,
     protectionBullets,
     protectionHow,
+    protectionNanoIntro,
+    protectionNanoLead,
+    protectionNanoBullets,
     image,
     imageAlt,
     imageLabel,
@@ -101,61 +105,143 @@ export default function WhyClean() {
           </figure>
         </div>
 
-        {/* Proč čistit fasádu, střechu i dlažbu – tři edukační podsekce.
+        {/* Čištění střechy a dlažby – edukační bloky se stejnou stavbou jako
+            výklad o fasádě výše: vlevo výklad, vpravo rizika.
             Ikony jsou v kódu, texty se editují v administraci. */}
         {reasons.length > 0 && (
-          <div className="mt-16 fade-up">
+          <div className="mt-16">
             <h3
-              className="text-botanical-ink"
+              className="text-botanical-ink fade-up"
               style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 700 }}
             >
-              Čištění střechy a dlažby
+              {reasonsHeading}
             </h3>
-            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6">
+
+            <div className="mt-10 flex flex-col gap-12 md:gap-14">
               {reasons.map((r, i) => {
                 const Icon = REASON_ICONS[i % REASON_ICONS.length];
                 return (
                   <article
                     key={i}
-                    className="card-hover relative flex flex-col gap-5 overflow-hidden rounded-[18px] border p-7 md:p-9"
-                    style={{
-                      borderColor: "var(--color-eucalyptus)",
-                      backgroundColor: "var(--color-cream-paper)",
-                    }}
+                    className="grid grid-cols-1 items-start gap-8 border-t pt-9 fade-up lg:grid-cols-2 lg:gap-16"
+                    style={{ borderColor: "var(--color-eucalyptus)" }}
                   >
-                    {/* Jemný barevný akcent nahoře karty. */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-0 top-0 h-1"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, var(--color-forest-floor), var(--color-moss-veil))",
-                      }}
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl"
-                      style={{
-                        backgroundColor: "var(--color-moss-veil)",
-                        color: "var(--color-forest-floor)",
-                      }}
-                    >
-                      <Icon size={30} />
-                    </span>
-                    <div className="flex flex-col gap-2.5">
+                    <div>
+                      <div className="flex items-center gap-3.5">
+                        <span
+                          aria-hidden="true"
+                          className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px]"
+                          style={{
+                            backgroundColor: "var(--color-moss-veil)",
+                            color: "var(--color-forest-floor)",
+                          }}
+                        >
+                          <Icon size={26} />
+                        </span>
+                        <span
+                          className="font-fragment-mono text-[11px] uppercase"
+                          style={{ color: "var(--color-forest-floor)", letterSpacing: ".12em" }}
+                        >
+                          {r.title}
+                        </span>
+                      </div>
+
                       <h4
-                        className="text-botanical-ink"
-                        style={{ fontSize: "22px", fontWeight: 700, lineHeight: 1.2 }}
+                        className="mt-5 max-w-[26ch] text-botanical-ink"
+                        style={{
+                          fontSize: "clamp(20px, 1.7vw, 24px)",
+                          fontWeight: 700,
+                          lineHeight: 1.25,
+                        }}
                       >
-                        {r.title}
+                        {r.heading}
                       </h4>
-                      <p
-                        className="text-botanical-ink/75"
-                        style={{ fontSize: "15.5px", lineHeight: 1.65 }}
-                      >
-                        {r.desc}
-                      </p>
+
+                      <div className="mt-4 max-w-[58ch]">
+                        {r.paragraphs.map((p, j) => (
+                          <p
+                            key={j}
+                            className="text-botanical-ink/80"
+                            style={{
+                              fontSize: "var(--text-body)",
+                              lineHeight: 1.7,
+                              marginTop: j === 0 ? 0 : 14,
+                            }}
+                          >
+                            {p}
+                          </p>
+                        ))}
+                      </div>
                     </div>
+
+                    {/* Rizika – číslovaný seznam na vlasových linkách. Položky
+                        bez popisu se vykreslí jako jednořádkové odrážky. */}
+                    {r.risks.length > 0 && (
+                      <div
+                        className="rounded-[14px] border p-6 md:p-8"
+                        style={{
+                          borderColor: "var(--color-eucalyptus)",
+                          backgroundColor: "var(--color-sage-mist)",
+                        }}
+                      >
+                        <h5
+                          className="text-botanical-ink"
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            fontSize: "17px",
+                            fontWeight: 700,
+                            lineHeight: 1.35,
+                            letterSpacing: "-0.02em",
+                          }}
+                        >
+                          {r.risksTitle}
+                        </h5>
+                        {r.risksIntro && (
+                          <p
+                            className="mt-2.5 text-botanical-ink/75"
+                            style={{ fontSize: "15px", lineHeight: 1.6 }}
+                          >
+                            {r.risksIntro}
+                          </p>
+                        )}
+                        <ul className="mt-5 flex flex-col">
+                          {r.risks.map((it, j) => (
+                            <li
+                              key={j}
+                              className="flex gap-4 border-t py-3.5 first:border-t-0 first:pt-0"
+                              style={{ borderColor: "var(--color-eucalyptus)" }}
+                            >
+                              <span
+                                className="font-fragment-mono shrink-0 pt-[3px] text-[12px]"
+                                style={{ color: "var(--color-forest-floor)" }}
+                              >
+                                {String(j + 1).padStart(2, "0")}
+                              </span>
+                              <div className="min-w-0">
+                                <span
+                                  className="block text-botanical-ink"
+                                  style={{
+                                    fontSize: "15.5px",
+                                    fontWeight: 600,
+                                    lineHeight: 1.45,
+                                  }}
+                                >
+                                  {it.title}
+                                </span>
+                                {it.desc && (
+                                  <p
+                                    className="mt-1.5 text-botanical-ink/75"
+                                    style={{ fontSize: "14.5px", lineHeight: 1.6 }}
+                                  >
+                                    {it.desc}
+                                  </p>
+                                )}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </article>
                 );
               })}
@@ -207,6 +293,56 @@ export default function WhyClean() {
               </li>
             ))}
           </ul>
+
+          {/* Nanoimpregnace – co hydrofobní vrstva přináší navíc. Přes celou
+              šířku pruhu, oddělená vlasovou linkou. */}
+          {(protectionNanoIntro || protectionNanoBullets.length > 0) && (
+            <div
+              className="border-t pt-8 md:col-span-2 md:pt-9"
+              style={{ borderColor: "var(--color-eucalyptus)" }}
+            >
+              {protectionNanoIntro && (
+                <p className="max-w-[80ch] text-botanical-ink/80" style={TEXT.body}>
+                  {protectionNanoIntro}
+                </p>
+              )}
+              {protectionNanoLead && (
+                <p
+                  className="mt-5 text-botanical-ink"
+                  style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.5 }}
+                >
+                  {protectionNanoLead}
+                </p>
+              )}
+              {protectionNanoBullets.length > 0 && (
+                <ul className="mt-5 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
+                  {protectionNanoBullets.map((b, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <span className="mt-1 shrink-0">
+                        <CheckIcon size={16} color="var(--color-forest-floor)" />
+                      </span>
+                      <div className="min-w-0">
+                        <span
+                          className="block text-botanical-ink"
+                          style={{ fontSize: "15px", fontWeight: 600, lineHeight: 1.45 }}
+                        >
+                          {b.title}
+                        </span>
+                        {b.desc && (
+                          <p
+                            className="mt-1 text-botanical-ink/75"
+                            style={{ fontSize: "14.5px", lineHeight: 1.6 }}
+                          >
+                            {b.desc}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
         </MobileDisclosure>
       </div>
