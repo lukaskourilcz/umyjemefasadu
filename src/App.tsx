@@ -6,6 +6,7 @@ import RevealHero from "./components/RevealHero";
 import Hero from "./components/Hero";
 import TrustStrip from "./components/TrustStrip";
 import WhyClean from "./components/WhyClean";
+import WhyCleanDetail from "./components/WhyCleanDetail";
 import Risks from "./components/Risks";
 import Services from "./components/Services";
 import Process from "./components/Process";
@@ -37,8 +38,11 @@ export default function App() {
         />
         <Hero backdrop={<Landscape className="h-full w-full" />} />
         <TrustStrip />
+        {/* Rizika leží mezi úvodem „Proč čistit" a zbytkem výkladu — fotka
+            výsledku a čištění střechy/dlažby přicházejí až po nich. */}
         <WhyClean />
         <Risks />
+        <WhyCleanDetail />
         <Services />
         <Process />
         <WhyUs />

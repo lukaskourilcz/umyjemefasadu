@@ -81,8 +81,10 @@ export default function Nav() {
         <div className="flex-1" />
 
         {/* Center - nav links, shown from 1200px where the full-size logo clears
-            them; below that the hamburger takes over. */}
-        <div className="hidden flex-1 items-center justify-center gap-7 min-[1200px]:flex">
+            them; below that the hamburger takes over.
+            `z-20`: rám obrázku loga (včetně průhledných rohů) zasahuje až sem
+            a bez toho by spolkl kliknutí na první odkaz. */}
+        <div className="relative z-20 hidden flex-1 items-center justify-center gap-7 min-[1200px]:flex">
           {LINKS.map((l) => (
             <a
               key={l.href}
@@ -136,11 +138,13 @@ export default function Nav() {
       </nav>
 
       {/* Mobile menu panel - capped to the space under the bar and scrollable,
-          so all links stay reachable however many the admin adds. */}
+          so all links stay reachable however many the admin adds.
+          `z-20` ze stejného důvodu jako u odkazů v liště: logo přesahuje pod
+          lištu a jinak by první položka menu nešla prokliknout. */}
       <div
         id="mobile-menu"
         ref={panelRef}
-        className="overflow-hidden transition-[max-height] duration-300 ease-out min-[1200px]:hidden"
+        className="relative z-20 overflow-hidden transition-[max-height] duration-300 ease-out min-[1200px]:hidden"
         style={{
           maxHeight: open ? "calc(100dvh - var(--nav-h, 76px) - 8px)" : "0px",
           overflowY: open ? "auto" : "hidden",
