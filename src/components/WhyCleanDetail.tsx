@@ -16,6 +16,7 @@ export default function WhyCleanDetail() {
   const {
     reasonsHeading,
     reasons,
+    protectionHeading,
     protectionTitle,
     protectionIntro,
     protectionBullets,
@@ -196,23 +197,34 @@ export default function WhyCleanDetail() {
           </div>
         )}
 
+        {/* Nanoimpregnace – velký nadpis dělí sekci na čištění a ochranu. */}
+        {protectionHeading && (
+          <h3
+            className="mt-16 text-botanical-ink fade-up"
+            style={{ fontSize: "clamp(22px, 2.2vw, 28px)", fontWeight: 700 }}
+          >
+            {protectionHeading}
+          </h3>
+        )}
+
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
             vpravo přínosy jako odškrtnutý seznam. */}
         <MobileDisclosure label="Jak chráníme fasádu proti vodě">
         <div
-          className="mt-16 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
+          className="mt-8 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
           style={{
             borderColor: "var(--color-eucalyptus)",
             backgroundColor: "var(--color-sage-mist)",
           }}
         >
           <div>
-            <h3
+            {/* h4 – nadřazený nadpis pruhu je „Nanoimpregnace" nad kartou. */}
+            <h4
               className="text-botanical-ink"
               style={{ fontSize: "clamp(20px, 2vw, 24px)", fontWeight: 700 }}
             >
               {protectionTitle}
-            </h3>
+            </h4>
             <p className="mt-3 max-w-[52ch] text-botanical-ink/80" style={TEXT.body}>
               {protectionIntro}
             </p>

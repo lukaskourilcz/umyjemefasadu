@@ -154,6 +154,7 @@ LABELS.reasons = "Bloky — střecha a dlažba";
 LABELS.risksTitle = "Rizika — nadpis";
 LABELS.risksIntro = "Rizika — úvodní text (lze nechat prázdné)";
 LABELS.risks = "Rizika a problémy (popis lze nechat prázdný)";
+LABELS.protectionHeading = "Nanoimpregnace — velký nadpis nad kartou";
 LABELS.protectionTitle = "Ochrana proti vodě — nadpis";
 LABELS.protectionIntro = "Ochrana proti vodě — úvod";
 LABELS.protectionBullets = "Ochrana proti vodě — odrážky";

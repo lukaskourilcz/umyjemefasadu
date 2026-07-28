@@ -87,6 +87,8 @@ export type Content = {
       risksIntro: string;
       risks: { title: string; desc: string }[];
     }[];
+    /** Velký nadpis nad pruhem o ochraně proti vodě — dělí sekci na dvě části. */
+    protectionHeading: string;
     protectionTitle: string;
     protectionIntro: string;
     protectionBullets: string[];
