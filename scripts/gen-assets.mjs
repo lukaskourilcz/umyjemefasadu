@@ -40,11 +40,17 @@ const MARK_INNER = markRaw
   .replace(/^[\s\S]*?<svg[^>]*>/, "")
   .replace(/<\/svg>\s*$/, "");
 
-const iconSvg = (size) => `
+/**
+ * Ikonka v dané velikosti. `tile` = krémová dlaždice pod značkou (iOS neumí
+ * průhlednost, na liště prohlížeče naopak vadí), `inset` = okraj kolem
+ * značky v jednotkách 32px mřížky. Na liště jde o 16-32px, takže se hlava
+ * kreslí přes celou plochu — každý ušetřený pixel je znát.
+ */
+const iconSvg = (size, { tile = false, inset = 0 } = {}) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="${CREAM}"/>
-  <svg x="2" y="2" width="28" height="28" viewBox="${MARK_VIEWBOX}"
-       fill-rule="evenodd" clip-rule="evenodd"
+  ${tile ? `<rect width="32" height="32" rx="7" fill="${CREAM}"/>` : ""}
+  <svg x="${inset}" y="${inset}" width="${32 - 2 * inset}" height="${32 - 2 * inset}"
+       viewBox="${MARK_VIEWBOX}" fill-rule="evenodd" clip-rule="evenodd"
        preserveAspectRatio="xMidYMid meet">${MARK_INNER}</svg>
 </svg>`;
 
@@ -77,7 +83,13 @@ const ogSvg = `
 
 async function run() {
   await sharp(Buffer.from(ogSvg)).png().toFile(out("og-image.png"));
-  await sharp(Buffer.from(iconSvg(180))).png().toFile(out("apple-touch-icon.png"));
+  // iOS ikonu skládá na neprůhledné pozadí → dlaždice; okraj jen 1/32, ať se
+  // hlava nezmenšuje víc, než kolik ukrojí systémový oblý ořez.
+  await sharp(Buffer.from(iconSvg(180, { tile: true, inset: 1 })))
+    .png()
+    .toFile(out("apple-touch-icon.png"));
+  // Lišta prohlížeče: průhledné pozadí a značka přes celou plochu, ať vypadá
+  // stejně velká jako vektorová favicon.svg.
   await sharp(Buffer.from(iconSvg(32))).png().toFile(out("favicon-32.png"));
   console.log("Generated og-image.png, apple-touch-icon.png, favicon-32.png");
 }
