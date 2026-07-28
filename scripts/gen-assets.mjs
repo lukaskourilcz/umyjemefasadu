@@ -32,17 +32,20 @@ const logoMark = (x, y, w, h) => `
        preserveAspectRatio="xMidYMid meet">${LOGO_INNER}</svg>`;
 
 // --- App icon --------------------------------------------------------------
-// Favicon/ikonka = růžová kapka (public/favicon.svg): celé logo je v 16-32px
-// nečitelné. OG obrázek níže dál nese kompletní logo.
-const dropRaw = readFileSync(out("favicon.svg"), "utf8");
-const DROP_INNER = dropRaw
+// Favicon/ikonka = maskot z loga (public/favicon.svg): kompletní logo s vlnou
+// a nápisem je v 16-32px nečitelné. OG obrázek níže dál nese celé logo.
+const markRaw = readFileSync(out("favicon.svg"), "utf8");
+const MARK_VIEWBOX = (markRaw.match(/viewBox="([^"]*)"/) || [])[1] || "0 0 32 32";
+const MARK_INNER = markRaw
   .replace(/^[\s\S]*?<svg[^>]*>/, "")
   .replace(/<\/svg>\s*$/, "");
 
 const iconSvg = (size) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="7" fill="${CREAM}"/>
-  <svg x="4" y="3" width="24" height="26" viewBox="0 0 32 32">${DROP_INNER}</svg>
+  <svg x="2" y="2" width="28" height="28" viewBox="${MARK_VIEWBOX}"
+       fill-rule="evenodd" clip-rule="evenodd"
+       preserveAspectRatio="xMidYMid meet">${MARK_INNER}</svg>
 </svg>`;
 
 // --- Social / OG image (1200x630) -------------------------------------------
