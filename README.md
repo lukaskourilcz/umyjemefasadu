@@ -8,7 +8,9 @@ Marketingový web pro firmu **Umyjeme Fasádu s.r.o.** — profesionální mytí
 Čisté, světlé „cream" plátno (`#fbfdfe`) s téměř černým textem (`#101820`),
 vlasovými linkami místo stínů a 20px „pill" rádiusy. Akcenty vycházejí přímo
 ze značkového loga: **magenta `#e6007e`** jako jediná akční barva (CTA) a
-**cyan `#1ba5e0`** jako sekundární „vodní" akcent. Typografie: **Inter**
+**cyan `#1ba5e0`** jako sekundární „vodní" akcent. Sekce Rizika a objednávkový
+postup používají velmi světlou brandovou růžovou `#fdeef5`, která stránku
+člení bez oslabení čitelnosti. Typografie: **Inter**
 (humanistický bezpatkový základ) + **Fragment Mono** pro mikro-popisky.
 Hero kotví atmosférický SVG motiv vody v značkových tónech (vrstvená hladina,
 pěna, kapky), který odkazuje na vodní prvek z loga.

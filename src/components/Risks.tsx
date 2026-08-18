@@ -15,10 +15,10 @@ export default function Risks() {
   return (
     <section
       id="rizika"
-      className="scroll-mt-24 border-y py-20 md:py-28"
+      className="surface-blush scroll-mt-24 border-y py-20 md:py-28"
       style={{
-        backgroundColor: "var(--color-sage-mist)",
-        borderColor: "var(--color-lichen)",
+        backgroundColor: "var(--color-blush)",
+        borderColor: "var(--color-blush-border)",
       }}
     >
       <div className="container-page">
@@ -33,7 +33,7 @@ export default function Risks() {
                   className="font-fragment-mono"
                   style={{
                     fontSize: "14px",
-                    color: "var(--color-forest-floor)",
+                    color: "var(--color-magenta-deep)",
                     letterSpacing: "0.02em",
                   }}
                 >
@@ -42,7 +42,7 @@ export default function Risks() {
                 <span
                   aria-hidden="true"
                   className="h-px flex-1"
-                  style={{ backgroundColor: "var(--color-eucalyptus)" }}
+                  style={{ backgroundColor: "var(--color-blush-border)" }}
                 />
               </div>
               <h3
