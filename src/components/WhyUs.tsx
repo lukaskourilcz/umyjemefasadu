@@ -21,7 +21,9 @@ export default function WhyUs() {
 
           {/* Written guarantee, certificate-style. */}
           <div
-            className="mx-auto mt-12 flex w-fit overflow-hidden rounded-[18px] border fade-up"
+            /* max-w-full: na úzkém displeji se „certifikát" smrskne a text
+               se zalomí, místo aby vytlačil stránku do strany. */
+            className="mx-auto mt-12 flex w-fit max-w-full overflow-hidden rounded-[18px] border fade-up"
             style={{ borderColor: "var(--color-eucalyptus)" }}
           >
             <div

@@ -5,7 +5,8 @@ import { useContent } from "../content";
 export default function OrderProcess() {
   const { heading, intro, steps: STEPS } = useContent().orderProcess;
   return (
-    // Jemný brandový blush mezi ceníkem a FAQ drží rytmus střídání povrchů.
+    /* Brandově růžový pruh mezi ceníkem a FAQ drží rytmus střídání povrchů.
+       Nadpisy zůstávají černé, ostatní text je bílý (viz --color-blush-fg). */
     <section
       className="surface-blush scroll-mt-24 border-y py-20 md:py-28"
       style={{
@@ -14,7 +15,7 @@ export default function OrderProcess() {
       }}
     >
       <div className="container-page">
-        <SectionHeading title={heading} intro={intro} />
+        <SectionHeading tone="blush" title={heading} intro={intro} />
 
         <ol className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 fade-up sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s) => (
@@ -24,7 +25,7 @@ export default function OrderProcess() {
                   className="font-fragment-mono"
                   style={{
                     fontSize: "14px",
-                    color: "var(--color-magenta-deep)",
+                    color: "var(--color-blush-fg)",
                     letterSpacing: "0.02em",
                   }}
                 >
@@ -32,7 +33,7 @@ export default function OrderProcess() {
                 </span>
                 <span
                   className="h-px flex-1"
-                  style={{ backgroundColor: "var(--color-blush-border)" }}
+                  style={{ backgroundColor: "var(--color-blush-rule)" }}
                 />
               </div>
               <h3
@@ -41,7 +42,10 @@ export default function OrderProcess() {
               >
                 {s.title}
               </h3>
-              <p className="mt-2 text-botanical-ink/75" style={TEXT.bodyTight}>
+              <p
+                className="mt-2"
+                style={{ ...TEXT.bodyTight, color: "var(--color-blush-fg)" }}
+              >
                 {s.desc}
               </p>
             </li>

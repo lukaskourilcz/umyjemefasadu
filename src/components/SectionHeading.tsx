@@ -9,11 +9,13 @@ export default function SectionHeading({
   title: string;
   intro?: string;
   align?: "center" | "left";
-  tone?: "light" | "dark";
+  /** `blush` = brandově růžový pruh: nadpis zůstává černý, podtitul bílý. */
+  tone?: "light" | "dark" | "blush";
 }) {
   const alignment =
     align === "center" ? "items-center text-center" : "items-start text-left";
   const dark = tone === "dark";
+  const blush = tone === "blush";
   return (
     <div className={`flex flex-col ${alignment} fade-up`}>
       {label && (
@@ -36,12 +38,19 @@ export default function SectionHeading({
       </h2>
       {intro && (
         <p
-          className={dark ? "text-cream-paper/70" : "text-botanical-ink/75"}
+          className={
+            dark
+              ? "text-cream-paper/70"
+              : blush
+                ? ""
+                : "text-botanical-ink/75"
+          }
           style={{
             fontSize: "var(--text-body)",
             lineHeight: 1.65,
             maxWidth: "56ch",
             marginTop: "20px",
+            color: blush ? "var(--color-blush-fg)" : undefined,
           }}
         >
           {intro}

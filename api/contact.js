@@ -22,6 +22,8 @@ export default async function handler(req, res) {
   const name = clean(payload.name, 100);
   const phone = clean(payload.phone, 40);
   const message = clean(payload.message, 3000);
+  // Ze které jazykové mutace poptávka přišla (web posílá "cs" nebo "de").
+  const isGerman = clean(payload.locale, 10).toLowerCase() === "de";
 
   if (name.length < 2 || phone.replace(/\D/g, "").length < 9) {
     res.status(400).json({ error: "Doplňte prosím jméno a platné telefonní číslo." });
@@ -37,7 +39,9 @@ export default async function handler(req, res) {
   const recipient = process.env.CONTACT_EMAIL || "info@umyjemefasadu.cz";
   const sender = process.env.CONTACT_FROM || "Umyjeme Fasádu <onboarding@resend.dev>";
   const text = [
-    "Nová poptávka z webu umyjemefasadu.cz",
+    isGerman
+      ? "Nová poptávka z NĚMECKÉ verze webu (/de) — odpovězte prosím německy"
+      : "Nová poptávka z webu umyjemefasadu.cz",
     "",
     `Jméno: ${name}`,
     `Telefon: ${phone}`,
@@ -56,7 +60,9 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: sender,
         to: [recipient],
-        subject: `Nová poptávka – ${name}`,
+        subject: isGerman
+          ? `Nová poptávka (DE) – ${name}`
+          : `Nová poptávka – ${name}`,
         text,
         reply_to: recipient,
       }),

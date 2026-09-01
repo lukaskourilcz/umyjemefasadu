@@ -17,6 +17,13 @@ https://www.umyjemefasadu.cz/dev
 
 Zadejte heslo: **`fasada`**
 
+> **Německá verze webu.** Web má druhou jazykovou mutaci na adrese
+> `https://www.umyjemefasadu.cz/de`. Její texty se upravují ve **vlastní
+> administraci** na `https://www.umyjemefasadu.cz/de/dev` (stejné heslo).
+> V hlavičce administrace je vždy vidět, kterou verzi právě upravujete
+> („ČESKÁ VERZE" / „NĚMECKÁ VERZE (/de)"). Fotky a videa jsou pro obě verze
+> společné — když je vyměníte v jedné, změní se v obou; texty jsou oddělené.
+
 ### 2. Upravte, co potřebujete
 
 Vlevo je seznam sekcí webu (Úvod, Služby, Ceník, Kontakt…). Klikněte na
@@ -97,22 +104,33 @@ Nejjednodušší je **Fine-grained personal access token**:
 - Heslo `ADMIN_PASSWORD` doporučujeme změnit na silnější – kdokoli s heslem
   může měnit obsah webu.
 - Serverová funkce `api/save.js` heslo ověřuje a povoluje zápis pouze do
-  `public/content.json` a `public/media/` (ochrana proti neplatným cestám).
+  `public/content.json`, `public/content.de.json` a `public/media/`
+  (ochrana proti neplatným cestám).
 
 ---
 
 ## Jak to funguje uvnitř (pro vývojáře)
 
-- **Veškerý obsah** je v `public/content.json`. Web ho načítá za běhu.
+- **Veškerý obsah** je v `public/content.json` (česky) a
+  `public/content.de.json` (německy). Web ho načítá za běhu podle jazyka.
+- **Jazyk** se pozná z URL (`src/i18n.ts`): `/de` a cokoli pod ním je němčina,
+  všechno ostatní čeština. Přepínač jazyků na webu záměrně není. Texty mimo
+  `content.json` (popisky sekcí, `aria-label`y, meta tagy) jsou v `src/i18n.ts`.
+- Chybějící klíč v německém souboru doplní česká výchozí data, takže nově
+  přidané pole web nikdy nerozbije — jen se do překladu zobrazí česky.
 - Výchozí/záložní obsah a typy jsou v `src/content/` (`defaultContent.json`,
   `schema.ts`). Komponenty čtou obsah přes `useContent()`.
-- **Administrace** je na `/dev` (kód v `src/admin/`), načítá se jen tam
-  (samostatný chunk, běžný web nezatěžuje).
+- **Administrace** je na `/dev` (česky) a `/de/dev` (německy), kód v
+  `src/admin/`; načítá se jen tam (samostatný chunk, běžný web nezatěžuje).
+  Podle adresy ukládá do odpovídajícího `content*.json`.
 - **Fotky/videa** jsou v `public/media/`. Nově nahrané soubory administrace
   odešle jako data a serverová funkce je uloží do `public/media/`.
 - **Ukládání**: `api/save.js` (Vercel serverless) → commit do GitHubu →
   automatické nasazení.
-- Routování `/dev` zajišťuje `vercel.json` (rewrite na `index.html`).
+- Routování `/dev`, `/de` i `/de/dev` zajišťuje `vercel.json`
+  (rewrite na `index.html`).
+- Poptávka z německé verze dorazí e-mailem označená „(DE)", ať je hned jasné,
+  že se má odpovědět německy.
 ## Přímé odesílání poptávek
 
 Kontaktní formulář odesílá poptávky přes serverovou funkci `/api/contact` a službu Resend. Ve Vercelu nastavte proměnnou `RESEND_API_KEY`. Volitelně lze nastavit `CONTACT_EMAIL` (výchozí je `info@umyjemefasadu.cz`) a `CONTACT_FROM` po ověření vlastní domény v Resendu.

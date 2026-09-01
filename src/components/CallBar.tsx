@@ -1,5 +1,6 @@
 import { useScrolledPast } from "../hooks/useScrolledPast";
 import { useContent, phoneHref } from "../content";
+import { UI } from "../i18n";
 
 /**
  * Sticky mobile action bar - phone is the primary conversion path, so it
@@ -29,7 +30,7 @@ export default function CallBar() {
         <a
           href={phoneHref(business.phone)}
           className="btn-primary flex-1"
-          aria-label={`Zavolat na ${business.phone}`}
+          aria-label={`${UI.callAria} ${business.phone}`}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path

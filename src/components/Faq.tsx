@@ -1,13 +1,14 @@
 import SectionHeading from "./SectionHeading";
 import { TEXT } from "../lib/text";
 import { useContent } from "../content";
+import { UI } from "../i18n";
 
 export default function Faq() {
   const { heading, items: FAQ } = useContent().faq;
   return (
     <section className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading label="FAQ" title={heading} />
+        <SectionHeading label={UI.labelFaq} title={heading} />
 
         {/* Divider list - the calmest section on the page. */}
         <div

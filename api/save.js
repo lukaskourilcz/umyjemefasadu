@@ -1,11 +1,12 @@
 /**
  * Serverless funkce (Vercel) — uloží upravený obsah z administrace.
  *
- * Přijme z administrace (/dev) JSON:
- *   { password, content, uploads: [{ path, dataUrl }] }
+ * Přijme z administrace (/dev, resp. /de/dev) JSON:
+ *   { password, content, uploads: [{ path, dataUrl }], file }
  * a jedním commitem zapíše do GitHub repozitáře:
- *   - public/content.json  (texty a odkazy na obrázky)
- *   - public/media/...      (nově nahrané fotky a videa)
+ *   - public/content.json     (české texty a odkazy na obrázky)
+ *     nebo public/content.de.json (německá mutace, podle pole `file`)
+ *   - public/media/...        (nově nahrané fotky a videa)
  * Commit spustí automatické nasazení na Vercelu, takže se změny během
  * chvíle objeví všem návštěvníkům. Žádná databáze není potřeba.
  *
@@ -47,6 +48,12 @@ function dataUrlToBase64(dataUrl) {
   const comma = dataUrl.indexOf(",");
   return comma >= 0 ? dataUrl.slice(comma + 1) : dataUrl;
 }
+
+/**
+ * Soubory s obsahem, do kterých smí administrace zapisovat. Cesta se nikdy
+ * neskládá z uživatelského vstupu — pouze se vybere z tohoto seznamu.
+ */
+const CONTENT_FILES = ["public/content.json", "public/content.de.json"];
 
 /** Bezpečná cesta uvnitř public/media (žádné ../ a jen povolené znaky). */
 function safeMediaRepoPath(p) {
@@ -111,10 +118,17 @@ export default async function handler(req, res) {
     return;
   }
 
+  // Do kterého jazykového souboru se ukládá (výchozí je česká mutace).
+  const contentPath = payload.file || CONTENT_FILES[0];
+  if (!CONTENT_FILES.includes(contentPath)) {
+    res.status(400).json({ error: `Nepovolený soubor obsahu: ${contentPath}` });
+    return;
+  }
+
   // Sestavíme seznam souborů k zápisu.
   const files = [
     {
-      repoPath: "public/content.json",
+      repoPath: contentPath,
       base64: Buffer.from(
         JSON.stringify(payload.content, null, 2),
         "utf-8",

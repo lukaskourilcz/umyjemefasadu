@@ -2,13 +2,14 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { CheckIcon } from "./icons";
 import { useContent, phoneHref, emailHref } from "../content";
+import { LOCALE, UI } from "../i18n";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
 function buildMailto(data: FormData, email: string, subject: string) {
   const body = [
-    `Jméno: ${data.get("name") ?? ""}`,
-    `Telefon: ${data.get("phone") ?? ""}`,
+    `${UI.mailName}: ${data.get("name") ?? ""}`,
+    `${UI.mailPhone}: ${data.get("phone") ?? ""}`,
     "",
     `${data.get("message") ?? ""}`,
   ].join("\n");
@@ -45,7 +46,10 @@ export default function Contact() {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(data.entries())),
+        body: JSON.stringify({
+          ...Object.fromEntries(data.entries()),
+          locale: LOCALE,
+        }),
       });
       if (!res.ok) throw new Error(`form endpoint ${res.status}`);
       form.reset();

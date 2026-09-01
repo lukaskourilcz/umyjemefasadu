@@ -209,7 +209,7 @@ export default function WhyCleanDetail() {
 
         {/* Ochrana proti vodě - klidný pruh se dvěma sloupci: vlevo vysvětlení,
             vpravo přínosy jako odškrtnutý seznam. */}
-        <MobileDisclosure label="Jak chráníme fasádu proti vodě">
+        <MobileDisclosure label={protectionTitle}>
         <div
           className="mt-8 grid grid-cols-1 gap-8 rounded-[14px] border p-7 fade-up md:grid-cols-2 md:gap-12 md:p-10"
           style={{

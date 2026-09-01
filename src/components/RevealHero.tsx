@@ -3,6 +3,7 @@ import { useRafScroll } from "../hooks/useRafScroll";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { clamp } from "../lib/utils";
 import { useContent } from "../content";
+import { UI } from "../i18n";
 
 /**
  * Scroll-driven before/after hero.
@@ -93,7 +94,7 @@ export default function RevealHero({ before, after, label }: Props) {
   return (
     <section
       ref={trackRef}
-      aria-label="Porovnání fasády před vyčištěním a po vyčištění"
+      aria-label={UI.compareAria}
       // Short scroll track: the reveal completes in well under one extra
       // viewport so the value proposition below arrives quickly (shorter
       // still on phones, where scroll distance is expensive).
@@ -270,7 +271,7 @@ function Layer({
     return (
       <img
         src={src}
-        alt={kind === "before" ? "Fasáda před čištěním" : "Fasáda po čištění"}
+        alt={kind === "before" ? UI.altBefore : UI.altAfter}
         className="absolute inset-0 h-full w-full object-cover object-top"
         // Dim the "before" photo (brightness + slight transparency) so the
         // clean reveal reads brighter by contrast as it wipes in.
