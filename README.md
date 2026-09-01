@@ -9,9 +9,10 @@ Marketingový web pro firmu **Umyjeme Fasádu s.r.o.** — profesionální mytí
 vlasovými linkami místo stínů a 20px „pill" rádiusy. Akcenty vycházejí přímo
 ze značkového loga: **magenta `#e6007e`** jako jediná akční barva (CTA) a
 **cyan `#1ba5e0`** jako sekundární „vodní" akcent. Sekce Rizika a objednávkový
-postup používají velmi světlou brandovou růžovou `#fdeef5`, která stránku
-člení bez oslabení čitelnosti. Typografie: **Inter**
-(humanistický bezpatkový základ) + **Fragment Mono** pro mikro-popisky.
+postup běží na plné brandové růžové (stejná jako logo a CTA): nadpisy na nich
+zůstávají téměř černé, všechen ostatní text je bílý, aby zůstal čitelný.
+Typografie: **Inter** (humanistický bezpatkový základ) + **Fragment Mono**
+pro mikro-popisky.
 Hero kotví atmosférický SVG motiv vody v značkových tónech (vrstvená hladina,
 pěna, kapky), který odkazuje na vodní prvek z loga.
 
@@ -25,12 +26,31 @@ Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 - Bez externích obrázků — motiv vody i ikony jsou inline SVG, logo je
   optimalizované SVG vložené přes Vite `?raw`
 
-## Administrace obsahu (`/dev`)
+## Jazykové mutace (`/` česky, `/de` německy)
+
+Web běží na jedné adrese a jazyk se pozná z URL:
+
+- `https://www.umyjemefasadu.cz/` — česká verze (`public/content.json`)
+- `https://www.umyjemefasadu.cz/de` — německá verze (`public/content.de.json`)
+
+Přepínač jazyků na webu **záměrně není** — návštěvník vidí jen tu mutaci,
+přes kterou přišel. Až bude web dostupný na německé doméně, stačí ji
+nasměrovat (rewrite/redirect) na `/de`; v kódu se nemění nic.
+
+Detekce jazyka, texty mimo `content.json` (popisky sekcí, `aria-label`y)
+a meta tagy hlavičky jsou v [`src/i18n.ts`](src/i18n.ts). Chybějící klíč
+v německém souboru doplní česká výchozí data, takže nově přidané pole web
+nerozbije.
+
+## Administrace obsahu (`/dev`, `/de/dev`)
 
 Web má vestavěnou administraci pro úpravu **všech textů a fotek/videí** bez
 programování — dostupná na adrese `/<web>/dev`, heslo `fasada`.
 
-- Veškerý obsah je v `public/content.json`; web ho čte za běhu (`useContent()`).
+- Veškerý obsah je v `public/content.json` (česky) a `public/content.de.json`
+  (německy); web ho čte za běhu (`useContent()`). Německé texty se upravují
+  na `/de/dev`, české na `/dev` — hlavička administrace vždy ukazuje, která
+  verze se právě edituje.
 - Administrace (`src/admin/`) ukládá změny přes serverless funkci
   `api/save.js`, která je commitne do repozitáře → Vercel web sám znovu nasadí.
 - Podrobný návod pro majitele i jednorázové nastavení Vercelu (proměnné
@@ -65,6 +85,7 @@ npm run gen:assets  # vygeneruje raster assety (OG obrázek, PNG ikony) z loga
 ```
 src/
   App.tsx                 # skládá sekce + scroll-reveal
+  i18n.ts                 # jazyk podle URL (/ = cs, /de = de) + texty rozhraní
   index.css               # @theme tokeny + base/komponentní vrstvy
   components/
     Landscape.tsx         # atmosférický SVG motiv vody (hero pozadí)

@@ -1,0 +1,670 @@
+{
+  "business": {
+    "companyName": "UMYJEME FASÁDU s.r.o.",
+    "address": "Purkyňova 2869/4, 695 01 Hodonín",
+    "companyId": "23770082",
+    "phone": "+420 775 222 760",
+    "email": "info@umyjemefasadu.cz",
+    "hours": "Mo–Fr 8:00–17:00 Uhr"
+  },
+  "theme": {
+    "primary": "#e6007e",
+    "secondary": "#1ba5e0"
+  },
+  "nav": {
+    "links": [
+      {
+        "href": "#proc-cistit",
+        "label": "Warum reinigen"
+      },
+      {
+        "href": "#rizika",
+        "label": "Risiken"
+      },
+      {
+        "href": "#sluzby",
+        "label": "Leistungen"
+      },
+      {
+        "href": "#postup",
+        "label": "Ablauf"
+      },
+      {
+        "href": "#proc-my",
+        "label": "Warum wir"
+      },
+      {
+        "href": "#galerie",
+        "label": "Referenzen"
+      },
+      {
+        "href": "#cenik",
+        "label": "Preise"
+      },
+      {
+        "href": "#kontakt",
+        "label": "Kontakt"
+      }
+    ],
+    "cta": "Unverbindliche Anfrage"
+  },
+  "revealHero": {
+    "beforeImage": "/media/dirty-hero.webp",
+    "afterImage": "/media/clean-hero.webp",
+    "headlineLines": [
+      "Wir bringen",
+      "Glanz und Werterhalt",
+      "für Ihre Fassade,",
+      "Ihr Dach und Pflaster"
+    ],
+    "labelBeforePrefix": "Vor der",
+    "labelBeforeSuffix": "Reinigung",
+    "labelAfterPrefix": "Nach der",
+    "labelAfterSuffix": "Reinigung",
+    "cta": "Unverbindliche Anfrage",
+    "scrollCue": "Scrollen"
+  },
+  "hero": {
+    "eyebrow": "Fassaden · Dächer · Pflaster",
+    "title": "Wir geben Ihrer Fassade (Ihrem Dach oder Pflaster) das saubere Aussehen und den gesunden Zustand zurück – ohne teure Sanierung.",
+    "body": "Mit Hochdruckreinigung und der Niederdruck-Anwendung spezieller Reinigungsmittel entfernen wir Schimmel, Algen, Ruß, Spinnweben und Staub. Die Oberfläche bleibt sauber und gesund – mit einer Schutzschicht auch für die kommenden Jahre geschützt.",
+    "ctaPrimary": "Unverbindliches Angebot anfordern",
+    "ctaSecondary": "So läuft es ab",
+    "videos": [
+      "/media/fasada1.webm",
+      "/media/fasada2.webm",
+      "/media/fasada3.webm",
+      "/media/fasada4.webm"
+    ]
+  },
+  "trustStrip": {
+    "items": [
+      "Versichert bei Generali",
+      "Hochwertige schwedische Reinigungsmittel",
+      "Schutz für 5–10 Jahre",
+      "Besichtigung und Angebot kostenlos"
+    ]
+  },
+  "whyClean": {
+    "heading": "Warum sollten Sie Ihre Fassade reinigen lassen?",
+    "paragraphs": [
+      "Ihre Fassade ist Ihre Visitenkarte – das Erste, was jedem auffällt. Mit der Zeit setzen sich darauf jedoch Staub, Smog, Algen und Schimmel ab, die sie grau oder grün verfärben. Wir geben ihr ihre ursprüngliche Schönheit und einen gesunden Zustand zurück!",
+      "Wir arbeiten mit Hochdruckreinigung in Kombination mit speziellen Reinigungsmitteln, die auch tief sitzende Verschmutzungen lösen und die Oberfläche zugleich langfristig schützen. Das Ergebnis? Eine Fassade wie neu, ein Gebäude, das vor Sauberkeit strahlt – und Sie sparen sich die Kosten für einen neuen Anstrich oder eine teure Sanierung."
+    ],
+    "bullets": [
+      "Wir reinigen schonend, wirksam und langfristig.",
+      "Wir verwenden professionelle Reinigungsmittel in sehr hoher Qualität.",
+      "Aussehen und gesunden Zustand Ihres Gebäudes stellen wir oft an einem einzigen Tag wieder her."
+    ],
+    "reasonsHeading": "Dach- und Pflasterreinigung",
+    "reasons": [
+      {
+        "title": "Dach",
+        "heading": "Warum sollten Sie Ihr Dach reinigen lassen und warum eine Nanoimprägnierung einsetzen?",
+        "paragraphs": [
+          "Das Dach gehört zu den am stärksten beanspruchten Teilen jeder Immobilie. Tag für Tag ist es Regen, Schnee, Frost, UV-Strahlung, Wind, Staub und weiteren Einflüssen ausgesetzt. Mit der Zeit setzen sich darauf Algen, Moos, Flechten, Schimmel und andere biologische Verschmutzungen fest.",
+          "Die Reinigung allein entfernt die sichtbare Verschmutzung und stellt das Aussehen des Dachs wieder her. Die Nanoimprägnierung pflegt die Oberfläche darüber hinaus und bildet eine zusätzliche Schutzschicht, die das erneute Anhaften von Schmutz und biologischem Bewuchs deutlich verringert."
+        ],
+        "risksTitle": "Welche Risiken birgt ein verschmutztes, ungepflegtes Dach?",
+        "risksIntro": "Ein verschmutztes Dach bedeutet nicht nur ein schlechteres Aussehen und eine geringere Attraktivität der Immobilie. Der Schmutz wirkt sich vor allem auf Funktion und Lebensdauer des Dachs aus.",
+        "risks": [
+          {
+            "title": "Moos und Algen halten Feuchtigkeit fest",
+            "desc": "Moos, Algen und andere biologische Organismen können Wasser auf der Dachoberfläche zurückhalten. Die Eindeckung bleibt dadurch länger feucht, was ihre allmähliche Alterung und Degradation begünstigt. Ihre ästhetische wie auch ihre Schutzfunktion nehmen ab."
+          },
+          {
+            "title": "Schäden durch Frost",
+            "desc": "Wasser, das sich in Poren und Unebenheiten der Eindeckung sammelt, gefriert bei Frost und dehnt sich aus. Wiederholtes Gefrieren und Auftauen kann die Oberfläche mancher Dacheindeckungen nach und nach schädigen."
+          }
+        ]
+      },
+      {
+        "title": "Pflaster und Außenflächen",
+        "heading": "Warum sollten Sie Pflaster, Terrasse oder andere Außenflächen reinigen lassen?",
+        "paragraphs": [
+          "Pflasterflächen, Terrassen, Gehwege, Verbundpflaster, Treppen oder das Umfeld des Hauses sind das ganze Jahr über Regen, Schnee, Frost, Sonneneinstrahlung, Staub und weiteren Verschmutzungen ausgesetzt. Mit der Zeit setzen sich auf ihrer Oberfläche Algen, Moos, Flechten, Schimmel, Fett und anderer Schmutz ab.",
+          "Eine regelmäßige professionelle Reinigung stellt das Aussehen der Oberfläche wieder her, entfernt langjährige Verschmutzungen und hält Außenflächen in einem besseren Zustand."
+        ],
+        "risksTitle": "Probleme und Risiken",
+        "risksIntro": "",
+        "risks": [
+          {
+            "title": "Moos, Algen und biologische Beläge",
+            "desc": ""
+          },
+          {
+            "title": "Rutschige Oberfläche",
+            "desc": ""
+          },
+          {
+            "title": "Zurückgehaltene Feuchtigkeit",
+            "desc": ""
+          },
+          {
+            "title": "Einfluss von Frost",
+            "desc": ""
+          },
+          {
+            "title": "Zuwachsen der Fugen",
+            "desc": ""
+          },
+          {
+            "title": "Schwerer zu entfernender Altschmutz",
+            "desc": ""
+          },
+          {
+            "title": "Schlechteres Aussehen und Wertverlust der Flächen",
+            "desc": ""
+          }
+        ]
+      }
+    ],
+    "protectionHeading": "Nanoimprägnierung",
+    "protectionTitle": "Schutz vor Wasser",
+    "protectionIntro": "Den Schutz der Fassade vor Wasser lösen wir mit einer Imprägnierung (Hydrophobierung) – einem Anstrich bzw. Sprühauftrag, der Wasser abweist, die Wand aber weiter atmen lässt.",
+    "protectionBullets": [
+      "Wasser dringt kaum ein und läuft an der Oberfläche ab",
+      "Verringert den Bewuchs mit Algen und Schimmel",
+      "Schützt vor Frost – Wasser dringt nicht ein, der Putz reißt nicht",
+      "Verlängert die Lebensdauer der Fassade um gut 5 bis 10 Jahre"
+    ],
+    "protectionHow": "Die Imprägnierung bildet eine unsichtbare Schicht: Wassertropfen laufen ab (der sogenannte Lotuseffekt), Wasserdampf kann nach außen entweichen – die Fassade bleibt trocken und muffelt nicht.",
+    "protectionNanoIntro": "Die Nanoimprägnierung verbessert das Ableiten von Wasser deutlich. Sie erzeugt einen hydrophoben (wasserabweisenden) Effekt: Wasser zieht nicht in die Oberfläche ein, sondern perlt zu Tropfen zusammen und läuft sofort ab.",
+    "protectionNanoLead": "Der Nanoschutz bringt der Dacheindeckung diese wesentlichen Vorteile:",
+    "protectionNanoBullets": [
+      {
+        "title": "Selbstreinigender Effekt",
+        "desc": "Ablaufende Wassertropfen nehmen Staub, Ruß und weitere Verschmutzungen mit."
+      },
+      {
+        "title": "Schutz vor Moos und Algen",
+        "desc": "Imprägnierte Untergründe bleiben trocken, sodass Mikroorganismen die Feuchtigkeit für ihr Wachstum fehlt."
+      },
+      {
+        "title": "Frostbeständigkeit",
+        "desc": "Wasser dringt nicht in die Poren des Materials ein, sodass bei Frost keine Risse durch sich ausdehnendes Eis entstehen."
+      },
+      {
+        "title": "Erhaltene Dampfdurchlässigkeit",
+        "desc": "Anders als übliche Lacke verschließt die Nanoschicht das Material nicht und lässt es natürlich atmen."
+      }
+    ],
+    "image": "/media/vysledek-po-cisteni.webp",
+    "imageAlt": "Fassadenreinigung mit Hochdruck vom Gerüst aus – Umyjeme Fasádu",
+    "imageLabel": "Ergebnis nach der Reinigung (links in Arbeit, rechts vor der Reinigung)"
+  },
+  "risks": {
+    "heading": "Risiken einer verschmutzten Fassade",
+    "intro": "Eine verschmutzte Fassade ist nicht nur ein Schönheitsproblem. Das größte Risiko ist Schimmel, der dem Gebäude und der Gesundheit der Bewohner schaden kann. Hier ein Überblick, warum man das angehen sollte.",
+    "items": [
+      {
+        "no": "01",
+        "title": "Schimmel kann in das Mauerwerk eindringen",
+        "desc": "Dringt der Schimmel tiefer in den Putz oder die Dämmschicht ein, kann er nach und nach bis zur Innenseite der Wand vordringen. Die Feuchtigkeit im Mauerwerk steigt und es entstehen ideale Bedingungen für Schimmelbewuchs auch im Inneren des Hauses – dort, wo er die Gesundheit der Bewohner gefährdet."
+      },
+      {
+        "no": "02",
+        "title": "Risiko für die Gesundheit der Bewohner",
+        "desc": "Schimmelsporen in der Luft können Allergien, Reizungen der Atemwege und der Augen auslösen, Asthma und chronische Bronchitis verschlimmern und bei langer Einwirkung das Immunsystem schwächen. Auch wenn der Schimmel außen sitzt, tragen Wind und Lüftung die Sporen durch Fenster oder die Lüftungsanlage nach innen."
+      },
+      {
+        "no": "03",
+        "title": "Schädigt Fassade und Dämmung",
+        "desc": "Schimmel und Algen halten Feuchtigkeit fest, die mit der Zeit Anstriche, Putz und Wärmedämmung zersetzt. Das kann die Wirksamkeit der Dämmung verringern, die Feuchtigkeit im Innenraum erhöhen und die Heizkosten steigen lassen."
+      }
+    ],
+    "solutionTitle": "Die Lösung ist regelmäßige Pflege",
+    "solutionDesc": "Eine regelmäßige Fassadenreinigung mit Hochdruckreiniger und wirksamen Mitteln gegen Algen und Schimmel verhindert deren Ausbreitung. Die Fassade bleibt trocken, sauber und sicher – das schützt auch die Gesundheit der Bewohner.",
+    "solutionCta": "Termin vereinbaren"
+  },
+  "services": {
+    "heading": "Komplette Reinigung von Fassaden, Dächern und Pflaster",
+    "intro": "Von der Fassade über das Dach bis zum Pflaster. Verfahren, Druck und Mittel wählen wir nach Art und Zustand jeder Oberfläche.",
+    "featured": {
+      "image": "/media/pic11.webp",
+      "video": "/media/upload-mrxy1anh-0.webm",
+      "videoAlt": "Detail der Fassadenreinigung – der Unterschied zwischen gereinigtem und verschmutztem Putz ist sofort sichtbar",
+      "alt": "Hochdruckreinigung der Fassade eines Einfamilienhauses vom Gerüst aus",
+      "title": "Fassadenreinigung",
+      "desc": "Hochdruckreinigung mit Wasser in Kombination mit spezieller Chemie. Wir entfernen organische Verschmutzungen (Schimmel, Algen und Flechten) ebenso wie anorganische (Ruß, Staub und Fett). Druck und Düsen wählen wir nach Art und Zustand des Untergrunds."
+    },
+    "tintCards": [],
+    "photoCards": [
+      {
+        "image": "/media/cisteni-dlazby.webp",
+        "alt": "Hochdruckreinigung von Verbundpflaster",
+        "title": "Reinigung von Pflaster und Gehwegen",
+        "desc": "Gründliche Hochdruckreinigung von Pflaster, Terrassen, Gehwegen und Verbundpflaster. Wir entfernen grüne Beläge, Moos und alten Schmutz aus den Fugen."
+      },
+      {
+        "image": "/media/cisteni-strech.webp",
+        "alt": "Hochdruckreinigung der Dacheindeckung von Moos und Algen",
+        "title": "Dachreinigung",
+        "desc": "Wir geben dem Dach sein ursprüngliches Aussehen zurück und befreien es von Moos, Algen und Ablagerungen. Das schonende, auf die Eindeckung abgestimmte Verfahren verlängert ihre Lebensdauer und stellt den Wasserablauf wieder her."
+      },
+      {
+        "image": "/media/pic7.webp",
+        "alt": "Graffitientfernung in einer Unterführung",
+        "title": "Graffitientfernung",
+        "desc": "Behutsame Entfernung von Graffiti und Farbspuren an Fassaden und öffentlichen Flächen, ohne den Untergrund zu beschädigen – inklusive Schutzanstrich gegen erneutes Besprühen."
+      },
+      {
+        "image": "/media/nanoimpregnace.webp",
+        "alt": "Nanoimprägnierung der Fassade eines Einfamilienhauses mit Teleskoplanze",
+        "title": "Nanoimprägnierung",
+        "desc": "Auf die gereinigte Fassade tragen wir eine Nanoimprägnierung auf, die erneutem Schimmelbewuchs und neuen Ablagerungen vorbeugt. Die Wirkung hält je nach Lage des Gebäudes etwa 5–10 Jahre."
+      }
+    ]
+  },
+  "process": {
+    "heading": "Wie wir reinigen, Schritt für Schritt",
+    "intro": "Das Verfahren richtet sich nach Art und Zustand der Fassade – vom ersten Auftrag des Reinigungsmittels bis zum abschließenden Schutz.",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Auftrag spezieller Mittel im Niederdruckverfahren",
+        "desc": "Wir tragen ein Mittel auf, das organische (Schimmel, Algen, Flechten) wie auch anorganische Verschmutzungen (Ruß, Staub und Fett) löst."
+      },
+      {
+        "no": "02",
+        "title": "Hochdruckreinigung mit Wasser",
+        "desc": "Die Fassade waschen wir mit Wasser unter geregeltem Druck ab. Druck und Düsen wählen wir nach Art und Zustand des Untergrunds."
+      },
+      {
+        "no": "03",
+        "title": "Nanoimprägnierung und Schutz",
+        "desc": "Zum Schluss tragen wir die Nanoimprägnierung auf, die erneutem Schimmelbewuchs und neuen Ablagerungen über Jahre hinweg vorbeugt."
+      }
+    ],
+    "methods": [],
+    "video": "/media/fasada6.webm",
+    "videoAlt": "Detail der Fassadenreinigung – der Unterschied zwischen gereinigtem und verschmutztem Putz ist sofort sichtbar",
+    "videoLabel": "Der Unterschied ist sofort sichtbar",
+    "sideVideo": "/media/tlakove-myti-postup.webp",
+    "sideVideoAlt": "Hochdruckreinigung des Obergeschosses vom Fahrgerüst aus",
+    "sideVideoLabel": "Hochdruckreinigung vom Gerüst"
+  },
+  "fieldWork": {
+    "visible": true,
+    "eyebrow": "Unser Team im Einsatz",
+    "heading": "Direkt von der Baustelle",
+    "intro": "So sieht ein normaler Tag unseres Teams auf der Baustelle aus – gesicherter Arbeitsbereich, professionelle Technik und sorgfältige Arbeit in jedem Schritt.",
+    "items": [
+      {
+        "src": "/media/pic13.webp",
+        "alt": "Vergraute Fassade eines Reihenhauses vor der Reinigung, Gerüst und Sicherheitskegel stehen bereit",
+        "label": "Zustand vor der Reinigung"
+      },
+      {
+        "src": "/media/tlakove-myti-akce.webp",
+        "alt": "Hochdruckreinigung des Obergeschosses vom Fahrgerüst aus",
+        "label": "Hochdruckreinigung vom Gerüst"
+      },
+      {
+        "src": "/media/pic12.webp",
+        "alt": "Gerüst mit Firmenbanner und Sicherheitskennzeichnung vor dem Gebäude",
+        "label": "Gesicherter Arbeitsbereich"
+      },
+      {
+        "src": "/media/fasada7.webm",
+        "alt": "Mitarbeiter reinigt die Fassade vom Gerüst hoch über dem Boden",
+        "label": "Arbeit in der Höhe"
+      },
+      {
+        "src": "/media/pic14.webp",
+        "alt": "Reinigung der Fassade eines älteren Einfamilienhauses mit Verlängerungslanze",
+        "label": "Schonend auch zu altem Putz"
+      },
+      {
+        "src": "/media/fasada8.webm",
+        "alt": "Auftrag des Reinigungsmittels auf die Fassade mit Teleskoplanze",
+        "label": "Auftrag des Reinigungsmittels"
+      }
+    ]
+  },
+  "whyUs": {
+    "heading": "Eine schmutzige Fassade heißt nicht gleich neuer Putz!",
+    "intro": "Am Markt sind wir neu, im Handwerk nicht: Hinter uns liegen Jahre Erfahrung mit der Reinigung und dem Schutz von Fassaden, Dächern und Pflaster. Statt einer teuren Sanierung geben wir der Oberfläche Sauberkeit, ihr ursprüngliches Aussehen und einen gesunden Zustand für eine längere Lebensdauer zurück.",
+    "cta": "Kostenlose Besichtigung vereinbaren",
+    "guaranteeNumber": "60",
+    "guaranteeUnit": "Monate",
+    "guaranteeTitle": "Schriftliche Garantie",
+    "guaranteeDesc": "Auf alle ausgeführten Arbeiten, schwarz auf weiß.",
+    "points": [
+      {
+        "title": "Hochwertige schwedische Chemie ohne Kompromisse",
+        "desc": "Zum Reinigen und Imprägnieren verwenden wir professionelle Mittel in sehr hoher Qualität vom schwedischen Hersteller Trion BPS, die in Skandinavien und Mitteleuropa sehr geschätzt werden."
+      },
+      {
+        "title": "Schutz für lange Jahre",
+        "desc": "Nach der Reinigung schützen wir Fassade, Dach oder Pflaster vor neuer Verschmutzung. Dank der Nanoimprägnierung hält die Wirkung je nach Bedingungen etwa 5–10 Jahre bei Fassaden und Dächern, bei Pflaster und Terrassen 3–5+ Jahre je nach Beanspruchung."
+      },
+      {
+        "title": "Versichert bei Generali",
+        "desc": "Wir sind versichert – Ihr Eigentum ist während der Arbeit sicher und für das Ergebnis tragen wir die volle Verantwortung."
+      },
+      {
+        "title": "Fairer und persönlicher Umgang",
+        "desc": "Ein kleines Team, das zu seiner Arbeit steht. Wir sagen Ihnen offen, was sinnvoll ist und was nicht."
+      }
+    ],
+    "quotesVisible": false,
+    "quotesLabel": "Das sagen unsere Kunden",
+    "quotes": [
+      {
+        "text": "Hier tragen Sie eine echte Kundenbewertung ein. Der Abschnitt erscheint, sobald Sie ihn oben einschalten.",
+        "name": "Name des Kunden",
+        "meta": "Stadt · Leistung"
+      }
+    ]
+  },
+  "stats": {
+    "visible": false,
+    "items": [
+      {
+        "value": "12 500+",
+        "label": "m² gereinigte Flächen"
+      },
+      {
+        "value": "180+",
+        "label": "abgeschlossene Aufträge"
+      },
+      {
+        "value": "25+",
+        "label": "Städte und Gemeinden"
+      },
+      {
+        "value": "15+",
+        "label": "Jahre Erfahrung im Team"
+      }
+    ]
+  },
+  "team": {
+    "visible": false,
+    "heading": "Wer dahintersteht",
+    "intro": "Die Firma ist neu, die Hände sind es nicht. Lorem ipsum dolor sit amet, consectetur adipiscing elit - sed diam nonummy nibh euismod tincidunt.",
+    "image": "/media/pic16.webp",
+    "imageAlt": "Teammitglied von Umyjeme Fasádu beim Auftragen des Reinigungsmittels mit der Teleskoplanze",
+    "members": [
+      {
+        "name": "Jan Novák",
+        "role": "Gründer & leitender Techniker",
+        "exp": "15 Jahre Erfahrung",
+        "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "name": "Petr Svoboda",
+        "role": "Techniker",
+        "exp": "10 Jahre Erfahrung",
+        "bio": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    ]
+  },
+  "references": {
+    "heading": "Ausgewählte Aufträge",
+    "intro": "Konkrete Objekte, Umfang und Vorgehen – so sieht unsere Arbeit in Zahlen und auf Fotos aus.",
+    "studies": [
+      {
+        "type": "WEG – Wohnhaus + Büros",
+        "city": "Hodonín",
+        "facts": [
+          {
+            "label": "Umfang",
+            "value": "144 m²"
+          },
+          {
+            "label": "Verfahren",
+            "value": "komplette Reinigung inkl. Nanoimprägnierung"
+          }
+        ],
+        "desc": "Komplette Reinigung der Fassade eines Wohnhauses mit Büros von Algen, Schimmel und festsitzendem Schmutz, abgeschlossen mit einer Nanoimprägnierung für langfristigen Schutz der Oberfläche. \nGearbeitet wurde von einer 20 m hohen Hubarbeitsbühne in städtischer Reihenbebauung.",
+        "images": [
+          {
+            "src": "/media/pic1.webp",
+            "alt": "Reinigung der Fassade eines Wohnhauses von der Arbeitsbühne aus"
+          },
+          {
+            "src": "/media/pic4.webp",
+            "alt": "Fassadenreinigung mit der Gelenkbühne"
+          },
+          {
+            "src": "/media/pic5.webp",
+            "alt": "Die gereinigte Fassade des Wohnhauses"
+          }
+        ]
+      },
+      {
+        "type": "WEG – Wohnhaus",
+        "city": "Hodonín",
+        "facts": [
+          {
+            "label": "Umfang",
+            "value": "115 m²"
+          },
+          {
+            "label": "Verfahren",
+            "value": "komplette Reinigung inkl. Nanoimprägnierung"
+          }
+        ],
+        "desc": "Reinigung + Schutzimprägnierung des Giebels, der nicht mehr in bestem Zustand war",
+        "images": [
+          {
+            "src": "/media/pic6.webp",
+            "alt": "Reinigung des Giebels eines Wohnhauses von der Arbeitsbühne aus"
+          },
+          {
+            "src": "/media/upload-mrxwdm01-0.webp",
+            "alt": "Behandlung der Fassade eines Wohnhauses von der Arbeitsbühne aus"
+          },
+          {
+            "src": "/media/upload-mrxwfadb-0.webp",
+            "alt": "Behandlung der Fassade eines Wohnhauses von der Arbeitsbühne aus"
+          }
+        ]
+      },
+      {
+        "type": "Gemeindehaus",
+        "city": "Hrubá Vrbka",
+        "facts": [
+          {
+            "label": "Umfang",
+            "value": "792 m²"
+          },
+          {
+            "label": "Verfahren",
+            "value": "grobe Hochdruckspülung mit Wasser"
+          }
+        ],
+        "desc": "Hier ging es darum, die anschließende Wärmedämmung des Gebäudes vorzubereiten. \nWir haben das Gebäude mit einer groben Düse und hohem Druck abgespült. Damit haben wir den Handwerkern das Abkratzen des Untergrunds erspart. Loses Material wurde entfernt, nach uns kann direkt verputzt und gedämmt werden.",
+        "images": [
+          {
+            "src": "/media/upload-mrxx82v3-0.webp",
+            "alt": "Arbeit von der Hubarbeitsbühne am Gemeindehaus"
+          },
+          {
+            "src": "/media/upload-mrxx82v4-1.webp",
+            "alt": "Unser Team bei der Arbeit in Schutzausrüstung"
+          }
+        ]
+      },
+      {
+        "type": "Gewerbeobjekt – Firmensitz",
+        "city": "Hodonín",
+        "facts": [
+          {
+            "label": "Umfang",
+            "value": "356 m²"
+          },
+          {
+            "label": "Verfahren",
+            "value": "Fassadenreinigung"
+          }
+        ],
+        "desc": "Tiefenreinigung der Firmenräume vor dem neuen Anstrich",
+        "images": [
+          {
+            "src": "/media/upload-mrxxbg65-0.webp",
+            "alt": "Fassadenreinigung von der Arbeitsbühne aus"
+          },
+          {
+            "src": "/media/upload-mrxxbg65-1.webp",
+            "alt": "Laufende Reinigung mit Informationsbanner"
+          }
+        ]
+      }
+    ]
+  },
+  "pricing": {
+    "heading": "Richtpreise",
+    "intro": "Den genauen Preis legen wir nach der kostenlosen Besichtigung fest – er hängt von der Art der Oberfläche, dem Grad der Verschmutzung und der Zugänglichkeit des Gebäudes ab.",
+    "rows": [
+      {
+        "service": "Fassadenreinigung",
+        "price": "ab 85 CZK/m²",
+        "note": "je nach Verschmutzung und Gebäudehöhe"
+      },
+      {
+        "service": "Dachreinigung",
+        "price": "ab 99 CZK/m²",
+        "note": "je nach Art der Eindeckung"
+      },
+      {
+        "service": "Reinigung von Pflaster und Gehwegen",
+        "price": "ab 50 CZK/m²",
+        "note": "inklusive Fugen"
+      },
+      {
+        "service": "Graffitientfernung",
+        "price": "individuell",
+        "note": "je nach Untergrund und Farbe"
+      },
+      {
+        "service": "Nanoimprägnierung",
+        "price": "ab 75 CZK/m²",
+        "note": "Schutz für 5–10 Jahre"
+      }
+    ],
+    "footnote": "Die Preise sind Richtwerte in tschechischen Kronen (CZK), ohne MwSt. Das genaue Angebot erstellen wir nach der kostenlosen Besichtigung des Objekts.",
+    "cta": "Ich möchte ein genaues Angebot"
+  },
+  "orderProcess": {
+    "heading": "Von der Anfrage zur sauberen Fassade (zum Dach oder Pflaster) in vier Schritten",
+    "intro": "Den Preis legen wir immer individuell nach dem konkreten Objekt fest. Keine Gebühren und keine Verpflichtungen im Voraus.",
+    "steps": [
+      {
+        "no": "01",
+        "title": "Anfrage",
+        "desc": "Melden Sie sich telefonisch oder per E-Mail. Wir besprechen, was Sie brauchen."
+      },
+      {
+        "no": "02",
+        "title": "Besichtigung vor Ort",
+        "desc": "Wir vereinbaren einen Termin und schauen uns das Objekt an – kostenlos und unverbindlich."
+      },
+      {
+        "no": "03",
+        "title": "Aufmaß und Beurteilung",
+        "desc": "Der Techniker nimmt Maß, beurteilt Art und Zustand der Oberfläche und schlägt das passende Verfahren vor."
+      },
+      {
+        "no": "04",
+        "title": "Unverbindliches Angebot",
+        "desc": "Wir erstellen ein maßgeschneidertes Angebot. Die Entscheidung liegt bei Ihnen – ohne Gebühren."
+      }
+    ]
+  },
+  "faq": {
+    "heading": "Häufige Fragen",
+    "items": [
+      {
+        "q": "Wie lange bleiben Fassade, Dach oder Pflaster sauber?",
+        "a": "Nach der Reinigung tragen wir eine Nanoimprägnierung auf, die erneutem Bewuchs mit Moos und Schimmel sowie neuen Ablagerungen vorbeugt. Je nach Art der Oberfläche, Witterung und Umgebung hält die Wirkung bei Fassaden und Dächern etwa 5 bis 10 Jahre, bei Pflaster und Terrassen 3 bis 5 Jahre je nach Beanspruchung."
+      },
+      {
+        "q": "Beschädigt die Hochdruckreinigung Putz, Dach oder Pflaster?",
+        "a": "Nein. Druck und Düsen wählen wir immer nach Art und Zustand der jeweiligen Oberfläche."
+      },
+      {
+        "q": "Sind die verwendeten Mittel sicher?",
+        "a": "Ja. Zum Reinigen verwenden wir professionelle Mittel in sehr hoher Qualität vom schwedischen Hersteller Trion BPS, die in Skandinavien und Mitteleuropa sehr geschätzt werden."
+      },
+      {
+        "q": "Was wird das kosten?",
+        "a": "Den Preis legen wir individuell nach dem konkreten Objekt fest. Wir kommen zu einer kostenlosen, unverbindlichen Besichtigung, nehmen Maß und erstellen ein maßgeschneidertes Angebot – ohne Gebühren und ohne Verpflichtungen.",
+        "cta": {
+          "label": "Preise ansehen",
+          "href": "#cenik"
+        }
+      },
+      {
+        "q": "Was können Sie alles reinigen?",
+        "a": "Fassaden, Dächer, Pflaster und Gehwege. Wir entfernen biologische Verschmutzungen – Schimmel, Moose, Algen, Flechten und weitere mikrobiologische und organische Beläge. Nicht zuletzt auch Ruß, Staub, Graffiti und alles, was nicht auf die Oberfläche gehört."
+      }
+    ]
+  },
+  "advice": {
+    "heading": "Tipps und Anleitungen",
+    "intro": "Was Sie über Fassade, Dach und Pflaster wissen sollten, bevor Sie uns rufen.",
+    "badge": "In Vorbereitung",
+    "articles": [
+      {
+        "no": "01",
+        "title": "Wann ist der richtige Zeitpunkt für die Fassadenreinigung",
+        "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "no": "02",
+        "title": "Schimmel oder Alge? So erkennen Sie den Unterschied",
+        "excerpt": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      },
+      {
+        "no": "03",
+        "title": "Wie die Nanoimprägnierung funktioniert",
+        "excerpt": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+      }
+    ]
+  },
+  "contact": {
+    "heading": "Wir senden Ihnen ein unverbindliches Angebot",
+    "body": "Schreiben Sie uns oder rufen Sie an. Wir vereinbaren einen Termin für die kostenlose Besichtigung und schlagen eine Lösung für Ihre Fassade, Ihr Dach oder Ihr Pflaster vor.",
+    "promises": [
+      "Wir melden uns innerhalb von 24 Stunden",
+      "Besichtigung und Angebot kostenlos"
+    ],
+    "areasLabel": "Wo wir arbeiten",
+    "areas": [
+      "Hodonín – Südmähren und Umgebung im Umkreis von 100 km"
+    ],
+    "phoneLabel": "Telefon",
+    "emailLabel": "E-Mail",
+    "hours": "Mo–Fr 8:00–17:00 Uhr",
+    "formEndpoint": "/api/contact",
+    "formNameLabel": "Name",
+    "formNamePlaceholder": "Max Mustermann",
+    "formPhoneLabel": "Telefon",
+    "formPhonePlaceholder": "+49 …",
+    "formMessageLabel": "Was möchten Sie reinigen lassen?",
+    "formMessagePlaceholder": "Einfamilienhaus, Fassade ca. 200 m²…",
+    "formSubmit": "Anfrage senden",
+    "formSending": "Wird gesendet…",
+    "formError": "Das Senden hat nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie uns eine E-Mail.",
+    "mailtoSubject": "Anfrage über die Website",
+    "mailtoNote": "Das Formular öffnet Ihr E-Mail-Programm mit einer vorbereiteten Nachricht; es werden keine Daten gespeichert.",
+    "sentTitle": "Vielen Dank für Ihre Anfrage",
+    "sentBody": "Wir melden uns innerhalb von 24 Stunden. Eilt es? Rufen Sie uns an.",
+    "consent": "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer personenbezogenen Daten zur Bearbeitung der Anfrage zu."
+  },
+  "footer": {
+    "legalLine": "UMYJEME FASÁDU s.r.o.\nPurkyňova 2869/4, 695 01 Hodonín, Tschechien\nFirmennummer (IČO): 23770082",
+    "privacyLabel": "Datenschutz",
+    "privacyTitle": "Datenschutzerklärung",
+    "privacyBody": [
+      "Verantwortlich für die Verarbeitung personenbezogener Daten ist Umyjeme Fasádu s.r.o. Die Daten aus dem Anfrageformular (Name, Telefonnummer und Nachrichtentext) verarbeiten wir ausschließlich zur Bearbeitung Ihrer Anfrage und zur Erstellung eines Angebots.",
+      "Wir geben die Daten nicht an Dritte weiter, nutzen sie nicht für Marketing und bewahren sie nicht länger auf, als es für die Bearbeitung der Anfrage nötig ist. Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten — schreiben Sie uns dazu einfach eine E-Mail."
+    ]
+  },
+  "callBar": {
+    "inquiry": "Anfrage",
+    "call": "Anrufen"
+  }
+}

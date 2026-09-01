@@ -5,13 +5,25 @@ import {
 } from "react";
 import type { Content } from "./schema";
 import { defaultContent } from "./defaultContent";
+import { contentFile, LOCALE, type Locale } from "../i18n";
 
 export type { Content } from "./schema";
 export { defaultContent } from "./defaultContent";
 
-/** Klíče v localStorage sdílené s administrací (náhled neuložených změn). */
-export const PREVIEW_FLAG = "uf_preview";
-export const PREVIEW_DATA = "uf_preview_content";
+/**
+ * Klíče v localStorage sdílené s administrací (náhled neuložených změn).
+ * Každá jazyková mutace má vlastní klíče, aby se náhledy nepřepisovaly.
+ */
+const PREVIEW_FLAG_BASE = "uf_preview";
+const PREVIEW_DATA_BASE = "uf_preview_content";
+
+export function previewKeys(locale: Locale = LOCALE): {
+  flag: string;
+  data: string;
+} {
+  const suffix = locale === "cs" ? "" : `_${locale}`;
+  return { flag: PREVIEW_FLAG_BASE + suffix, data: PREVIEW_DATA_BASE + suffix };
+}
 
 type Json = unknown;
 
@@ -53,14 +65,18 @@ export function mergeContent(override: Json): Content {
 }
 
 /**
- * Načte živý obsah: výchozí data → přepis z `public/content.json` →
- * (volitelně) náhled neuložených změn z administrace.
+ * Načte živý obsah dané jazykové mutace: výchozí data → přepis z
+ * `public/content.json` (resp. `content.de.json`) → (volitelně) náhled
+ * neuložených změn z administrace.
+ *
+ * Chybějící klíče v jazykové mutaci doplní český výchozí obsah, takže nově
+ * přidané pole nikdy nerozbije web — jen se do doplnění zobrazí česky.
  */
-export async function loadContent(): Promise<Content> {
+export async function loadContent(locale: Locale = LOCALE): Promise<Content> {
   let merged: Content = clone(defaultContent);
 
   try {
-    const res = await fetch(`/content.json?v=${Date.now()}`, {
+    const res = await fetch(`${contentFile(locale)}?v=${Date.now()}`, {
       cache: "no-store",
     });
     if (res.ok) {
@@ -71,9 +87,10 @@ export async function loadContent(): Promise<Content> {
   }
 
   // Náhled neuložených změn z administrace (jen v tomto prohlížeči).
+  const keys = previewKeys(locale);
   try {
-    if (localStorage.getItem(PREVIEW_FLAG) === "1") {
-      const draft = localStorage.getItem(PREVIEW_DATA);
+    if (localStorage.getItem(keys.flag) === "1") {
+      const draft = localStorage.getItem(keys.data);
       if (draft) merged = mergeContent(JSON.parse(draft));
     }
   } catch {
@@ -114,7 +131,7 @@ export function emailHref(email: string): string {
 /** Je zapnutý režim náhledu neuložených změn? */
 export function isPreview(): boolean {
   try {
-    return localStorage.getItem(PREVIEW_FLAG) === "1";
+    return localStorage.getItem(previewKeys().flag) === "1";
   } catch {
     return false;
   }
@@ -123,8 +140,9 @@ export function isPreview(): boolean {
 /** Vypne náhled a znovu načte web s publikovaným obsahem. */
 export function exitPreview(): void {
   try {
-    localStorage.removeItem(PREVIEW_FLAG);
-    localStorage.removeItem(PREVIEW_DATA);
+    const keys = previewKeys();
+    localStorage.removeItem(keys.flag);
+    localStorage.removeItem(keys.data);
   } catch {
     // ignore
   }

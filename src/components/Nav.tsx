@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import { useScrolledPast } from "../hooks/useScrolledPast";
 import { useContent } from "../content";
+import { UI } from "../i18n";
 
 export default function Nav() {
   const { nav } = useContent();
@@ -62,7 +63,7 @@ export default function Nav() {
             page scrolls it shrinks into the bar so it never covers content. */}
         <a
           href="#top"
-          aria-label="Umyjeme Fasádu, domů"
+          aria-label={UI.logoHome}
           className={`pointer-events-none absolute z-10 opacity-[0.95] transition-all duration-300 ${
             scrolled
               ? "left-[8px] top-[6px] md:left-[12px] min-[1200px]:left-[24px]"
@@ -111,7 +112,7 @@ export default function Nav() {
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border min-[1200px]:hidden"
             style={{ borderColor: "var(--color-eucalyptus)" }}
-            aria-label={open ? "Zavřít menu" : "Otevřít menu"}
+            aria-label={open ? UI.closeMenu : UI.openMenu}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}

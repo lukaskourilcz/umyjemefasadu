@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
+import { UI } from "../i18n";
 
 const isVideo = (src: string) => /\.(webm|mp4|m4v|mov)(\?|$)/i.test(src);
 
@@ -34,7 +35,7 @@ export default function Process() {
       style={{ backgroundColor: "var(--color-botanical-ink)" }}
     >
       <div className="container-page">
-        <SectionHeading label="Náš postup" tone="dark" title={heading} intro={intro} />
+        <SectionHeading label={UI.labelProcess} tone="dark" title={heading} intro={intro} />
 
         <div className="mx-auto mt-14 grid max-w-[960px] items-center gap-10 fade-up lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-14">
           {/* Vertical timeline - mono numbers on a hairline rail. */}

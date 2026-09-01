@@ -2,11 +2,15 @@ import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 import { TEXT } from "../lib/text";
 import MobileDisclosure from "./MobileDisclosure";
+import { UI } from "../i18n";
 
 /**
  * „Rizika znečištěné fasády" — navazuje na sekci „Proč čistit". Tři rizika
  * v editorial mřížce (mono čísla na vlasové lince, stejný jazyk jako Postup
  * a Objednávka) a tmavý závěr s doporučením a výzvou k akci.
+ *
+ * Pruh běží na brandové růžové: nadpisy zůstávají černé, všechen ostatní
+ * text je bílý (--color-blush-fg), ať je i na sytém podkladu čitelný.
  */
 export default function Risks() {
   const { heading, intro, items, solutionTitle, solutionDesc, solutionCta } =
@@ -22,9 +26,9 @@ export default function Risks() {
       }}
     >
       <div className="container-page">
-        <SectionHeading label="Rizika" title={heading} intro={intro} />
+        <SectionHeading label={UI.labelRisks} tone="blush" title={heading} intro={intro} />
 
-        <MobileDisclosure label="Zobrazit rizika a doporučené řešení">
+        <MobileDisclosure label={UI.labelRisks}>
         <ol className="mx-auto mt-10 grid max-w-[1000px] grid-cols-1 gap-x-8 gap-y-10 fade-up md:mt-14 md:grid-cols-3">
           {items.map((r) => (
             <li key={r.no}>
@@ -33,7 +37,7 @@ export default function Risks() {
                   className="font-fragment-mono"
                   style={{
                     fontSize: "14px",
-                    color: "var(--color-magenta-deep)",
+                    color: "var(--color-blush-fg)",
                     letterSpacing: "0.02em",
                   }}
                 >
@@ -42,7 +46,7 @@ export default function Risks() {
                 <span
                   aria-hidden="true"
                   className="h-px flex-1"
-                  style={{ backgroundColor: "var(--color-blush-border)" }}
+                  style={{ backgroundColor: "var(--color-blush-rule)" }}
                 />
               </div>
               <h3
@@ -51,7 +55,10 @@ export default function Risks() {
               >
                 {r.title}
               </h3>
-              <p className="mt-2 text-botanical-ink/75" style={TEXT.bodyTight}>
+              <p
+                className="mt-2"
+                style={{ ...TEXT.bodyTight, color: "var(--color-blush-fg)" }}
+              >
                 {r.desc}
               </p>
             </li>
@@ -89,8 +96,8 @@ export default function Risks() {
               </svg>
             </span>
             <span className="flex min-w-0 flex-1 flex-col">
-              <span className="font-fragment-mono text-[10px] uppercase tracking-[.12em] text-forest-floor">Prohlídka zdarma</span>
-              <span className="mt-1 whitespace-nowrap text-[15px] font-bold">{solutionCta}</span>
+              <span className="font-fragment-mono text-[10px] uppercase tracking-[.12em] text-forest-floor">{UI.freeInspection}</span>
+              <span className="mt-1 text-[15px] font-bold">{solutionCta}</span>
             </span>
             <svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true" className="shrink-0 transition-transform duration-300 group-hover:translate-x-1">
               <path d="M1 7 H16 M11 2 L16 7 L11 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

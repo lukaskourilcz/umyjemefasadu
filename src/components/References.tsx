@@ -3,6 +3,7 @@ import SectionHeading from "./SectionHeading";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useContent } from "../content";
 import MobileDisclosure from "./MobileDisclosure";
+import { UI } from "../i18n";
 
 type StudyImage = { src: string; alt: string };
 
@@ -44,11 +45,12 @@ const MethodIcon = (
   </svg>
 );
 
-// Ikony k údajům zakázky zůstávají v kódu, přiřazují se podle popisku faktu.
+// Ikony k údajům zakázky zůstávají v kódu, přiřazují se podle popisku faktu
+// (klíčová slova jsou pro každý jazyk v src/i18n.ts).
 function factIcon(label: string) {
   const l = label.toLowerCase();
-  if (l.includes("rozsah") || l.includes("plocha") || l.includes("m²")) return AreaIcon;
-  if (l.includes("doba") || l.includes("dní") || l.includes("den")) return ClockIcon;
+  if (UI.factArea.some((k) => l.includes(k))) return AreaIcon;
+  if (UI.factDuration.some((k) => l.includes(k))) return ClockIcon;
   return MethodIcon;
 }
 
@@ -195,9 +197,9 @@ export default function References() {
       style={{ backgroundColor: "var(--color-sage-mist)" }}
     >
       <div className="container-page">
-        <SectionHeading label="Reference" title={heading} intro={intro} />
+        <SectionHeading label={UI.labelReferences} title={heading} intro={intro} />
 
-        <MobileDisclosure label="Prohlédnout realizované zakázky">
+        <MobileDisclosure label={UI.labelReferences}>
         <div className="mx-auto mt-8 grid max-w-[1080px] grid-cols-1 gap-5 fade-up sm:mt-14 sm:grid-cols-2 md:gap-6">
           {STUDIES.map((s, si) => (
             <article

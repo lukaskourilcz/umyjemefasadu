@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Logo from "./Logo";
 import { useContent, phoneHref, emailHref } from "../content";
+import { UI } from "../i18n";
 
 export default function Footer() {
   const { business, nav, footer } = useContent();
@@ -20,7 +21,7 @@ export default function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <a
             href="#top"
-            aria-label="Umyjeme Fasádu, domů"
+            aria-label={UI.logoHome}
             className="shrink-0 self-start"
           >
             <Logo
@@ -30,7 +31,7 @@ export default function Footer() {
           </a>
 
           <nav
-            aria-label="Patička"
+            aria-label={UI.footerNav}
             className="flex flex-wrap gap-x-8 gap-y-2 md:pt-2"
           >
             {LINKS.map((l) => (
@@ -112,7 +113,7 @@ export default function Footer() {
             </p>
           ))}
           <form method="dialog" className="mt-2 self-end">
-            <button className="btn-ghost">Zavřít</button>
+            <button className="btn-ghost">{UI.close}</button>
           </form>
         </div>
       </dialog>

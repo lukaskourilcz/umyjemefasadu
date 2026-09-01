@@ -6,11 +6,8 @@ import type {
   SetStateAction,
 } from "react";
 import type { Content } from "../content";
-import {
-  defaultContent,
-  PREVIEW_DATA,
-  PREVIEW_FLAG,
-} from "../content";
+import { defaultContent, previewKeys } from "../content";
+import { contentRepoPath, localeHome, LOCALE } from "../i18n";
 import {
   SECTIONS,
   labelFor,
@@ -20,8 +17,14 @@ import {
 } from "./labels";
 
 const ADMIN_PW = "fasada";
-const DRAFT_KEY = "uf_admin_draft";
+/* Každá jazyková mutace má vlastní koncept i náhled — /dev spravuje český
+   obsah (public/content.json), /de/dev německý (public/content.de.json). */
+const LOCALE_SUFFIX = LOCALE === "cs" ? "" : `_${LOCALE}`;
+const DRAFT_KEY = `uf_admin_draft${LOCALE_SUFFIX}`;
 const UNLOCK_KEY = "uf_admin_unlocked";
+const PREVIEW = previewKeys(LOCALE);
+/** Popisek mutace v hlavičce, ať je vždy jasné, co se právě edituje. */
+const LOCALE_LABEL = LOCALE === "de" ? "NĚMECKÁ VERZE (/de)" : "ČESKÁ VERZE";
 
 type Json = unknown;
 type Path = (string | number)[];
@@ -355,7 +358,12 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
       const res = await fetch("/api/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pw.trim() || ADMIN_PW, content: out, uploads }),
+        body: JSON.stringify({
+          password: pw.trim() || ADMIN_PW,
+          content: out,
+          uploads,
+          file: contentRepoPath(LOCALE),
+        }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -382,9 +390,9 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
 
   function preview() {
     try {
-      localStorage.setItem(PREVIEW_DATA, JSON.stringify(content));
-      localStorage.setItem(PREVIEW_FLAG, "1");
-      window.open("/", "_blank");
+      localStorage.setItem(PREVIEW.data, JSON.stringify(content));
+      localStorage.setItem(PREVIEW.flag, "1");
+      window.open(localeHome(LOCALE), "_blank");
     } catch {
       setStatus({
         kind: "err",
@@ -442,10 +450,10 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
         <div style={s.brandBlock}>
           <span style={s.brandMark}>UF</span>
           <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={s.adminEyebrow}>SPRÁVA WEBU</span>
+          <span style={s.adminEyebrow}>SPRÁVA WEBU · {LOCALE_LABEL}</span>
           <strong style={{ fontSize: 18, letterSpacing: "-0.02em" }}>Umyjeme Fasádu</strong>
           <a
-            href="/"
+            href={localeHome(LOCALE)}
             target="_blank"
             rel="noreferrer"
             style={{ fontSize: 12, color: "#1ba5e0", textDecoration: "none", fontWeight: 600 }}
@@ -464,7 +472,12 @@ export default function Admin({ initialContent }: { initialContent: Content }) {
           <button
             type="button"
             style={s.btnGhost}
-            onClick={() => download("content.json", JSON.stringify(content, null, 2))}
+            onClick={() =>
+              download(
+                contentRepoPath(LOCALE).replace("public/", ""),
+                JSON.stringify(content, null, 2),
+              )
+            }
           >
             Stáhnout zálohu
           </button>

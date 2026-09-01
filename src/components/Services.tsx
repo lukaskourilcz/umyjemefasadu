@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import SectionHeading from "./SectionHeading";
 import { useContent } from "../content";
 import MobileDisclosure from "./MobileDisclosure";
+import { UI } from "../i18n";
 
 const stroke = {
   fill: "none",
@@ -124,11 +125,11 @@ export default function Services() {
   return (
     <section id="sluzby" className="scroll-mt-24 py-20 md:py-28">
       <div className="container-page">
-        <SectionHeading label="Naše služby" title={heading} intro={intro} />
+        <SectionHeading label={UI.labelServices} title={heading} intro={intro} />
 
         {/* Bento - řádek 1: velká featured karta + jedna menší vedle;
             řádek 2: tři stejné foto karty. No breakpoint leaves an orphan. */}
-        <MobileDisclosure label="Prohlédnout všechny služby">
+        <MobileDisclosure label={UI.labelServices}>
         <div className="mt-8 grid grid-cols-1 gap-4 fade-up sm:mt-12 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {/* Featured */}
           <article
