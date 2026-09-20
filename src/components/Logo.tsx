@@ -1,7 +1,8 @@
 /**
- * Brand logo - the real Umyjeme Fasádu mark (Poseidon mascot with a
- * pressure-washer lance, magenta "UMYJEME FASÁDU" wordmark, black roofline
- * and cyan water splash).
+ * Brand logo - the real mark (Poseidon mascot with a pressure-washer lance,
+ * magenta wordmark, black roofline and cyan water splash). The German market
+ * uses the same artwork with a "WASCHEN FASSADE" wordmark; `alt` already
+ * follows the locale, the artwork swap is still pending the German files.
  *
  * Two artworks: the standalone vector (`logo.svg`, used in the footer) and a
  * high-quality WebP nav emblem (`/media/logo-nav.webp`, 1440×810, ~52 kB) —
@@ -12,12 +13,24 @@
  * responsive height classes in `className`).
  */
 import logoUrl from "../assets/logo.svg";
+import { BRAND_NAME, LOCALE, type Locale } from "../i18n";
 
 type Source = "default" | "nav";
 
-const SRC: Record<Source, string> = {
-  default: logoUrl,
-  nav: "/media/logo-nav.webp",
+/**
+ * Kresby pro obě značky. Německá vektorová kresba je v `public/logo-de.svg`,
+ * navigační emblém generuje `npm run gen:assets` do stejného rámu jako český,
+ * takže logo v liště sedí v obou jazycích úplně stejně.
+ */
+const SRC: Record<Locale, Record<Source, string>> = {
+  cs: {
+    default: logoUrl,
+    nav: "/media/logo-nav.webp",
+  },
+  de: {
+    default: "/logo-de.svg",
+    nav: "/media/logo-nav-de.webp",
+  },
 };
 
 export default function Logo({
@@ -31,8 +44,8 @@ export default function Logo({
 }) {
   return (
     <img
-      src={SRC[source]}
-      alt="Umyjeme Fasádu"
+      src={SRC[LOCALE][source]}
+      alt={BRAND_NAME}
       height={height}
       loading={source === "nav" ? "eager" : "lazy"}
       decoding="async"

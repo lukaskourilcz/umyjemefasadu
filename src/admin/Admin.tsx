@@ -7,7 +7,7 @@ import type {
 } from "react";
 import type { Content } from "../content";
 import { defaultContent, previewKeys } from "../content";
-import { contentRepoPath, localeHome, LOCALE } from "../i18n";
+import { contentRepoPath, localeHome, LOCALE, localePrefix } from "../i18n";
 import {
   SECTIONS,
   labelFor,
@@ -23,8 +23,14 @@ const LOCALE_SUFFIX = LOCALE === "cs" ? "" : `_${LOCALE}`;
 const DRAFT_KEY = `uf_admin_draft${LOCALE_SUFFIX}`;
 const UNLOCK_KEY = "uf_admin_unlocked";
 const PREVIEW = previewKeys(LOCALE);
-/** Popisek mutace v hlavičce, ať je vždy jasné, co se právě edituje. */
-const LOCALE_LABEL = LOCALE === "de" ? "NĚMECKÁ VERZE (/de)" : "ČESKÁ VERZE";
+/**
+ * Popisek mutace v hlavičce, ať je vždy jasné, co se právě edituje. Na
+ * německé doméně běží němčina v kořeni, tam se „/de" nezmiňuje.
+ */
+const LOCALE_LABEL =
+  LOCALE === "de"
+    ? `NĚMECKÁ VERZE${localePrefix() ? " (/de)" : ""}`
+    : "ČESKÁ VERZE";
 
 type Json = unknown;
 type Path = (string | number)[];

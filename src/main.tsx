@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { ContentProvider, loadContent, type Content } from "./content";
-import { LOCALE, META, stripLocale } from "./i18n";
+import { assetUrl, canonicalUrl, LOCALE, META, ORIGIN, stripLocale } from "./i18n";
 
 const root = createRoot(document.getElementById("root")!);
 
@@ -45,36 +45,50 @@ function setMeta(selector: string, content: string) {
 }
 
 /**
- * Hlavička dokumentu pro aktuální jazyk. `index.html` je psaný česky —
- * na `/de` se titulek, popisky, og tagy i strukturovaná data přepíšou
- * německou variantou, aby náhledy odkazů i vyhledávače viděly správný jazyk.
+ * Hlavička dokumentu pro aktuální jazyk. `index.html` je psaný česky — na
+ * německé mutaci se titulek, popisky, og tagy i strukturovaná data přepíšou
+ * německou variantou, aby vyhledávače viděly správný jazyk.
+ *
+ * Všechny absolutní adresy se skládají z domény, na které web právě běží
+ * (`ORIGIN`), ne z natvrdo zadané české — na německé doméně tak ve zdrojáku
+ * stránky nikde neprosvitne, že existuje česká verze.
  */
 function applyDocumentMeta() {
+  const canonical = canonicalUrl();
+  const ogImage = assetUrl(META.ogImage);
+
   document.documentElement.lang = META.htmlLang;
   document.title = META.title;
   setMeta('meta[name="description"]', META.description);
   setMeta('meta[property="og:locale"]', META.ogLocale);
+  setMeta('meta[property="og:site_name"]', META.siteName);
   setMeta('meta[property="og:title"]', META.ogTitle);
   setMeta('meta[property="og:description"]', META.ogDescription);
+  setMeta('meta[property="og:image"]', ogImage);
   setMeta('meta[property="og:image:alt"]', META.ogImageAlt);
-  setMeta('meta[property="og:url"]', META.canonical);
+  setMeta('meta[property="og:url"]', canonical);
   setMeta('meta[name="twitter:title"]', META.twitterTitle);
   setMeta('meta[name="twitter:description"]', META.twitterDescription);
+  setMeta('meta[name="twitter:image"]', ogImage);
   document.head
     .querySelector<HTMLLinkElement>('link[rel="canonical"]')
-    ?.setAttribute("href", META.canonical);
+    ?.setAttribute("href", canonical);
 
-  // LocalBusiness: firma je stejná, mění se jen jazykové údaje.
+  // LocalBusiness: firma je pořád stejná, mění se jazykové údaje a značka.
   const ld = document.head.querySelector<HTMLScriptElement>(
     'script[type="application/ld+json"]',
   );
   if (ld) {
     try {
       const data = JSON.parse(ld.text);
+      data.name = META.siteName;
+      data.legalName = "Umyjeme Fasádu s.r.o.";
       data.description = META.businessDescription;
       data.areaServed = META.areaServed;
       data.knowsAbout = META.knowsAbout;
-      data.url = META.canonical;
+      data.url = canonical;
+      data.image = ogImage;
+      data.logo = `${ORIGIN}/logo.svg`;
       ld.text = JSON.stringify(data);
     } catch {
       // Poškozená strukturovaná data web nerozbijí — necháme je být.
