@@ -26,21 +26,82 @@ Designové tokeny jsou kompletně namapované v `src/index.css` (`@theme`).
 - Bez externích obrázků — motiv vody i ikony jsou inline SVG, logo je
   optimalizované SVG vložené přes Vite `?raw`
 
-## Jazykové mutace (`/` česky, `/de` německy)
+## Jazykové mutace (česky / německy)
 
-Web běží na jedné adrese a jazyk se pozná z URL:
+Jazyk se pozná ze dvou věcí (`src/i18n.ts`), v tomhle pořadí:
 
-- `https://www.umyjemefasadu.cz/` — česká verze (`public/content.json`)
-- `https://www.umyjemefasadu.cz/de` — německá verze (`public/content.de.json`)
+1. **doména** — `waschenfassade.eu` (i s `www.`) běží vždy německy,
+2. **cesta** — `/de` a cokoli pod ní běží německy na kterékoli doméně,
+3. jinak čeština.
+
+| Adresa | Jazyk | Obsah |
+| --- | --- | --- |
+| `www.umyjemefasadu.cz/` | čeština | `public/content.json` |
+| `www.umyjemefasadu.cz/de` | němčina | `public/content.de.json` |
+| `waschenfassade.eu/` | němčina | `public/content.de.json` |
+
+Na německé doméně žije němčina v **kořeni** (`/`), na české pod `/de`. Cesta
+`/de` zůstává i po spuštění německé domény jako záložní a testovací adresa.
 
 Přepínač jazyků na webu **záměrně není** — návštěvník vidí jen tu mutaci,
-přes kterou přišel. Až bude web dostupný na německé doméně, stačí ji
-nasměrovat (rewrite/redirect) na `/de`; v kódu se nemění nic.
+přes kterou přišel. Všechny absolutní odkazy v hlavičce (canonical, `og:url`,
+`og:image`) se skládají z domény, na které web právě běží, takže na německé
+doméně ve zdrojáku nikde neprosvitne česká adresa.
 
-Detekce jazyka, texty mimo `content.json` (popisky sekcí, `aria-label`y)
-a meta tagy hlavičky jsou v [`src/i18n.ts`](src/i18n.ts). Chybějící klíč
-v německém souboru doplní česká výchozí data, takže nově přidané pole web
-nerozbije.
+Značky jsou dvě, obě se stejným maskotem: **Umyjeme Fasádu** (cs) a
+**Waschen Fassade** (de). Obě jsou v konstantě `BRAND` v `src/i18n.ts`, odkud
+se skládají titulky, `og:site_name` i `alt` u loga.
+
+### Napojení německé domény — postup
+
+1. **Koupit doménu** (držitelem musí být firma, ne jednatel ani dodavatel).
+2. **Vercel → Settings → Domains** — přidat `waschenfassade.eu`
+   i `www.waschenfassade.eu` do **stejného projektu**. Apex nastavit na
+   „No Redirect", `www` na 301 přesměrování na apex.
+3. **Poslat klientovi DNS hodnoty**, které Vercel zobrazí na kartě domény
+   (`A` pro apex, `CNAME` pro `www`) — každý projekt má vlastní, nepoužívat
+   hodnoty z cizího projektu. DNS zůstává u registrátora.
+4. **Ověřit** — jakmile doména resolvuje, `waschenfassade.eu` musí sama od
+   sebe ukázat německou verzi. V kódu se nemění nic; canonical a `og:url` se
+   přepnou samy, protože se odvozují od aktuální domény.
+5. **Teprve potom** přidat do `vercel.json` do pole `redirects` (pokud
+   neexistuje, vytvořit ho vedle `rewrites`) přesměrování staré cesty, ať
+   nevzniká duplicitní obsah:
+
+   ```json
+   "redirects": [
+     {
+       "source": "/de",
+       "has": [{ "type": "host", "value": "www.umyjemefasadu.cz" }],
+       "destination": "https://waschenfassade.eu/",
+       "permanent": true
+     },
+     {
+       "source": "/de/",
+       "has": [{ "type": "host", "value": "www.umyjemefasadu.cz" }],
+       "destination": "https://waschenfassade.eu/",
+       "permanent": true
+     }
+   ]
+   ```
+
+   **Dřív ne** — dokud doména neresolvuje, tohle přesměrování by německou
+   verzi úplně odřízlo. Administrace na `/de/dev` zůstane funkční i po něm.
+
+### Co ještě chybí
+
+- **Německá kresba loga** — `src/assets/logo.svg` (patička) a
+  `/media/logo-nav.webp` (navigace) jsou pořád české. `alt` a titulky už
+  německé jsou. Favicon je jen maskot, ten je pro obě značky stejný.
+- **Německý OG obrázek** — `META.de.ogImage` v `src/i18n.ts` zatím ukazuje na
+  sdílený `/og-image.png` s českým nápisem.
+- **Meta tagy pro náhledy odkazů** — titulek, popisek a `og:` tagy se
+  přepisují až v prohlížeči. Google to zvládne (renderuje JS), ale roboti
+  Facebooku, LinkedInu a WhatsAppu ne — ti si přečtou české hodnoty přímo
+  z `index.html`. Než se začne německý web sdílet na sítích, je potřeba
+  generovat při buildu druhý soubor (`de.html`) s německou hlavičkou
+  a poslat na něj německou doménu.
+- **Ceny** v německé verzi jsou v Kč (CZK).
 
 ## Administrace obsahu (`/dev`, `/de/dev`)
 
