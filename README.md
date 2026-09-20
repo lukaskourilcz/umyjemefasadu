@@ -88,13 +88,26 @@ se skládají titulky, `og:site_name` i `alt` u loga.
    **Dřív ne** — dokud doména neresolvuje, tohle přesměrování by německou
    verzi úplně odřízlo. Administrace na `/de/dev` zůstane funkční i po něm.
 
+### Značkové assety obou mutací
+
+| Soubor | cs | de |
+| --- | --- | --- |
+| Vektor loga (patička, hero) | `src/assets/logo.svg` | `public/logo-de.svg` |
+| Emblém do navigace | `public/media/logo-nav.webp` | `public/media/logo-nav-de.webp` |
+| Náhled odkazu | `public/og-image.png` | `public/og-image.de.png` |
+| Favicon a ikonky | `public/favicon.svg` → sdílené (obě značky mají stejného maskota) |
+
+Německé logo přišlo z CorelDRAW jako A4 stránka; `viewBox` je ručně ořezaný
+na stejné hodnoty jako české logo (`1690 7390 17600 14900`), takže obě značky
+sedí v navigaci i v patičce na milimetr stejně.
+
+Emblém do navigace a oba OG obrázky generuje `npm run gen:assets`
+(`scripts/gen-assets.mjs`) — německou kresbu skládá do stejného rámu uvnitř
+plátna 1440×810, v jakém je česká. Po výměně kterékoli kresby stačí skript
+pustit znovu.
+
 ### Co ještě chybí
 
-- **Německá kresba loga** — `src/assets/logo.svg` (patička) a
-  `/media/logo-nav.webp` (navigace) jsou pořád české. `alt` a titulky už
-  německé jsou. Favicon je jen maskot, ten je pro obě značky stejný.
-- **Německý OG obrázek** — `META.de.ogImage` v `src/i18n.ts` zatím ukazuje na
-  sdílený `/og-image.png` s českým nápisem.
 - **Meta tagy pro náhledy odkazů** — titulek, popisek a `og:` tagy se
   přepisují až v prohlížeči. Google to zvládne (renderuje JS), ale roboti
   Facebooku, LinkedInu a WhatsAppu ne — ti si přečtou české hodnoty přímo
@@ -102,6 +115,7 @@ se skládají titulky, `og:site_name` i `alt` u loga.
   generovat při buildu druhý soubor (`de.html`) s německou hlavičkou
   a poslat na něj německou doménu.
 - **Ceny** v německé verzi jsou v Kč (CZK).
+- **E-mail** — německá verze zatím uvádí `info@umyjemefasadu.cz`.
 
 ## Administrace obsahu (`/dev`, `/de/dev`)
 

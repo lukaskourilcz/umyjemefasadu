@@ -254,8 +254,7 @@ const DOCUMENT_META: Record<Locale, DocumentMeta> = {
     twitterTitle: DE_TITLE,
     twitterDescription:
       "Professionelle Reinigung von Fassaden, Dächern und Pflaster. Kostenloses und unverbindliches Angebot.",
-    // TODO: až bude hotová německá varianta OG obrázku, přepsat na ni.
-    ogImage: "/og-image.png",
+    ogImage: "/og-image.de.png",
     businessDescription:
       "Professionelle Hochdruckreinigung von Fassaden, Dächern und Pflaster. Kostenloses und unverbindliches Angebot.",
     areaServed: "Hodonín, Südmähren und Umgebung im Umkreis von 100 km",

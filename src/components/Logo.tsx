@@ -13,13 +13,24 @@
  * responsive height classes in `className`).
  */
 import logoUrl from "../assets/logo.svg";
-import { BRAND_NAME } from "../i18n";
+import { BRAND_NAME, LOCALE, type Locale } from "../i18n";
 
 type Source = "default" | "nav";
 
-const SRC: Record<Source, string> = {
-  default: logoUrl,
-  nav: "/media/logo-nav.webp",
+/**
+ * Kresby pro obě značky. Německá vektorová kresba je v `public/logo-de.svg`,
+ * navigační emblém generuje `npm run gen:assets` do stejného rámu jako český,
+ * takže logo v liště sedí v obou jazycích úplně stejně.
+ */
+const SRC: Record<Locale, Record<Source, string>> = {
+  cs: {
+    default: logoUrl,
+    nav: "/media/logo-nav.webp",
+  },
+  de: {
+    default: "/logo-de.svg",
+    nav: "/media/logo-nav-de.webp",
+  },
 };
 
 export default function Logo({
@@ -33,7 +44,7 @@ export default function Logo({
 }) {
   return (
     <img
-      src={SRC[source]}
+      src={SRC[LOCALE][source]}
       alt={BRAND_NAME}
       height={height}
       loading={source === "nav" ? "eager" : "lazy"}
